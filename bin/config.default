@@ -1,0 +1,167 @@
+###############################################################
+#	This file is part of XName.org project                    #
+#	See	http://www.xname.org/ for details                     #
+#	                                                          #
+#	License: GPLv2                                            #
+#	See LICENSE file, or http://www.gnu.org/copyleft/gpl.html #
+#	                                                          #
+#	Author(s): Yann Hirou <hirou@xname.org>                   #
+###############################################################
+
+
+
+####################################
+#          SITE variables          #
+####################################
+$SITE_NAME="CHANGE THIS TO YOUR SERVICE NAME";
+$SITE_NS="change.this.to.your.main.ns.name";
+$SITE_NS_IP="change.this.to.your.main.ns.ip";
+$SITE_DEFAULT_LANGUAGE = "en"; # available are directories in bin/strings/ directory
+$SITE_WEB_SERVER_IP = "change.this.to.your.web.server.ip";
+
+####################################
+#        DATABASE variables        #
+####################################
+$DB_HOST='127.0.0.1'; # for unix socket use, use "localhost"
+$DB_PORT='3306';      # for unix socket use, use "/path/to/mysqld.sock"
+$DB_USER='xnameuser';
+$DB_PASSWORD='password';
+$DB_NAME='xnamedev';
+
+# modify below only if you need external auth
+$DB_AUTH_HOST='';     # leave empty for standard use
+$DB_AUTH_PORT='';
+$DB_AUTH_USER='';
+$DB_AUTH_PASSWORD='';
+$DB_AUTH_NAME='';
+
+# don't modify items below to use XName DB
+$DB_AUTH_TABLE='dns_user';
+$DB_AUTH_FLD_ID='id';
+$DB_AUTH_FLD_GID='groupid';
+$DB_AUTH_FLD_LOGIN='login';
+$DB_AUTH_FLD_EMAIL='email';
+$DB_AUTH_FLD_VALID='valid';
+$DB_AUTH_FLD_VALIDVALUE='0';
+$DB_AUTH_FLD_VALIDNULLVALUE='1';
+$DB_AUTH_FLD_OPTIONS='options';
+$DB_AUTH_FLD_LANG='lang';
+$DB_AUTH_WAITING_TABLE='dns_waitingreply';
+$DB_AUTH_WAITING_ID='id';
+$DB_AUTH_WAITING_USERID='userid';
+$DB_AUTH_WAITING_EMAIL='email';
+$DB_AUTH_WAITING_FIRSTDATE='firstdate';
+
+
+####################################
+#          NAMED variables         #
+####################################
+$NAMED_CONF = "/var/chroot/named/etc/named.conf";
+$NAMED_CONF_ZONES = "/var/chroot/named/etc/xname-zones.conf";
+$NAMED_DATA_DIR = "/var/chroot/named/var/named/";
+$NAMED_DATA_CHROOTED_DIR = "/var/named/";
+$NAMED_MASTERS_DIR = "masters/";
+$NAMED_SLAVES_DIR = "slaves/";
+$NAMED_TMP_DIR = "/tmp/";
+$NAMED_ALLOW_QUERY = "";    # if not empty, allow-query { $NAMED_ALLOW_QUERY; };
+                            # is appended to each zone. Useful if you don't have
+                            # global allow-query directive
+                            # suggested: any
+
+####################################
+#          EMAIL variables         #
+####################################
+$EMAIL_SMTP = "127.0.0.1"; # IP of your mail server
+$EMAIL_ADMIN = "your\@email.address";
+$EMAIL_FROM = "YOUR SERVICE NAME <your\@email.address>";
+$EMAIL_SUBJECT_PREFIX = "[Whatever you want]";
+$EMAIL_SIGNATURE = "
+-- 
+Foo Team
+your\@email.address
+";
+
+####################################
+#         SYSTEM variables         #
+####################################
+$SYSLOG_FILE = "/var/log/daemon.log";
+
+
+####################################
+#           Commands               #
+####################################
+$RM_COMMAND = '/bin/rm -f';
+$CP_COMMAND = '/bin/cp';
+$RNDC_COMMAND='/usr/local/bin/rndc';
+$CHECKCONF_COMMAND = '/usr/local/sbin/named-checkconf';
+
+####################################
+#        SHEDULER variables        #
+####################################
+# $SCHEDULER_RUN_AS_DAEMON
+# if you want to run a scheduler, set to 1.
+# else, set to 0, and run scripts from crontab
+# scripts are: bin/delete.pl, bin/generate.pl, bin/insertlogs.pl,
+# bin/sqloptimize.pl. in case of multi-server installation, run also 
+# following scripts: bin/pushtoservers.pl, bin/getremotelogs.pl.
+$SCHEDULER_RUN_AS_DAEMON=1; 
+# following delays can be in min, hour or day. Just precise "H" "M" or "D"
+$DELAY_GENERATE="1H"; # delay to re-generate named.conf and reload zones
+$DELAY_INSERTLOGS="10M"; # delay to insert logs
+$DELAY_RETRIEVE_REMOTE_LOGS="10M";
+$DELAY_OPTIMIZE="7D"; # delay to optimize
+
+
+
+
+####################################
+#    Multi Server variables        #
+####################################
+$MULTISERVER='1'; # 0 or 1
+$REMOTE_SERVER_DIR='/tmp/remote/';
+$REMOTE_SERVER_LOGS='/tmp/remotelogs/';   # has to be different from $REMOTE_SERVER_DIR
+$SCP_COMMAND='/usr/local/bin/scp';
+
+
+####################################
+#           LOG variables          #
+####################################
+$LOG_FILE='/tmp/xname.log';
+$LOG_PREFIX='XName-';
+$LOG_HOURS_TO_KEEP='6';
+$LOG_NB_MIN_TO_KEEP='10';
+# pattern matching for logs
+# sample line:
+# Mar  3 05:25:54 unlimited named[30467]: zone foo.com/IN: refresh: failure trying master 10.0.0.1#53: timed out
+$LOG_PATTERN_NAMED = "^([^\\s]+)\\s+([^\\s]+)\\s+([^\\s]+)\\s+[^\\s]+\\s+named[^\\s]+\\s(.*)";
+# $1 : month
+# $2 : day
+# $3 : hour:min:sec
+# $4 : content
+# When bind logs to a (file) channel configured with 'print-category yes'
+# and 'print-severity yes' we get following output:
+# Mar 25 17:30:13.782 general: info: zone example.com/IN:
+#        refresh: retry limit for master 10.0.0.1#53 exceeded
+# From that we can pick bind's own severity and use it when parsing logs.
+#$LOG_USE_NAMED_SEVERITY='1';
+#$LOG_PATTERN_NAMED = "^([^\\s]+)\\s+([^\\s]+)\\s+([^\\s]+)\\s+[^\\s]+:\\s+([^\\s]+):\\s(.*)";
+# $1 : month
+# $2 : day
+# $3 : hour:min:sec
+# $4 : status
+# $5 : content
+#
+# content should match ZONE or FILE:
+# foo.com transfer of 'foo.com/IN' from 176.26.0.2#53: failed while receiving responses: REFUSED
+$LOG_PATTERN_ZONE = "\\s('|)([^\\/\\s]+)\\/IN";
+# $2 : zonename
+$pathtofile=$NAMED_DATA_CHROOTED_DIR;
+$pathtofile=~ s/\//\\\//g;
+$masterslavedirs="(" . $NAMED_MASTERS_DIR . "|" . $NAMED_SLAVES_DIR . ")";
+$masterslavedirs =~ s/\///g;
+# foo dns_master_load: /var/named/masters/foo:3: ignoring out-of-zone data (bar.com)
+$LOG_PATTERN_FILE = $pathtofile . $masterslavedirs . "\\/([^:]+):";
+# $2 : zonename
+
+
+return 1;
