@@ -1,0 +1,355 @@
+                       XName dynamic update
+					   
+					   
+*** beta feature ***
+
+An XName feature is to allow dynamic updates. To do so, xmlrpc
+php library has to be installed on the server side, to run html/xmlrpc.php
+script.
+
+Each client wanting to change often it's IP address has to use 
+an xmlrpc script, which will have to be executed after each IP change.
+
+=============================================================================
+Warning - Warning - Warning - Warning - Warning - Warning - Warning - Warning
+=============================================================================
+(cf bug 87 - http://source.xname.org/bugs/view_bug_page.php?f_id=0000087)
+
+our xmlrpc server has been developed for phpxmlrpc libraries, available at
+phpxmlrpc.sourceforge.net. Unfortunately now PHP supports xmlrpc, but from
+xmlrpc-epi implementation (xmlrpc-epi.sourceforge.net).
+
+So if xmlrpc support is enabled in PHP, xmlrpc will not work. 
+
+Workaround is to disable xmlrpc support in PHP, and to use phpxmlrpc.
+
+=============================================================================
+
+
+
+Here are some samples by Eric van der Vlist and Pascal Terjan
+
+-----------------------------------------------------------------------------
+xnameArec.py
+8<---------------------------------------------------------------------------
+
+#!/usr/bin/python
+
+# from Eric van der Vlist
+# modified by Piotr KUCHARSKI
+
+import xmlrpclib, getopt, sys
+
+params = \
+{	"user"          : "username",
+        "password"      : "password",
+        "zone"          : "domain.name",
+        "name"          : "hostname",
+        "oldaddress"    : "*",
+        "ttl"           : "600",
+}
+
+server = "https://xname.whatever.com/xmlrpc.php"
+
+def usage():
+        print """xnameArec.py [-h|--help] 
+                [-u|--user       <user>] 
+                [-p|--password   <password>] 
+                [-z|--zone       <zone>] 
+                [-r|--recordname <record name>] 
+                [-o|--oldaddress <old address>] 
+                [-n|--newaddress <new address>] 
+		[-t|--ttl <ttl value>]
+                [-s|--server <xmlrpc server>] 
+
+Inserts can be performed by leaving "oldaddress" empty.
+Deletes can be performed by leaving "newaddress" empty.
+Updates are performed by giving both old and new addresses.
+Old address can be wildcard '*'.
+
+                """
+
+def main():
+        global server, params
+        opts, args = getopt.getopt(sys.argv[1:], "hu:p:z:r:o:n:s:t:", ["help", "user=", "password=","zone=", "recordname=", "oldaddress=", "newaddress=", "server=", "ttl="])
+        for o, a in opts:
+                if o in ("-u", "--user"):
+                        params["user"] = a
+                elif o in ("-p", "--password"):
+                        params["password"] = a
+                elif o in ("-z", "--zone"):
+                        params["zone"] = a
+                elif o in ("-r", "--recordname"):
+                        params["name"] = a
+                elif o in ("-o", "--oldaddress"):
+                        params["oldaddress"] = a
+                elif o in ("-n", "--newaddress"):
+                        params["newaddress"] = a
+                elif o in ("-s", "--server"):
+                        server = a
+		elif o in ("-t", "--ttl"):
+			params["ttl"] = a
+                else:   
+                        usage()
+                        sys.exit()
+
+        print "p: %s" % params
+        client = xmlrpclib.Server(server)
+
+        print "result: %s" % client.xname.updateArecord(params)
+
+
+if __name__ == "__main__":
+        main()
+
+
+
+-----------------------------------------------------------------------------
+client.php (simple http connection, no https)
+8<---------------------------------------------------------------------------
+
+<html>
+<head><title>xmlrpc</title></head>
+<body>
+<?php
+include("xmlrpc.inc");
+
+if ($HTTP_POST_VARS["user"]!="") {
+        $req = xmlrpc_encode(
+                array(
+                        "user" => $HTTP_POST_VARS["user"],
+                        "password" => $HTTP_POST_VARS["password"],
+                        "zone" => $HTTP_POST_VARS["zone"],
+                        "name" => $HTTP_POST_VARS["name"],
+                        "oldaddress" => $HTTP_POST_VARS["oldaddress"],
+			"newaddress" => $HTTP_POST_VARS["newaddress"],
+			"ttl" => $HTTP_POST_VARS["ttl"]
+
+                )
+        );
+  $f=new xmlrpcmsg('xname.updateArecord',
+                                   array($req)
+                                        );
+  print "<pre>" . htmlentities($f->serialize()) . "</pre>\n";
+  $c=new xmlrpc_client("/xname/xmlrpc.php", "ibook", 80);
+  $c->setDebug(1);
+  $r=$c->send($f);
+  if (!$r) { die("send failed"); }
+  $v=$r->value();
+  if (!$r->faultCode()) {
+        print "State number ". $HTTP_POST_VARS["stateno"] . " is " .
+          $v->scalarval() . "<BR>";
+         print "<HR>I got this value back<BR><PRE>" .
+          htmlentities($r->serialize()). "</PRE><HR>\n";
+  } else {
+        print "Fault: ";
+        print "Code: " . $r->faultCode() . 
+          " Reason '" .$r->faultString()."'<BR>";
+  }
+}
+print "<form Action=\"client.php\" method=\"POST\">
+<br> user:
+<input name=\"user\" value=\"vdv\">
+<br> password:
+<input name=\"password\" value=\"faeSauy7\">
+<br>
+zone: <input name=\"zone\" value=\"${zone}\">
+<br> name:
+<input name=\"name\" value=\"${name}\">
+<br>
+Old IP address: <input name=\"oldaddress\" value=\"${newaddress}\">
+<br>
+New IP address: <input name=\"newaddress\" value=\"\">
+<br>
+TTL value: <input name=\"ttl\" value=\"600\">
+<br>
+<input type=\"submit\" value=\"go\" name=\"submit\">
+</form><p>
+";
+
+?>
+</body>
+</html>
+
+
+-----------------------------------------------------------------------------
+client-https.php (https connection)
+8<---------------------------------------------------------------------------
+<html>
+<head><title>xmlrpc</title></head>
+<body>
+<?php
+include("xmlrpc.inc");
+
+if ($HTTP_POST_VARS["user"]!="") {
+        $req = xmlrpc_encode(
+                array(
+                        "user" => $HTTP_POST_VARS["user"],
+                        "password" => $HTTP_POST_VARS["password"],
+                        "zone" => $HTTP_POST_VARS["zone"],
+                        "name" => $HTTP_POST_VARS["name"],
+                        "oldaddress" => $HTTP_POST_VARS["oldaddress"],
+                        "newaddress" => $HTTP_POST_VARS["newaddress"]
+                )
+        );
+  $f=new xmlrpcmsg('xname.updateArecord',
+                                   array($req)
+                                        );
+  print "<pre>" . htmlentities($f->serialize()) . "</pre>\n";
+  $c=new xmlrpc_client("/xmlrpc.php", "xname.dyomedea.com", 0);
+  $c->setDebug(1);
+  $r=$c->send($f, 0, "https");
+  if (!$r) { die("send failed"); }
+  $v=$r->value();
+  if (!$r->faultCode()) {
+        print "State number ". $HTTP_POST_VARS["stateno"] . " is " .
+          $v->scalarval() . "<BR>";
+         print "<HR>I got this value back<BR><PRE>" .
+          htmlentities($r->serialize()). "</PRE><HR>\n";
+  } else {
+        print "Fault: ";
+        print "Code: " . $r->faultCode() . 
+          " Reason '" .$r->faultString()."'<BR>";
+  }
+}
+print "<form Action=\"client-https.php\" method=\"POST\">
+<br> user:
+<input name=\"user\" value=\"vdv\">
+<br> password:
+<input name=\"password\" value=\"faeSauy7\">
+<br>
+zone: <input name=\"zone\" value=\"${zone}\">
+<br> name:
+<input name=\"name\" value=\"${name}\">
+<br>
+Old IP address: <input name=\"oldaddress\" value=\"${newaddress}\">
+<br>
+New IP address: <input name=\"newaddress\" value=\"\">
+<br>
+TTL value: <input name=\"ttl\" value=\"600\">
+<br>
+<input type=\"submit\" value=\"go\" name=\"submit\">
+</form><p>
+";
+
+?>
+</body>
+</html>
+
+-----------------------------------------------------------------------------
+XName-commandline.php (https connection) by Pascal Terjan - requires
+package Console/Getopt.php (from PEAR)
+8<---------------------------------------------------------------------------
+
+#!/usr/bin/php
+<?php
+require('Console/Getopt.php');
+
+$params = Array(
+"user"     => "script",
+"password" => "pass",
+"zone"     => "domain.org",
+"name"     => "www",
+"ttl"      => 600
+   );
+
+$server = 'www.xname.org';
+$path = '/xmlrpc.php';
+
+function usage(){
+  print "php xname.php [-h|--help]
+                [-u|--user       <user>]
+                [-p|--password   <password>]
+                [-z|--zone       <zone>]
+                [-r|--recordname <record name>]
+                [-o|--oldaddress <old address>]
+                [-n|--newaddress <new address>]
+                [-s|--server <xmlrpc server>]
+                [-P|--path <xmlrpc server path>]
+                [-t|--ttl <ttl value>]
+                [-v|--verbose]
+";
+}
+
+$args = Console_Getopt::readPHPArgv();
+
+
+unset($args[0]);
+$shorts='vhu:p:z:r:o:n:s:t:';
+$longs=Array('help', 'user=', 'password=','zone=', 'recordname=', 'oldaddress=', 'newaddress=', 'server=', 'ttl=', 'verbose');
+$opts = Console_Getopt::getopt($args, $shorts, $longs);
+
+// Invalid options
+if(isset($opts->message)){
+    print $opts->message."\n";
+    print_usage();
+    exit(1);
+}
+
+foreach($opts[0] as $o){
+  if(in_array($o[0],Array('u', '--user')))
+$params['user'] = $o[1];
+  elseif (in_array($o[0],Array('p', '--password')))
+$params['password'] =$o[1];
+  elseif (in_array($o[0],Array('z', '--zone')))
+$params['zone'] =$o[1];
+  elseif (in_array($o[0],Array('r', '--recordname')))
+$params['name'] =$o[1];
+  elseif (in_array($o[0],Array('o', '--oldaddress')))
+$params['oldaddress'] =$o[1];
+  elseif (in_array($o[0],Array('n', '--newaddress')))
+$params['newaddress'] =$o[1];
+  elseif (in_array($o[0],Array('s', '--server')))
+$server =$o[1];
+  elseif (in_array($o[0],Array('P', '--path')))
+$path =$o[1];
+  elseif (in_array($o[0],Array('t', '--ttl')))
+$ttl =$o[1];
+  elseif (in_array($o[0],Array('v', '--verbose')))
+$verbose=1;
+  else {
+print_r($o);
+usage();
+exit();
+  }
+}
+
+$data = xmlrpc_encode_request('xname.updateArecord',$params);
+$sock = fsockopen("ssl://$server", 443, $errno, $errstr, 30);
+if (!$sock) die("$errstr ($errno)\n");
+
+fputs($sock, "POST $path HTTP/1.0\r\n");
+fputs($sock, "Host: $server\r\n");
+fputs($sock, "Content-type: application/x-www-url-encoded\r\n");
+fputs($sock, "Content-length: " . strlen($data) . "\r\n");
+fputs($sock, "Accept: */*\r\n");
+fputs($sock, "\r\n");
+fputs($sock, "$data\r\n");
+fputs($sock, "\r\n");
+
+
+# Headers
+while ($str = trim(fgets($sock, 4096)));
+// echo "$str\n";
+
+# Body
+$body="";
+while (!feof($sock))
+$body.=fgets($sock, 4096);
+
+$answer = xmlrpc_decode($body);
+
+if(isset($verbose)) print_r($answer);
+
+if(isset($answer['faultString'])){
+  echo $answer['faultString']."\n";
+  if(isset($answer['faultCode'])){
+exit($answer['faultCode']);
+  } else {
+exit(1);
+  }
+}
+fclose($sock);
+exit(0);
+?>
+
