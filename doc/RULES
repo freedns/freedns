@@ -1,0 +1,65 @@
+
+			XName Software developpement guidelines
+
+
+I - CVS access
+
+No anonymous CVS access is available at this time. 
+It's not for confidentiality reasons or something like that,
+just because of a lazy admin. 
+If you wish to have a read-only CVS access, just send an email
+with your ssh dsa public key attached to xname@xname.org.
+
+CVS write access will be granted for active developpers. 
+Before having writable access, you can submit patches on the dev
+mailing list, xnamesoft-dev@xname.org.
+
+
+II - Patch submission
+
+o) database modification
+
+Any database modification has to be included in bin/migrate*.pl, to 
+let other xname-engin users migrate their own database, and to 
+be ported into sql/creation.sql.
+
+
+a) New functionality.
+
+If you wish to see your new functionality in XName soft, ask first
+about it on xnamesoft-dev mailing list, and open a "bug" as feature 
+on http://source.xname.org/bugs/
+
+
+ i - Doc
+ 
+doc/yourfile.txt has to explain what is your new functionality, 
+how to enable/disable it, and how to use it.
+
+If additional libraries, software or config modification are needed 
+to run your new functionality, you have to write a doc about it, and
+disable it by default - explaining in the config file where the doc
+is.
+
+
+ ii - web interface
+
+to say it simple, all has to be inside classes. 
+All has to be configurable using html/libs/config.php.
+
+Remind that XName interface has to be used by "basic" users, which 
+just know what basic records are - NS, MX, A - and for some of them, CNAME. 
+Every new functionality on the web interface has to be explained on it, 
+and all "advanced" feature has to be on the advanced interface.
+
+
+ iii - perl scripts
+
+all new perl script has to be included in bin/scheduler.pl, with it's
+run delay variable in bin/config.pl. 
+ 
+
+b) bug correction.
+
+submit patch done using diff -u with one or two comment lines
+to xnamesoft-dev mailing list.
