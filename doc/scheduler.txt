@@ -1,0 +1,16 @@
+                     XName Scheduler
+				
+
+XName backend can be run in two ways: with it's own scheduler,
+or using crontab. The scheduler will warranty that however long
+will take a scheduled process to run, there will be no overlap
+between it and other XName ones, nor between it and an other
+running instance of itself.
+
+In case of huge number of zones hosted, the scheduler use
+is heavily advised.
+
+To launch it:
+1) modify $SCHEDULER_RUN_AS_DAEMON in bin/config.pl
+2) launch it as root (because some scripts need root rights)
+	./bin/scheduler.pl & 
