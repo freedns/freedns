@@ -1,0 +1,64 @@
+ 
+			          XName Multi-server 
+
+
+I - command generation
+
+commands for a server - add, modify or delete zone - are
+written in a command file.
+command files are named  serverIP-timestamp.
+All command files are in the same directory.
+
+
+II - command push to remote servers
+
+Command directory is parsed, all files serverIP-timestamp with
+same serverIP are concatenated in the most recent one.
+Then, the resulting command file for given server is pushed using scp
+onto remote server, in specified directory (depending on server params
+in xname-engine database)
+command file is deleted on master server.
+
+
+III - remote server command action
+
+incoming command directory is parsed, if more than one file for
+our IP is present, all is concatenated in one.
+Then, resulting file is parsed, and modification are done - directly
+on named.conf file or in DB if DB is used.
+
+
+IV - remote server logs parsing 
+
+logs are parsed on remote server, cleaned and written in a file.
+If file exists, concatenation is done.
+
+
+V - master server remote logs import
+
+remote logs are retrieved from remote servers using scp, from
+remote command directory as logpush.txt.
+file is copied in a local directory specificly for remote logs import.
+files are parsed, and logs inserted into DB.
+files are locally purged, and copied remotely to purge them on remote server.
+
+
+
+
+VI - graphical summary
+
+
+          master server                             module server
+ ----------------------------                 ----------------------------
+|  SCRIPTS        --------   |               |   ------     SCRIPTS       |
+| generate =>    |  cmds  |  | pushtoserver  |  |      |                  |
+|     /\         |    ----------------------------->   =>importfromserver |
+|     ||         |        |  |               |  |      |       ||         |
+|    ----         --------   |               |  |      |       \/         |
+|   | DB |                   |               |  |      | named.conf || DB |
+|    ----         --------   |               |  |      |                  |
+|     /\         |  logs  |  | getremotelogs |  |      |                  |
+|     ||         |    <-----------------------------   <= cleanlogs       |
+| getremotelogs <=        |  |               |  |      |                  |
+|                 --------   |               |   ------                   |
+ ----------------------------                 ----------------------------
