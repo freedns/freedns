@@ -1,0 +1,33 @@
+
+XName can now be run on different servers.
+
+First, be sure to have a running XName installation with 
+one server.
+
+
+There are two ways. One using rsync, where secondaries
+are a whole replication of the primary - see doc/rsync.txt
+And one where only modifications are send to remote
+servers.
+Logical scheme is explained in doc/multiserver.txt.
+
+For each new server, run bin/install.pl script.
+
+How to run multiserver ?
+
+If you choose rsync, follow doc/rsync.txt ! 
+
+If you choose the second way, do as following:
+
+- on the master server, add a crontab line for pushtoserver.pl, 
+  every hour after generate.pl (on the same line, using && as separator)
+ 
+- on the new server, do as for initial installation regarding named.conf.
+- on the new server, install xname-module/bin content
+- on the new server, edit and configure bin/config.pl
+- on the new server, run periodically cleanlogs.pl and importfromserver.pl
+
+Use of MySQL database on remote server is not already tested.
+use at your own risks.
+
+
