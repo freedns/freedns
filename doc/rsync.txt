@@ -1,0 +1,56 @@
+Quick setup of rsync
+====================
+
+Of course change paths and hostnames to suit your needs.
+Also make sure named is configured properly, serves the
+zones and gets reloaded properly. :)
+
+Step 1. On a shadow-host name server:
+(Note: as we get only zone configurations, you have to
+create some "empty" header with include statement, that
+would look very similar to master-host named config.)
+
+# cat /etc/rsyncd.conf
+uid = nobody
+gid = nogroup
+use chroot = no
+max connections = 3
+syslog facility = local5
+pid file = /var/run/rsyncd.pid
+[freedns]
+    # you could play with hosts allow here, too
+    path = /var/cache/bind/freedns
+    comment = FreeDNS
+    uid = named
+    gid = named
+    read only = false
+    strict modes = true
+    auth users = freedns
+    secrets file = /etc/rsyncd.secrets
+# cat /etc/rsyncd.secrets
+freedns:somepass
+# grep rsync /etc/inetd.conf
+rsync stream tcp nowait root /usr/bin/rsync rsyncd --daemon
+# crontab -l nameduser
+45 * * * * rndc reload
+
+Step 2. On a master-host name server:
+
+$ cat bin/rsync.sh
+#!/bin/sh
+cd $HOME/FreeDNS/named/
+RSYNC_PASSWORD=somepass
+export RSYNC_PASSWORD
+# Note that we only sync freedns.conf, which contains only zone conf,
+# without named.conf, which contains named conf header, with options,
+# paths, keys etc. YMMV!
+# We also of course sync whole directory 'masters', where all primary
+# zones are kept; content of 'slaves' directory (with secondary zones)
+# should be created by named itself
+/usr/local/bin/rsync -qrz var/masters etc/freedns.conf \
+	freedns@shadow-host::freedns/
+$ crontab -l
+40 * * * *   $HOME/xname-engine/bin/rsync.sh
+
+That's all! At least that's how it works at my site. :)
+Piotr Kucharski <freedns@sgh.waw.pl>
