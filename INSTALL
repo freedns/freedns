@@ -1,0 +1,125 @@
+XName INSTALL for v2.3.0
+
+WARNING: use these instruction for XName fresh installation only.
+See MIGRATE file for migration from an older version of XName.
+
+XName Database 
+===================
+
+First, go into the XName directory.
+
+- edit sql/creation.sql
+	change database name xnamedev for xname - or whatever name you want -
+	in the two first lines
+- run sql code
+	$ mysql -upoweruser -p < sql/creation.sql
+
+
+Database is now installed.
+
+
+XName Language support
+======================
+
+Choose languages you want. Available are fr, pl, en.
+If you want to suppress some, delete following directories where
+[CC] is the two letters language code:
+
+        html/includes/strings/[CC]
+        bin/strings/[CC]
+
+
+
+XName web interface
+===================
+
+- copy html/libs/config.default to html/libs/config.php and edit to suit
+  your needs
+- edit localized files
+        index and disclaimer contents are now localized, and available in
+                html/includes/strings/[CC]/index_content_default.php
+                html/includes/strings/[CC]/warranty.php
+        Copy index_content_default.php into index_content.php and 
+	modify index_content.php and warranty.php to fit your needs.
+
+
+Be careful, programs dig, host and named-checkzone have to be available from
+your web server. Paths are configurable in the html/libs/config.php file.
+
+If you want to use your own design instead of XName.org's one,
+simply change each html/*.php file, accordingly 
+with html/libs/html.php where original functions where present.
+html/libs/html.php class & functions are used only in html/*.php files.
+
+If you want to change left and right column organization or content,
+copy html/includes/left_side_default.php to html/includes/left_side.php and
+modify this new file. Do the same for the right_side.
+
+
+XName DNS file generator & log insert
+======================================
+
+First, you have to install bind. Tested on v9.2.*
+
+- edit your named.conf file (should be /etc/named.conf), configure general 
+options, suppress eventually everything at the end concerning local zones. 
+Be sure you've got a correctly running bind.
+
+You have now a clean conf file. 
+In bin/config.pl, you will define "$NAMED_CONF_ZONES" (in next step).
+Put an include line at the end of your named.conf file, including this
+file ($NAMED_CONF_ZONES="/etc/bind/xname-zones.conf" in our sample):
+include "/etc/bind/xname-zones.conf";
+
+This $NAMED_CONF_ZONES file will be generated automatically with
+the scripts - simply do a "touch" on it to avoid errors before first
+scripts run.
+Then just copy whole named.conf into /etc/bind/named.conf or somewhere else
+(to be configured at next step in bin/config.pl as $NAMED_CONF).
+
+- copy bin/config.default to bin/config.pl
+- edit bin/config.pl, and modify all vars to fit your needs.
+Be sure named-checkconf is available on your system.
+
+If you don't use a scheduler - ie in bin/config.pl you don't have
+$SCHEDULER_RUN_AS_DAEMON=1; 
+modify crontab.
+
+WARNING: use of scheduler is HIGHLY recommended to prevent tasks 
+overlapping in case of high number of hosted zones. 
+
+Add in crontab a line for insertlogs.pl, every 10 mn
+Add a crontab line for delete.pl and generate.pl every hour 
+Add a crontab line for sqloptimize.pl, every week
+
+/etc/crontab sample:
+# XNAME
+*/10 *    * * *   root    /home/xname/bin/insertlogs.pl
+30   *    * * *   root    /home/xname/bin/delete.pl && /home/xname/bin/generate.pl
+7    3    * * 1   root    /home/xname/bin/sqloptimize.pl
+
+Add also a line for pushtoserver.pl script if you run multiserver
+without rsync (see MULTISERVERS file)
+If you use rsync, add your rsync command on the same line than delete.pl and
+generate.pl (using && as separator, to execute right command only if left one
+succeeded)
+Else, if you run the scheduler, just run as root bin/scheduler.pl.
+See doc/scheduler.txt for details.
+
+Database initialization
+=======================
+
+run bin/install.pl and answer questions.
+Run it once per server you want to add.
+
+
+
+I Want to contribute
+=====================
+
+Report any bug to xnamesoft-dev@xname.org.
+Report any patch to xnamesoft-dev@xname.org, after having read doc/RULES.
+To subscribe to xnamesoft-dev mailing list, send an empty email
+to xnamesoft-dev-subscribe@xname.org.
+See http://www.xname.org/contribute for further contribution.
+
