@@ -1,0 +1,497 @@
+A:link {
+	text-decoration: none
+}
+A:visited {
+	text-decoration: none
+}
+A:active {
+	text-decoration: none
+}
+
+body {
+	margin-top: 0;
+	margin-left: 0;
+	margin-right: 0;
+	margin-bottom: 0;
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 11px;
+	background-color: #ffffff
+}
+
+
+.top {
+	margin-top: 0;
+	margin-left: 0;
+	margin-right: 0;
+	margin-bottom: 0;
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 10px;
+	color: #ffffff;
+	font-weight: 600; 
+	background-color: #55dddd;
+}
+
+
+#headtitle {
+	margin-top: 0;
+	margin-left: 0;
+	margin-right: 0;
+	margin-bottom: 0;
+	width: 100%
+}
+
+#header  {  
+	margin-top: 0;
+	margin-left: 0;
+	margin-right: 0;
+	margin-bottom: 0;
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 20px; 
+	font-weight: 600; 
+	color: #000000; 
+	background-color: #55aaaa;
+	text-align: center
+}
+
+#linkline  {
+	margin-top: 0;
+	margin-left: 0;
+	margin-right: 0;
+	margin-bottom: 0;
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 13px;
+  	color: #555555; 
+	text-align: center; 
+	vertical-align: top;
+  	background-color: #55dddd
+}
+
+.linkcolor {
+	color: #0000dd
+}
+
+#currentzones {
+	position: absolute;
+	width: 20%;
+	margin-top: 1em;
+        background-color: #efefef;
+}
+
+#currentzones_title {
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        font-size: 13px;
+        color: #555555;
+        font-weight: 600;
+        text-align: center;
+        vertical-align: top;
+        background-color: #55dddd
+}
+
+#currentzones_content {
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        font-size: 11px;
+        color: #000000;
+        text-align: left;
+        vertical-align: top;
+	margin-left: 1em;
+	margin-bottom: 0.5em;
+}
+
+#login {
+	position: absolute;
+	top: 10em;
+        width: 20%;
+        margin-top: 1em;
+        background-color: #efefef;
+}
+
+#login_title {
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        font-size: 13px;
+        color: #555555;
+        font-weight: 600;
+        text-align: center;
+        vertical-align: top;
+        background-color: #55dddd
+}
+
+#login_content {
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        font-size: 11px;
+        color: #000000;
+        text-align: left;
+        vertical-align: top;
+        margin-left: 1em;
+        margin-bottom: 0.5em;
+}
+
+#legend {
+        position: absolute;
+        top: 23em;
+        width: 20%;
+        margin-top: 1em;
+        background-color: #efefef;
+}
+
+#legend_title {
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        font-size: 13px;
+        color: #555555;
+        font-weight: 600;
+        text-align: center;
+        vertical-align: top;
+        background-color: #55dddd
+}
+
+#legend_content {
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        font-size: 11px;
+        color: #000000;
+        text-align: left;
+        vertical-align: top;
+        margin-left: 1em;
+        margin-bottom: 0.5em;
+}
+
+#yourzones {
+        position: absolute;
+        top: 33em;
+        width: 20%;
+        margin-top: 1em;
+        background-color: #efefef;
+}
+
+#yourzones_title {
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        font-size: 13px;
+        color: #555555;
+        font-weight: 600;
+        text-align: center;
+        vertical-align: top;
+        background-color: #55dddd
+}
+
+#yourzones_content {
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        font-size: 11px;
+        color: #000000;
+        text-align: left;
+        vertical-align: top;
+        margin-left: 1em;
+        margin-bottom: 0.5em;
+
+}
+
+#languages {
+	position: absolute;
+	top: 20em;
+	right: 0px;
+        width: 20%;
+        margin-top: 1em;
+        background-color: #efefef;
+}
+
+#languages_title {
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        font-size: 13px;
+        color: #555555;
+        font-weight: 600;
+        text-align: center;
+        vertical-align: top;
+        background-color: #55dddd
+}
+
+#languages_content {
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        font-size: 11px;
+        color: #000000;
+        text-align: left;
+        vertical-align: top;
+        margin-left: 1em;
+        margin-bottom: 0.5em;
+}
+
+#logo {
+	position: absolute;
+	top: 25em;
+	right: 0px;
+	text-align: center;
+	width: 20%;
+}
+
+#mainbox {
+        width: 56%;
+        margin-top: 1em;
+	margin-left: 22%;
+        background-color: #efefef;
+}
+
+#mainbox_title {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+        font-size: 13px;
+        color: #555555;
+        font-weight: 600;
+        text-align: center;
+        vertical-align: top;
+        background-color: #55dddd
+}
+
+#mainbox_content {
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        font-size: 11px;
+        color: #000000;
+        text-align: left;
+        vertical-align: top;
+        margin-left: 1em;
+        margin-bottom: 0.5em;
+}
+
+#digwindow {
+	width: 100%;
+	margin-top: 2px;
+	margin-left: 2px;
+	margin-right: 2px;
+	background-color: #efefef;
+}
+
+#digwindow_title {
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        font-size: 13px;
+        color: #555555;
+        font-weight: 600;
+        text-align: center;
+        vertical-align: top;
+        background-color: #55dddd
+}
+
+#digwindow_content {
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        font-size: 11px;
+        color: #000000;
+        text-align: left;
+        vertical-align: top;
+        margin-left: 1em;
+        margin-bottom: 0.5em;
+}
+
+#logwindow {
+        width: 100%;
+        margin-top: 2px;
+        margin-left: 2px;
+        margin-right: 2px;
+        background-color: #efefef;
+}
+
+#logwindow_title {
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        font-size: 13px;
+        color: #555555;
+        font-weight: 600;
+        text-align: center;
+        vertical-align: top;
+        background-color: #55dddd
+}
+
+#logwindow_content {
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        font-size: 11px;
+        color: #000000;
+        text-align: left;
+        vertical-align: top;
+        margin-left: 1em;
+        margin-bottom: 0.5em;
+}
+
+.logtable {
+	width: 100%;
+	border: 0px;
+}
+
+#contact {
+        width: 20%;
+	position: absolute;
+	top: 4.1em;
+	right: 0px;
+        margin-top: 1em;
+        background-color: #efefef;
+}
+
+#contact_title {
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        font-size: 13px;
+        color: #555555;
+        font-weight: 600;
+        text-align: center;
+        vertical-align: top;
+        background-color: #55dddd
+}
+
+#contact_content {
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        font-size: 11px;
+        color: #000000;
+        text-align: left;
+        vertical-align: top;
+        margin-left: 1em;
+        margin-bottom: 0.5em;
+}
+
+#contribute {
+        width: 20%;
+        position: absolute;
+        top: 11em;
+        right: 0px;
+        margin-top: 1em;
+        background-color: #efefef;
+}
+
+#contribute_title {
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        font-size: 13px;
+        color: #555555;
+        font-weight: 600;
+        text-align: center;
+        vertical-align: top;
+        background-color: #55dddd
+}
+
+#contribute_content {
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        font-size: 11px;
+        color: #000000;
+        text-align: left;
+        vertical-align: top;
+        margin-left: 1em;
+        margin-bottom: 0.5em;
+}
+
+#footer {
+        width: 20%;
+        position: absolute;
+        top: 31em;
+        right: 0px;
+	text-align: center;
+        margin-top: 1em;
+}
+
+.boxtitle  {
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 13px;
+  	color: #555555;
+	font-weight: 600;
+	text-align: center; 
+	vertical-align: top;
+  	background-color: #55dddd
+}
+
+
+.boxtext  {
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 11px;
+  	color: #000000; 
+	text-align: left; 
+	vertical-align: top;
+  	background-color: #efefef
+}
+
+.boxheader {
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 12px;
+  	color: #555555; 
+	text-align: left; 
+	vertical-align: top;
+	font-weight: 600;
+  	background-color: #efefef
+}
+
+.bottom {
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 12px;
+	color: #000000;
+	text-align: center;
+	background-color: #ffdddd
+}
+
+.loglowlight {
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 11px;
+	color: #000000;
+	background-color: #efefef
+}
+
+.loghighlight {
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 11px;
+	color: #000000;
+	background-color: #cccccc
+}
+
+.loglowlightINFORMATION {
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 11px;
+	color: #000000;
+	background-color: #aaffaa
+}
+
+.loglowlightWARNING {
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 11px;
+	color: #000000;
+	background-color: #ffffaa
+}
+
+.loglowlightERROR {
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 12px;
+	color: #000000;
+	background-color: #ffaaaa
+}
+
+.loglowlightUNKNOWN {
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 12px;
+	color: #000000;
+	background-color: #FFFFFF
+}
+
+.loghighlightINFORMATION {
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 12px;
+	color: #000000;
+	background-color: #00ff00
+}
+
+.loghighlightWARNING {
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 12px;
+	color: #000000;
+	background-color: #ffff00
+}
+
+.loghighlightERROR {
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 12px;
+	color: #000000;
+	background-color: #ff0000
+}
+
+.loghighlightUNKNOWN {
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 12px;
+	color: #000000;
+	background-color: #FFFFFF
+}
+
+.red {
+	color: #ff0000;
+}
+.warning {
+	color: #ff0000;
+}
+.error {
+	color: #ff0000;
+}
+
+.boxcontent {
+	margin-left: 20px;
+}
