@@ -35,7 +35,7 @@ if((isset($_REQUEST) && notnull($_REQUEST['id'])) ||
 	}
 	if($user->validateIDEmail($id)){
 	
-		$content = $l['str_email_flagged_valid'] . '<br />' .
+		$content = $l['str_email_flagged_valid'] . '<br>' .
 		sprintf($l['str_you_can_now_use_the_x_main_interface_x_to_log_in'],
 		'<a href="index.php?language=' . $lang . '">','</a>');
 	}else{
