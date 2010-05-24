@@ -178,10 +178,11 @@ class Userlogs {
 	 *@return int 1 if success, 0 if error
 	 */
 	Function deleteLog($logid){
-		global $db,$l;
+		global $db,$l,$user;
 		$this->error="";
 		$query = "DELETE FROM dns_userlog
-				WHERE id='" . $logid . "'";
+				WHERE id='" . mysql_real_escape_string($logid) . "'
+        AND userid='" . $user->userid ."'";
 		$res = $db->query($query);
 		if($db->error()){
 			$this->error = $l['str_trouble_with_db'];
@@ -205,7 +206,7 @@ class Userlogs {
 		$this->error="";
 		$query = "DELETE FROM dns_userlog
 				WHERE groupid='" . $this->groupid . "' 
-				AND date < '" . $date . "'";
+				AND date < '" . mysql_real_escape_string($date) . "'";
 		$res = $db->query($query);
 		if($db->error()){
 			$this->error = $l['str_trouble_with_db'];
