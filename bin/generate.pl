@@ -83,7 +83,7 @@ if($DB_AUTH_NAME){
 }
 
 open(LOG, ">>" . $LOG_FILE);
-#print LOG logtimestamp() . " " . $LOG_PREFIX . " : DEBUG : start (" . tv_interval ($t1) . ")\n";
+print LOG logtimestamp() . " " . $LOG_PREFIX . " : DEBUG : start (" . tv_interval ($t1) . ")\n";
 
 
 $query = "SELECT count(*) as count FROM dns_zone 
@@ -93,6 +93,7 @@ my $sth = dbexecute($query,$dbh,LOG);
 
 $ref = $sth->fetchrow_hashref();
 $sth->finish();
+$count = $ref->{'count'};
 
 sub RetrieveRecords {
 	my $type = $_[0];
@@ -149,7 +150,7 @@ sub RetrieveRecords {
 	return $ret;
 }
 
-if($ref->{'count'}){
+if($count){
 	
 	# retrieve list of all xname servers
 	$query = "SELECT serverip,transferip FROM dns_server";
@@ -168,7 +169,7 @@ if($ref->{'count'}){
 # GENERATING NAMED_CONF FILE
 ########################################################################
 
-   $t0 = [gettimeofday];
+  $t0 = [gettimeofday];
 	# backup named.conf
 	#$cpcommand="[ -f " . $NAMED_CONF . " ] && " . $CP_COMMAND . " " . $NAMED_CONF . " " .
 	#$NAMED_TMP_DIR . "named.conf.bak-" . $$;
@@ -190,7 +191,7 @@ if($ref->{'count'}){
 	##############
 
 		$query = "SELECT c.zoneid, c.xfer,LOWER(z.zone) AS zone FROM 
-			dns_confprimary c, dns_zone z where c.zoneid=z.id";
+			dns_confprimary c, dns_zone z, dns_user u where c.zoneid=z.id and u.id=z.userid and u.migrated=1";
 
 		my $sth = dbexecute($query,$dbh,LOG);
 		while (my $ref = $sth->fetchrow_hashref()) {
@@ -243,11 +244,11 @@ zone "' . $ref->{'zone'} . '" {
 ################
 
 		$query = "SELECT LOWER(z.zone) AS zone, c.masters, c.xfer FROM 
-			dns_confsecondary c, dns_zone z where c.zoneid=z.id";
+			dns_confsecondary c, dns_zone z, dns_user u where c.zoneid=z.id and u.id=z.userid and u.migrated=1";
 
 		$sth = dbexecute($query,$dbh,LOG);
 		while (my $ref = $sth->fetchrow_hashref()) {
-	# write to named.conf
+	  # write to named.conf
 
 		# zone "zone.name" {
 		#		type slave;
@@ -305,7 +306,7 @@ zone "' . $ref->{'zone'} . '" {
 
 ########################################################################
 
-#      print LOG logtimestamp() . " " . $LOG_PREFIX . " : DEBUG : freedns.conf done " . tv_interval ($t0) . "\n";
+    print LOG logtimestamp() . " " . $LOG_PREFIX . " : DEBUG : freedns.conf done " . tv_interval ($t0) . "\n";
 
 
 ########################################################################
@@ -420,7 +421,7 @@ zone "' . $ref->{'zone'} . '" {
 		if ($?>>8) {
 			$error = 1;
 		}
-#      print LOG logtimestamp() . " " . $LOG_PREFIX . " : DEBUG : named checkconf done " . tv_interval ($t0) . "\n";
+      print LOG logtimestamp() . " " . $LOG_PREFIX . " : DEBUG : named checkconf done " . tv_interval ($t0) . "\n";
 		if($error == 1){
 		# mail admin
 			# copy to named.conf.error, send mail, restore backup
@@ -464,8 +465,11 @@ zone "' . $ref->{'zone'} . '" {
 			system($command);
 			# reload
 		$t0 = [gettimeofday];
+      print LOG logtimestamp() . " " . $LOG_PREFIX . " : DEBUG : generate helper start " . tv_interval ($t0) . "\n";
 			system("$HELPER_COMMAND"); 
-#      print LOG logtimestamp() . " " . $LOG_PREFIX . " : DEBUG : rndc helper done " . tv_interval ($t0) . "\n";
+			# @out=`$HELPER_COMMAND 2>&1`; 
+      # print LOG logtimestamp() . " " . $LOG_PREFIX . " : DEBUG : generate helper output " . @out. "\n";
+      print LOG logtimestamp() . " " . $LOG_PREFIX . " : DEBUG : generate helper done " . tv_interval ($t0) . "\n";
 		}
 
 ########################################################################
@@ -484,20 +488,22 @@ zone "' . $ref->{'zone'} . '" {
 		while (my $ref = $sth->fetchrow_hashref()) {
 			$tmp_counter++;
 			$zone = $ref->{'zone'};
+			print LOG logtimestamp() . " " . $LOG_PREFIX .
+                        	" : DEBUG : " . "$RNDC_COMMAND reload $zone\n";
 			if (system("$RNDC_COMMAND reload $zone") == 0)
 			{
 				system("$RNDC2_COMMAND retransfer $zone") == 0
 					or print LOG logtimestamp() . " " . $LOG_PREFIX .
-                        	" : " . "refresh $zone failed: $?\n";
+                        	" : " . "fns2 retransfer $zone failed: $?\n";
 			} else {
 				print LOG logtimestamp() . " " . $LOG_PREFIX .
-                        	" : " . "reload $zone failed: $?\n";
+                        	" : " . "fns1 reload $zone failed: $?\n";
 			}
 		}
 		$sth->finish();
 ########################################################################
 
-#      print LOG logtimestamp() . " " . $LOG_PREFIX . " : DEBUG : rndc $tmp_counter reloads done " . tv_interval ($t0) . "\n";
+      print LOG logtimestamp() . " " . $LOG_PREFIX . " : DEBUG : rndc $tmp_counter reloads done " . tv_interval ($t0) . "\n";
 
 
 
@@ -529,84 +535,6 @@ zone "' . $ref->{'zone'} . '" {
 			$masters .= $_ . ";";
 		}
 	
-		# generate timestamp for filenames
-		$timestamptxt = strftime("%Y%m%d%H%M%S\n", gmtime);
-
-if (0) { #PK
-		# for each server, retrieve zones registered for this server
-		# and print output in server cmd file
-		# Retrieve ONLY modified or deleted zones
-		foreach(@serveridlist){
-			$serverid=$_;
-			open(CMD, "> $REMOTE_SERVER_DIR" . $serversshhost{$serverid} . "-" .
-			$timestamptxt) || print LOG logtimestamp() . " " . $LOG_PREFIX . " : " . 
-				sprintf($str_log_error_opening_x{$SITE_DEFAULT_LANGUAGE},$REMOTE_SERVER_DIR . 
-					$serversshhost{$serverid} . "-" .  $timestamptxt) . "\n";
-		
-#			$query="SELECT LOWER(z.zone) AS zone,z.zonetype,z.id,z.status, u.email 
-#					FROM dns_zone z, dns_zonetoserver s, dns_user u
-#					WHERE z.id=s.zoneid AND s.serverid='" . $serverid . "'
-#					AND z.status!='' AND z.userid = u.id";
-			$query="SELECT LOWER(z.zone) AS zone,z.zonetype,z.id,z.status, z.userid 
-					FROM dns_zone z, dns_zonetoserver s
-					WHERE z.id=s.zoneid AND s.serverid='" . $serverid . "'
-					AND z.status!=''";
-			my $sth = dbexecute($query,$dbh,LOG);
-			while (my $ref = $sth->fetchrow_hashref()) {
-				$query = sprintf("SELECT %s as email FROM %s WHERE %s='%s'",
-						$DB_AUTH_FLD_EMAIL,
-						$DB_AUTH_TABLE,
-						$DB_AUTH_FLD_ID,
-						$ref->{'userid'}
-						);
-				my $sthauth = dbexecute($query,$dbhauth,LOG);
-				my $refauth = $sthauth->fetchrow_hashref();
-				$email = $refauth->{'email'};
-
-				# for deleted zones
-				if($ref->{'status'} eq 'D'){
-					print CMD "Delete " . $ref->{'zone'} . "\n";
-				}else{ # end deleted zones
-					# for each modified zone, select zonename xfer 
-					# and masters (for secondaries)
-					if($ref->{'zonetype'} eq 'P'){
-						$query="SELECT xfer FROM dns_confprimary WHERE zoneid='"
-                                . $ref->{'id'} . "'";
-					}else{
-                        $query = "SELECT xfer,masters FROM dns_confsecondary
-                                  WHERE zoneid='" . $ref->{'id'} . "'";
-					}
-					my $sth2 = dbexecute($query,$dbh,LOG);
-					$ref2=$sth2->fetchrow_hashref();
-					# take only zones configured
-					if($ref2->{'xfer'}){
-						if($ref2->{'masters'}){
-							$masters = $ref2->{'masters'} . ";" . $masters;
-						}
-						if($ref2->{'xfer'} eq "any"){
-							$xfer = "any";
-						}else{
-							$xfer = $masters . $ref2->{'xfer'} . ';' . $SITE_WEB_SERVER_IP;
-							# unicity of IP addresses in $xfer
-							@xfer=split(/;/,$xfer);
-							foreach(@xfer){
-								$xfernew{$_}=1;
-							}
-							$xfer = join(';',keys(%xfernew));
-							$xfer =~ s/^;//;
-							$xfer =~ s/ //g;
-						}
-						print CMD "Add " . $ref->{'zone'} . " masters " . $masters 
-							. " allow-transfer " . $xfer . " email " .
-							$email . "\n";
-					} # end $ref2->{'xfer'} 
-				} # end status != deleted
-			} # end while select zone,zonetype
-
-			close(CMD);
-		} # end foreach server
-} #0#PK
-
 ########################################################################
 
 
@@ -694,5 +622,5 @@ if (0) { #PK
 } # end count of zone modified >= 1 
 # Disconnect from the database.
 $dbh->disconnect();
-#print LOG logtimestamp() . " " . $LOG_PREFIX . " : DEBUG : stop (" . tv_interval ($t1) . ")\n";
+print LOG logtimestamp() . " " . $LOG_PREFIX . " : DEBUG : stop : count=". $count ." (" . tv_interval ($t1) . ")\n";
 close LOG;
