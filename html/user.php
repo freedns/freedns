@@ -210,7 +210,9 @@ if($user->authenticated == 0){
 				
 							if(mailer($config->tousersource,addslashes($email), 
 								$config->sitename .
-								" " . $l['str_email_validation'],"",$mailbody)){
+								" " . $l['str_email_validation'],
+								"Content-Type: text/plain; charset=" .  $l['str_content_type'],
+								$mailbody)){
 
 								$content .= $l['str_ok'] . '<p >' .
 								$l['str_email_validation_mail_sent'] . '<p >
