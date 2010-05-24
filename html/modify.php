@@ -49,7 +49,6 @@ if($user->authenticated==1){
 						 $zone->zonename,$zone->zonetype)
 						 );
 			}else{
-
 				$content = '<table border="0" width="100%" class="top">
 				<tr class="top"><td class="top"><div align=center>' . 
 					$l['str_current_zone'] . ': ' . $zone->zonename . '
@@ -252,7 +251,7 @@ if($user->authenticated==1){
 					}
 					// to let user modify nbrows
 					if(isset($_REQUEST) && isset($_REQUEST['nbrows'])){
-						$nbrows = $_REQUEST['nbrows'];
+						$nbrows = intval($_REQUEST['nbrows']);
 					}else{
 						if(!isset($_REQUEST) && isset($nbrows)){
 							// nothing to be done
