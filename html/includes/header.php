@@ -1,4 +1,5 @@
 <?
+
 // if site has not been configured, print "friendly" message
 if(!is_file("libs/config.php")){
 	include('includes/strings/en/index_content_default.php');
@@ -88,6 +89,10 @@ if(isset($_REQUEST)){
 		}
 	}
 }
+$lang=substr($lang, 0, 2);
+if (!is_file('includes/strings/' . $lang . '/strings.php'))
+  $lang='en';
+
 include 'includes/strings/' . $lang . '/strings.php';
 $html->initialize();
 $user = new User($login,$password,$idsession);
@@ -113,8 +118,9 @@ if(isset($user->lang)){
 	}
 }
 }
+$lang=substr($lang, 0, 2);
 // verify if language exists ! 
-if(!is_dir('includes/strings/' . $lang)){
+if(!is_file('includes/strings/' . $lang . '/strings.php')){
 	$lang = $config->defaultlanguage;
 }
 

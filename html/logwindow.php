@@ -66,6 +66,8 @@ if(isset($_REQUEST)){
 		$lang = $config->defaultlanguage;
 	}
 }
+if (!is_file('includes/strings/' . $lang. '/strings.php'))
+  $lang='en';
 include 'includes/strings/' . $lang . '/strings.php';
 $html->initialize();
 
@@ -88,8 +90,9 @@ if(isset($user->lang)){
 	}
 }
 
+$lang=substr($lang, 0, 2);
 // verify if language exists ! 
-if(!is_dir('includes/strings/' . $lang)){
+if(!is_file('includes/strings/' . $lang . '/strings.php')){
 	$lang = $config->defaultlanguage;
 }
 

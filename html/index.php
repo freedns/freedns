@@ -36,6 +36,7 @@ if(file_exists("includes/left_side.php")) {
 // 	MODIFY ALL TEXT HERE
 // **********************************
 $title = $l['str_index_title'];
+$lang=substr($lang, 0, 2);
 if(file_exists('includes/strings/' . $lang . '/index_content.php')){
 	include('includes/strings/' . $lang . '/index_content.php');
 }else{
