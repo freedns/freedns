@@ -84,7 +84,7 @@ Function updateArecord($m) {
 	elseif ($user->authenticated==2) {
 		return new xmlrpcresp(0, $xmlrpcerruser, "you have to migrate first");
 	}
-	$zonename = addslashes($req["zone"]);
+	$zonename = $req["zone"];
 	$zonetype = "P";
 	$zone = new Zone($zonename,$zonetype);
 	if($zone->error){
@@ -105,13 +105,13 @@ Function updateArecord($m) {
 				$zone->RetrieveUser() != $group->groupid)){
 		return new xmlrpcresp(0, $xmlrpcerruser, "You can not manage zone ". $zone->zonename);
 	}
-        $currentzone = new Primary($zone->zonename, $zone->zonetype, $user);
+	$currentzone = new Primary($zone->zonename, $zone->zonetype, $user);
 	if (notnull($req["oldaddress"])) {
 		$modified = 1;
 		if ($req["oldaddress"] == "*") {
 			$currentzone->DeleteMultipleARecords($req["name"]);
 		} else {
-			$delete = array ( "a(" . $req["name"] . "/" . addslashes($req["oldaddress"]).")");
+			$delete = array ( "a(" . mysql_real_escape_string($req["name"]) . "/" . mysql_real_escape_string($req["oldaddress"]).")");
 			$currentzone->Delete($delete,0,0);
 		}
 		if($currentzone->error){
@@ -121,8 +121,8 @@ Function updateArecord($m) {
 	$ttl = notnull(intval($req["ttl"])) ? intval($req["ttl"]) : "-1";
 	if (notnull($req["newaddress"])) {
 		$modified = 1;
-                $res = $currentzone->AddARecord($zone->zoneid,
-			array($req["newaddress"]), array($req["name"]),
+			$res = $currentzone->AddARecord($zone->zoneid,
+			array(mysql_real_escape_string($req["newaddress"])), array(mysql_real_escape_string($req["name"])),
 			array($ttl), NULL);
 
 		if($currentzone->error){
@@ -130,7 +130,7 @@ Function updateArecord($m) {
 		}
 	}
 	$currentzone->generateConfigFile();
-       $checker = "$config->binnamedcheckzone " . $currentzone->zonename . " " .
+	$checker = "$config->binnamedcheckzone " . $currentzone->zonename . " " .
 			$currentzone->tempZoneFile();
 	$check = `$checker`;
 	unlink($currentzone->tempZoneFile());
@@ -151,10 +151,9 @@ Function updateArecord($m) {
 			"name" => $req["name"],
 			"addresses" => NULL,
 			"ttl" => $ttl
-
 		);
 	
-	$currentzone->getArecords($ret["addresses"], $req["name"]);
+	$currentzone->getArecords($ret["addresses"], mysql_real_escape_string($req["name"]));
 
 	if($currentzone->error){
 		return new xmlrpcresp(0, $xmlrpcerruser, $currentzone->error);
