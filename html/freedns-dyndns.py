@@ -11,7 +11,7 @@ params = \
         "ttl"           : "600",
 }
 
-server = "https://freedns.sgh.waw.pl/xmlrpc.php"
+server = "https://freedns.42.pl/xmlrpc.php"
 
 def usage():
         print """
@@ -56,10 +56,13 @@ def main():
                         usage()
                         sys.exit()
 
-        print "p: %s" % params
+        # print "p: %s" % params
         client = xmlrpclib.Server(server)
 
-        print "result: %s" % client.xname.updateArecord(params)
+        try:
+          print "result: %s" % client.xname.updateArecord(params)
+        except xmlrpclib.Fault, e:
+          print e
 
 
 if __name__ == "__main__":

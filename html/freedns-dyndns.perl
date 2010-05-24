@@ -6,8 +6,8 @@
 #								#
 #              dyn_fns.pl Wersja: 1.0 (2003-05-22)		#
 #								#
-#    Skrypt sluzy do aktualizacji IP w serwisie FreeDNS::SGH   	#
-#    znajdujacego sie pod adresem http://freedns.sgh.waw.pl/	#
+#    Skrypt sluzy do aktualizacji IP w serwisie FreeDNS::42   	#
+#    znajdujacego sie pod adresem http://freedns.42.pl/		#
 #                 						#
 #              http://www.wojnarowski.net/dyn_fns/              #
 #								#
@@ -52,7 +52,7 @@ openlog "dyn_fns","" , $LOG;
 if ($IP_new eq $IP_old) {
     syslog LOG_INFO, "Update is not necessary";
 } else {
-    $cli = RPC::XML::Client->new('http://freedns.sgh.waw.pl/xmlrpc.php');
+    $cli = RPC::XML::Client->new('https://freedns.42.pl/xmlrpc.php');
     $resp = $cli->send_request('xname.updateArecord', $tmp);
     %tt = %{$resp->value};
     foreach (keys %{$resp->value}) {
