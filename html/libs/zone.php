@@ -196,7 +196,7 @@ class Zone {
 		}
 	}
 
-// Function zoneCreate($zonename,$zonetype,$template,$serverimport,$userid)
+// Function zoneCreate($zonename,$zonetype,$template,$serverimport,$userid,$zonearea)
 	/**
 	 * Insert new zone in dns_zone table 
 	 *
@@ -208,7 +208,7 @@ class Zone {
 	 *@param int $userid user ID
 	 *@return int 1 if success, 0 if trouble
 	 */
-	Function zoneCreate($zonename,$zonetype,$template,$serverimport,$userid)
+	Function zoneCreate($zonename,$zonetype,$template,$serverimport,$userid,$zonearea){
 		global $db,$l;
 		global $config;
 		$this->error="";
@@ -256,6 +256,13 @@ class Zone {
 						$this->error .= $l['str_failed_serverimport'];
 					}
 				}
+if (0):
+				if ($zonearea) {
+					if(!$this->parseZoneInput($zonearea)){
+						$this->error .= $l['str_failed_serverimport'];
+					}
+				}
+endif;
 
 				// insert in dns_zonetoserver
 				// if multiserver, insert for others
