@@ -4,8 +4,7 @@ $content = '
 		<table border="0" width="100%">
 		<tr><td width="20">&nbsp;</td>
 		<td>
-		Ceci est un service gratuit de gestion DNS fourni par
-		Warsaw School of Economics.<br />
+		Ceci est un service gratuit de gestion DNS fourni par 42.pl.<br >
 		Essayez de vous debrouiller avec l\'interface, 
 		cela devrait etre assez facile.
 		<p>

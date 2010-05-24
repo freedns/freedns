@@ -2,7 +2,7 @@
 $l['str_primary_bad_cname_x'] = "Bad CNAME  %s";
 $l['str_content_type'] = "iso-8859-1";
 $l['str_create_new_user_title'] = "Create a new user";
-$l['str_login'] = "Login";
+$l['str_login'] = "Account";
 $l['str_password'] = "Password";
 $l['str_confirm_password'] = "confirm password";
 $l['str_email'] = "email";
@@ -147,7 +147,7 @@ $l['str_modify_zone_title'] = "Modify zone";
 $l['str_must_log_before_modifying_zone'] = "you must log in before modifying a zone.";
 $l['str_password_recovery_title'] = "Password Recovery";
 $l['str_password_recovery'] = "password recovery";
-$l['str_lost_pwd_fill_in_fields_to_recover_password'] = "You have lost your password ?<br />
+$l['str_lost_pwd_fill_in_fields_to_recover_password'] = "You have lost your password ?<br >
 	Fill in the following field, and an email will be sent to you, containing 
 	a recovery-URL to visit.";
 $l['str_or_one_of_your_zones'] = "<b>or</b> one of your zone name";
@@ -156,10 +156,10 @@ $l['str_you_did_not_specify_zonetype'] = "you did not specify zone type.";
 $l['str_email_not_sent'] = "your account does not seems to have a valid email address.
 	Recovery mail not sent.";
 $l['str_recovery_mail_sent'] = "Recovery mail was successfully sent to your email 
-	address. <br />
-	It contains an URL pointing to a page that will reveal you your password.<p />
+	address. <br >
+	It contains an URL pointing to a page that will reveal you your password.<p >
 	<b>WARNING: use this recovery URL as soon as possible, as it is send to you 
-	in clear text.</b><br />
+	in clear text.</b><br >
 	For security reasons, this URL can be used only once.";
 $l['str_errors_occured_during_recovery_mail_sending'] = "Error(s) occured during 
 	send of recovery email. Please try again later.";
@@ -290,7 +290,7 @@ $l['str_primary_reverse_sub_zones_title'] = "Sub Zones";
 $l['str_primary_reverse_sub_zones_delegation_x'] = "You can define sub-zones, 
 	delegated (or not) to other users of %s.";
 $l['str_primary_reverse_sub_zones_delegation_expl_x_x'] = "This is useful when having 
-	a reverse zone splitted between different admins.<br />
+	a reverse zone splitted between different admins.<br >
 	For example, if you want to have IPs from 1 to 10 under %s delegated to %s
 	user \"foo\", user \"foo\" will be able	to manage PTR records for this zone.";
 $l['str_primary_reverse_sub_zones_delegation_how'] = "This is done using CNAME, 
@@ -307,7 +307,7 @@ $l['str_primary_a_record_what_you_want_before_x_x_x'] = "A records are associati
 	itself</b> which is qualified, i.e. %s.";
 $l['str_primary_a_record_expl'] = "If you want to add an A record <b>for the zone 
 	itself</b>, use fully qualified zone name 
-	with a <b>trailing dot</b> at the end as name.<br />
+	with a <b>trailing dot</b> at the end as name.<br >
 	If you want to do <b>Round Robin</b> on A records, enter different records with same name 
 	but different IPs.";
 $l['str_primary_a_record_modify_ptr_x'] = "Modify associated PTR record, when reverse 
@@ -320,23 +320,23 @@ $l['str_primary_ipv6_record_expl_before_x_x_x'] = "AAAA records are association 
 	domain itself</b> which is qualified, i.e. %s.";
 $l['str_primary_ipv6_record_expl_zone_and_round_robin'] = "If you want to add an 
 	AAAA record <b>for the zone itself</b>, use fully qualified zone name with 
-	a <b>trailing dot</b> at the end as name.<br />
+	a <b>trailing dot</b> at the end as name.<br >
 	If you want to do <b>Round Robin</b> on AAAA records, enter different 
 	records with same name but different IPs.";
 $l['str_primary_ipv6_record_modify_reverse_x'] = "Modify associated PTR record, when 
 	reverse zone managed by %s";
 $l['str_primary_ipv6_record_new_aaaa_x'] = "New AAAA (%s)";
 $l['str_primary_cname_title'] = "Canonical Name (CNAME) records";
-$l['str_primary_cname_expl'] = "CNAME records are alias name definitions.<br />
+$l['str_primary_cname_expl'] = "CNAME records are alias name definitions.<br >
 				For example, if there is already an A record pointing on IP 10.1.1.1,
 				any new record pointing to 10.1.1.1 should be a CNAME record pointing to the 
-				name used in the A record.<br />
+				name used in the A record.<br >
 				It is useful if you want tou have many names for the same IP address.
-				<br />
+				<br >
 				If the pointed record is <b>outside of current zone</b>, you have to use
-				<b>fully qualified name</b>, with a trailing dot at the end. <br />
+				<b>fully qualified name</b>, with a trailing dot at the end. <br >
 				If the pointed record is <b>inside of current zone</b>, do <b>not</b> add
-				the domain name.<br />
+				the domain name.<br >
 				To catch all names inside a zone, you can use a <b>wildcard CNAME</b>. 
 				Be careful to know what you are doing before using it.";
 $l['str_primary_cname_alias'] = "Alias";
@@ -345,12 +345,12 @@ $l['str_primary_cname_name_a_record'] = "Name (A or AAAA record)";
 $l['str_primary_sub_zones_title'] = "Sub Zones";
 $l['str_primary_sub_zones_expl_on_x_x'] = "You can define sub-zones, delegated to any name server. <b>Be sure that
 				these zones are defined on the nameserver you choose.</b>
-				<br />
+				<br >
 				For example, if you want to have a new zone myzone.mydomain.com, you can
 				create a new zone on %s \"myzone.mydomain.org\", and configure 
-				it as you wish.<br />
+				it as you wish.<br >
 				Your new zone name is <b>necessary</b> under %s, it 
-				can not have a dot '.' in it. <br />
+				can not have a dot '.' in it. <br >
 				Nameservers must be <b>fully qualified name</b>, with a 
 				<b>trailing dot</b> at the end.";
 $l['str_primary_sub_zones_zone'] = "Zone";
@@ -358,10 +358,10 @@ $l['str_primary_allow_transfer_title'] = "Computers allowed to do zone transfers
 $l['str_primary_allow_transfer_expl'] = "To protect your zone, you can specify which 
 				computers are
 				allowed to request a zone transfer, giving access to all zone 
-				content. <br />
+				content. <br >
 				Usually allowed computers are secondary name servers, 
 				and sometimes administrator's
-				computer.<br />
+				computer.<br >
 				You can specify multiple IP addresses, separated by semicolons
 				(';').";
 $l['str_primary_allow_transfer_ip_allowed'] = "IP addresses allowed to transfer zones
@@ -376,12 +376,12 @@ $l['str_primary_generated_config'] = "For your information,
 	here is the generated configuration";
 $l['str_primary_zone_error_not_available_try_again'] = "Your zone will not be available at next reload.
 	Please come back later to modify it again.";
-$l['str_primary_zone_error_warning'] = "Error occured when checking your configuration.<br />
-	This zone will <b>not</b> be loaded until errors are corrected.<p />
+$l['str_primary_zone_error_warning'] = "Error occured when checking your configuration.<br >
+	This zone will <b>not</b> be loaded until errors are corrected.<p >
 	For your information, here is check result";
 $l['str_primary_error_if_engine_error_x_contact_admin_x'] = "You can go back to the 
 	modification page to correct this (just click on the zone inside the left 
-	box).<p />
+	box).<p >
 	If you think it is an engine error, please %scontact administrator%s.";
 $l['str_primary_trouble_occured_when_checking'] = "For your information, trouble 
 	occured when checking following file";
@@ -552,7 +552,7 @@ $l['str_email_successfully_sent_explanation1'] = "A mail was succesfully sent to
 Follow embedded link to activate your account.";
 $l['str_email_successfully_sent_explanation2'] = "Once it is validated, log in on main page to add zones.";
 $l['str_currently_hosted'] = "Currently hosted";
-$l['str_loginbox'] = "Login";
+$l['str_loginbox'] = "Account";
 $l['str_login_or_x_create_new_user_x'] = "Log in, or %screate a new user%s.";
 $l['str_log_me_in'] = "Log me in !";
 $l['str_forgot_password'] = "Forgot your password?";
@@ -582,7 +582,7 @@ $l['str_contribute_content'] = "If you like this software, you can
 <a href=\"http://www.xname.org/contribute.php\" 
 class=\"linkcolor\">contribute !</a> and/or submit your patches 
 (<a href=\"mailto:bugs@xname.org\" class=\"linkcolor\">bugs@xname.org</a>, in
-english or french).<br />
+english or french).
 XName Software is under <a href=\"http://www.gnu.org/copyleft/gpl.html\" 
 class=\"linkcolor\">GPL License</a>.";
 $l['str_languages_title'] = "Available Languages";
@@ -669,8 +669,8 @@ $l['str_total_hosted_zones'] = "Total  hosted";
 $l['str_primary_adding_txt_x'] = "Adding TXT record  %s.";
 $l['str_primary_bad_txt_x'] = "bad TXT name  %s.";
 $l['str_primary_deleting_txt_x'] = "Deleting TXT record  %s";
-$l['str_primary_txt_record_expl_x_x_x'] = "TXT records are association of a name and simple text.  It can be used to include comments in zone configuration, or for particular purposes (like some antispam systems). The name can be either an already existing record (A, NS, etc...), the zone itself, or a new one.<br />
-<strong>The name is unqualified</strong>, i.e. what you want to have before %s, like www for www.%s <strong>except for the name of the domain itself</strong> which is qualified, i.e. %s.<br />
+$l['str_primary_txt_record_expl_x_x_x'] = "TXT records are association of a name and simple text.  It can be used to include comments in zone configuration, or for particular purposes (like some antispam systems). The name can be either an already existing record (A, NS, etc...), the zone itself, or a new one.<br >
+<strong>The name is unqualified</strong>, i.e. what you want to have before %s, like www for www.%s <strong>except for the name of the domain itself</strong> which is qualified, i.e. %s.<br >
 If you want to add a TXT record <strong>for the zone itself</strong>, use fully qualified zone name with a <strong>trailing dot</strong> at the end as name.
  ";
 $l['str_primary_txt_record_title'] = "Text (TXT)  records";
@@ -684,5 +684,18 @@ $l['str_bad_serverimport_name'] = "Bad server name for import.  Use server name,
 $l['str_no_serverimport'] = "Import from server is not possible for secondary  zones.";
 $l['str_use_server_for_import_x'] = "Import zone from following authoritative server  (transfer has to be allowed for %s). For primary only.";
 $l['str_primary_x_name_ends_with_dot'] = "PTR name (%s) ends with dot. We allow this, but you have to be very careful about what you wish for.";
+$l['str_not_migrated'] = 'You have not migrated yet.';
 
+$l['str_index_migrate'] = 'Data migration';
+$l['str_migrate_button'] = 'Migrate';
+$l['str_migrate_already_done'] = 'Already migrated.';
+$l['str_migrate_me'] = 'To migrate your data from old system, click button below.<br>All your zones and records will be imported and (within few minutes) generated on new DNS servers. <br>All changes in old system after May XX, 2010 <b>will not</b> be reflected here.<p>If you do not wish to use FreeDNS::42 anymore, you can either delete your account or simply do nothing -- non-migrated accounts will be removed in August 2010.<p>By the way, verify your user settings, especially email address.';
+$l['str_migrate_content_x'] = '<dl><dt>Data migration</dt><dd>To migrate your data from old system <a href="migrate.php%s">enter here</a>.</dd></dl>';
+$l['str_migrate_success'] = 'All your zones and records have been migrated. Configuration files for name servers will be create within 15 minutes. Few minutes after you get a mail new DNS servers will start serving your zones.';
+$l['str_you_are_logged_in_as_x'] = 'You are logged in as %s.';
+$l['str_waiting_to_confirm_x'] = 'address %s awaits confirmation.';
+$l['str_primary_x_parameter_x_has_to_be_int'] = 'parameter %s (%s) must be integer; ';
+$l['str_user_count'] = 'Users';
+$l['str_user_count_prod'] = '...with zones';
+$l['str_create_migrated'] = 'If you had an account at FreeDNS::SGH, DO NOT create new user. Simply login with your usual login and password.';
 ?>

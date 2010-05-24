@@ -2,7 +2,7 @@
 $content = '
 		<div class="boxheader">XName Software</div>
 		<div class="boxcontent">
-		Oprogramowanie XName zosta³o poprawnie(?) zainstalowane.<br />
+		Oprogramowanie XName zosta³o poprawnie(?) zainstalowane.<br >
 		Musisz teraz zrobiæ nastêpuj±ce rzeczy:
 		<ul>
 		<li> skopiuj libs/config.default jako libs/config.php</li>

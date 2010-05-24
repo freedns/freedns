@@ -2,7 +2,7 @@
 $content = '
 		<div class="boxheader">XName Software</div>
 		<div class="boxcontent">
-		You have successfully (?) installed XName software.<br />
+		You have successfully (?) installed XName software.<br >
 		Be carefull to following points:
 		<ul>
 		<li> copy libs/config.default into libs/config.php</li>

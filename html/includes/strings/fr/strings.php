@@ -168,7 +168,7 @@ $l['str_must_log_before_modifying_zone'] = "vous devez vous connecter avant de
 $l['str_password_recovery_title'] = "Récupération de mot de passe";
 $l['str_password_recovery'] = "récupération de mot de passe";
 $l['str_lost_pwd_fill_in_fields_to_recover_password'] = "Vous avez perdu votre 
-	mot de passe ?<br /> Remplissez les champs suivants, et un mél vous
+	mot de passe ?<br > Remplissez les champs suivants, et un mél vous
 	sera envoyé contenant une adresse URL à visiter.";
 $l['str_or_one_of_your_zones'] = "<b>ou</b> le nom de l'une de vos zones";
 $l['str_recover_password_button'] = "Récupérer mon mot de passe";
@@ -177,11 +177,11 @@ $l['str_you_did_not_specify_zonetype'] = "vous n'avez pas précisé le type de la
 $l['str_email_not_sent'] = "votre compte ne semble pas avoir d'adresse mél valide.
 	Le mail de récupération n'a pas pu être envoyé.";
 $l['str_recovery_mail_sent'] = "Le mél de récupération a été envoyé avec succès
-	à votre adresse mél.<br />
+	à votre adresse mél.<br >
 	Il contient une adresse URL pointant vers une page qui va vous révéler
-	votre mot de passe.<p />
+	votre mot de passe.<p >
 	<b>ATTENTION: utilisez cette adresse le plus vite possible, car elle
-	vous est envoyée en clair</b><br />
+	vous est envoyée en clair</b><br >
 	Pour des raisons de sécurité, cette adresse URL ne peut être utilisée
 	qu'une seule fois.";
 $l['str_errors_occured_during_recovery_mail_sending'] = "Une ou plusieurs erreurs
@@ -329,7 +329,7 @@ $l['str_primary_reverse_sub_zones_title'] = "Sous Zones";
 $l['str_primary_reverse_sub_zones_delegation_x'] = "Vous pouvez définir des 
 	sous-zones, déléguées (ou non) à d'autres utilisateurs de %s.";
 $l['str_primary_reverse_sub_zones_delegation_expl_x_x'] = "Ceci est utile lorsque 
-	vous avez une zone inverse divisée entre différents administrateurs.<br />
+	vous avez une zone inverse divisée entre différents administrateurs.<br >
     Par exemple, si vous voulez avoir les adresses IP de 1 à 10 sous %s
 	déléguées à l'utilisateur \"dupont\" de %s, l'utilisateur
 
@@ -349,7 +349,7 @@ $l['str_primary_a_record_what_you_want_before_x_x_x'] = "Les enregistrements A s
 	c'est à dire %s.";
 $l['str_primary_a_record_expl'] = "Si vous souhaitez ajouter un enregistrement A <b>pour la 
         zone elle-même</b>, utilisez comme nom le nom complet de la zone avec un <b>point final</b>
-        à la fin.<br />
+        à la fin.<br >
         Si vous souhaitez faire du <b>Round Robin</b> sur des enregistrements A, entrez différents
         enregistrements avec le même nom mais des adresses IP différentes.";
 $l['str_primary_a_record_modify_ptr_x'] = "Modifier les enregistrements PTR associés lorsque la zone
@@ -363,7 +363,7 @@ $l['str_primary_ipv6_record_expl_before_x_x_x'] = "Les enregistrements AAAA sont
 	complet, c'est à dire %s.";
 $l['str_primary_ipv6_record_expl_zone_and_round_robin'] = "Si vous souhaitez ajouter 
 	un enregistrement AAAA <b>pour la zone elle-même</b>, utilisez comme nom 
-	le nom complet de la zone avec un <b>point final</b> à la fin.<br />
+	le nom complet de la zone avec un <b>point final</b> à la fin.<br >
 	Si vous souhaitez faire du <b>Round Robin</b> sur des enregistrements AAAA, entrez différents
 	enregistrements avec le même nom mais des adresses IP différentes.";
 $l['str_primary_ipv6_record_modify_reverse_x'] = "Modifier les enregistrements PTR associés lorsque la zone
@@ -375,14 +375,14 @@ $l['str_primary_cname_expl'] = "Les enregistrements CNAME sont des définitions
 	Par exemple, si il y a déjà un enregistrement A qui pointe sur l'adresse 
 	IP 10.1.1.1, chaque nouvel enregistrement pointant sur cette même adresse 
 	devrait être un CNAME pointant sur le nom utilisé dane l'enregistrement A.
-	<br />
+	<br >
 	C'est très utile si vous voulez avoir plusieurs noms pour la même adresse 
-	IP.<br />
+	IP.<br >
 	Si l'enregistrement vers lequel vous pointez est <b>hors de la zone 
 	actuelle</b>, vous devez utiliser <b>le nom complet</b>, avec un point 
-	final.<br /> Si l'enregistrement vers lequel vous pointez est <b>à 
+	final.<br > Si l'enregistrement vers lequel vous pointez est <b>à 
 	l'intérieur de la zone actuelle</b>, n'ajoutez <b>pas</b> le nom de 
-	domaine.<br /> Pour récupérer tous les noms d'une zone, vous pouvez 
+	domaine.<br > Pour récupérer tous les noms d'une zone, vous pouvez 
 	utiliser un <b>CNAME jocker (*)</b>. Attention, soyez conscient de ce 
 	que vous faites avant de l'utiliser.";
 $l['str_primary_cname_alias'] = "Alias";
@@ -392,12 +392,12 @@ $l['str_primary_sub_zones_title'] = "Sous-zones";
 $l['str_primary_sub_zones_expl_on_x_x'] = "Vous pouvez définir des sous-zones, 
 	déléguées à n'importe quel serveur de nom de votre choix. <b>Assurez-vous 
 	que ces zones sont définies sur les serveurs de noms que vous 
-	choisissez.</b><br />
+	choisissez.</b><br >
 	Par exemple, si vous voulez avoir une nouvelle zone mazone.mondomaine.com, 
 	vous pouvez créer une nouvelle zone sur %s \"mazone.mondomaine.com\", et 
-	la configurer selon vos désirs.<br />
+	la configurer selon vos désirs.<br >
 	Votre nouvelle zone est <b>nécéssairement</b> sous %s, elle ne peut pas 
-	avoir un point '.' à l'intérieur.<br />
+	avoir un point '.' à l'intérieur.<br >
 	Les serveurs de noms doivent être des <b>noms complets</b>, avec un 
 	<b>point final</b> à la fin.";
 $l['str_primary_sub_zones_zone'] = "Zone";
@@ -406,9 +406,9 @@ $l['str_primary_allow_transfer_title'] = "Ordinateurs autorisés à faire des
 $l['str_primary_allow_transfer_expl'] = "Afin de protéger votre zone, vous pouvez 
 	préciser quelles sont les adresses qui seront autorisées à faire un 
 	transfert du contenu de votre zone, leur permettant ainsi d'accéder à 
-	l'intégralité du contenu de votre zone.<br />
+	l'intégralité du contenu de votre zone.<br >
 	Habituellement les adresses autorisées sont celles des serveurs de noms 
-	secondaires, et parfois celle de l'ordinateur de l'administrateur.<br />
+	secondaires, et parfois celle de l'ordinateur de l'administrateur.<br >
 	Vous pouvez indiquer plusieurs adresses IP, séparées par des points 
 	virgules (';').";
 $l['str_primary_allow_transfer_ip_allowed'] = "Adresses IP autorisées à faire des 
@@ -426,13 +426,13 @@ $l['str_primary_zone_error_not_available_try_again'] = "Votre zone ne sera pas
 	disponible lors du prochain rechargement. Merci de revenir ultérieurement 
 	pour re-modifier votre zone.";
 $l['str_primary_zone_error_warning'] = "Une erreur est survenue lors de la 
-	vérification de votre configuration.<br />
+	vérification de votre configuration.<br >
 	Cette zone ne sera <b>pas</b> chargée tant que les erreurs ne seront pas 
-	corrigées.<p />
+	corrigées.<p >
 	Pour votre information, voici le résultat de notre vérification";
 $l['str_primary_error_if_engine_error_x_contact_admin_x'] = "Vous pouvez revenir en 
 	arrière sur la page de modifications pour corriger les erreurs (cliquez 
-	simplement sur la zone dans la boîte de gauche.<p />
+	simplement sur la zone dans la boîte de gauche.<p >
 	Si vous pensez qu'il s'agit d'un problème provenant du moteur, merci de
 	%scontacter l'administrateur%s.";
 $l['str_primary_trouble_occured_when_checking'] = "Pour votre information, le problème est survenu
@@ -627,9 +627,9 @@ $l['str_you_have_read_write_access'] = "Vous avez un accès en lecture/écriture. 
 $l['str_delete_your_account'] = "Supprimer votre compte";
 $l['str_logout'] = "Déconnexion";
 $l['str_log_legend'] = "Légende Evènements";
-$l['str_log_information'] = "Information (I)";
-$l['str_log_warning'] = "Attention (W)";
-$l['str_log_unknown'] = "Inconnu (U)";
+$l['str_log_information'] = "Information";
+$l['str_log_warning'] = "Attention";
+$l['str_log_unknown'] = "Inconnu";
 $l['str_all_your_zones'] = "Toutes vos zones";
 $l['str_email_password_recovery_for_account_on_x'] = "Vous avez demandé une récupération de mot de passe pour votre compte sur %s.";
 $l['str_email_go_on_followin_page_to_recover'] = "Allez sur la page temporaire suivante, il vous sera donné.
@@ -641,7 +641,7 @@ $l['str_contact_for_bugs_contact_us'] = "Pour des problèmes concernant le logici
 $l['str_contribute_title'] = "Contribuer";
 $l['str_contribute_content'] = "	Si vous aimez ce logiciel, vous pouvez
 	<a href=\"http://www.xname.org/contribute.php\" class=\"linkcolor\">contribuer !</a> et/ou envoyer vos correctifs
-	(<a href=\"mailto:bugs@xname.org\" class=\"linkcolor\">bugs@xname.org</a>, en anglais ou en français).<br />
+	(<a href=\"mailto:bugs@xname.org\" class=\"linkcolor\">bugs@xname.org</a>, en anglais ou en français).
 	Le logiciel XName est sous <a href=\"http://www.gnu.org/copyleft/gpl.html\" 
 class=\"linkcolor\">Licence GPL</a>.";
 $l['str_languages_title'] = "Langages disponibles";
@@ -735,8 +735,8 @@ $l['str_primary_deleting_txt_x'] = "Suppression de l'enregistrement TXT %s";
 $l['str_primary_txt_record_expl_x_x_x'] = "Les enregistrements TXT sont des associations entre un nom et du texte simple.
 Ils penvent être utilisés pour inclure des commentaires dans la configuration des zones, ou pour des besoins particuliers (comme certains systèmes antispam).
 
-Le nom peut être soit un enregistrement déjà existant (A, NS, etc...), soit la zone elle-même, soit un nouveau.<br />
-<strong>Le nom n'est pas complet</strong>, c'est à dire ce que vous voulez avoir avant %s, comme www pour www.%s <strong>exception faite de la zone elle-même</strong> qui doit être complète, soit  %s.<br />
+Le nom peut être soit un enregistrement déjà existant (A, NS, etc...), soit la zone elle-même, soit un nouveau.<br >
+<strong>Le nom n'est pas complet</strong>, c'est à dire ce que vous voulez avoir avant %s, comme www pour www.%s <strong>exception faite de la zone elle-même</strong> qui doit être complète, soit  %s.<br >
 Si vous souhaitez ajouter un enregistrement TXT <strong>pour la zone elle-même</strong>, utilisez comme nom le nom complet de la zone, avec un <strong>point final</strong> au bout.
 ";
 $l['str_primary_txt_record_title'] = "Enregistrements textes (TXT)";
@@ -750,4 +750,17 @@ $l['str_bad_serverimport_name'] = "Mauvais nom de serveur pour l'import. Utilise
 $l['str_no_serverimport'] = "L'import depuis un serveur n'est pas possible pour les zones secondaires.";
 $l['str_use_server_for_import_x'] = "Import de la zone depuis le serveur autoritaire suivant (le transfert de zone doit être autorisé depuis %s). Pour zone primaire uniquement.";
 
+$l['str_not_migrated'] = 'You have not migrated yet.';
+$l['str_index_migrate'] = 'Data migration';
+$l['str_migrate_button'] = 'Migrate';
+$l['str_migrate_already_done'] = 'Already migrated.';
+$l['str_migrate_me'] = 'To migrate your data from old system, click button below.<br>All your zones and records will be imported and (within few minutes) generated on new DNS servers. <br>All changes in old system after May XX, 2010 <b>will not</b> be reflected here.<p>If you do not wish to use FreeDNS::42 anymore, you can either delete your account or simply do nothing -- non-migrated accounts will be removed in August 2010.<p>By the way, verify your user settings, especially email address.';
+$l['str_migrate_content_x'] = '<dl><dt>Data migration</dt><dd>To migrate your data from old system <a href="migrate.php%s">enter here</a>.</dd></dl>';
+$l['str_migrate_success'] = 'All your zones and records have been migrated. Configuration files for name servers will be create within 15 minutes. Few minutes after you get a mail new DNS servers will start serving your zones.';
+$l['str_you_are_logged_in_as_x'] = 'You are logged in as %s.';
+$l['str_waiting_to_confirm_x'] = 'address %s awaits confirmation.';
+$l['str_primary_x_parameter_x_has_to_be_int'] = 'parameter %s (%s) must be integer; ';
+$l['str_user_count'] = 'Users';
+$l['str_user_count_prod'] = '...with zones';
+$l['str_create_migrated'] = 'If you had an account at FreeDNS::SGH, DO NOT create new user. Simply login with your usual login and password.';
 ?>

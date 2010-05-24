@@ -1,15 +1,114 @@
 <?
 $content = '
-   <dl>
+<dl>
+   <dt>Nowy start [2010-05-23]</dt>
+   <dd>Ruszamy! Logujecie siê <strong>korzystaj±c z loginu i has³a ze starego systemu</strong>, klikacie przycisk "Migruj", czekacie, a¿ zacznie dzia³aæ, zmieniacie u rejestratorów domen wpisy dotycz±ce serwerów nazw, tj. na: fns1.42.pl&nbsp;(79.98.145.34) oraz fns2.42.pl&nbsp;(195.80.237.194), czekacie, a¿ siê zmiany rozpropaguj± i&nbsp;wtedy mo¿ecie skasowaæ strefy i&nbsp;konto ze starego systemu.</dd><dd>Powodzenia!</dd>
+
    <dt>Polskie znaki w nazwach domen [2009-12-31]</dt>
    <dd>Polskie znaki w nazwach domen uzyskuje siê przez wpisanie w konfiguracji nazwy IDN,
    nie bezpo¶rednio nazwy z polskimi literami. Przyk³adowo
-   zamiast <code>szko³ag³ównahandlowa.pl</code> trzeba za³o¿yæ 
-   domenê <nobr><code>xn--szkoagwnahandlowa-lyb21mca.pl</code></nobr>.
+   zamiast <code>¿ó³ty¿ó³w.pl</code> trzeba za³o¿yæ 
+   domenê <nobr><code>xn--tyw-fnac58bd27be.pl</code></nobr>.
    Przegl±darki automatycznie zamieniaj± nazwê z polskimi literami wpisan± w pasku adresu
-   na postaæ IDN rozumian± przez DNS, wiêc dla u¿ytkowników jest to niezauwa¿alne, tylko
-   administrator DNS widzi, jak jest naprawdê. :)<p>
+   na postaæ IDN rozumian± przez DNS, wiêc dla u¿ytkowników jest to (podobno) niezauwa¿alne,
+   tylko administrator DNS widzi, jak jest naprawdê. :)<p>
    T³umacz IDN jest m.in. na stronie <a href="http://www.dns.pl/cgi-bin/idntranslator.pl">NASK</a>.
+   </dd>
+
+   <dt>Eksperyment: rekord WWW [2007-05-27]</dt>
+   <dd>Doda³em eksperymentalnie nowy rekord: WWW. To nie jest rekord DNS, tylko
+		 skrót my¶lowy na ramkê lub przekierowanie WWW. Dzia³a to w nastêpuj±cy
+		 sposób: dodajemy rekord WWW <tt>test</tt> w domenie <tt>nasza.pl</tt> z zawarto¶ci±
+		 <tt><nobr>http://gdzies.serwer.z.naszym/~username/i/plikami/</nobr></tt>. Je¿eli zaznaczymy
+		 "przekierowanie", to po wej¶ciu na <tt><nobr>http://test.nasza.pl</nobr></tt> zostaniemy przekierowani
+		 na stronê jw., a je¿eli "ramka", to zobaczymy od razu nasz± stronê (ukryt±
+		 w ramce). Oczywi¶cie trzeba chwilê odczekaæ, bo serwer dodaje po cichu
+		 nowy rekord A wskazuj±cy na adres serwera WWW, który to obs³uguje. :)
+   </dd>
+	<dd>Bardzo proszê o komentarze i zg³aszanie ewentualnych problemów.</dd>
+
+	<dt>Dynamiczny DNS</dt>
+	<dd>
+        Do dynamicznego aktualizowania rekordów u¿ywany jest XML RPC.
+        Przygotowa³em <a href="freedns-dyndns.py">skrypt w Pythonie</a>,
+        który w prosty sposób (<tt><nobr>freedns-dyndns.py --help</nobr></tt> lub zajrzyj do
+        ¼ród³a) pozwoli Ci na zmianê Twojego IP. Po zmianie IP wystarczy uruchomiæ
+        <tt><nobr>freedns-dyndns.py --newaddress <i>nowy.adres.ip</i></nobr></tt> i ju¿!<br>
+
+        <p style="font-size:80%; margin-left:40px; margin-right:40px;">nale¿y poprawiæ
+        domy¶lne warto¶ci w ¼ródle skryptu, ¿eby nie
+        musieæ podawaæ nazwy hosta, u¿ytkownika i has³a w linii komend;<br>
+        stare IP mo¿na podaæ jako \'*\', nie trzeba go mieæ zapisanego;</small></p>
+
+        Innym sposobem jest skorzystanie z jakiegokolwiek serwisu oferuj±cego
+        us³ugê dynamicznego DNS (np. <a href="http://www.dyndns.org">DynDNS</a>)
+        i dodanie tutaj rekordu CNAME host.Twoja.domena wskazuj±cego na nazwê
+        w zewnêtrznym serwisie.
+	</dd>
+	<dt>Idea</dt>
+	<dd>
+	Darmowy serwis utrzymywania DNS przeznaczony jest dla osób, które nie
+	chc± traciæ czasu ani pieniêdzy u providerów (którzy w dodatku
+	czasem nie s± zbyt ¿wawi, je¶li chodzi o zmiany w DNS).</dd>
+	<dd>
+	Oferujemy Ci podstawowy <b>oraz</b> zapasowy serwer nazw, automatyczne aktualizacje
+  co kwadrans, rekordy SRV, TXT i obs³ugê IPv6 (ustaw sobie w opcjach u¿ytkownika),
+  system przekierowañ/ramek (pseudo rekord WWW).
+	<br >
+	Wszystkie strefy obs³ugiwane jako podstawowe lub zapasowe na
+	g³ównym serwerze &mdash; fns1.42.pl (79.98.145.34) &mdash; s± automatycznie
+	replikowane na nasz drugi serwer, fns2.42.pl (195.80.237.194). 
+  </dd>
+
+	<dd>Je¿eli rejestruj±cy domenê (np. NASK) wymaga podania danych osobowych
+   i/lub emaila administratora domeny, to podawajcie wasze w³asne. To wy bêdziecie
+   zarz±dzaæ domen±, nie ja. Nie wpisujcie mnie jako administratora
+   waszych domen.</dd>
+	<dd>
+	Wszystkie konfiguracje musz± zostaæ przeprowadzone przy u¿yciu
+	tego interfejsu WWW.</dd>
+	<dt>Skontaktuj siê ze mn±</dt>
+	<dd>
+	Je¶li masz jakie¶ pytania, napisz do mnie email na adres
+	<a href="mailto:freedns na 42 kropka pl" class="linkcolor">
+	freedns na 42 pl</a>. Czekaj cierpliwie &mdash; to darmowy serwis i na
+	pytania odpowiadam w wolnym czasie.
+	</dd>
+   </dl>
+';
+$oldcontent = '
+   <dt>Rekordy wildcard (*) [2008-09-12]</dt>
+   <dd>Zamiast dodawaæ <code>* IN A 123.45.67.89</code>, skorzystaj z wieloznacznego
+   rekordu CNAME:<p>
+   <code>* IN CNAME rekord<br>rekord IN A 123.45.67.89</code>
+   </dd>
+
+   <dt>Komunikat [2010-04-30]</dt>
+   <dd>
+   SGH zdecydowa³a siê wy³±czyæ FreeDNS i nie wspó³pracowaæ ze mn± w zakresie przeniesienia
+   u¿ytkowników na nowy serwis. Wkrótce wiêcej informacji o krokach potrzebnych do
+   przeniesienia siê tutaj.
+   </dd>
+   <dt>Komunikat [2010-04-14]</dt>
+   <dd>
+Uprzejmie informujê, ¿e z powodów ode mnie niezale¿nych (patrz
+<a href="http://42.pl/freedns.html">42.pl/freedns.html</a>)
+nie bêdê móg³ siê dalej opiekowaæ FreeDNS::SGH.
+</dd>
+<dd>
+W zamian utworzy³em FreeDNS::42, nied³ugo serdecznie zapraszam
+do korzystania z tej wersji.
+<!-- Wszystkie wasze dane zostan± przeniesione.<br>
+Mo¿ecie zgadywaæ, który serwis bêdzie dalej rozwijany i ulepszany. -->
+   </dd>
+   <dt>Komunikat [2010-04-12]</dt>
+   <dd>
+Uprzejmie informujemy, ¿e od 8 kwietnia 2010 r. serwis FreeDNS SGH
+znajduje
+siê pod wy³±czn± opiek± administratorów Centrum Informatycznego SGH. O
+decyzjach W³adz Uczelni zwi±zanych z dalszym funkcjonowaniem serwisu
+FreeDNS, poinformujemy w terminie pó¼niejszym.<br><br>
+Centrum Informatyczne SGH
    </dd>
    <dt>Zmienione delegowanie podstref stref odwrotnych [2008-11-28]</dt>
    <dd>Dla stref odwrotnych IPv6, jako ¿e zazwyczaj dostaje siê bardzo du¿y
@@ -21,119 +120,7 @@ $content = '
        dla nich normalne delegacje.
    </dd>
 	<dd>Proszê o komentarze i zg³aszanie ewentualnych problemów.</dd>
-   <dt>Rekordy wildcard (*) [2008-09-12]</dt>
-   <dd>Zamiast dodawaæ <code>* IN A 123.45.67.89</code>, skorzystaj z wieloznacznego
-   rekordu CNAME:<p>
-   <code>* IN CNAME rekord<br>rekord IN A 123.45.67.89</code>
-   </dd>
-   <dt>Eksperyment: rekord WWW [2007-05-27]</dt>
-   <dd>Doda³em eksperymentalnie nowy rekord: WWW. To nie jest rekord DNS, tylko
-		 skrót my¶lowy na ramkê lub przekierowanie WWW. Dzia³a to w nastêpuj±cy
-		 sposób: dodajemy rekord WWW "test". w domenie "nasza.pl" z zawarto¶ci±
-		 "http://gdzies.serwer.z.naszym/~username/i/plikami/". Je¿eli zaznaczymy
-		 "przekierowanie", to po wej¶ciu na "test.nasza.pl" zostaniemy przekierowani
-		 na stronê jw., a je¿eli "ramka", to zobaczymy od razu nasz± stronê (ukryt±
-		 w ramce). Oczywi¶cie trzeba chwilê odczekaæ, bo serwer dodaje po cichu
-		 nowy rekord A wskazuj±cy na adres serwera WWW, który to obs³uguje. :)
-   </dd>
-	<dd>Bardzo proszê o komentarze i zg³aszanie ewentualnych problemów.
-	</dd>
-	<dt>Rekordy SRV [2006-10-20]</dt>
-	<dd>
-        Po aktualizacji dosz³a jedna opcja w ustawieniach u¿ytkownika: "rekordy SRV".
-        Nale¿y j± sobie w³±czyæ, je¶li chcecie zmieniaæ rekordy SRV. 
-   </dd>
-	<dt>Rekordy TXT [2005-07-25]</dt>
-	<dd>
-        Po aktualizacji dosz³a jedna opcja w ustawieniach u¿ytkownika: "rekordy TXT".
-        Nale¿y j± sobie w³±czyæ, je¶li chcecie zmieniaæ rekordy TXT. Dodatkowo mo¿na
-	teraz robiæ rekordy TXT nie tylko na domenê g³ówn±.
-        </dd>
-	<dt>Automatyczne aktualizacje [2005-02-28]</dt>
-	<dd>
-	Aktualizacja wpisów do DNS odbywa siê co kwadrans o :01, :16, :31 i :46. <!-- Proszê
-	wywo³ywaæ skrypt do dynamicznej aktualizacji danych nie pó¼niej ni¿ o
-	:00 i :30, bo mo¿e siê zdarzyæ, ¿e jeszcze nie wygeneruje, a ju¿ zapisze,
-	¿e wygenerowa³. :-) -->
-        </dd>
-	<dt>Nazwa z kropk± [2005-01-22]</dt>
-	<dd>
-	Ulegaj±c wielu pro¶bom u¿ytkowników umo¿liwi³em tworzenie wpisów IN A
-	zawieraj±cych jedn± kropkê.
-   </dd>
-	<!-- <dt>Admin DNS [2004-01-20]</dt>
-	<dd>
-	Je¿eli rejestruj±cy domenê (np. NASK) wymaga podania danych osobowych
-   i/lub emaila administratora domeny, to podawajcie wasze. To wy bêdziecie
-   zarz±dzaæ domen±, nie ja. Nie wpisujcie mnie jako administratora
-   waszych domen.
-   </dd> -->
-	<dt>Dynamiczny DNS [2003-12-12]</dt>
-	<dd>
-	Kilka s³ów wyja¶nienia: mo¿liwo¶æ aktualizacji IP przez skrypt (poni¿ej)
-	to nie jest prawdziwy dynamiczny DNS &mdash; ten system od¶wie¿a
-	konfiguracjê co kwadrans. Je¶li Twoje IP zmienia siê czê¶ciej, to nie
-	jest serwis dla Ciebie (chyba ¿e u¿yjesz CNAME na adres w "prawdziwym" DynDNS).
-   </dd>
-	<dt>CNAME na domenê [2003-12-11]</dt>
-	<dd>
-	Nie da siê ustawiæ CNAME na domenê. Proszê nie pytaæ o tak± mo¿liwo¶æ.<br>
-	"cokolwiek IN CNAME" &mdash; tak, "@ IN CNAME" &mdash; nie.<br>
-	To nie jest mój wymys³, RFC 1034 zabrania rekordów, które maj± co¶ oprócz 
-	CNAME (a tak jest w przypadku rekordu domeny, który przecie¿ musi mieæ SOA i NS).
-   </dd>
-	<dt>Dynamiczny DNS</dt>
-	<dd>
-        Ju¿ dzia³a dynamiczne aktualizowanie rekordów A! W tym celu u¿ywany
-        jest XML RPC. Przygotowa³em <a href="freedns-dyndns.py">skrypt w Pythonie</a>,
-        który w prosty sposób (<tt>freedns-dyndns.py --help</tt> lub zajrzyj do
-        ¼ród³a) pozwoli Ci na zmianê Twojego IP. Po zmianie IP wystarczy uruchomiæ
-        <tt>freedns-dyndns.py --newaddress <i>no.wy.ip</i></tt> i ju¿! (¯eby nie
-        musieæ podawaæ nazwy hosta, u¿ytkownika i has³a w linii komend, 
-        trzeba poprawiæ domy¶lne warto¶ci w ¼ródle; stare IP mo¿na podaæ jako \'*\',
-        nie trzeba bêdzie go nigdzie zapisywaæ.)<br>
-        Innym sposobem jest skorzystanie z jakiegokolwiek serwisu oferuj±cego
-        us³ugê dynamicznego DNS (np. <a href="http://www.dyndns.org">DynDNS</a>)
-        i dodanie tutaj rekordu CNAME host.Twoja.domena wskazuj±cego na nazwê
-        w zewnêtrznym serwisie.
-	</dd>
-	<dt>Dwa serwery DNS</dt>
-	<dd>
-	Zrezygnowa³em z obowi±zku rejestrowania obu serwerów DNS,
-	teraz obowi±zkowy jest tylko fns1.sgh.waw.pl. Oczywi¶cie
-	dalej mo¿na wpisywaæ fns2.sgh.waw.pl (193.111.27.194). W dodatku
-	na razie fns2 bêdzie posiada³ dok³adn± kopiê fns1, a tak¿e bêdzie
-	sam próbowa³ ¶ci±gaæ zawarto¶æ stref, dla których jeste¶my
-	zapasowym serwerem DNS.
-	</dd>
-	<dt>Idea</dt>
-	<dd>
-	Darmowy serwis utrzymywania DNS przeznaczony jest dla osób, które nie
-	chc± traciæ czasu ani pieniêdzy u providerów (którzy w dodatku
-	czasem nie s± zbyt ¿wawi, je¶li chodzi o zmiany w DNS).</dd>
-	<dd>
-	Oferujemy Ci podstawowy <b>oraz</b> zapasowy serwer nazw.
-	<br />
-	Wszystkie strefy obs³ugiwane jako podstawowe lub zapasowe na
-	g³ównym serwerze &mdash; fns1.sgh.waw.pl (194.145.96.21) &mdash; s± automatycznie
-	replikowane na nasz drugi serwer, fns2.sgh.waw.pl (193.111.27.194).</dd>
-	<dd>Je¿eli rejestruj±cy domenê (np. NASK) wymaga podania danych osobowych
-   i/lub emaila administratora domeny, to podawajcie wasze w³asne. To wy bêdziecie
-   zarz±dzaæ domen±, nie ja. Nie wpisujcie mnie jako administratora
-   waszych domen.</dd>
-	<dd>
-	Wszystkie konfiguracje musz± zostaæ przeprowadzone przy u¿yciu
-	tego interfejsu WWW.</dd>
-	<dt>Skontaktuj siê z nami</dt>
-	<dd>
-	Je¶li masz jakie¶ pytania, napisz do nas email na adres
-	<a href="mailto:freedns na sgh kropka waw kropka pl" class="linkcolor">
-	freedns na sgh waw pl</a>. Czekaj cierpliwie &mdash; to darmowy serwis i na
-	pytania odpowiadamy w wolnym czasie.
-	</dd>
-   </dl>
-';
-$oldcontent = '
+
 	<dt>Aktualizacja oprogramowania [2006-10-20]</dt>
 	<dd>
         Dzi¶ zaktualizowa³em oprogramowanie XName do najnowszej wersji. 
@@ -153,9 +140,33 @@ $oldcontent = '
    <dd>Oczywi¶cie po aktualizacji co¶ siê popsu³o: a mianowicie przesta³y
        przychodziæ listy z powiadomieniem o zmianach w strefie. Ju¿ naprawione.
    </dd>
+	<dt>Automatyczne aktualizacje [2005-02-28]</dt>
+	<dd>
+	Aktualizacja wpisów do DNS odbywa siê co kwadrans o :01, :16, :31 i :46. 
+  </dd>
+
+	<dt>Nazwa z kropk± [2005-01-22]</dt>
+	<dd>
+	Ulegaj±c wielu pro¶bom u¿ytkowników umo¿liwi³em tworzenie wpisów IN A
+	zawieraj±cych jedn± kropkê.
+   </dd>
+
+	<dt>CNAME na domenê [2003-12-11]</dt>
+	<dd>
+	Nie da siê ustawiæ CNAME na domenê. Proszê nie pytaæ o tak± mo¿liwo¶æ.<br>
+	"cokolwiek IN CNAME" &mdash; tak, "@ IN CNAME" &mdash; nie.<br>
+	To nie jest mój wymys³, RFC 1034 zabrania rekordów, które maj± co¶ oprócz 
+	CNAME (a tak jest w przypadku rekordu domeny, który przecie¿ musi mieæ SOA i NS).
+   </dd>
+
+	<dt>Rekordy SRV [2006-10-20]</dt>
+	<dd>
+        Po aktualizacji dosz³a jedna opcja w ustawieniach u¿ytkownika: "rekordy SRV".
+        Nale¿y j± sobie w³±czyæ, je¶li chcecie zmieniaæ rekordy SRV. 
+   </dd>
 	<dt>Problemy z fns2 [2006-08-08]</dt>
 	<dd>
-		Mamy problem z fns2, a administrator pojecha³ na urlop. :(<br />
+		Mamy problem z fns2, a administrator pojecha³ na urlop. :(<br >
 		Bardzo wszystkich przepraszam za k³opot.
 	</dd>
         <dt>Dynamiczne aktualizowanie rekordów [2005-08-30]</dt>
@@ -163,6 +174,12 @@ $oldcontent = '
         Dynamiczne aktualizowanie rekordów przy pomocy skryptów wykorzystuj±cych
         XML RPC chwilowo nie dzia³a. Gdy zniknie ten komunikat, to znaczy, ¿e ju¿
         dzia³a. :-)
+        </dd>
+	<dt>Rekordy TXT [2005-07-25]</dt>
+	<dd>
+        Po aktualizacji dosz³a jedna opcja w ustawieniach u¿ytkownika: "rekordy TXT".
+        Nale¿y j± sobie w³±czyæ, je¶li chcecie zmieniaæ rekordy TXT. Dodatkowo mo¿na
+	teraz robiæ rekordy TXT nie tylko na domenê g³ówn±.
         </dd>
 	<dt>Aktualizacja oprogramowania [2005-07-24]</dt>
 	<dd>
@@ -264,6 +281,20 @@ $oldcontent = '
 	procedurami wykonuj±cymi siê w trakcie logowania) kompletnie zatka³o
 	serwer. Ju¿ powinno byæ w porz±dku.
    </dd>
+	<dt>Admin DNS [2004-01-20]</dt>
+	<dd>
+	Je¿eli rejestruj±cy domenê (np. NASK) wymaga podania danych osobowych
+   i/lub emaila administratora domeny, to podawajcie wasze. To wy bêdziecie
+   zarz±dzaæ domen±, nie ja. Nie wpisujcie mnie jako administratora
+   waszych domen.
+   </dd>
+	<dt>Dynamiczny DNS [2003-12-12]</dt>
+	<dd>
+	Kilka s³ów wyja¶nienia: mo¿liwo¶æ aktualizacji IP przez skrypt (poni¿ej)
+	to nie jest prawdziwy dynamiczny DNS &mdash; ten system od¶wie¿a
+	konfiguracjê co kwadrans. Je¶li Twoje IP zmienia siê czê¶ciej, to nie
+	jest serwis dla Ciebie (chyba ¿e u¿yjesz CNAME na adres w "prawdziwym" DynDNS).
+   </dd>
 	<dt>Czê¶ciej [2003-12-05]</dt>
 	<dd>
 	Teraz strefy s± od¶wie¿ane co pó³ godziny &mdash; taki Miko³ajkowy prezent ;)
@@ -276,6 +307,17 @@ $oldcontent = '
         Dodatkowo zmieni³em interfejs w zak³adce modyfikacji &mdash; mam nadziejê,
         ¿e teraz jest czytelniej.
         </dd>
+
+	<dt>Dwa serwery DNS</dt>
+	<dd>
+	Zrezygnowa³em z obowi±zku rejestrowania obu serwerów DNS,
+	teraz obowi±zkowy jest tylko fns1.42.pl. Oczywi¶cie
+	dalej mo¿na wpisywaæ fns2.42.pl. W dodatku
+	fns2 bêdzie posiada³ dok³adn± kopiê fns1, a tak¿e bêdzie
+	sam próbowa³ ¶ci±gaæ zawarto¶æ stref, dla których jeste¶my
+	zapasowym serwerem DNS.
+	</dd>
+
 	<dt>Upgrade</dt>
 	<dd>
         Zaktualizowa³em oprogramowanie FreeDNS. Przy okazji wkrad³o siê
@@ -284,4 +326,36 @@ $oldcontent = '
         o tym, ¿e prze³adowano Twoje strefy.
         </dd>
 ';
+$content_test_old = '
+<p style="color:#ff0000;text-align:center;font-size:170%">PROSZÊ JESZCZE NIE U¯YWAÆ<br>JESZCZE NIE JEST GOTOWE<br>DAM WAM ZNAÆ</p>
+   <dl>
+<dt>Prawdopodobny start #2 [2010-05-20]</dt>
+<dd>Tym razem ju¿ wszystko mam pod rêk± i wygl±da, ¿e dzia³a. Zatem najpó¼niej w poniedzia³ek ruszamy.</dd>
+
+<dt>Wszystko dzia³a [2010-05-19]</dt>
+<dd>Wszystko dzia³a... a przynajmniej powinno. Mo¿ecie dodawaæ, kasowaæ, zmieniaæ strefy, obserwujcie, czy fns1.42.pl i fns2.42.pl odpowiadaj± poprawnie. Nie zapominajcie, ¿e to <strong>wszystko</strong> zostanie skasowane na rzecz importu ze starego serwisu.</dd>
+
+<dt>Ci±gle czekamy [2010-05-19]</dt>
+<dd>W koñcu dosta³em wjazd na fns2, biorê siê ostro za robotê, do koñca tygodnia na pewno ruszy.</dd>
+
+<dt>Ci±gle czekamy [2010-05-16]</dt>
+<dd>Ci±gle czekam na uruchomienie przez sponsora drugiego serwera dns, mam nadziejê, ¿e to ju¿ wkrótce.</dd>
+
+<dt>Prawdopodobny start [2010-05-04]</dt>
+<dd>Prawdopodobny start oko³o 15 maja, czekamy na przyj¶cie nowozakupionych serwerów, no i trzeba skonfigurowaæ i przetestowaæ.</dd>
+<dd>
+Zdecydowa³em te¿, ¿e zaimportujê wszystkich u¿ytkowników (trzeba bêdzie potwierdziæ adres email, bo jak nie, to kasacja w rozs±dnym czasie) oraz wszystkie strefy i rekordy. Kiedy dok³adnie ten import nast±pi, jeszcze nie wiem, ale og³oszê z wyprzedzeniem. W ka¿dym razie nie bêdziecie musieli (zbyt du¿o) aktualizowaæ w stosunku do starego serwisu<!--, gdy¿ ci±gle mam dostêp do drugiego serwera DNS, gdzie s± Wasze wszystkie rekordy-->.
+</dd>
+<dt>Ci±gle w wersji testowej [2010-05-03]</dt>
+<dd>
+Mo¿na zak³adaæ sobie u¿ytkowników i strefy, <del>ale ¿aden serwer DNS jeszcze tego nie obs³uguje</del>. Ponadto po zakoñczeniu testów, przed zaimportowaniem backupu z poprzedniego serwisu, wszystkie dotychczasowe, tymczasowe wpisy z bazy danych zostan± skasowane.
+</dd>
+<dd>Oczywi¶cie je¶li znajdziecie jakie¶ problemy, to proszê pisaæ. :-)</dd>
+<!-- Poprzedni fns2 (193.111.27.194) zostanie przekonfigurowany, ¿eby ¶ci±ga³
+     strefy z nowych serwerów; w ten sposób nawet je¶li kto¶ bêdzie mia³ problem
+     z przekonfigurowaniem, to bêdzie mu dzia³aæ. -->
+
+</dl>
+';
+
 ?>
