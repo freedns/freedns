@@ -222,7 +222,8 @@ if($config->usergroups){
 						// delete user
 	
 						// check if user in group
-						if($group->isMember($user->userid)){
+						$todelete = mysql_real_escape_string($todelete);
+						if($group->isMember($user->userid) && $group->isMember($todelete)){
 							// delete user
 							$logintodelete=$user->RetrieveLogin($todelete);
 							if(!$group->deleteUser($todelete)){
