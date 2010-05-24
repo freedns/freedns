@@ -55,6 +55,12 @@ class Primary extends Zone {
 	var $subnsttl;
 	var $subnsa;
 	var $subnsid;
+	var $www;
+	var $wwwa;
+	var $wwwi;
+	var $wwwr;
+	var $wwwid;
+	var $wwwttl;
 	var $delegatefromto;
 	var $delegateuser;
 	var $delegatettl;
@@ -132,7 +138,7 @@ class Primary extends Zone {
 		
 		$this->xfer = $line[6];
 		$this->user=$user;
-		if(ereg('.arpa$',$zonename) || ereg('.ip6.int',$zonename)){
+		if(ereg('.arpa$',$zonename) || ereg('.ip6.int$',$zonename)){
 			$this->reversezone=1;
 		}else{
 			$this->reversezone=0;
@@ -185,6 +191,12 @@ class Primary extends Zone {
 			$this->srvvalue = array();
 			$this->srvttl = array();
 			$this->srvid = array();
+		$this->www = array();
+		$this->wwwttl = array();
+		$this->wwwa = array();
+		$this->wwwi = array();
+		$this->wwwr = array();
+		$this->wwwid = array();
 			$this->nullarray = array();
 		}		
 		// fill in with records
@@ -202,6 +214,7 @@ class Primary extends Zone {
 			$this->RetrieveMultiRecords('AAAA',$this->aaaa,$this->aaaaip,$this->nullarray,$this->nullarray,$this->nullarray,$this->aaaaid,$this->aaaattl);
 			$this->RetrieveMultiRecords('TXT',$this->txt,$this->txtdata,$this->nullarray,$this->nullarray,$this->nullarray,$this->txtid,$this->txtttl);
 			$this->RetrieveMultiRecords('SRV',$this->srvname,$this->srvpriority,$this->srvweight,$this->srvport,$this->srvvalue,$this->srvid,$this->srvttl);
+			$this->RetrieveMultiRecords('WWW',$this->www,$this->wwwa,$this->wwwi,$this->wwwr,$this->nullarray,$this->wwwid,$this->wwwttl);
 		}
 	}
 
@@ -264,7 +277,7 @@ class Primary extends Zone {
 				<div class="boxheader">' . $l['str_primary_soa_params'] . '</div>
 				<table border="0" width="100%">
 				<tr><td colspan="2">' . $l['str_primary_refresh_interval_expl'] . '
-				</td>
+				</td></tr>
 				<tr><td align="right">' . $l['str_primary_refresh_period'] . '</td>
 				<td><input type="text" name="soarefresh" value="' .
 				$this->refresh . '"></td></tr>
@@ -306,10 +319,10 @@ class Primary extends Zone {
 				<table align="center" border="0" cellspacing="1"
 				cellpadding="2" bgcolor="#000000" width="90%">
 				<tr><td bgcolor="#DDDDDD">
-				<table border="0" width="100%"><th>' .
-				$l['str_primary_name'];
-				if($advanced) { $result .= '<th>TTL'; }
-				$result .= '<th>' . $l['str_delete'] . '
+				<table border="0" width="100%"><tr><th>' .
+				$l['str_primary_name'] . '</th>';
+				if($advanced) { $result .= '<th>TTL</th>'; }
+				$result .= '<th>' . $l['str_delete'] . '</th></tr>
 				';
 			
 			$usednsxnames = array();
@@ -329,7 +342,7 @@ class Primary extends Zone {
 					$deletecount++;
 					$result .= '<input type="checkbox" name="delete' .
 					 $deletecount .
-					'" value="ns(' . $key . '-' . $this->nsid[$key] . ')"></td>';
+					'" value="ns(' . $key . '-' . $this->nsid[$key] . ')">';
 				}else{
 					array_push($usednsxnames, $keytocompare);
 				}
@@ -366,7 +379,7 @@ class Primary extends Zone {
 					';
 				}
 				$nscounter++;
-				$result .= '</td></tr>';
+				$result .= '</tr>';
 			}
 
 			$result .= '
@@ -447,7 +460,70 @@ class Primary extends Zone {
 				</table></td></tr></table>
 				</td></tr></table>
 				';
+
+		if(!ereg('in-addr.arpa$',$this->zonename)) {
+				$result .='
+			<p>
+			<div class="boxheader">' . $l['str_primary_sub_zones_title'] . '</div>
+			<table border="0" width="100%">
+				<tr><td>
+				' . sprintf($l['str_primary_sub_zones_expl_on_x_x'],$config->sitename,
+					$this->zonename) . '
+				</td></tr>
+				<tr><td>
+        <table align="center" border="0" cellspacing="1" cellpadding="2"
+        bgcolor="#000000" width="90%">
+        <tr><td bgcolor="#DDDDDD">
+        <table border="0" width="100%">
+        <th>' . $l['str_primary_sub_zones_zone'] .'<th>NS';
+        if($advanced) { $result .= '<th>TTL'; }
+        $result .= '<th>' . $l['str_delete'] . '
+				';
+
+				$counter=0;
+				while(isset($this->subns[$counter])){
+               if (strstr($this->subns[$counter], "-")!==FALSE){
+                 $counter++; continue;
+               }
+					$deletecount++;
+					$result .= '<tr>
+							<td>' . $this->subns[$counter] . '</td>
+							<td>' . $this->subnsa[$counter] . '</td>
+							';
+					if($advanced){
+						$result .= '
+						<td>' . $this->PrintTTL($this->subnsttl[$counter]) . '</td>
+						';
+					}
+					$result .= '<td><input type="checkbox" name="delete' . $deletecount . 
+							'" value="subns(' . $this->subns[$counter] . '/' . 
+							$this->subnsid[$counter] . ')"></td></tr>
+					';
+					$counter ++;
+				}	
+			
+				$subnscounter = 0;
+				for($count=1;$count <= $nbrows;$count++){
+					$subnscounter++;
+					$result .= '
+						<tr><td><input
+						 type="text" name="subns' . $subnscounter . '"></td>
+							<td><input type="text" name="subnsa' . $subnscounter . '">
+								</td>';
+					if($advanced){
+						$result .= '
+						<td><input type="text" name="subnsttl' . $subnscounter . '" size="8" value="' . $l['str_primary_default'] . '"></td>
+						';
+					}
+				}
+
+				$result .= '
+				</table></td></tr></table>
+				</td></tr></table>
+				';
+
 				
+         }else{
 				$result .='
 				<p>
 				<div class="boxheader">' . $l['str_primary_reverse_sub_zones_title'] . '</div>
@@ -516,13 +592,12 @@ class Primary extends Zone {
 						';
 					}
 				}
+					$result .= '
+					</table></td></tr></table>
+					</td></tr></table>
+					';
 
-				$result .= '
-				</table></td></tr></table>
-				</td></tr></table>
-				';
-
-
+          }
 
 
 			}else{ // not reverse zone
@@ -890,32 +965,32 @@ class Primary extends Zone {
           $result .= '<th>' . $l['str_delete'] ;
 
 					$counter=0;
-                                        while(isset($this->srvname[$counter])){
-                                                $deletecount++;
-                                                // if advanced, print TTL fields
-                                                $result .= '<tr>
-                                                                <td>' . $this->srvname[$counter] . '</td>
-                                                                <td>' . $this->srvpriority[$counter] . '</td>
-                                                                <td>' . $this->srvweight[$counter] . '</td>
-                                                                <td>' . $this->srvport[$counter] . '</td>
-                                                                <td>' . $this->srvvalue[$counter] . '</td>';
+					while(isset($this->srvname[$counter])){
+						$deletecount++;
+						// if advanced, print TTL fields
+						$result .= '<tr>
+						<td>' . $this->srvname[$counter] . '</td>
+						<td>' . $this->srvpriority[$counter] . '</td>
+						<td>' . $this->srvweight[$counter] . '</td>
+						<td>' . $this->srvport[$counter] . '</td>
+						<td>' . $this->srvvalue[$counter] . '</td>';
 						if($advanced){
-                                                        $result .= '<td>' . $this->PrintTTL($this->srvttl[$counter]) . '</td>
-                                                        ';
-                                                }
-                                                $result .= '
-                                                                <td><input type="checkbox" name="delete' . $deletecount .
-                                                                '" value="srv(' . $this->srvname[$counter] . '-' .
-                                                                $this->srvid[$counter] . ')"></td></tr>
-                                                ';
-                                                $counter ++;
+							$result .= '<td>' . $this->PrintTTL($this->srvttl[$counter]) . '</td>
+							';
+						}
+						$result .= '
+						<td><input type="checkbox" name="delete' . $deletecount .
+						'" value="srv(' . $this->srvname[$counter] . '-' .
+						$this->srvid[$counter] . ')"></td></tr>
+						';
+						$counter ++;
 					}
 
 					$srvcounter = 0;
 					for($count=1;$count <= $nbrows;$count++){
-                                                $srvcounter++;
-                                                $result .= '
-                                                <tr><td><input type="text" name="srvname' . 
+						$srvcounter++;
+						$result .= '
+						<tr><td><input type="text" name="srvname' . 
 								$srvcounter
 								. '"></td>
 						<td><input type="text" size="3" name="srvpriority' . $srvcounter . '"></td>
@@ -923,16 +998,16 @@ class Primary extends Zone {
 						<td><input type="text" size="5" name="srvport' . $srvcounter . '"></td>
 						<td><input type="text" name="srvvalue' . $srvcounter . '"></td>';
 						if($advanced){
-                                                        $result .= '
-                                                        <td><input type="text" name="srvttl' . $srvcounter . '" size="8" value="' . $l['str_primary_default'] . '"></td>
-                                                        ';
-                                                }
-                                                $result .= '<td></td></tr>';
+							$result .= '
+							<td><input type="text" name="srvttl' . $srvcounter . '" size="8" value="' . $l['str_primary_default'] . '"></td>
+							';
+						}
+						$result .= '<td></td></tr>';
 					}
 					$result .= '
-                                        </table></td></tr></table>
-                                        </td></tr></table>
-                                        ';
+					</table></td></tr></table>
+					</td></tr></table>
+					';
 				}
 				// END SRV
 
@@ -995,6 +1070,71 @@ class Primary extends Zone {
 				</td></tr></table>
 				';
 
+				// BEGIN WWW
+				
+				$result .='
+			<p>
+			<div class="boxheader">' . $l['str_primary_www_zones_title'] . '</div>
+			<table border="0" width="100%">
+				<tr><td>
+				' . sprintf($l['str_primary_www_zones_expl_on_x_x'],$config->sitename,
+					$this->zonename) . '
+				</td></tr>
+				<tr><td>
+        <table align="center" border="0" cellspacing="1" cellpadding="2"
+        bgcolor="#000000" width="90%">
+        <tr><td bgcolor="#DDDDDD">
+        <table border="0" width="100%">
+        <th>' . $l['str_primary_www_zones_zone'] .'
+        <th>' . $l['str_primary_www_address'] . '
+        <th>' . $l['str_primary_www_zones_type'];
+        if($advanced) { $result .= '<th>TTL'; }
+        $result .= '<th>' . $l['str_delete'] . '
+				';
+
+				$counter=0;
+				while(isset($this->www[$counter])){
+					$deletecount++;
+					$result .= '<tr>
+							<td>' . $this->www[$counter] . '</td>
+							<td>' . $this->wwwa[$counter] . '</td>
+              <td>' . ($this->wwwr[$counter]=='R' ? $l['str_primary_www_redirect'] : $l['str_primary_www_frame']) . '</td>
+							';
+					if($advanced){
+						$result .= '
+						<td>' . $this->PrintTTL($this->wwwttl[$counter]) . '</td>
+						';
+					}
+					$result .= '<td><input type="checkbox" name="delete' . $deletecount . 
+							'" value="www(' . $this->www[$counter] . '-' . 
+							$this->wwwid[$counter] . ')"></td></tr>
+					';
+					$counter ++;
+				}	
+			
+				$wwwcounter = 0;
+				for($count=1;$count <= $nbrows;$count++){
+					$wwwcounter++;
+					$result .= '
+						<tr><td><input
+						 type="text" name="www' . $wwwcounter . '"></td>
+							<td><input type="text" name="wwwa' . $wwwcounter . '">
+								</td>
+							<td><nobr><label><input type="radio" name="wwwr' . $wwwcounter . '" value="R">' . $l['str_primary_www_redirect'] . '</label></nobr><nobr><label>
+							    <input type="radio" name="wwwr' . $wwwcounter . '" value="F">' .
+$l['str_primary_www_frame'] . '</label></nobr></td>';
+					if($advanced){
+						$result .= '
+						<td><input type="text" name="wwwttl' . $wwwcounter . '" size="8" value="' . $l['str_primary_default'] . '"></td>
+						';
+					}
+				}
+
+				$result .= '
+				</table></td></tr></table>
+				</td></tr></table>
+				';
+
 
 			} // end not reverse zone
 			
@@ -1038,6 +1178,7 @@ $result .= '
 			<input type="submit" value="' . $l['str_primary_generate_zone_button'] .
 			'">
 			<input type="reset" value="' . $l['str_primary_reset_form_button'] . '">
+         </div>
 			</form>
 		';
 		
@@ -1063,7 +1204,6 @@ $result .= '
 	
 list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 								$modifyptr,$modifyptripv6,$modifya)=$params;
-
 		$this->error="";
 		$result = '';
 
@@ -1100,6 +1240,11 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 			$srvport = retrieveArgs("srvport", $VARS);
 			$srvvalue = retrieveArgs("srvvalue", $VARS);
 			$srvttl = retrieveArgs("srvttl", $VARS);
+
+			$www = retrieveArgs("www", $VARS);
+			$wwwa = retrieveArgs("wwwa", $VARS);
+			$wwwr = retrieveArgs("wwwr", $VARS);
+			$wwwttl = retrieveArgs("wwwttl",$VARS);
 		}
 		$cname = retrieveArgs("cname", $VARS);
 		$cnamea = retrieveArgs("cnamea", $VARS);
@@ -1114,6 +1259,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 		if($this->reversezone){
 			$result .= $this->AddPTRRecord($this->zoneid,$ptr,$ptrname,$ptrttl,$modifya);
 			$result .= $this->AddDELEGATERecord($delegatefrom,$delegateto,$delegateuser,$delegatettl);
+			$result .= $this->AddSUBNSRecord($subns,$subnsa,$subnsttl);
 		}else{
 			$result .= $this->AddMXRecord($mx,$pref,$mxttl);
 			if($this->user->ipv6){
@@ -1122,6 +1268,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 			$result .= $this->AddARecord($this->zoneid,$a,$aname,$attl,$modifyptr);
 			$result .= $this->AddSRVRecord($srvname,$srvpriority,$srvweight,$srvport,$srvvalue,$srvttl);
 			$result .= $this->AddSUBNSRecord($subns,$subnsa,$subnsttl);
+			$result .= $this->AddWWWRecord($www,$wwwa,$wwwr,$wwwttl);
 		}
 		$result .= $this->AddCNAMERecord($cname,$cnamea,$cnamettl);
 		$result .= $this->AddTXTRecord($txt,$txtstring,$txtttl);
@@ -1499,16 +1646,27 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 				$item = $item[1];
 
 				switch($item){
+					case "www":
+						preg_match("/^(.*)-(.*)/",$newvalue,$item);
+						$valname=$item[1];
+						$valid=$item[2];
+						$query = "DELETE FROM dns_record
+						WHERE zoneid='" . $this->zoneid . "'
+						AND type='WWW' AND id='" . $valid . "'";
+						$result .= sprintf($l['str_primary_deleting_www_x'],
+						stripslashes($valname)) . "...";
+						break;
+
 					case "srv":
 						preg_match("/^(.*)-(.*)/",$newvalue,$item);
 						$valname=$item[1];
 						$valid=$item[2];
 						$query = "DELETE FROM dns_record
-                                                                WHERE zoneid='" . $this->zoneid . "'
-                                                                AND type='SRV' AND id='" . $valid . "'";
-                                                $result .= sprintf($l['str_primary_deleting_srv_x'],
-                                                stripslashes($valname)) . "...";
-                                                break;
+						WHERE zoneid='" . $this->zoneid . "'
+						AND type='SRV' AND id='" . $valid . "'";
+						$result .= sprintf($l['str_primary_deleting_srv_x'],
+						stripslashes($valname)) . "...";
+						break;
 
 					case "cname":
 						preg_match("/^(.*)-(.*)/",$newvalue,$item);
@@ -1591,9 +1749,9 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 						break;
 
 					case "mx":
-                                                preg_match("/^(.*)-(.*)/",$newvalue,$item);
-                                                $valname=$item[1];
-                                                $valid=$item[2];
+						preg_match("/^(.*)-(.*)/",$newvalue,$item);
+						$valname=$item[1];
+						$valid=$item[2];
 						// * 		IN		MX		pref		name
 						$query = "DELETE FROM dns_record 
 						WHERE zoneid='" . $this->zoneid . "'
@@ -2120,6 +2278,9 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 								) . "<br />\n";
 						$this->error = "Data error";
 					}else{
+                                                if (ereg('\.$', $value)) {
+							$result .= sprintf($l['str_primary_x_name_ends_with_dot'], stripslashes($value)) . "<br />\n";
+						}
 						if(! $this->checkPTRValue($ptrname[$i]) ){
 							$result .= sprintf($html->string_error, 
 									sprintf($l['str_primary_x_name_has_to_be_fully_qualified_x'],	
@@ -2369,7 +2530,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 				}else{
 					if($cnamea[$i] ==""){
 						$result .= sprintf($html->string_error,
-								sprintf($l['str_primary_no_record'],
+								sprintf($l['str_primary_no_record_x'],
 									stripslashes($value))
 								) . "<br />\n";
 						$this->error = 1;
@@ -2486,6 +2647,92 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 							}
 						}else{
 							$result .= sprintf($l['str_primary_warning_cname_x_exists_not_overwritten'],
+											stripslashes($value)) . "<br />\n";
+						}
+					}
+				}
+			}
+			$i++;
+		}
+		return $result;
+	}
+
+// *******************************************************
+
+//	Function AddWWWRecord($www,$wwwstring,$wwwtype,$ttl)
+	/**
+	 * Add a pseudo WWW record to the current zone
+	 *
+	 *@access private
+	 *@param string $www name of WWW record
+	 *@param string $wwwstring address pointed by this WWW record
+	 *@param int $ttl ttl value for this record
+	 *@return string text of result (Adding WWW Record... Ok)
+	 */
+	Function AddWWWRecord($www,$wwwstring,$wwwr,$ttl){
+		global $db, $html,$l,$config;
+				
+				// for each WWW, add WWW entry
+		$i = 0;
+		$result = "";
+		while(list($key,$value) = each($www)){
+			if($value != ""){	
+				if(!$this->checkWWWName($value)){
+				$result .= "VALUE: $value";
+					$result .= sprintf($html->string_error,
+							sprintf($l['str_primary_bad_www_x'],
+							stripslashes($value))
+						) . "<br />\n";
+					$this->error = $l['str_primary_data_error'];
+				}else{
+					if($wwwstring[$i] ==""){
+						$result .= sprintf($html->string_error,
+								sprintf($l['str_primary_no_record'],
+								stripslashes($value))
+							) . "<br />\n";
+						$this->error = 1;
+					}else if (!$this->checkWWWValue($wwwstring[$i])){
+						$result .= sprintf($html->string_error,
+								sprintf($l['str_primary_bad_www_value_x'],
+								stripslashes($wwwstring[$i]))
+							) . "<br />\n";
+						$this->error = 1;
+					}else{
+						// Check if record already exists
+						$query = "SELECT count(*) FROM dns_record WHERE 
+						zoneid='" . $this->zoneid . "'
+						AND val1='" . $value . "' AND type IN ('CNAME','A','WWW')";
+						$res = $db->query($query);
+						$line = $db->fetch_row($res);
+						if($line[0] == 0){
+							$result .= sprintf($l['str_primary_adding_www_x_x'],
+							($wwwr[$i]=="R"?$l['str_primary_www_redirect']:$l['str_primary_www_frame']),
+							stripslashes($value)) . "...";
+							// suppress all quotes, and add new ones
+							$newstring = mysql_escape_string($wwwstring[$i]);
+/*							$newstring = preg_replace("/\"/","",stripslashes($wwwstring[$i]));
+							$newstring = preg_replace("/'/","''",$newstring);
+							// suppress all remaining "\"
+							$newstring = preg_replace("/\\\/","",$newstring); */
+							$ttlval = $this->DNSTTL($ttl[$i]);
+							$query = "INSERT INTO dns_record (zoneid, type, val1, val2, val3, val4, ttl) 
+							VALUES ('" . $this->zoneid . "', 'WWW', '"
+							 . $value . "', '" . $newstring . "',
+                      '" . $config->webserverip . "',
+                      '" . ($wwwr[$i]=="R"?'R':'F') . "',
+                      '" . $ttlval . "')
+							";
+							$db->query($query);
+							if($db->error()){
+								$result .= sprintf($html->string_error,
+										$l['str_trouble_with_db'] 
+									 ) . '<br />';
+								$this->error = $l['str_trouble_with_db'];
+							}else{
+								$result .= $l['str_primary_ok'] . "<br />\n";	
+							}
+						}else{
+							$result .= sprintf($l['str_primary_warning_www_x_exists_not_overwritten'],
 											stripslashes($value)) . "<br />\n";
 						}
 					}
@@ -3049,6 +3296,11 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 				$this->error=$l['str_trouble_with_db'];
 				return 0;
 			}
+			$this->refresh = $soarefresh;
+			$this->retry = $soaretry;
+			$this->expire = $soaexpire;
+			$this->minimum = $soaminimum;
+			$this->defaultttl = $defaultttl;
 			return 1;
 		}else{
 			return 0;
@@ -3187,7 +3439,8 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 	 */
 	Function tempZoneFile(){
 		global $config;
-		return ("{$config->tmpdir}{$this->zonename}.{$this->zonetype}");
+		$tmpzone = ereg_replace("/","\\\\",$this->zonename);
+		return ("{$config->tmpdir}$tmpzone.{$this->zonetype}");
 	}
 
 // *******************************************************	
@@ -3215,6 +3468,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 			$this->RetrieveMultiRecords('A6',$this->a6,$this->a6ip,$this->nullarray,$this->nullarray,$this->nullarray,$this->a6id,$this->a6ttl);
 			$this->RetrieveMultiRecords('AAAA',$this->aaaa,$this->aaaaip,$this->nullarray,$this->nullarray,$this->nullarray,$this->aaaaid,$this->aaaattl);
 			$this->RetrieveMultiRecords('SRV',$this->srvname,$this->srvpriority,$this->srvweight,$this->srvport,$this->srvvalue,$this->srvid,$this->srvttl);
+			$this->RetrieveMultiRecords('WWW',$this->www,$this->wwwa,$this->wwwi,$this->wwwr,$this->nullarray,$this->wwwid,$this->wwwttl);
 		}
 		// select SOA items
 		$fd = fopen($this->tempZoneFile(),"w");
@@ -3250,6 +3504,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 
 		// retrieve & print SUBNS
 		$this->generateMultiConfig("NS",$this->subns,"","","",$this->subnsa,$this->subnsttl,$fd);
+		$this->generateMultiConfig("A",$this->www,"","","",$this->wwwi,$this->wwwttl,$fd);
 
 		fputs($fd,"\n\n");
 		fclose($fd);
@@ -3552,8 +3807,10 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 		if($string == $this->zonename.'.'){
 			$result = 1;
 		}else{
-		        if(strcmp($string,"@") && (strspn($string, "0123456789abcdefghijklmnopqrstuvwxyz-") !=
+		        if(strcmp($string,"@") && (strspn($string, ".0123456789abcdefghijklmnopqrstuvwxyz-") !=
 			        strlen($string))){
+	                	$result = 0;
+					}else if ($string[0]=='.'||$string[strlen($string)-1]=='.'||count(explode('.',$string,3))>2){
 	                	$result = 0;
 		        }else{
 		                $result = 1;
@@ -3638,11 +3895,16 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
          */
 	function checkCNAMEName($string){
 		$string = strtolower($string);
+    $numdots = 2;
+    if ($string[0] == '*' && $string[1] == '.' && $string[2] != '*') { $string=substr($string,2); $numdots--;}
+    $abc = "0123456789abcdefghijklmnopqrstuvwxyz-.";
 
 	        // only specified char without a dot as first char - * allowed 
-	        if(strcmp($string,"*") && (strspn($string, "0123456789abcdefghijklmnopqrstuvwxyz-.") !=
-		        strlen($string)) || (strpos('0'.$string,".") == 1)
+	        if(strcmp($string,"*") && (strspn($string, $abc) !=
+		        strlen($string)) || (strpos('0'.$string, ".") == 1) 
 		){
+	                $result = 0;
+	        }else if(count(explode('.',$string,3))>$numdots){
 	                $result = 0;
 	        }else{
         	        $result = 1;
@@ -3693,8 +3955,13 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 	        $string = strtolower($string);
         	// only specified char
 		// "_" only as first char
+					if (!strcmp($string, "@") || !strcmp($string, "*"))
+						return 1;
         	if((strspn($string, "0123456789abcdefghijklmnopqrstuvwxyz-._") != strlen($string))
-                	|| ((strpos($string,"_") !== FALSE) && (strpos($string,"_") != 0))
+                	|| ((strpos($string,"_") !== FALSE) && !(
+                       strpos($string,"_") == 0
+                       || $string[strpos($string,"_")-1] == '.')
+                     )
 	                ){
         	        $result = 0;
 	        }else{
@@ -3706,6 +3973,33 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 // function checkTXTValue($string)
 // not used - everything is allowed
 
+// *******************************************************	
+// function checkWWWName($string)
+        // function checkWWWName($string)
+        /**
+         * Check if WWW name is valid
+         *
+         *@param string $string name to be checked
+         *@return int 1 if valid, 0 else
+         */
+	 function checkWWWName($string){
+	        $string = strtolower($string);
+        	// only specified char
+					// "_" only as first char
+        	if(strcmp($string,"@") && strspn($string, "0123456789abcdefghijklmnopqrstuvwxyz-.")!=strlen($string))
+	        {
+        	        $result = 0;
+	        }else{
+	                $result = 1;
+	        }
+	        return $result;
+	}
+	function checkWWWValue($string) {
+		$string = strtolower($string);
+		if (ereg('^http://', $string) || ereg('^https://', $string))
+			return 1;
+		return 0;
+	}
 // *******************************************************	
 // function checkA6Name($string)
 // function checkA6Value($string)
@@ -3721,20 +4015,22 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 	 *@return int 1 if valid, 0 else
 	 */
         function checkAAAAName($string){
-                $string = strtolower($string);
-                // only specified char - dot not allowed (not RFC but dummy user prevention)
-                // except if zone name itself
-                if($string == $this->zonename.'.'){
-                        $result = 1;
-                }else{
-                        if(strcmp($string,"@") && (strspn($string, "0123456789abcdefghijklmnopqrstuvwxyz-") !=
-                                strlen($string))){
-                                $result = 0;
-                        }else{
-                                $result = 1;
-                        }
-                }
-                return $result;
+	        $string = strtolower($string);
+	        // only specified char - dot not allowed (not RFC but dummy user prevention)
+		// except if zone name itself
+		if($string == $this->zonename.'.'){
+			$result = 1;
+		}else{
+		        if(strcmp($string,"@") && (strspn($string, ".0123456789abcdefghijklmnopqrstuvwxyz-") !=
+			        strlen($string))){
+	                	$result = 0;
+					}else if ($string[0]=='.'||$string[strlen($string)-1]=='.'||count(explode('.',$string,3))>2){
+	                	$result = 0;
+		        }else{
+		                $result = 1;
+	        	}
+		}
+	        return $result;
         }
 
 // function checkAAAAValue($string)
@@ -3764,9 +4060,10 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
          */
         function checkSUBNSName($string){
 		$string = strtolower($string);
+      $allowed = "0123456789abcdefghijklmnopqrstuvwxyz-";
+      if (ereg('\.ip6\.arpa$', $this->zonename)) $allowed .= ".";
 		// only specified char
-	        if(strspn($string, "0123456789abcdefghijklmnopqrstuvwxyz-") !=
-	        strlen($string)){
+	        if(strspn($string, $allowed) != strlen($string)){
 	                $result = 0;
 	        }else{
 	                $result = 1;
