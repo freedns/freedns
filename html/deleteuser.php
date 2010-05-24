@@ -40,61 +40,58 @@ if($user->authenticated == 0){
 
 		if($config->usergroups){
 			if( $group->getGroupRights($user->userid) == 'A'){
-				$content .= '<p />' . $l['str_administrator_delete_content'] . '<p />
+				$content .= '<p>' . $l['str_administrator_delete_content'] . '</p>
 				
 				<div class="boxheader">' . $l['str_zones_to_be_deleted']  . '</div>
-				<p />' . $l['str_following_zones_will_be_deleted'] . '<br />
-				<font color="red">';
+				<p>' . $l['str_following_zones_will_be_deleted'] . '<br>
+				<span class="warning">';
 		 		$zonelist = $group->listallzones();
 				while($otherzones= array_pop($zonelist)){
 					$content .= '&nbsp;' . $otherzones[0] . ' (' . 
-						$otherzones[1] . ")<br />\n";
+						$otherzones[1] . ")<br>\n";
 				}
 				
-				$content .= '</font>
-				<p /><div class="boxheader">' . $l['str_users_to_be_deleted'] . 
+				$content .= '</span></p>
+				<div class="boxheader">' . $l['str_users_to_be_deleted'] . 
 					'</div>
-					' . sprintf($l['str_following_users_will_be_deleted_from_x'],
-					$config->sitename) . ': <p /><font
-				color="red">';
+					<p>' . sprintf($l['str_following_users_will_be_deleted_from_x'],
+					$config->sitename) . ': </p><span class="warning">';
 				$userlist = $group->RetrieveGroupUsers();
 				while($otheruser= array_pop($userlist)){
-					$content .= '&nbsp;' . $otheruser[1] . "<br />\n";
+					$content .= '&nbsp;' . $otheruser[1] . "<br>\n";
 				}
-				$content .= "</font>";
+				$content .= "</span>";
 			}else{ // end user admin
-				$content .= '<p />' . $l['str_not_administrator_deletion'];
+				$content .= '<p>' . $l['str_not_administrator_deletion'] . '</p>';
 			} // end user not admin
 		}else{ // end if usergroups
 			// if no usergroup, list zones to be deleted
 			$content .= '
 			<div class="boxheader">' . $l['str_zones_to_be_deleted'] . '</div>
-			' . $l['str_following_zones_will_be_deleted'] . '<p /><font color="red">';
+			<p>' . $l['str_following_zones_will_be_deleted'] . '<br><span class="warning">';
 		 	$zonelist = $user->listallzones();
 			while($otherzones= array_pop($zonelist)){
 				$content .= '&nbsp;' . $otherzones[0] . ' (' . 
-					$otherzones[1] . ")<br />\n";
+					$otherzones[1] . ")<br>\n";
 			}
-			$content .= "</font>";
+			$content .= "</span></p>";
 			
 		} // end no user group
 		$content .= '
-			<p /><div class="boxheader">' . $l['str_confirmation'] . '</div>
-			' . sprintf($l['str_do_you_confirm_your_deletion_from_x'],
-					$config->sitename) . ' 
-			<p />
-
-		 	<div align="center">
+			<div class="boxheader">' . $l['str_confirmation'] . '</div>
+			<p>' . sprintf($l['str_do_you_confirm_your_deletion_from_x'],
+					$config->sitename) . ' </p>
+		 	<div>
 			<form action="' .  $_SERVER["PHP_SELF"] . '" method="POST">
 			' . $hiddenfields . '
 			<input type="hidden" name="confirm" value="1">
-			<input type="submit" value="' . 
+			<input type="submit" class="submit" value="' . 
 				sprintf($l['str_yes_please_delete_myself_from_x'],
 						$config->sitename) . '">
 						</form>
 			<form action="index.php">
 				' . $hiddenfields . '
-				<input type="submit" value="' . $l['str_no_dont_delete'] .'"></form>
+				<input type="submit" class="submit" value="' . $l['str_no_dont_delete'] .'"></form>
 			</div>
 			';
 		
@@ -122,19 +119,19 @@ if($user->authenticated == 0){
 				}
 				$content .= sprintf($l['str_deleting_x_x_from_x'], 
 								$zone->zonename, $currenttype,
-								$config->sitename) . '...<br />';
+								$config->sitename) . '...<br>';
 				
 				if(!$zone->zoneDelete()){
 					$content .= $zone->error . ' ' . 
 								$l['str_errors_occured_during_deletion_plz_try_again']
-								. '<br /> ' .
+								. '<br> ' .
 				 				sprintf($l['str_if_problem_persists_x_contact_us_x'],
 								'<a href="mailto:' . 
 								$config->contactemail . '">','</a>') .
-								'<p />';
+								'<p >';
 					$localerror = 1;
 				}else{
-					$content .= $l['str_zone_successfully_deleted'] . '<p />';
+					$content .= $l['str_zone_successfully_deleted'] . '<p >';
 				} 
 			} // end while zone
 		} // end zones has to be deleted
@@ -164,13 +161,13 @@ if($user->authenticated == 0){
 						$group->deleteUser($otheruser[0]);
 						if(!$group->error){
 							$content .= sprintf($l['str_user_x_successfully_deleted'],
-							$otheruser[1]) . "<br />";
+							$otheruser[1]) . "<br>";
 						}else{
 							$localerror = 1;
 							$content .= sprintf($html->string_error, 
 										sprintf($l['str_while_deleting_user_x'],
 										$otheruser[1]) . ": " .
-										$group->error) . "<br />";
+										$group->error) . "<br>";
 						}
 					}
 				}
@@ -185,12 +182,12 @@ if($user->authenticated == 0){
 		
 			// delete current user
 			if($user->deleteuser()){
-				$content .= $l['str_user_successfully_deleted'] . "<br />";
+				$content .= $l['str_user_successfully_deleted'] . "<br>";
 			}else{
 				$localerror = 1;
 				$content .= sprintf($html->string_error,
 							$l['str_while_deleting_your_user'])
-							. "<br />";
+							. "<br>";
 			}
 			
 			// current user has been deleted => logout
@@ -198,10 +195,10 @@ if($user->authenticated == 0){
 		} // end no error
 
 		if($localerror){
-			$content .= "<p />" . 
+			$content .= "<p >" . 
 						$l['str_errors_occured_during_deletion_plz_refer_to_upper_msg'];
 		}else{
-			$content .= '<p />' . 
+			$content .= '<p >' . 
 				sprintf($l['str_you_have_been_successfully_deleted_x_go_back_x'],
 				'<a href="' . $config->mainurl . '">','</a>');
 		}

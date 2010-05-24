@@ -65,15 +65,21 @@ if($user->authenticated == 0){
 
 		
 			if(!notnull($user->error)){
-				$content =  '<div class="boxheader">' .
-							$l['str_choose_a_zone_to_delete'] . '</div>';
+				$content =  '<div id="modify"><h3 class="boxheader">' .
+							$l['str_choose_a_zone_to_delete'] . '</h3>
+        <table>
+          ';
 				while($otherzone= array_pop($allzones)){
 					$newzone = new Zone($otherzone[0],$otherzone[1],$otherzone[2]);
-					$content .= '<a href="' .  $_SERVER["PHP_SELF"] 
+					$content .= '<tr><td><a href="' .  $_SERVER["PHP_SELF"] 
 					.$link.'&amp;zonename=' . $newzone->zonename . '&amp;zonetype=' .
 					$newzone->zonetype . '" class="linkcolor">' .
-					 $newzone->zonename . '</a> (' . $newzone->zonetype . ')<br />';
+					 $newzone->zonename . '</a> (' . $newzone->zonetype . ')</tr></td>
+          ';
 				}
+        $content .= '
+        </table></div>
+        ';
 			}else{
 				$content = $user->error;
 			}
@@ -116,7 +122,7 @@ if($user->authenticated == 0){
 						<input type="hidden" name="zonetype" value="' . $zone->zonetype . 
 						'">
 						<input type="hidden" name="confirm" value="1">
-						<input type="submit" value="';
+						<input type="submit" class="submit" value="';
 						if($zone->zonetype == 'P'){
 							$tempzonetype = $l['str_primary'];
 						}else{
@@ -127,7 +133,7 @@ if($user->authenticated == 0){
 						</form>
 						<form action="index.php">
 						' . $hiddenfields . '
-						<input type="submit" value="' . $l['str_no_dont_delete']. 
+						<input type="submit" class="submit" value="' . $l['str_no_dont_delete']. 
 						'"></form>
 						</div>
 						';
@@ -142,7 +148,7 @@ if($user->authenticated == 0){
 							$tempzonetype = $l['str_secondary'];
 						}
 						$content = sprintf($l['str_deleting_x_x_x'],$zone->zonename,
-							$tempzonetype,$config->sitename) . '...<br />';
+							$tempzonetype,$config->sitename) . '...<br>';
 						$query = "DELETE FROM dns_conf";
 						if($zone->zonetype == 'P'){
 							$query .= 'primary';
@@ -210,7 +216,7 @@ if($user->authenticated == 0){
 
 							$content .= '<p>' . 
 								$l['str_errors_occured_during_deletion_plz_try_again']
-								. "<br />" . 
+								. "<br>" . 
 								sprintf($l['str_if_problem_persists_x_contact_us_x'],
 									'<a href="mailto:' . 
 										$config->contactemail . '">','</a>');
