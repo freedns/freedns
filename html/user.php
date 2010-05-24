@@ -25,7 +25,7 @@ if(file_exists("includes/left_side.php")) {
 $title = $l['str_user_preferences'];
 $localerror=0;
 // main content
-if($user->authenticated != 1){
+if($user->authenticated == 0){
 	$content = $l['str_must_log_before_editing_pref'];
 }else{
 	// print login, email, change password
@@ -43,10 +43,13 @@ if($user->authenticated != 1){
 		name="newlogin"></td></tr>
 		';
 		if(!$config->usergroups || $usergrouprights == 'A'){
-      $content .= '<tr><td colspan="2">' .
+			$emailtoconfirm = $user->retrieveEmailToConfirm();
+			if (notnull($emailtoconfirm)) {
+				$content .= '<tr><td align="right" colspan="2">' .
 				sprintf($html->string_warning,
-				$l['str_changing_email_warning']
-				) . '</td></tr>
+				sprintf($l['str_waiting_to_confirm_x'], $emailtoconfirm)
+				) . '</td></tr>';
+			}
 		  $content .=	'<tr><td class="left">' . $l['str_your_valid_email'] . ':</td><td><input type=text name="email" value="' . 
 			$user->Retrievemail() . '"></td></tr>
 			';
@@ -190,14 +193,6 @@ if($user->authenticated != 1){
 					}
 				}
 				if(!$localerror){
-					$email= addslashes($email);
-					if(!$user->changemail($email)){
-						$localerror = 1;
-						$content .= sprintf($html->string_error,
-									$user->error
-								) . '<br />';
-					}else{
-
 						// send email
 						// send mail to validate email
 
@@ -228,7 +223,6 @@ if($user->authenticated != 1){
 							}
 				
 						} // end storeIDEmail
-					} // end changemail
 				} // end no error
 			} // end mail modified
 		} // end usergroupright == A
@@ -343,7 +337,7 @@ if($user->authenticated != 1){
 			$content .= $l['str_some_errors_occured'];
 		}else{
 			$content .= $l['str_parameters_successfully_updated'];
-			if($email != $user->Retrievemail()){
+			if(notnull($email) && $email != $user->Retrievemail()){
 				$content .= '<br>' . 
 							$l['str_email_changed_warning'] . '<br>' . 
 							sprintf($l['str_if_x_is_not_the_right_one'],$email) 
