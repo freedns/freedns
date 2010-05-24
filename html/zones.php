@@ -37,7 +37,7 @@ if($user->authenticated == 0){
 	}
 
 	if(!notnull($user->error)){
-		$content ='<table border="0" width="100%">
+		$content ='<table id="listzonestable">
 		<tr><td class="boxheader">' . $l['str_zone'] . '</td>
 		<td class="boxheader">' . $l['str_name_server'] . '</td>
 		<td class="boxheader">' . $l['str_serial'] . '</td>
