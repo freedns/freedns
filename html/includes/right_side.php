@@ -1,3 +1,5 @@
+</div>
+<!-- box end for supermainbox -->
 
 <!-- box start for right column -->
 <div id="rightcolumn">
