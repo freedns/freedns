@@ -16,9 +16,9 @@
  *
  *@return int number of zones or N/A in case of error
  */
-function countSecondary(){
+function countSecondary($migrated=1){
                 global $db;
-        $query = "SELECT count(*) FROM dns_confsecondary";
+        $query = "SELECT count(*) FROM dns_zone z,dns_user u WHERE z.zonetype='S' AND z.userid=u.id AND u.migrated=$migrated";
         $res = $db->query($query);
         $line = $db->fetch_row($res);
         if($db->error()){
@@ -35,9 +35,9 @@ function countSecondary(){
  *
  *@return int number of zones or N/A in case of error
  */
-function countPrimary(){
+function countPrimary($migrated=1){
         global $db;
-        $query = "SELECT count(*) FROM dns_confprimary";
+        $query = "SELECT count(*) FROM dns_zone z,dns_user u WHERE z.zonetype='P' AND z.userid=u.id AND u.migrated=$migrated";
         $res = $db->query($query);
         $line = $db->fetch_row($res);
         if($db->error()){
@@ -53,9 +53,9 @@ function countPrimary(){
  *
  *@return int number of users or N/A in case of error
  */
-function countUsers(){
+function countUsers($migrated=1){
         global $dbauth,$config;
-        $query = sprintf("SELECT count(*) FROM %s",
+        $query = sprintf("SELECT count(*) FROM %s WHERE migrated=$migrated",
                         $config->userdbtable);
         $res = $dbauth->query($query);
         $line = $dbauth->fetch_row($res);
@@ -72,12 +72,12 @@ function countUsers(){
  *
  *@return int number of users or N/A in case of error
  */
-function countProdUsers(){
+function countProdUsers($migrated=1){
         global $dbauth,$config;
         $query = sprintf("SELECT count(*) FROM %s u, dns_zone z
-                                WHERE z.userid=u.%s group by z.userid",
+                                WHERE z.userid=u.%s AND u.migrated='%s' group by z.userid",
                         $config->userdbtable,
-                        $config->userdbfldid);
+                        $config->userdbfldid, $migrated);
         $res = $dbauth->query($query);
         $count = $dbauth->num_rows($res);
         if($dbauth->error()){
