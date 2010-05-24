@@ -50,16 +50,16 @@ if($user->authenticated == 0){
 				value="'.$zonenamenew.'">
 				</td></tr>
 				<tr><td align="right">' . $l['str_zonetype'] . ':</td>
-				<td nowrap><input type=radio name="zonetypenew" value="P"';
+				<td nowrap><label><input type=radio name="zonetypenew" value="P"';
 				if($zonetypenew=='P'){
 					$content .=' checked';
 				}
-				$content .='>' . $l['str_primary'] . '  
-				<input type=radio name="zonetypenew" value="S"';
+				$content .='>' . $l['str_primary'] . '</label>
+				<label><input type=radio name="zonetypenew" value="S"';
 				if($zonetypenew=='S'){
 					$content .= ' checked';
 				}
-				$content .= '>' . $l['str_secondary'] . '</td></tr>
+				$content .= '>' . $l['str_secondary'] . '</label></td></tr>
 				<tr><td align="right">' . $l['str_using_following_zone_as_template'] 
 							. '</td>
 				<td><select name="template">
@@ -273,16 +273,16 @@ if($user->authenticated == 0){
 				value="'.$zonenamenew.'">
 				</td></tr>
 				<tr><td align="right">' . $l['str_zonetype'] . ':</td>
-				<td><input type=radio name="zonetypenew" value="P"';
+				<td><label><input type=radio name="zonetypenew" value="P"';
 				if($zonetypenew=='P'){
 					$content .=' checked';
 				}
-				$content .='>' . $l['str_primary'] . '  
-				<input type=radio name="zonetypenew" value="S"';
+				$content .='>' . $l['str_primary'] . '</label>  
+				<label><input type=radio name="zonetypenew" value="S"';
 				if($zonetypenew=='S'){
 					$content .= ' checked';
 				}
-				$content .= '>' . $l['str_secondary'] . '</td></tr>
+				$content .= '>' . $l['str_secondary'] . '</label></td></tr>
 				<tr><td align="right">' . $l['str_using_following_zone_as_template'] 
 							. '</td>
 				<td><select name="template">

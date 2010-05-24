@@ -100,23 +100,23 @@ class Secondary extends Zone {
 
 			<tr><td align="right">
 			' . $l['str_secondary_allow_transfer_from']  . ':</td><td>
-			<input type="radio" name="xfer" value="all" ';
+			<label><input type="radio" name="xfer" value="all" ';
 			$notothers = 0;
 			$xferip="";
 			if($this->xfer == 'any'){
 				$result .= 'checked';
 				$notothers = 1;
 			}
-			$result .= '>' . $l['str_secondary_allow_tranfer_all'] . '
-			<input type="radio" name="xfer" value="master" ';
+			$result .= '>' . $l['str_secondary_allow_tranfer_all'] . '</label>
+			<label><input type="radio" name="xfer" value="master" ';
 			if($this->xfer == $this->masters){
 				$result .= 'checked';
 				$notothers = 1;
 			}
-			$result .= '>' . $l['str_secondary_allow_transfer_master_only'] . '
+			$result .= '>' . $l['str_secondary_allow_transfer_master_only'] . '</label>
 			</td></tr>
 			<tr><td align="right">
-			&nbsp;</td><td><input type="radio" name="xfer" value="others" ';
+			&nbsp;</td><td><label><input type="radio" name="xfer" value="others" ';
 			if($notothers == 0){
 				$result .= 'checked';
 				if(strpos('.' . $this->xfer,$this->masters) == 1){
@@ -125,7 +125,7 @@ class Secondary extends Zone {
 					$xferip = $this->xfer;
 				}
 			}
-			$result .= '>' . $l['str_secondary_allow_transfer_master_and_ip'] . ': 
+			$result .= '>' . $l['str_secondary_allow_transfer_master_and_ip'] . '</label>: 
 			<input type="text" name="xferip" value="' . $xferip . '">
 			</td></tr>
 

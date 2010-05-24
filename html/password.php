@@ -38,10 +38,10 @@ if((isset($_REQUEST) && !isset($_REQUEST['id']) && !isset($_REQUEST['account']))
 	/></td></tr>
 	<tr><td align="right" valign="top">' . $l['str_or_one_of_your_zones']  . ':</td>
 		<td><input
-	type="text" name="zonename" /> <br /><input type="radio" name="zonetype"
+	type="text" name="zonename" /> <br /><label><input type="radio" name="zonetype"
 	value="P">' . $l['str_primary'] . 
-	' <input type="radio" name="zonetype" value="S">' . 
-	$l['str_secondary']	. '</td></tr>
+	'</label><label><input type="radio" name="zonetype" value="S">' . 
+	$l['str_secondary']	. '</label></td></tr>
 		<tr><td colspan="2" align="center"><input type="submit" 
 	value="' . $l['str_recover_password_button'] . '" /></td></tr>
 	</table>
