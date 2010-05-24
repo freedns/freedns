@@ -3579,7 +3579,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 			if ($ttl==$l['str_primary_default'])
 				$ttlval = "-1";
 			else
-				$ttlval = addslashes($ttl);
+				$ttlval = mysql_real_escape_string($ttl);
 		}							
 		return $ttlval;
 	}
