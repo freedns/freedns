@@ -80,6 +80,10 @@ class Group {
 			if(!$user->error){
 				// does not exist already ==> OK
 				$password = md5($password);
+				if ($groupright != 'R' && $groupright != 'W') {
+				  $this->error=$l['str_wrong_group_rights'];
+				  return 0;
+				}
 				$options="advanced=0;ipv6=0;txtrecords=0;nbrows=4;grouprights=" . $groupright . ";";	
 				$query = sprintf(
 					"INSERT INTO %s (%s,%s,%s,%s,%s,%s) VALUES ('%s','%s','%s','%s','%s','%s')",
@@ -188,6 +192,10 @@ class Group {
 		global $dbauth,$l,$config;
 		$this->error="";
 
+		if ($groupright != 'R' && $groupright != 'W') {
+		  $this->error=$l['str_wrong_group_rights'];
+		  return 0;
+		}
 		$options=$this->getOptions($id);
 		if(strpos($options,"grouprights=") !== false){
 			$options = preg_replace("/grouprights=[^;]*;/","grouprights=" . $groupright .";",$options);
@@ -198,7 +206,7 @@ class Group {
 			"UPDATE %s SET %s='%s' WHERE %s='%s'",
 			$config->userdbtable,
 			$config->userdbfldoptions,
-			$options,
+			mysql_real_escape_string($options),
 			$config->userdbfldid,
 			$id);
 		$res=$dbauth->query($query);
@@ -275,8 +283,14 @@ class Group {
 	 */	
 	Function listallzones(){
 		global $db,$l;
+		global $user;
 		// warning: be sure to validate user before using this function
 		$this->error="";
+		if ($user->authenticated == 2) {
+		  $this->error=migrationbox();
+		  return "";
+		}
+
 
 		$query = "SELECT zone, zonetype, id FROM dns_zone
 		WHERE userid='" . $this->groupid . "' AND status!='D' ORDER BY zone DESC";
