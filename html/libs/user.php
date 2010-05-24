@@ -45,7 +45,7 @@ class User extends Auth {
 	 *@param string $password XName password
 	 *@param string $sessionID current session ID, if user already logged in
 	 */
-	Function User($login, $password, $sessionID){
+	Function User($login, $password, $sessionID, $md5=0){
 		global $config;
 		$this->idsession=0; // initialization
 		$this->authenticated=0;
@@ -55,7 +55,7 @@ class User extends Auth {
 		global $db,$l;
 		
 		if(notnull($login)){
-			if($this->Auth($login,$password)){
+			if($this->Auth($login,$password,$md5)){
   				$this->authenticated=1;
 				$id = $this->generateIDSession();
 				$query = "INSERT INTO dns_session 
