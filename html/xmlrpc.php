@@ -75,8 +75,11 @@ Function updateArecord($m) {
 	}
 
 	$user = new User($req["user"],$req["password"], NULL);
-	if ($user->authenticated!=1) {
+	if ($user->authenticated==0) {
 		return new xmlrpcresp(0, $xmlrpcerruser, "authentification refused");
+	}
+	elseif ($user->authenticated==2) {
+		return new xmlrpcresp(0, $xmlrpcerruser, "you have to migrate first");
 	}
 	$zonename = addslashes($req["zone"]);
 	$zonetype = "P";
