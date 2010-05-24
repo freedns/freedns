@@ -79,7 +79,7 @@ $headers
 
 $message
 ";
-	if($fd = popen("/usr/lib/sendmail -t","w")){
+	if($fd = popen("/usr/local/sbin/sendmail -t","w")){
 		fwrite($fd, $mailcontent);
 		if(pclose($fd)){
 			return 0;
