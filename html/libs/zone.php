@@ -43,7 +43,7 @@ class Zone {
 
 		if(notnull($zoneid)){
 			$this->zonename=$zonename;
-			$this->zonetype=$zonetype;
+			$this->zonetype=$zonetype[0];
 			$this->zoneid=$zoneid;
 		}else{
 			if(notnull($zonename)){
@@ -79,6 +79,7 @@ class Zone {
 		global $db,$l;
 		$this->error="";
 		$zonename = strtolower($zonename);
+		$zonename = mysql_real_escape_string($zonename);
 
 // because XName has only 1 DNS, only primary OR secondary
 //		$query = "SELECT count(*) FROM dns_zone
@@ -134,7 +135,7 @@ class Zone {
 				$tocompare = $tld . "." . $tocompare;
 			}
 			$query = "SELECT LOWER(zone) from dns_zone WHERE 
-			zone='" . $tocompare . "' AND userid!='" . $userid . "'";
+			zone='" . mysql_real_escape_string($tocompare) . "' AND userid!='" . $userid . "'";
 			if ($config->allowsubzones == 1)
 				$query .= " AND zonetype = 'P'";
 			$res = $db->query($query);
@@ -176,6 +177,8 @@ class Zone {
 	Function retrieveID($zonename,$zonetype){
 		global $db,$l;
 		$this->error="";
+		$zonename = mysql_real_escape_string($zonename);
+		$zonetype = mysql_real_escape_string($zonetype);
 		$query = "SELECT id FROM dns_zone WHERE 
 		zone='" . $zonename . "' AND zonetype='" . $zonetype . "'";
 		$res = $db->query($query);
@@ -214,7 +217,7 @@ class Zone {
 		if(!$this->Exists($zonename,$zonetype)){
 			// does not exist already ==> OK
 			$query = "INSERT INTO dns_zone (zone,zonetype,userid)
-			VALUES ('".$zonename."','".$zonetype."','".$userid."')";
+			VALUES ('".mysql_real_escape_string($zonename)."','".$zonetype."','".$userid."')";
 			$res = $db->query($query);
 			if($db->error()){
 				$this->error = $l['str_trouble_with_db'];
@@ -227,6 +230,9 @@ class Zone {
 						"','" . addslashes($l['str_zone_successfully_created']) . 
 						"','I','1')";
 				$res = $db->query($query);
+
+				$this->zonename=mysql_real_escape_string($zonename);
+				$this->zonetype=mysql_real_escape_string($zonetype);
 
 				// if $template, fill-in zone with template content
 				// modified for current zone
@@ -282,7 +288,7 @@ class Zone {
 			}
 		}else{
 			// check if zone status is D or not
-			$query = "SELECT status FROM dns_zone WHERE zone='" . $zonename . "'
+			$query = "SELECT status FROM dns_zone WHERE zone='" . mysql_real_escape_string($zonename) . "'
 			AND zonetype='" . $zonetype . "'";
 			$res = $db->query($query);
 			$line = $db->fetch_row($res);
