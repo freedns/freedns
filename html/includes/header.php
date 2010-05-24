@@ -13,7 +13,7 @@ $config = new Config();
 // protect variables for db usage
 if(isset($_REQUEST)){
 	if(isset($_REQUEST['idsession'])){
-		$idsession=addslashes($_REQUEST['idsession']);
+		$idsession=htmlspecialchars($_REQUEST['idsession']);
 	}else{
 		$idsession='';
 	}
@@ -34,7 +34,7 @@ if(isset($_REQUEST)){
 	}
 }else{
 	if(isset($idsession)){
-		$idsession=addslashes($idsession);
+		$idsession=htmlspecialchars($idsession);
 	}else{
 		$idsession='';
 	}
@@ -169,7 +169,7 @@ print $html->subheader($link);
 
 
 if($user->error){
-	printf($html->string_error,$user->error);
+	print $html->box('mainerror', $l['str_error'], sprintf($html->string_error,$user->error));
 }
 
 
