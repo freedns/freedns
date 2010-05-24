@@ -99,7 +99,9 @@ $user = new User($login,$password,$idsession);
 
 // use $idsession in all urls, including first page
 if(!notnull($idsession) && $user->authenticated){
-	header("Location: " . $SERVER['PHP_SELF'] . "?idsession=" . $user->idsession);
+	header("Location: " . $config->mainurl
+		. ereg_replace("^/","", $_SERVER[PHP_SELF])
+		. "?idsession=" . $user->idsession);
 }
 
 // overwrite default strings
