@@ -4024,7 +4024,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 		$string = strtolower($string);
 
 	        // only specified char without a dot as first char - * allowed 
-	        if(strcmp($string,"*") && (strspn($string, "0123456789abcdefghijklmnopqrstuvwxyz-._") !=
+	        if(strcmp($string,"*") && (strspn($string, "0123456789abcdefghijklmnopqrstuvwxyz-._*") !=
 		        strlen($string)) || (strpos('0'.$string,".") == 1)
 		){
 	                $result = 0;
