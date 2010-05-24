@@ -115,11 +115,12 @@ Function updateArecord($m) {
 			return new xmlrpcresp(0, $xmlrpcerruser, $currentzone->error);
 		}
 	}
+	$ttl = notnull(intval($req["ttl"])) ? intval($req["ttl"]) : "-1";
 	if (notnull($req["newaddress"])) {
 		$modified = 1;
                 $res = $currentzone->AddARecord($zone->zoneid,
 			array($req["newaddress"]), array($req["name"]),
-			array(notnull($req["ttl"])?$req["ttl"]:"-1"), NULL);
+			array($ttl), NULL);
 
 		if($currentzone->error){
 			return new xmlrpcresp(0, $xmlrpcerruser, $res);
