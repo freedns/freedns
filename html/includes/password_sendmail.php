@@ -6,7 +6,7 @@ $mailbody = '
 
 ' . $l['str_email_go_on_followin_page_to_recover'] . '
 
-' . $config->mainurl . 'password.php?id=' . $id . '&amp;language=' . $lang . '
+' . $config->mainurl . 'password.php?id=' . $id . '&language=' . $lang . '
 
 -- 
 ' . $config->emailsignature . '
