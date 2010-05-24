@@ -25,7 +25,6 @@ if(file_exists("includes/left_side.php")) {
 }
 
 // main content
-
 if($user->authenticated==1){
 	if(isset($_REQUEST) && isset($_REQUEST['zonename'])){
 		$zonename=$_REQUEST['zonename'];
@@ -49,10 +48,9 @@ if($user->authenticated==1){
 						 $zone->zonename,$zone->zonetype)
 						 );
 			}else{
-				$content = '<table border="0" width="100%" class="top">
-				<tr class="top"><td class="top"><div align=center>' . 
+				$content = '<h3>' .
 					$l['str_current_zone'] . ': ' . $zone->zonename . '
-				</div></td></tr></table>
+				</h3>
 				';
 
 
@@ -289,9 +287,9 @@ if($user->authenticated==1){
 		}
 	
 		if(!notnull($user->error)){
-			$content =  '<div class="boxheader">' . $l['str_choose_a_zone_to_modify']
-			. '</div>';
-			$content .='<table border="0" width="100%">';
+			$content =  '<h3 class="boxheader">' . $l['str_choose_a_zone_to_modify']
+			. '</h3>';
+			$content .='<table>';
 			while($otherzone= array_pop($allzones)){
 				$newzone = new Zone($otherzone[0],$otherzone[1],$otherzone[2]);
 				$status = $newzone->zonestatus();
@@ -332,7 +330,9 @@ return false">'.
 	$title = $l['str_modify_zone_title'];
 	$content = $l['str_must_log_before_modifying_zone'];
 }
-
+$content = '<div id="modify">
+' . $content . '</div> <!-- modify -->
+';
 print $html->box('mainbox',$title,$content);
 
 if(file_exists("includes/right_side.php")) {
