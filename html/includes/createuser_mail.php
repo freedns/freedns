@@ -6,7 +6,7 @@
 ' . sprintf($l['str_email_this_email_is_sent_to_validate_email_x'],$email) .'
 
 ' . $l['str_email_please_follow_this_link'] . '
-' . $config->mainurl . 'validate.php?id=' . $randomid . '&amp;language=' . $lang . '
+' . $config->mainurl . 'validate.php?id=' . $randomid . '&language=' . $lang . '
 
 ' . $l['str_email_account_can_not_be_used_without_this_validation'] . '
 
