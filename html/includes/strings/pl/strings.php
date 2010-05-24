@@ -1,6 +1,6 @@
 <?
 $l['str_primary_looking_for_zone_x'] = "Szukana strefa %s";
-$l['str_secondary_after_modif_add_to_configfile'] = "zmodyfikowaæ konfiguracjê Twojego serwera DNS, ¿eby pozwala³ na transfery z naszych serwerów DNS (dotyczy tylko je¶li Twój podstawowy serwer DNS jest oparty na bind)";
+$l['str_secondary_after_modif_add_to_configfile'] = "zmodyfikowaæ konfiguracjê Twojego serwera DNS, ¿eby pozwala³ na transfery do naszych serwerów DNS (dotyczy tylko je¶li Twój podstawowy serwer DNS jest oparty na bind)";
 $l['str_secondary_after_modif_add_lines_to_zonefile'] = "dodaæ nastêpuj±ce linie do Twojej strefy (z koñcz±cymi kropkami)";
 $l['str_secondary_after_modif_be_sure_to'] = "Upewnij siê, ¿eby";
 $l['str_secondary_zone_successfully_modified_on_x'] = "Strefa zosta³a zmodyfikowane na %s.";
@@ -44,11 +44,17 @@ $l['str_primary_no_ns_x'] = "Brak rekordu NS dla %s";
 $l['str_primary_adding_zone_ns_x'] = "Dodajê rekord NS %s";
 $l['str_primary_warning_a_x_exists_not_overwritten'] = "Uwaga: rekord A dla %s ju¿ istnieje -- nie zosta³ nadpisany";
 $l['str_primary_adding_cname_x'] = "Dodajê rekord CNAME %s";
+$l['str_primary_adding_www_x_x'] = "Dodajê rekord WWW (%s) %s";
+$l['str_primary_bad_www_value_x'] = "nieprawid³owa zawarto¶æ rekordu WWW %s";
+$l['str_primary_bad_www_x'] = "z³a nazwa WWW %s.";
+$l['str_primary_www_redirect'] = "przekierowanie";
+$l['str_primary_www_frame'] = "ramka";
+$l['str_primary_www_address'] = "Adres WWW";
 $l['str_primary_no_record_x'] = "Brak wpisu dla %s";
 $l['str_primary_warning_ptr_x_exists_with_diff_value'] = "Uwaga: rekord PTR dla %s ju¿ istnieje z inn± warto¶ci±. Zak³adam, ¿e chcesz mieæ kilka rekordów wskazuj±cych na ten sam adres (aka Round Robin) ";
 $l['str_primary_warning_ptr_x_already_exists_not_overwritten'] = "Uwaga: rekord PTR dla %s ju¿ istnieje, wskazuj±c na tê sam± nazwê -- nie zosta³ nadpisany";
 $l['str_primary_adding_ptr_x'] = "Dodajê rekord PTR %s";
-$l['str_primary_x_name_has_to_be_fully_qualified_x'] = "nazwa %s musi byæ bezwzglêdna (z domen± i koñcz±c± kropk±) (%s)";
+$l['str_primary_x_name_has_to_be_fully_qualified_x'] = "nazwa, na któr± wskazuje %s musi byæ bezwzglêdna (z domen± i koñcz±c± kropk±): %s";
 $l['str_primary_no_name_for_x'] = "Brak NAZWY dla %s";
 $l['str_primary_bad_ptr_x'] = "z³y rekord PTR %s";
 $l['str_primary_aaaa_x_with_same_ip'] = "Uwaga: rekord AAAA dla %s ju¿ istnieje z tym samym IP -- nie zosta³ nadpisany";
@@ -94,7 +100,7 @@ $l['str_primary_error_if_engine_error_x_contact_admin_x'] = "Mo¿esz wróciæ do st
 $l['str_primary_zone_error_warning'] = "W trakcie sprawdzania konfiguracji wyst±pi³ b³±d.<br />Ta strefa <b>nie</b> zostanie za³adowana dopóki b³êdy nie zostan± poprawione.<p />Oto wynik sprawdzenia";
 $l['str_primary_zone_error_not_available_try_again'] = "Twoja strefa nie bêdzie dostêpna po kolejnym prze³adowaniu. Wróæ pó¼niej i zmodyfikuj j± jeszcze raz.";
 $l['str_primary_generated_config'] = "Oto wygenerowana konfiguracja";
-$l['str_primary_internal_tests_ok'] = "Twoja strefa pomy¶lnie przesz³a nasze wewnêtrzne testy konfiguracji. Powinna byæ aktywna w ci±gu godziny.
+$l['str_primary_internal_tests_ok'] = "Twoja strefa pomy¶lnie przesz³a nasze wewnêtrzne testy konfiguracji. Powinna byæ aktywna w ci±gu kwadransa.
 Otrzymasz list informuj±cy Ciê o jej aktywowaniu.";
 $l['str_primary_new_serial_x'] = "Nowy numer seryjny: %s";
 $l['str_primary_reset_form_button'] = "Czy¶æ pola";
@@ -107,10 +113,19 @@ $l['str_primary_sub_zones_expl_on_x_x'] = "Mo¿esz zdefiniowaæ podstrefy, delegow
 Twoja nowa podstrefa w serwisie %s <b>musi</b> byæ podstref± %s, a tak¿e nie mo¿e zawieraæ kropki '.' w nazwie.<br />
 Serwery DNS musz± byæ <b>bezwzglêdne</b> i zakoñczone <b>kropk±</b>.";
 $l['str_primary_sub_zones_title'] = "Podstrefy";
+$l['str_primary_www_zones_zone'] = "Nazwa";
+$l['str_primary_www_zones_expl_on_x_x'] = "Ramki WWW to w skrócie &quot;ukryty&quot; prawdziwy URL (w pasce adresu przegl±darki widaæ tylko <i>Nazwa</i>, zawarto¶æ jest z <i>Adres WWW</i>). Przekierowania WWW to po prostu przekierowanie przegl±darki WWW na prawdziwy URL (w pasce adresu przegl±darki widaæ <i>Adres WWW</i>).<br />
+Nazwa przekierowania/ramki <b>musi</b> byæ podstref± %s (regu³y dot. nazw s± takie same, jak dla rekordów A).<br />
+<!-- Adres WWW musi zaczynaæ siê od <b>http://</b><br /> -->
+<!-- Dodanie rekordu WWW wi±¿e siê z automatycznym dodaniem odpowiedniego rekordu A do strefy.<br /> -->
+<!-- <b>Uwaga! To eksperyment, proszê zg³aszaæ uwagi, je¿eli co¶ ¼le lub wcale nie dzia³a!</b> -->";
+$l['str_primary_www_zones_title'] = "Ramki i przekierowania WWW";
+$l['str_primary_www_zones_type'] = "Typ";
+$l['str_primary_warning_www_x_exists_not_overwritten'] = "Uwaga: rekord %s ju¿ istnieje -- nie zosta³ nadpisany";
 $l['str_primary_cname_name_a_record'] = "Nazwa";
 $l['str_primary_cname_new_cname_x'] = "Nowy CNAME (%s)";
 $l['str_primary_cname_alias'] = "Alias";
-$l['str_primary_cname_expl'] = "Rekordy CNAME to definicje aliasów nazw.<br />Przyk³ad: je¶li ju¿ istnieje rekord A <i>praca</i> wskazuj±cy na adres IP <i>10.1.1.1</i>, to kolejna nazwa (np. <i>work</i>) wskazuj±ca na ten sam aders IP powinna byæ rekordem CNAME wskazuj±cym na istniej±c± ju¿ nazwê (czyli na <i>praca</i>).<br /> Jest to po¿yteczne, gdy masz wiele nazw dla tego samego adresu IP.<br /> Je¶li wskazywany rekord jest <b>poza bie¿±c± stref±</b>, musisz u¿yæ
+$l['str_primary_cname_expl'] = "Rekordy CNAME to definicje aliasów nazw.<br />Przyk³ad: je¶li ju¿ istnieje rekord A <i>praca</i> wskazuj±cy na adres IP <i>10.1.1.1</i>, to kolejna nazwa (np. <i>work</i>) wskazuj±ca na ten sam adres IP powinna byæ rekordem CNAME wskazuj±cym na istniej±c± ju¿ nazwê (czyli na <i>praca</i>).<br /> Jest to po¿yteczne, gdy masz wiele nazw dla tego samego adresu IP.<br /> Je¶li wskazywany rekord jest <b>poza bie¿±c± stref±</b>, musisz u¿yæ
 <b>nazwy bezwzglêdnej</b> z kropk± na koñcu.<br />
 Je¶li wskazywany rekord jest <b>wewn±trz bie¿±cej strefy</b>, to <b>nie</b>
 dodawaj domeny.<br />
@@ -143,8 +158,8 @@ Dla przyk³adu, je¶li chcesz mieæ adresy IP od 1 do 10 w strefie %s delegowane dl
 $l['str_primary_name'] = "Nazwa";
 $l['str_primary_ptr_new_ptr_x'] = "Nowy PTR";
 $l['str_primary_ptr_ip_under_x'] = "IP w %s";
-$l['str_primary_reverse_sub_zones_title'] = "Podstrefy";
-$l['str_primary_reverse_sub_zones_delegation_x'] = "Mo¿esz zdefiniowaæ podstrefy, delegowane (lub nie) do innych u¿ytkowników serwisu %s.";
+$l['str_primary_reverse_sub_zones_title'] = "Czê¶ciowe podstrefy";
+$l['str_primary_reverse_sub_zones_delegation_x'] = "Mo¿esz zdefiniowaæ kawa³ki swojej strefy wydelegowane do innych u¿ytkowników serwisu %s.";
 $l['str_primary_ptr_ipv6_note'] = "Uwaga: adresy IPv6 te¿ s± przyjmowane.";
 $l['str_primary_ptr_sample_content'] = "PTR: 4				Nazwa: www.example.com.";
 $l['str_primary_ptr_sample'] = "Przyk³ad dla IP 1.2.3.4, w strefie 3.2.1.in-addr.arpa";
@@ -242,7 +257,7 @@ $l['str_email_not_sent'] = "wygl±da na to, ¿e Twoje konto nie ma poprawnego adre
 $l['str_you_did_not_specify_zonetype'] = "musisz wybraæ typ strefy";
 $l['str_recover_password_button'] = "Odzyskaj has³o";
 $l['str_or_one_of_your_zones'] = "<b>lub</b> jedna z Twoich stref";
-$l['str_password_recovery'] = "odzyskiwanie has³a";
+$l['str_password_recovery'] = "odzyskiwanie hasla";
 $l['str_lost_pwd_fill_in_fields_to_recover_password'] = "Nie pamiêtasz has³a?<br />
 Wype³nij poni¿sze pola, wy¶lemy Ci URL-a, który pomo¿e Ci odzyskaæ has³o.";
 $l['str_must_log_before_modifying_zone'] = "Musisz siê zalogowaæ, zanim zaczniesz modyfikowaæ strefê.";
@@ -300,6 +315,7 @@ $l['str_deleting_x_x_x'] = "Kasowanie %s (%s) z serwisu %s";
 $l['str_yes_please_delete_x_x_from_x'] = "Tak, skasuj %s (%s) z serwisu %s";
 $l['str_do_you_confirm_zone_deletion_x_x_from_x'] = "Czy potwierdzasz, ¿e chcesz skasowaæ strefê %s (%s) z serwisu %s?";
 $l['str_you_can_not_manage_delete_zone_x_x'] = "Nie mo¿esz zarz±dzaæ ani kasowaæ strefy %s (%s)";
+$l['str_you_can_not_view_logs_zone_x_x'] = "Nie mo¿esz ogl±daæ logów strefy %s (%s)";
 $l['str_choose_a_zone_to_delete'] = "Wybierz strefê do skasowania";
 $l['str_must_log_before_deleting_zone'] = "Musisz siê zalogowaæ, zanim skasujesz strefê.";
 $l['str_delete_zone_title'] = "Kasowanie strefy";
@@ -326,7 +342,7 @@ $l['str_administrator_delete_content'] = "Jako ¿e jeste¶ administratorem grupy, 
 z naszych serwerów, zarówno strefy, jak i cz³onkowie grupy.";
 $l['str_zones_to_be_deleted'] = "Strefy do skasowania";
 $l['str_following_zones_will_be_deleted'] = "Nastêpuj±ce strefy zostan± skasowane z naszych serwerów -- upewnij siê, ¿e usuniesz wpisy o naszych serwerach w serwerach odpowiedzialnych za rejestracjê stref nadrzêdnych:";
-$l['str_as_member_of_group_action_logged'] = "jako cz³onek grupy, Twoje dzia³ania bêd± zalogowane.";
+$l['str_as_member_of_group_action_logged'] = "Twoje dzia³ania jako cz³onka grupy bêd± zalogowane.";
 $l['str_primary_ptr_record_modify_a_x'] = "Zmodyfikowaæ odpowiedni rekord A, je¶li strefa zarz±dzana przez %s?";
 $l['str_primary_bad_cname_x'] = "Z³y CNAME %s";
 $l['str_none'] = "BRAK";
@@ -379,7 +395,7 @@ $l['str_bad_zone_name'] = "z³a nazwa strefy";
 $l['str_zone_successfully_created'] = "Strefa zosta³a utworzona.";
 $l['str_while_configuring_from_template'] = "w trakcie kopiowania konfiguracji z wzorca";
 $l['str_zone_already_exists'] = "Strefa ju¿ istnieje!";
-$l['str_zone_exists_in_deletion_status'] = "Strefa istnieje, ale jest w trakcie kasowania. Spróbuj dzie³a tworzenia pó¼niej.";
+$l['str_zone_exists_in_deletion_status'] = "Strefa istnieje, ale jest w trakcie kasowania. Spróbuj pó¼niej (max kwadrans).";
 $l['str_no_logs_available_for_this_zone'] = "Brak logów dla tej strefy.";
 $l['str_zone_logs_purged'] = "logi strefy usuniête";
 $l['str_i_have_read_and_i_understand_discl_available_at_x'] = "O¶wiadczam, ¿e warunki korzystania z us³ugi dostêpne pod adresem %s s± mi znane i je akceptujê";
@@ -483,6 +499,7 @@ $l['str_primary_srv_priority'] = "Wa¿no¶æ";
 $l['str_primary_srv_record_expl'] = "Nazwy rekordów SRV powstaj± ze sklejenia nazwy us³ugi, protoko³u (tcp lub udp) i nazwy domeny (w bie¿±cej strefie). Np. \"_sip._tcp\" dla rekordu SRV dla VoIP.
 U¿yj parametru \"Port\" dla wyszczególnienia, na który port na serwerze docelowym nale¿y siê ³±czyæ z t± us³ug±.";
 $l['str_primary_srv_record_title'] = "Rekordy serwisów (SRV)";
+$l['str_primary_deleting_www_x'] = "Kasujê rekord WWW %s";
 $l['str_primary_deleting_srv_x'] = "Kasujê rekord SRV %s";
 $l['str_primary_warning_srv_x_exists_not_overwritten'] = "Uwaga: rekord SRV dla %s ju¿ istnieje -- nie zosta³ nadpisany.";
 $l['str_primary_bad_srvname_x'] = "Nieprawid³owa nazwa rekordu SRV %s";
@@ -496,7 +513,7 @@ $l['str_primary_adding_txt_x'] = "Dodajê rekord TXT %s.";
 $l['str_primary_bad_txt_x'] = "z³a nazwa TXT %s.";
 $l['str_primary_deleting_txt_x'] = "Kasujê rekord TXT %s";
 $l['str_primary_txt_record_expl_x_x_x'] = "Rekordy TXT s³u¿± jako po³±czenie prostego tekstu i nazwy. Mog± zostaæ u¿yte do komentowania konfiguracji strefy lub do szczególnych zastosowañ (jak niektóre systemy antyspamowe). Nazw± mo¿e byæ istniej±cy rekord (A, NS, itd...), sama strefa lub co¶ nowego.<br />
-<strong>Nazwa jest wzglêdna</strong>, tj. tylko to, co chcesz mieæ przed %s, jak like www dla www.%s <strong>oprócz nazwy samej domeny</strong>, która jest bezwzglêdna, tj. %s.<br />
+<strong>Nazwa jest wzglêdna</strong>, tj. tylko to, co chcesz mieæ przed %s, jak www dla www.%s <strong>oprócz nazwy samej domeny</strong>, która jest bezwzglêdna, tj. %s.<br />
 Je¶li chcesz dodaæ rekord TXT <strong>dla samej strefy</strong>, u¿yj bezwzglêdnej nazwy domeny <strong>z kropk± na koñcu</strong>.";
 $l['str_primary_txt_record_title'] = "Rekordy (TXT) tekstowe";
 $l['str_txt_records_details'] = "dla dostêpu do rekordów TXT w strefach podstawowych";
@@ -508,5 +525,6 @@ $l['str_failed_serverimport'] = "Import z serwera nie powiód³ siê.";
 $l['str_bad_serverimport_name'] = "Z³a nazwa serwera importu. U¿yj nazwy serwera lub jego adresu IP.";
 $l['str_no_serverimport'] = "Import z serwera nie jest mo¿liwy dla stref zapasowych.";
 $l['str_use_server_for_import_x'] = "Importuj strefy z autorytatywnego serwera (musi byæ pozwolony transfer dla %s). Tylko dla stref podstawowych.";
+$l['str_primary_x_name_ends_with_dot'] = "Nazwa PTR (%s) jest zakoñczona kropk±. To jest dozwolone, ale wynik mo¿e byæ dla Ciebie nieoczekiwany.";
 
 ?>

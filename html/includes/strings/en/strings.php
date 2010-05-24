@@ -683,5 +683,6 @@ $l['str_failed_serverimport'] = "Import  from server failed.";
 $l['str_bad_serverimport_name'] = "Bad server name for import.  Use server name, or server IP address.";
 $l['str_no_serverimport'] = "Import from server is not possible for secondary  zones.";
 $l['str_use_server_for_import_x'] = "Import zone from following authoritative server  (transfer has to be allowed for %s). For primary only.";
+$l['str_primary_x_name_ends_with_dot'] = "PTR name (%s) ends with dot. We allow this, but you have to be very careful about what you wish for.";
 
 ?>

@@ -420,7 +420,7 @@ $str_contact_for_bugs_contact_us{'pl'}  = "W sprawach zwi±zanych z problemami do
 $str_contribute_title{'pl'}  = "Oprogramowanie";
 $str_contribute_content{'pl'}  = "System FreeDNS::SGH to <a target=_blank href=\"http://www.xname.org/\">XName Software</a>, który na jêzyk polski przet³umaczy³, a tak¿e skonfigurowa³ i udostêpni³ ¶wiatu, Piotr Kucharski.<br>Je¶li podoba Ci siê to oprogramowanie, mo¿esz <a target=_blank href=\"http://www.xname.org/contribute.php\" class=\"linkcolor\">pomóc</a> w jego tworzeniu i/lub przysy³aæ swoje poprawki i propozycje rozwoju (<a href=\"mailto:xname@xname.org\">xname@xname.org</a>).<br />XName Software jest udostêpnione na <a target=_blank href=\"http://www.gnu.org/copyleft/gpl.html\" class=\"linkcolor\">licencji GPL</a>.";
 $str_languages_title{'pl'}  = "Dostêpne jêzyki";
-$str_reload_mail_subject_x_x{'pl'}  = "%s Prze³adowano Twoje strefy na %s";
+$str_reload_mail_subject_x_x{'pl'}  = "%s Przeladowano Twoje strefy na %s";
 $str_reload_mail_content_x_x_x{'pl'}  = "To jest automatyczny list z serwera DNS %s us³ugi %s.
 Nastêpuj±ce strefy zosta³y na nim prze³adowane:
 
@@ -433,7 +433,7 @@ $str_log_error_opening_x{'pl'}  = "B³±d przy otwieraniu %s";
 $str_log_error_can_not_backup{'pl'}  = "B³±d: nie mogê wykonaæ kopii named.conf";
 $str_log_error_sending_email_x{'pl'}  = "B£¡D: wyst±pi³ b³±d w trakcie wysy³ania listu %s";
 $str_log_error_zone_x_not_valid{'pl'}  = "B£¡D: strefa %s nie jest prawid³owa";
-$str_error_checking_subject_x{'pl'}  = "%s named.conf b³±d w trakcie sprawdzania";
+$str_error_checking_subject_x{'pl'}  = "%s named.conf blad w trakcie sprawdzania";
 $str_error_while_checking_conf_on_x_tmp_x{'pl'}  = "B³ad w trakcie sprawdzania named.conf na %s
 Poprzedni plik named.conf zosta³ odtworzony.
 W katalogu %s s± dostêpne b³êdne pliki
