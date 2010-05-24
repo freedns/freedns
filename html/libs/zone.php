@@ -236,20 +236,25 @@ class Zone {
 
 				// if $template, fill-in zone with template content
 				// modified for current zone
-				$this->zonename=$zonename;
-				$this->zonetype=$zonetype;
-				// only if template is owned by group !
-				if($userid != $this->RetrieveUser(substr($template,0,-3))){
-					$this->error.= $l['str_while_configuring_from_template'];
-				}else{
-					if(!$this->fillinWithTemplate($template)){
+				if ($template != $l['str_none']) {
+					// only if template is owned by group !
+					// $template is "xname.org(P)"
+					$templatezone = mysql_real_escape_string(substr($template,0,strlen($template)-3));
+					$templatetype = mysql_real_escape_string(substr($template,-2,1));
+					if($userid != $this->getUserIdByZone($templatezone)){
 						$this->error.= $l['str_while_configuring_from_template'];
+					}else{
+						if(!$this->fillinWithTemplate($templatezone, $templatetype)){
+							$this->error.= $l['str_while_configuring_from_template'];
+						}
 					}
 				}
 
 				// if $serverimport, fill-in zone with dig result
-				if(!$this->fillinWithImport($serverimport)){
-					$this->error .= $l['str_failed_serverimport'];
+				if ($serverimport) {
+					if(!$this->fillinWithImport($serverimport)){
+						$this->error .= $l['str_failed_serverimport'];
+					}
 				}
 
 				// insert in dns_zonetoserver
@@ -501,10 +506,27 @@ class Zone {
 			return $this->userid;
 		}		
 	}
+	Function getUserIdByZone($zone){
+		global $db,$l;
+		$this->error="";
+		if(empty($zone)) {
+			return 0;
+		}
+		$query = "SELECT userid FROM dns_zone 
+			WHERE zone='" . $zone . "'";
+		$res=$db->query($query);
+		$line=$db->fetch_row($res);
+		if($db->error()){
+			$this->error=$l['str_trouble_with_db'];
+			return 0;
+		}else{
+			return $line[0];
+		}
+	}
 
 
 
-//	Function fillinWithTemplate($template)
+//	Function fillinWithTemplate($templatezone, $templatetype)
 	/**
 	 * Fill in new zone with template content
 	 *
@@ -512,13 +534,9 @@ class Zone {
 	 *@param string $template zone template to be used
 	 *@return int 1 if success, 0 if error
 	 */
-	Function fillinWithTemplate($template){
+	Function fillinWithTemplate($templatezone, $templatetype){
 		global $db,$l;
 		$this->error="";
-		// $template is "xname.org(P)"
-		$templatezone = substr($template,0,strlen($template)-3);
-		$templatetype = substr($template,-2,1);
-
 		switch($templatetype){
 			case 'S':
 				$query = "SELECT c.masters,c.xfer FROM dns_confsecondary c, dns_zone z
