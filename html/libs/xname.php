@@ -422,6 +422,8 @@ function vrfyEmail($string){
  */
 function checkDig($server,$zone){	
 	global $config;
+	$server = escapeshellarg(str_replace('`', '', $server));
+	$zone = escapeshellarg(str_replace('`', '', $zone));
 	$result = `$config->bindig soa '$zone' @'$server' -b '$config->nsaddress'`;
 
 	// check if status:*
@@ -477,6 +479,8 @@ function DigSerial($server,$zone){
  */ 
 function zoneDig($server,$zone){
 	global $config;
+	$server = escapeshellarg(str_replace('`', '', $server));
+	$zone = escapeshellarg(str_replace('`', '', $zone));
 	$result = `$config->bindig @'$server' '$zone' axfr -b '$config->nsaddress'`;
 	return $result;
 }
