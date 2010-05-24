@@ -41,10 +41,12 @@
 			';
 		}
 		
+		$nbrows = $user->nbrows > $nbrows ? $user->nbrows : $nbrows;
 		$content .= '<tr><td align="right">' . 
 		$l['str_number_of_rows_per_record'] . ':</td>
-		<td><input type=text name="nbrows" value="' . $user->nbrows . '" size="3"></td></tr>
-		';
+';
+		$content .= '<td><input type=text name="nbrows" value="' . $nbrows . '" size="3"></td></tr>
+';
 			
 		$content .= '<tr><td align="right">' . 
 					$l['str_language']  . ':</td>
