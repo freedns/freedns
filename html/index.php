@@ -48,9 +48,14 @@ if(file_exists('includes/strings/' . $lang . '/index_content.php')){
 //          END OF CONTENT
 // *************************************
 
+print migrationbox(1);
+
+if ($content_test) {
+print $html->box('testy','Testy nowego systemu...' ,$content_test);
+}
+
+
 print $html->box('mainbox',$title,$content);
-
-
 
 // ********************************************************
 // MODIFY THIS TO CHANGE DESIGN
