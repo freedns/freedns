@@ -31,6 +31,8 @@ if(file_exists("includes/left_side.php")) {
 $title=$l['str_create_new_zone'];
 if($user->authenticated == 0){
 	$content = $l['str_must_log_before_creating_new_zone'];
+}else if ($user->authenticated == 2) {
+  $content = migrationbox();
 }else{
 	if($config->usergroups && ($usergrouprights == 'R')){ 
 		// if usergroups, zone is owned by
@@ -44,12 +46,12 @@ if($user->authenticated == 0){
 			$content ='
 	<form action="' .  $_SERVER["PHP_SELF"] . '" method="post">
 				' . $hiddenfields . '
-				<table border="0" width="100%">
-				<tr><td align="right">
+				<table id="createzonetable">
+				<tr><td class="left">
 				' . $l['str_zone'] . ': </td><td><input type="text" name="zonenamenew"
 				value="'.$zonenamenew.'">
 				</td></tr>
-				<tr><td align="right">' . $l['str_zonetype'] . ':</td>
+				<tr><td class="left">' . $l['str_zonetype'] . ':</td>
 				<td nowrap><label><input type=radio name="zonetypenew" value="P"';
 				if($zonetypenew=='P'){
 					$content .=' checked';
@@ -59,12 +61,7 @@ if($user->authenticated == 0){
 				if($zonetypenew=='S'){
 					$content .= ' checked';
 				}
-				$content .= '>' . $l['str_secondary'] . '</label></td></tr>
-				<tr><td align="right">' . $l['str_using_following_zone_as_template'] 
-							. '</td>
-				<td><select name="template">
-				<option value="">' . $l['str_none'] . '</option>
-				';
+				$content .= '>' . $l['str_secondary'] . '</label></td></tr>';
 			
 			if($config->usergroups){
 				$allzones = $group->listallzones();
@@ -72,22 +69,34 @@ if($user->authenticated == 0){
 			}else{
 				$allzones = $user->listallzones();
 			}
-	
-			if(!notnull($user->error)){
+
+			if(!notnull($user->error) && count($allzones)>0){
+        $content .= '
+        <tr><td class="left">' . $l['str_using_following_zone_as_template'] 
+							. '</td>
+				<td><select name="template">
+				<option value="">' . $l['str_none'] . '</option>
+				';
 				while($otherzone= array_pop($allzones)){
 					$newzone = new Zone($otherzone[0],$otherzone[1],$otherzone[2]);
 					$content .= '<option value="'.$newzone->zonename.'('.$newzone->zonetype.')">'.
 								$newzone->zonename.' (' .
 								$newzone->zonetype.')</option>';
 				}
+        $content .='
+        </select>
+        </td></tr>';
 			}
-			$content .='
-			</select>
-			</td></tr>
-			<td>' . sprintf($l['str_use_server_for_import_x'],$config->webserverip) . 
+
+			$content .= '<tr><td class="left">' . sprintf($l['str_use_server_for_import_x'],$config->webserverip) . 
 			'</td><td valign="center"><input type="text" name="serverimport">
-			</td></tr>
-			<tr><td colspan="2" align="center"><input type="submit"
+			</td></tr>';
+if (0):
+      $content .= '<tr><td colspan="2">' . sprintf($l['str_use_textarea_for_import']) . 
+      '</td></tr><tr><td colspan="2" align="center">
+      <textarea rows="24" cols="60" name="zonearea"></textarea></td></tr>';
+endif;
+      $content .= '<tr><td colspan="2" align="center"><input type="submit" class="submit"
 			value="' . $l['str_create'] . '"></td></tr>
 			</table>
 </form>
@@ -107,6 +116,13 @@ if($user->authenticated == 0){
 				}else{
 					$serverimport = "";
 				}
+if (0):
+				if(isset($_REQUEST['zonearea'])){
+					$zonearea = $_REQUEST['zonearea'];
+				}else{
+					$zonearea = "";
+				}
+endif;
 			}
 			$content = "";
 			$localerror = 0;
@@ -125,7 +141,7 @@ if($user->authenticated == 0){
 				$content .= sprintf($html->fontred,
 						sprintf($l['str_error_missing_fields'],
 							$missing)
-						) . '<br />';
+						) . '<br>';
 			}
 	
 	
@@ -135,7 +151,7 @@ if($user->authenticated == 0){
 					$content .= sprintf($html->string_error,
 								sprintf($l['str_bad_zone_name_x'],
 									$zonenamenew)
-								) . '<br />';
+								) . '<br>';
 				}else{
 					if(preg_match("/^(.*)\.$/",$zonenamenew,$newzonename)){
 						$zonenamenew = $newzonename[1];
@@ -150,19 +166,19 @@ if($user->authenticated == 0){
 					}
 					if($list == 0){
 						$localerror = 1;
-						$content .= sprintf($html->string_error,$newzone->error) . '<br />';
+						$content .= sprintf($html->string_error,$newzone->error) . '<br>';
 					}else{
 						if(count($list) != 0){
 							if(count($list) == 1){
 								$toprint =  $l['str_zone_linked_exists_and_not_manageable'] . 
-								'<br /> ';
+								'<br> ';
 							}else{
 								$toprint = $l['str_zones_linked_exist_and_not_manageable']  . 
-								'<br /> ';
+								'<br> ';
 							}
-							$toprint .= implode("<br />",$list) .'<br />'; 
+							$toprint .= implode("<br>",$list) .'<br>'; 
 							$content .= sprintf($html->string_error,
-									$toprint) . '<br />'; 
+									$toprint) . '<br>'; 
 							$localerror = 1;
 						}
 					}
@@ -199,13 +215,22 @@ if($user->authenticated == 0){
 						} 
 					}
 				}
+if (0):
+				if(notnull($zonearea)){
+					if(strcmp($zonetypenew, 'P')){
+						$content .= sprintf($html->string_warning, 
+							$l['str_no_zonearea']); 
+						$zonearea="";
+					}
+				}
+endif;
 				
 				if($config->usergroups){ 
 					// if usergroups, zone is owned by
 					// group and not individuals
 					if($usergrouprights != 'R'){
 						$newzonereturn = $newzone->zoneCreate($zonenamenew,
-							$zonetypenew,$template,$serverimport,$group->groupid);
+							$zonetypenew,$template,$serverimport,$group->groupid,$zonearea);
 						// logs
 						if(!$newzone->error){
 							if($config->userlogs){
@@ -226,7 +251,7 @@ if($user->authenticated == 0){
 						$localerror=1;
 					}
 				}else{
-					$newzonereturn = $newzone->zoneCreate($zonenamenew,$zonetypenew,$template,$serverimport,$user->userid);
+					$newzonereturn = $newzone->zoneCreate($zonenamenew,$zonetypenew,$template,$serverimport,$user->userid,$zonearea);
 				}
 				if(($newzone->error && !$newzonereturn) || $localerror){
 					if(!$localerror){
@@ -235,18 +260,18 @@ if($user->authenticated == 0){
 					}
 				}else{
 					if(strcmp($template,$l['str_none'])){
-						$content .= '<p />' . 
+						$content .= '<p >' . 
 								sprintf($l['str_using_zone_x_as_template'],$template);
 						if($newzone->error){
-							$content .= "<p />" . 
+							$content .= "<p >" . 
 									sprintf($html->string_warning, 
 									$l['str_errors_occured_during_tmpl_usage_check_content']);
 						}
 					}
 					// send email & print message
-					$content .= '<p />' .
+					$content .= '<p >' .
 						sprintf($l['str_zone_x_successfully_registered_on_x_server'],
-							 $zonenamenew,$config->sitename) . '<p /> 
+							 $zonenamenew,$config->sitename) . '<p > 
 					';
 					if(strcmp($template,$l['str_none'])){
 						$content .=
@@ -267,13 +292,13 @@ if($user->authenticated == 0){
 				$content .='
 	<form action="' .  $_SERVER["PHP_SELF"] . '" method="post">
 				' . $hiddenfields . '
-				<table border="0" width="100%">
-				<tr><td align="right">
+				<table id="createzonetable">
+				<tr><td class="left">
 				' . $l['str_zone'] . ': </td><td><input type="text" name="zonenamenew"
 				value="'.$zonenamenew.'">
 				</td></tr>
-				<tr><td align="right">' . $l['str_zonetype'] . ':</td>
-				<td><label><input type=radio name="zonetypenew" value="P"';
+				<tr><td class="left">' . $l['str_zonetype'] . ':</td>
+				<td nowrap><label><input type=radio name="zonetypenew" value="P"';
 				if($zonetypenew=='P'){
 					$content .=' checked';
 				}
@@ -282,12 +307,7 @@ if($user->authenticated == 0){
 				if($zonetypenew=='S'){
 					$content .= ' checked';
 				}
-				$content .= '>' . $l['str_secondary'] . '</label></td></tr>
-				<tr><td align="right">' . $l['str_using_following_zone_as_template'] 
-							. '</td>
-				<td><select name="template">
-				<option value="">' . $l['str_none'] . '</option>
-				';
+				$content .= '>' . $l['str_secondary'] . '</label></td></tr>';
 				if($config->usergroups){
 					$allzones = $group->listallzones();
 					$user->error=$group->error;			
@@ -295,21 +315,33 @@ if($user->authenticated == 0){
 					$allzones = $user->listallzones();
 				}
 	
-				if(!notnull($user->error)){
+				if(!notnull($user->error) && count($allzones)>0){
+          $content .= '
+          <tr><td class="left">' . $l['str_using_following_zone_as_template'] 
+                . '</td>
+          <td><select name="template">
+          <option value="">' . $l['str_none'] . '</option>
+          ';
 					while($otherzone= array_pop($allzones)){
 						$newzone = new Zone($otherzone[0],$otherzone[1],$otherzone[2]);
 						$content .= '<option value="'.$newzone->zonename.'('.$newzone->zonetype.')">'.
 								$newzone->zonename.' (' .
 								$newzone->zonetype.')</option>';
 					}
+          $content .='
+          </select>
+          </td></tr>';
 				}
-				$content .='
-				</select>
-				</td></tr>
-				<td>' . sprintf($l['str_use_server_for_import_x'],$config->webserverip) . 
+
+				$content .= '<tr><td>' . sprintf($l['str_use_server_for_import_x'],$config->webserverip) . 
 				'</td><td valign="center"><input type="text" name="serverimport">
-				</td></tr>
-				<tr><td colspan="2" align="center"><input type="submit"
+				</td></tr>';
+if (0):
+        $content .= '<tr><td colspan="2">' . sprintf($l['str_use_textarea_for_import']) . 
+        '</td></tr><tr><td colspan="2" align="center">
+        <textarea rows="24" cols="60" name="zonearea"></textarea></td></tr>';
+endif;
+				$content .= '<tr><td colspan="2" align="center"><input type="submit" class="submit"
 				value="' . $l['str_create'] . '"></td></tr>
 				</table>
 				</form>
@@ -323,7 +355,7 @@ if($user->authenticated == 0){
 			if($config->userlogs){
 				// $usergrouprights was set in includes/login.php
 				if(($usergrouprights == 'R') || ($usergrouprights =='W')){
-					$content .= '<p />' . 
+					$content .= '<p >' . 
 						sprintf($html->string_warning, 
 							$l['str_as_member_of_group_action_logged']);
 				}
