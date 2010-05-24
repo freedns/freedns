@@ -389,16 +389,11 @@ class Zone {
 						$classadd="WARNING";
 					}
 				}
-				// out only year - month - day hour:min
-				$timestamp = $line[0];
-				$hour = substr($timestamp,-6,2);
-				$min = substr($timestamp,-4,2);
-				$year = substr($timestamp,0,4);
-				$month = substr($timestamp,4,2);			
-				$day = substr($timestamp,6,2);
+				// remove seconds
+				$timestamp = preg_replace("/(.*):\d\d$/", "$1", $line[0]);
 				
 				$result .= '<tr class="' . $class . '"><td class="' . $class . '">' . 
-				$year . "-" . $month . "-" . $day . " " . $hour . ":" .	$min .
+				$timestamp .
 				'</td><td class="' . $class . '">' .
 				$line[3] . '</td><td class="' . $class . '">' . $line[1] . '</td><td class="' . $class . $classadd . 
 				'" align="center">&nbsp;' . $line[2] . "&nbsp;</td></tr>\n";
