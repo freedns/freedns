@@ -1574,7 +1574,6 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 		while(list($key,$value) = each($delete)){
 			if($value != ""){
 				$newvalue = preg_replace("/^.*\(([^\)]+)\)/","\\1", $value);
-				$newvalue = preg_replace("/\./", "\.", $newvalue);
 				
 				// name of item to be deleted: 
 				preg_match("/^(.*)\(/",$value,$item);
