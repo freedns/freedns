@@ -42,7 +42,7 @@ class Auth {
 	 *@param string $login XName login, may be null
 	 *@param string $password XName password
 	 */
-	Function Auth($login, $password){
+	Function Auth($login, $password, $md5=0){
 		global $config;
 		$this->error="";
 		$this->email="";
@@ -54,7 +54,7 @@ class Auth {
 		if(notnull($login)){
 		$this->cleanId($config->userdbrecoverytable,
 				$config->userdbrecoveryfldinsertdate,24*60);
-			if($this->Login($login,$password)){
+			if($this->Login($login,$password,$md5)){
 				// authentication OK
 				$this->login=$login;
 				$this->password=$password;
@@ -128,7 +128,7 @@ class Auth {
 	 *@param string $password password
 	 *@return int 1 if success, 0 if error or not present
 	 */
-	Function Login($login,$password){
+	Function Login($login,$password,$md5=0){
 		global $dbauth,$l,$config;
 		
 		$this->error="";
@@ -139,7 +139,7 @@ class Auth {
 				$this->error=$l['str_login_not_activated'];			
 				return 0;
 			}else{
-				$password = md5($password);
+				if (!$md5) $password = md5($password);
 				$query = sprintf(
 					"SELECT %s FROM %s WHERE %s='%s' AND %s='%s'",
 					$config->userdbfldid,
