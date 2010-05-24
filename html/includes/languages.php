@@ -15,9 +15,10 @@ reset($dirlist);
 while($countrycode = array_shift($dirlist)){
 	$content .= '<a href="' . $_SERVER['PHP_SELF'] . $mylink .
 		'language=' . $countrycode . 
-		'"><img border="0" src="images/' . $countrycode . '.png" alt="' . $countrycode . '" /></a>
+		'"><img src="images/' . $countrycode . '.png" alt="' . $countrycode . '"></a>
 		';
 }
+$content = '<p>'. $content .'</p>';
 print $html->box('languages',$title,$content);
 
 
