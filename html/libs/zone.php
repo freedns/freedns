@@ -117,6 +117,7 @@ class Zone {
 	 */
 	Function subExists($zonename,$userid){
 		global $db,$l;
+		global $config;
 		$this->error="";
 		$zonename = strtolower($zonename);
 		// sub zone of an existing one ?
@@ -124,6 +125,8 @@ class Zone {
 		reset($upper);
 		$tocompare = "";
 		$list = array();
+		if ($config->allowsubzones == 2)
+			return $list;
 		while($tld = array_pop($upper)){
 			if($tocompare == ""){
 				$tocompare = $tld;
@@ -132,6 +135,8 @@ class Zone {
 			}
 			$query = "SELECT LOWER(zone) from dns_zone WHERE 
 			zone='" . $tocompare . "' AND userid!='" . $userid . "'";
+			if ($config->allowsubzones == 1)
+				$query .= " AND zonetype = 'P'";
 			$res = $db->query($query);
 			if($db->error()){
 				$this->error=$l['str_trouble_with_db'];
@@ -145,6 +150,8 @@ class Zone {
 		// already a sub zone of this one ?
 		$query = "SELECT LOWER(zone) FROM dns_zone WHERE
 		zone like '%." . $zonename . "' AND userid!='" . $userid . "'";
+		if ($config->allowsubzones == 1)
+			$query .= " AND zonetype = 'P'";
 		$res = $db->query($query);
 		if($db->error()){
 			$this->error=$l['str_trouble_with_db'];
@@ -243,18 +250,33 @@ class Zone {
 				// if multiserver, insert for others
 				// restrictions on servers should be written here
 						
-				$query = "SELECT id FROM dns_server";
+				$query = "SELECT id,servername FROM dns_server";
 				$res = $db->query($query);
 				$serveridlist=array();
+				$servernamelist=array();
 				while($line = $db->fetch_row($res)){
 					array_push($serveridlist,$line[0]);
+					array_push($servernamelist,$line[1]);
 				}
-				while($serverid=array_pop($serveridlist)){
+				while($serverid=array_shift($serveridlist)){
 					$query = "INSERT INTO dns_zonetoserver
 								(zoneid,serverid) 
 							 VALUES ('" . $this->zoneid . "','" . 
 							 	$serverid . "')";
 					$res2 = $db->query($query);
+				}
+				if ($zonetype=='P'){
+					$query = "INSERT INTO dns_confprimary 
+							(zoneid, serial, refresh, retry, expiry, minimum, defaultttl, xfer)
+							 VALUES ('" . $this->zoneid . "','" . getSerial() . "',
+							'10800', '3600', '604800', '10800', '86400', 'any')";
+					$res2 = $db->query($query);
+					while($servername=array_shift($servernamelist)){
+						$query = "INSERT INTO dns_record
+								(zoneid,type,val1) 
+							VALUES ('". $this->zoneid . "', 'NS', '" . $servername .".')";
+						$res2 = $db->query($query);
+					}
 				}
 				return 1;
 			}
@@ -558,6 +580,7 @@ class Zone {
 						// MX - simple copy
 						// A - if domain name itself, substitute
 						// AAAA - if domain name itself, substitute
+						// WWW - if domain name itself, substitute
 						// CNAME - simple copy
 						// sub zones - simple copy
 						
@@ -596,6 +619,24 @@ class Zone {
 								$query = "INSERT INTO dns_record (zoneid,type,val1,val2,ttl)
 											VALUES ('" . $this->zoneid."','AAAA','" . $val1 . "','" 
 												. $line[2] . "','" . $line[6] . "')";
+								$db->query($query);											
+								break;
+							case "WWW":
+								$pattern = "^" . $templatezone . ".\$";
+								if(ereg($pattern,$line[1])){
+									$val1 = $this->zonename . ".";
+								}else{
+									$val1 = $line[1];
+								}
+								$pattern = $templatezone . "/";
+								if(ereg($pattern,$line[2])){
+									$val2 = ereg_replace($templatezone, $this->zonename, $line[2]);
+								}else{
+									$val2 = $line[2];
+								}
+								$query = "INSERT INTO dns_record (zoneid,type,val1,val2,ttl,val3,val4)
+											VALUES ('" . $this->zoneid."','WWW','$val1', '" 
+												. $val2 . "','" . $line[6] . "','".$line[3]."','".$line[4]."')";
 								$db->query($query);											
 								break;
 							case "CNAME":
