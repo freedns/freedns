@@ -13,13 +13,15 @@
 	update access to A records.
 
 	It relies on Edd Dumbill's XML RPC implementation
-	available at: http://xmlrpc.usefulinc.com/php.html
-	and has been tested with version 1.02
+	available at: http://phpxmlrpc.sourceforge.net/
+	and has been tested with version 2.2.2
 
 */
 
+/* they come directly from phpxmlrpc lib/ dir */
 include("xmlrpc.inc");
 include("xmlrpcs.inc");
+
 require("libs/xname.php");
 
 $config = new Config();
@@ -64,7 +66,7 @@ Function updateArecord($m) {
 	global $db, $dbauth, $user, $config;
 	$res = "";
 	$modified = 0;
-	$req = xmlrpc_decode($m->getParam(0));
+	$req = php_xmlrpc_decode($m->getParam(0));
 	$db = new Db();
 	if($config->userdbname){
         $dbauth = new DbAuth();
@@ -151,7 +153,7 @@ Function updateArecord($m) {
 		return new xmlrpcresp(0, $xmlrpcerruser, $currentzone->error);
 	}
 
-	return new xmlrpcresp(xmlrpc_encode($ret));
+	return new xmlrpcresp(php_xmlrpc_encode($ret));
 
 }
 
