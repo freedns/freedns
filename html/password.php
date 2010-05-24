@@ -29,21 +29,21 @@ if(file_exists("includes/left_side.php")) {
 $title = $l['str_password_recovery_title'];
 if((isset($_REQUEST) && !isset($_REQUEST['id']) && !isset($_REQUEST['account']))
 	|| (!isset($_REQUEST) && !isset($id) && !isset($account))){
-	$content = $l['str_lost_pwd_fill_in_fields_to_recover_password'] . '<p />
+	$content = $l['str_lost_pwd_fill_in_fields_to_recover_password'] . '<p >
 	
 	<form action="' .  $_SERVER["PHP_SELF"] . '" method="post">
 	<input type="hidden" name="language" value="' . $lang .'">
-	<table border="0">
+	<table id="passwordrecoverytable">
 	<tr><td align="right">' . $l['str_login'] . '</td><td><input type="text" name="account"
-	/></td></tr>
+	></td></tr>
 	<tr><td align="right" valign="top">' . $l['str_or_one_of_your_zones']  . ':</td>
 		<td><input
-	type="text" name="zonename" /> <br /><label><input type="radio" name="zonetype"
+	type="text" name="zonename" > <br><label><input type="radio" name="zonetype"
 	value="P">' . $l['str_primary'] . 
 	'</label><label><input type="radio" name="zonetype" value="S">' . 
 	$l['str_secondary']	. '</label></td></tr>
-		<tr><td colspan="2" align="center"><input type="submit" 
-	value="' . $l['str_recover_password_button'] . '" /></td></tr>
+		<tr><td colspan="2" align="center"><input type="submit" class="submit" 
+	value="' . $l['str_recover_password_button'] . '" ></td></tr>
 	</table>
 	</form>';
 }else{
@@ -121,7 +121,7 @@ if((isset($_REQUEST) && !isset($_REQUEST['id']) && !isset($_REQUEST['account']))
 						}else{
 							$content .= sprintf($html->string_error, 
 								$l['str_errors_occured_during_recovery_mail_sending'] 
-								) . "<br />";
+								) . "<br>";
 						}
 					}
 				}
@@ -142,9 +142,9 @@ if((isset($_REQUEST) && !isset($_REQUEST['id']) && !isset($_REQUEST['account']))
 					$content .= '
 					' . $l['str_password_recovery_login_is'] . 
 					': <div class="boxheader">' 
-					. $user->retrieveLogin($user->userid) . '</div><p />' .
+					. $user->retrieveLogin($user->userid) . '</div><p >' .
 					$l['str_your_password_is'] . ': <div class="boxheader">' 
-					. $password . '</div><p />
+					. $password . '</div><p >
 					' . sprintf($l['str_you_can_now_use_the_x_main_interface_x_to_log_in'],
 					'<a href="index.php">','</a>');
 					// reset user
