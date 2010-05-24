@@ -125,7 +125,7 @@ if($user->authenticated==1){
 	if(isset($_REQUEST)){
 		$zonename = $_REQUEST['zonename'];
 		$zonetype = $_REQUEST['zonetype'];
-		$server = $_REQUEST['server'];		
+		$server = htmlspecialchars($_REQUEST['server']);		
 	}
 	$zone = new Zone($zonename,$zonetype);
 	if($zone->error){
