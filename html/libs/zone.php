@@ -34,7 +34,7 @@ class Zone {
 	 * Class constructor
 	 *
 	 *@param string $zonename name of zone, may be empty
-	 *@param string $zonetype type of zone ('M'aster or 'S'lave)
+	 *@param string $zonetype type of zone ('P'rimary or 'S'econdary)
 	 *@param int $zoneid id of zone in DB
 	 */
 	Function Zone($zonename,$zonetype,$zoneid=0){
@@ -72,7 +72,7 @@ class Zone {
 	 *
 	 *@access private
 	 *@param string $zonename name of zone
-	 *@param string $zonetype type of zone ('M'aster or 'S'lave)
+	 *@param string $zonetype type of zone ('P'rimary or 'S'econdary)
 	 *@return int 1 if true, 0 if false or error 
 	 */
 	Function Exists($zonename,$zonetype){
@@ -170,7 +170,7 @@ class Zone {
 	 *
 	 *@access public
 	 *@param string $zonename name of zone
-	 *@param string $zonetype type of zone ('M'aster or 'S'lave)
+	 *@param string $zonetype type of zone ('P'rimary or 'S'econdary)
 	 *@return int 0 if error or no such zone, 1 if ID found
 	 */
 	Function retrieveID($zonename,$zonetype){
@@ -199,7 +199,7 @@ class Zone {
 	 *
 	 *@access public
 	 *@param string $zonename zone name
-	 *@param string $zonetype zone type ('M'aster or 'S'lave)
+	 *@param string $zonetype zone type ('P'rimary or 'S'econdary)
 	 *@param string $template zone to be used as template
 	 *@param string $serverimport server to be used to import zone
 	 *@param int $userid user ID
@@ -313,7 +313,7 @@ class Zone {
 		// dns_zone, dns_conf*, dns_record,
 		// dns_recovery
 		$todelete = array('dns_record','dns_log');
-		if($this->zonetype == 'M'){
+		if($this->zonetype == 'P'){
 			array_push($todelete, 'dns_confprimary');
 		}else{
 			array_push($todelete, 'dns_confsecondary');
