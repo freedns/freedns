@@ -204,11 +204,11 @@ if($user->authenticated == 0){
 						include('includes/user_sendmail.php');
 						
 						// insert ID in DB
-						if(!$user->storeIDEmail($user->userid,$email,$randomid)){
+						if(!$user->storeIDEmail($user->userid,mysql_real_escape_string($email),$randomid)){
 							$content .= $user->error;
 						}else{
 				
-							if(mailer($config->tousersource,$email, 
+							if(mailer($config->tousersource,addslashes($email), 
 								$config->sitename .
 								" " . $l['str_email_validation'],"",$mailbody)){
 
