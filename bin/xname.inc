@@ -9,7 +9,7 @@
 ###############################################################
 
 sub logtimestamp {
-	$timestamptxt = strftime("%b %d %H:%M:%S", gmtime);
+	$timestamptxt = strftime("%Y%m%d %H:%M:%S", gmtime);
 	return $timestamptxt;
 } # end logtimestamp
 
