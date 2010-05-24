@@ -116,7 +116,7 @@ if((isset($_REQUEST) && !isset($_REQUEST['id']) && !isset($_REQUEST['account']))
 					}else{
 						if(mailer($config->tousersource,$email,
 						$config->sitename . " " . $l['str_password_recovery']
-									,"",$mailbody)){
+						,"Content-Type: text/plain; charset=" . $l['str_content_type'], $mailbody)){
 							$content .= $l['str_recovery_mail_sent'];
 						}else{
 							$content .= sprintf($html->string_error, 
