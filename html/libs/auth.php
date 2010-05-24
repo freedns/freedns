@@ -183,7 +183,7 @@ class Auth {
 			"SELECT count(*) FROM %s WHERE %s='%s'",
 			$config->userdbtable,
 			$config->userdbfldlogin,
-			$login);
+			mysql_real_escape_string($login));
 		$res = $dbauth->query($query);
 		$line = $dbauth->fetch_row($res);
 		if($dbauth->error()){
@@ -250,9 +250,9 @@ class Auth {
 					$config->userdbfldlogin,
 					$config->userdbfldemail,
 					$config->userdbfldpassword,
-					$login,
-					$email,
-					$password);
+					mysql_real_escape_string($login),
+					mysql_real_escape_string($email),
+					mysql_real_escape_string($password));
 				$res = $dbauth->query($query);
 				if($dbauth->error()){
 					$this->error = $l['str_trouble_with_db'];
@@ -263,7 +263,7 @@ class Auth {
 						$config->userdbfldid,
 						$config->userdbtable,
 						$config->userdbfldlogin,
-						$login);
+						mysql_real_escape_string($login));
 					$res = $dbauth->query($query);
 					$line = $dbauth->fetch_row($res);
 					if($dbauth->error()){
@@ -311,7 +311,7 @@ class Auth {
 			"UPDATE %s SET %s='%s' WHERE %s='%s'",
 			$config->userdbtable,
 			$config->userdbfldlogin,
-			$login,
+			mysql_real_escape_string($login),
 			$config->userdbfldid,
 			$this->userid);
 		$res = $dbauth->query($query);
@@ -338,7 +338,7 @@ class Auth {
 			"UPDATE %s SET %s='%s' WHERE %s='%s'",
 			$config->userdbtable,
 			$config->userdbfldpassword,
-			$password,
+			mysql_real_escape_string($password),
 			$config->userdbfldid,
 			$this->userid);
 		$res = $dbauth->query($query);
@@ -399,7 +399,7 @@ class Auth {
 			$config->userdbfldemail,
                         $config->userdbtable,
 			$config->userdbfldlogin,
-			$login);		
+			mysql_real_escape_string($login));
 		$res=$dbauth->query($query);
 		$line=$dbauth->fetch_row($res);
 		if($dbauth->error()){
@@ -425,7 +425,7 @@ class Auth {
 			"UPDATE %s SET %s='%s',%s='%s' WHERE %s='%s'",
 			$config->userdbtable,
 			$config->userdbfldemail,
-			$email,
+			mysql_real_escape_string($email),
 			$config->userdbfldvalid,
 			$config->userdbfldvalidnullvalue,
 			$config->userdbfldid,
@@ -653,11 +653,12 @@ class Auth {
 		// TODO : valid for limited time
 		$this->error="";
 		$query = sprintf(
-			"SELECT %s FROM %s WHERE %s='%s'",
+			"SELECT %s,%s FROM %s WHERE %s='%s'",
 			$config->userdbwaitingflduserid,
+			$config->userdbwaitingfldemail,
 			$config->userdbwaitingtable,
 			$config->userdbwaitingfldid,
-			$id);
+			mysql_real_escape_string($id));
 		$res = $dbauth->query($query);
 		$line = $dbauth->fetch_row($res);
 		if($dbauth->error()){
@@ -669,6 +670,7 @@ class Auth {
 			return 0;
 		}
 		$userid = $line[0];
+        $email = $line[1];
 		
 		$query = sprintf(
 			"DELETE FROM %s WHERE %s='%s'",
@@ -680,10 +682,12 @@ class Auth {
 			$this->error=$l['str_trouble_with_db'];
 			return 0;
 		}
-		// update & set dns_user.valid to 1
+		// update email & set dns_user.valid to 1
 		$query = sprintf(
-			"UPDATE %s SET %s='%s' WHERE %s='%s'",
+			"UPDATE %s SET %s='%s',%s='%s' WHERE %s='%s'",
 			$config->userdbtable,
+			$config->userdbfldemail,
+			$email,
 			$config->userdbfldvalid,
 			$config->userdbfldvalidvalue,
 			$config->userdbfldid,
@@ -694,6 +698,28 @@ class Auth {
 			return 0;
 		}
 		return 1;
+	}
+
+	Function retrieveEmailToConfirm() {
+		global $dbauth,$l,$config;
+		$this->error="";
+		$query = sprintf(
+			"SELECT %s FROM %s WHERE %s='%s'",
+			$config->userdbwaitingfldemail,
+			$config->userdbwaitingtable,
+			$config->userdbwaitingflduserid,
+			$this->userid);
+		$res = $dbauth->query($query);
+		$line = $dbauth->fetch_row($res);
+		if($dbauth->error()){
+			$this->error=$l['str_trouble_with_db'];
+			return 0;
+		}
+		if(!notnull($line[0])){
+			$this->error=$l['str_no_such_id'] ;
+			return 0;
+		}
+		return $line[0];
 	}
 
 
@@ -874,7 +900,7 @@ class Auth {
 			$config->userdbfldid,
 			$config->userdbtable,
 			$config->userdbfldlogin,
-			$login);
+			mysql_real_escape_string($login));
 
 		$res=$dbauth->query($query);
 		$line=$dbauth->fetch_row($res);
