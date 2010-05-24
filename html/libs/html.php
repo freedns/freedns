@@ -54,8 +54,7 @@ Class Html{
 	 *@return string HTML code
 	 */
 	function header($title){
-	global $config,
-		$l;
+	global $config, $l, $user, $lang;
 	Header("Content-Type: text/html; charset=" . $l['str_content_type']);
 	$result ='
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
@@ -65,7 +64,8 @@ Class Html{
 <head>
 	<title>' . $config->sitename . ' - ' . $title . '</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=' . $l['str_content_type'] . '">
-	<link rel="stylesheet" type="text/css" href="' . $config->cssurl . '">
+	<link rel="stylesheet" type="text/css" href="' . $config->cssurl . '">';
+  $result .='
 </head>
 <body>
 <div id="container">
@@ -91,9 +91,15 @@ Class Html{
 
 <div id="headtitle">
 		<div id="header">
-			<a href="index.php'.$link.'" class="linkcolor">' .
-			$config->sitename . '</a>
+		<a href="index.php'.$link.'">
+		<span style="background-position: '.(84*rand(0,7)).'px '.(84*rand(0,6)).'px;"></span>
+		<span style="background-position: '.(84*rand(0,7)).'px '.(84*rand(0,6)).'px;"></span>
+		<span style="background-position: '.(84*rand(0,7)).'px '.(84*rand(0,6)).'px;"></span>
+		<span style="background-position: '.(84*rand(0,7)).'px '.(84*rand(0,6)).'px;"></span>
+		</a>
+		<a href="index.php'.$link.'" class="linkcolor"><h1><span>'. $config->sitename . '</span></h1></a>
 		</div>
+
 		<div id="linkline">
 		<a href="zones.php'.$link.'" class="linkcolor">' .
 		$l['str_html_view_zones'] . '</a> |
@@ -103,8 +109,10 @@ Class Html{
 		$l['str_html_modify_zone'] . '</a> |
 		<a href="deletezone.php'.$link.'" class="linkcolor">' .
 		$l['str_html_delete_zone'] . '</a> |
-		<a href="' . $config->mainurl . '" class="linkcolor">' .
-		$l['str_html_go_on_xname'] . '!</a>		
+		<a href="' . $config->mainurl . $link. '" class="linkcolor">' .
+		$l['str_html_go_on_xname'] . '</a>	|
+		<a href="' . $config->mainurl . $link. '&logout=1" class="linkcolor">' .
+		$l['str_logout'] . '</a>		
 		</div>
 </div>
 		<!-- end header -->
@@ -157,9 +165,9 @@ Class Html{
 		$result = '
 		<!-- box beginning "' . $id . '" -->
 		<div id="' . $id . '">
-			<div id="' . $id . '_title">' 
+			<h2 id="' . $id . '_title"><span>' 
 				. $title . 
-			'</div>
+			'</span></h2>
 			<div id="' . $id . '_content">' 
 				. $content . 
 			'</div>
