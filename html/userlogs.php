@@ -22,7 +22,7 @@ if(file_exists("includes/left_side.php")) {
         include "includes/left_side_default.php";
 }
 
-if($user->authenticated){
+if($user->authenticated==1){
 	$title=$l['str_user_logs_title'];
 	$content ="";
 	if($config->usergroups){
@@ -224,6 +224,8 @@ if($user->authenticated){
 	$content=$l['str_must_log_first'];
 }
 
+if ($user->authenticated==2) print migrationbox(1);
+else
 print $html->box('mainbox',$title,$content);
 
 if(file_exists("includes/right_side.php")) {
