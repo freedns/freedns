@@ -14,7 +14,8 @@ if($user->authenticated != 1){
 			'</a>') . 
 			'<p />';
 	}
-	$content .= '<form method="post" action="index.php">' . 
+   $content .= '<form method="post" action="' .
+       ereg_replace("^http", "https", $config->mainurl) . 'index.php">' .
 	$l['str_login'] . ': <br /><div align="center"><input
 	type="text" name="login" /></div><br />
 	' . $l['str_password'] . ': <br /><div align="center"><input type="password" name="password"
@@ -120,10 +121,8 @@ if($user->authenticated != 1){
 				default:
 					$class='UNKNOWN';
 			}
-			$content .= '<tr><td><a href="modify.php'
-			.$link.'&amp;zonename=' . $newzone->zonename . '&amp;zonetype=' .
-			$newzone->zonetype . '" class="linkcolor">' .
-			 $newzone->zonename . '</a> (' . $newzone->zonetype . ')</td><td
+			$content .= '<tr>';
+         $content .= '<td
 			 class="loghighlight' . $class . '" align="center"><a href="logwindow.php'
 			 .$link .'&amp;zonename=' .$newzone->zonename . '&amp;zonetype=' .
 			$newzone->zonetype . '" class="linkcolor"
@@ -133,13 +132,18 @@ if($user->authenticated != 1){
 		
 '\',\'M\',\'toolbar=no,location=no,directories=no,status=yes,alwaysraised=yes,dependant=yes,resizable=yes,scrollbars=yes,menubar=no,width=640,height=480\');
 return false">'.
-			 $status . '</a></td></tr>';
+			 $status . '</a></td>';
+         $content .= '<td><a href="modify.php'
+			.$link.'&amp;zonename=' . $newzone->zonename . '&amp;zonetype=' .
+			$newzone->zonetype . '" class="linkcolor">' .
+			 $newzone->zonename . '</a> (' . $newzone->zonetype . ')</td>';
+          $content .= '</tr>';
 		}
 		$content .= '</table>';
 	}else{
 		$content = $user->error;
 	}
-	$title = '<a href="index.php' . $link . '" class="boxtitle">' .
+	$title = '<a href="zones.php' . $link . '" class="boxtitle">' .
 	$l['str_all_your_zones'] . '</a>';
 	print $html->box('yourzones',$title,$content);
 }
