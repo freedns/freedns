@@ -76,11 +76,11 @@ class Secondary extends Zone {
 
 		$this->error="";
 		list($advanced,$ipv6,$nbrows)=$params;
-		$result = "";
+		$result = '
+			<h3 class="boxheader">
+			' . $l['str_zone'] . ': ' . $this->zonename . '
+			</h3>';
 
-		$result .= "<strong>" . $l['str_secondary_be_sure_that_name_server_is_auth']
-		. "</strong><br>\n";
-		
 		$result .= '
 		<form method="POST">
 			<input type="hidden" name="modified" value="1">
@@ -89,17 +89,16 @@ class Secondary extends Zone {
 			$this->zonename . '">
 			<input type="hidden" name="zonetype" value="' . 
 			$this->zonetype . '">
-			<table border="0">
-			<tr><td align="right" class="boxheader">
-			<div align="right">' . $l['str_zone'] . ': </div></td><td class="boxheader">' . $this->zonename . '
-			</td></tr>
-			<tr><td align="right">' . $l['str_secondary_primary_ns_ip'] . ' : </td>
+      <p>' . $l['str_secondary_be_sure_that_name_server_is_auth'] . '</p>
+			<table>
+			<tr><td class="left">' . $l['str_secondary_primary_ns_ip'] . ': </td>
 			<td><input type="text" name="primary"
 			value="' . $this->masters . '">
 			</td></tr>
-
-			<tr><td align="right">
-			' . $l['str_secondary_allow_transfer_from']  . ':</td><td>
+			</table>
+			<p> ' . $l['str_secondary_allow_transfer_from']  . '</p>
+			<table>
+      <tr><td>
 			<label><input type="radio" name="xfer" value="all" ';
 			$notothers = 0;
 			$xferip="";
@@ -108,6 +107,8 @@ class Secondary extends Zone {
 				$notothers = 1;
 			}
 			$result .= '>' . $l['str_secondary_allow_tranfer_all'] . '</label>
+      </td></tr>
+      <tr><td>
 			<label><input type="radio" name="xfer" value="master" ';
 			if($this->xfer == $this->masters){
 				$result .= 'checked';
@@ -115,8 +116,7 @@ class Secondary extends Zone {
 			}
 			$result .= '>' . $l['str_secondary_allow_transfer_master_only'] . '</label>
 			</td></tr>
-			<tr><td align="right">
-			&nbsp;</td><td><label><input type="radio" name="xfer" value="others" ';
+			<tr><td><label><input type="radio" name="xfer" value="others" ';
 			if($notothers == 0){
 				$result .= 'checked';
 				if(strpos('.' . $this->xfer,$this->masters) == 1){
@@ -128,9 +128,9 @@ class Secondary extends Zone {
 			$result .= '>' . $l['str_secondary_allow_transfer_master_and_ip'] . '</label>: 
 			<input type="text" name="xferip" value="' . $xferip . '">
 			</td></tr>
-
-			
-			<tr><td colspan="2" align="center"><input type="submit"
+      </table>
+      <table id="submit">
+			<tr><td><input type="submit"
 			value="' . $l['str_secondary_modify_button'] . '"></td></tr>
 			</table>
 		</form>
@@ -158,7 +158,7 @@ class Secondary extends Zone {
 			$localerror = 1;
 			$content .= sprintf($html->string_error,
 				$l['str_secondary_you_must_provide_a_primary'] 
-				) . '<br />';
+				) . '<br >';
 		}
 		
 		// if primary modified ==> try to dig
@@ -168,9 +168,9 @@ class Secondary extends Zone {
 				$localerror = 1;
 				$content .= sprintf($html->string_error, 
 							$l['str_secondary_your_primary_should_be_an_ip'] . 
-							"<br />" .
+							"<br >" .
 							$l['str_secondary_if_you_want_two_primary']
-						) . '<br />';
+						) . '<br >';
 			}else{
 				// remove last ';' if present
 				if(substr($primary, -1) == ';'){
@@ -228,16 +228,16 @@ class Secondary extends Zone {
 						}
 
 						if(notnull($msg)){
-							$dig .= '"' . $dig . '" (' . $msg . ')';
+							$dig = '"' . $dig . '" (' . $msg . ')';
 						}
 
 						$content .= sprintf($html->string_warning, 
 								sprintf($l['str_trying_to_dig_from_x_returned_status_x'],
-									$ipserver,$dig)
+									$ipserver, $dig)
 								);
 						$content .= " " .
 							sprintf($l['str_secondary_non_blocking_warning_x_will_not_serve'],
-									$config->sitename) . '<br />';
+									$config->sitename) . '<br >';
 					}
 				}
 			}
@@ -250,7 +250,7 @@ class Secondary extends Zone {
 				$localerror = 1;
 				$content .= sprintf($html->string_error, 
 							$l['str_secondary_invalid_list_of_allowtransfer']
-						) . '<br />';
+						) . '<br >';
 			}
 			$xfer='others';
 		}else{
@@ -303,7 +303,7 @@ class Secondary extends Zone {
 				if($db->error()){
 					$result .= '<p>' . sprintf($html->string_error, 
 									$l['str_trouble_with_db']
-								) . '<br />' . 
+								) . '<br >' . 
 								$l['str_secondary_your_zone_will_not_be_available'] .
 								'</p>';
 				}else{
@@ -316,13 +316,11 @@ class Secondary extends Zone {
 					$nsxferips = array_merge($nsxferips,$nsxips);
 					$nsxferips = array_unique($nsxferips);
 					$content .= '
-					<p />
-					<div class=boxheader>' . 
+					<h3 class=boxheader>' . 
 					sprintf($l['str_secondary_zone_successfully_modified_on_x'],
-					$config->sitename) . '</div>
-					<p />
-					' . $l['str_secondary_after_modif_be_sure_to'] . ':<p />
-					- ' . $l['str_secondary_after_modif_add_lines_to_zonefile'] . ':<p />
+					$config->sitename) . '</h3>
+					' . $l['str_secondary_after_modif_be_sure_to'] . ':<ul>
+					<li>' . $l['str_secondary_after_modif_add_lines_to_zonefile'] . ':<br>
 					<pre>
 ';
 					while(list($notwanted,$nsxname) = each($nsxnames)){
@@ -331,11 +329,10 @@ class Secondary extends Zone {
 					}
 				$content .='
 				</pre>
-				<p />
 				
-				- ' . 
+				<li>' . 
 				$l['str_secondary_after_modif_add_to_configfile'] . ':
-				<p />
+				<p >
 				<pre>
 // 
 // ' . $l['str_secondary_after_modif_comment_in_sample_1'] . '
@@ -356,21 +353,20 @@ zone "' . $this->zonename . '" {
 	};
 };
 </pre>
-					<p />
-					- ' . sprintf($l['str_secondary_after_modif_delegate_x_to'],
+					<li>' . sprintf($l['str_secondary_after_modif_delegate_x_to'],
 							$this->zonename) . ': ';
 				
 					reset($nsxnames);
 					$serverlist ='';
 					while(list($notwanted,$nsxname) = each($nsxnames)){
-						$serverlist .= ' <b>' . $nsxname . '</b> -';
+						$serverlist .= ' <b>' . $nsxname . '</b>; ';
 					}
 					$serverlist = substr($serverlist,0,-1);
 
 					$content .= $serverlist . '
-					<p />
+					</ul>
 				
-					' . $l['str_secondary_reload_info'] . '<p />
+					<p>' . $l['str_secondary_reload_info'] . '<p>
 
 					';
 				} // else no error
