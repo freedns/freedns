@@ -224,13 +224,6 @@ class Zone {
 				return 0;
 			}else{
 				$this->retrieveID($zonename,$zonetype);
-				// insert creation log
-				$query = "INSERT INTO dns_log (zoneid,content,status,serverid)
-						VALUES ('" . $this->zoneid .
-						"','" . addslashes($l['str_zone_successfully_created']) . 
-						"','I','1')";
-				$res = $db->query($query);
-
 				$this->zonename=mysql_real_escape_string($zonename);
 				$this->zonetype=mysql_real_escape_string($zonetype);
 
@@ -268,35 +261,61 @@ endif;
 				// if multiserver, insert for others
 				// restrictions on servers should be written here
 						
-				$query = "SELECT id,servername FROM dns_server";
-				$res = $db->query($query);
-				$serveridlist=array();
-				$servernamelist=array();
-				while($line = $db->fetch_row($res)){
-					array_push($serveridlist,$line[0]);
-					array_push($servernamelist,$line[1]);
-				}
-				while($serverid=array_shift($serveridlist)){
-					$query = "INSERT INTO dns_zonetoserver
+				if (notnull($this->error)) {
+					// argh! no rollback for myisam.
+					$query = sprintf("DELETE FROM dns_zone WHERE zone='%s' AND zonetype='%s' AND userid='%s';",
+						mysql_real_escape_string($zonename), $zonetype, $userid);
+					$res = $db->query($query);
+					return 0;
+				} else {
+					// insert creation log
+					$query = "INSERT INTO dns_log (zoneid,content,status,serverid)
+						VALUES ('" . $this->zoneid .
+						"','" . addslashes($l['str_zone_successfully_created']) . 
+						"','I','1')";
+					$res = $db->query($query);
+
+					$query = "SELECT id,servername FROM dns_server";
+					$res = $db->query($query);
+					$serveridlist=array();
+					$servernamelist=array();
+					while($line = $db->fetch_row($res)){
+						array_push($serveridlist,$line[0]);
+						array_push($servernamelist,$line[1]);
+					}
+					while($serverid=array_shift($serveridlist)){
+						$query = "INSERT INTO dns_zonetoserver
 								(zoneid,serverid) 
-							 VALUES ('" . $this->zoneid . "','" . 
+								 VALUES ('" . $this->zoneid . "','" . 
 							 	$serverid . "')";
-					$res2 = $db->query($query);
-				}
-				if ($zonetype=='P'){
-					$query = "INSERT INTO dns_confprimary 
+						$res2 = $db->query($query);
+					}
+					if ($zonetype=='P'){
+						$query = "INSERT INTO dns_confprimary 
 							(zoneid, serial, refresh, retry, expiry, minimum, defaultttl, xfer)
 							 VALUES ('" . $this->zoneid . "','" . getSerial() . "',
 							'10800', '3600', '604800', '10800', '86400', 'any')";
-					$res2 = $db->query($query);
-					while($servername=array_shift($servernamelist)){
-						$query = "INSERT INTO dns_record
-								(zoneid,type,val1) 
-							VALUES ('". $this->zoneid . "', 'NS', '" . $servername .".')";
 						$res2 = $db->query($query);
+						while($servername=array_shift($servernamelist)){
+							$query = "INSERT INTO dns_record
+								(zoneid,type,val1) 
+								VALUES ('". $this->zoneid . "', 'NS', '" . $servername .".')";
+							$res2 = $db->query($query);
+						}
 					}
-				}
-				return 1;
+					# TODO: change createzone to fetch master for secondary
+					if ($zonetype=='P'){
+						// flag as 'M'odified to be generated & reloaded
+						$query = "UPDATE dns_zone SET 
+							  status='M' WHERE id='" . $this->zoneid . "'";
+						$res = $db->query($query);
+						if($db->error()){
+							  $this->error .= $l['str_trouble_with_db'];
+							  return 0;
+						}
+						return 1;
+       					}
+				} // notnull($this->error)
 			}
 		}else{
 			// check if zone status is D or not
@@ -697,15 +716,6 @@ endif;
 							return 0;
 						}
 					} // end while 
-					// flag as 'M'odified to be generated & reloaded
-					$query = "UPDATE dns_zone SET 
-						status='M' WHERE id='" . $this->zoneid . "'";
-					$res = $db->query($query);
-					if($db->error()){
-						$this->error = $l['str_trouble_with_db'];
-						return 0;
-					}
-
 				} // end no DB error
 				
 				break;
@@ -724,22 +734,23 @@ endif;
 	 *@return int 1 if success, 0 if error
 	 */
 	Function fillinWithImport($server){
+		$dig = zoneDig($server,$this->zonename);
+        return $this->parseZoneInput($dig);
+    }
+
+	Function parseZoneInput($dig){
 		global $db,$l;
 		$this->error="";
 		$first = 1;
-		$dig = zoneDig($server,$this->zonename);
+		$dbqueries = 0;
 
-		// split into lines
 		$diglist = explode("\n",$dig);
 		foreach($diglist as $line){
 			$query = "";
 			if(!preg_match("/^\s*;/",$line)){
 				if(preg_match("/^\s*?(.*?)\s+(.*?)\s+IN\s+(.*?)\s+(.*)\s*$/",$line,$record)){
 					$data=preg_split("/\s+/",$record[4]);
-					// first turn dots into escaped dots, so next regex matches literal dot
-					$shortname = preg_replace("/\./", "\\.", $this->zonename);
-					// now remove zonename from the end of fqdn 
-					$shortname = preg_replace("/\.".$shortname."\.$/", "", $record[1]);
+                    $shortname = preg_replace("/\.".preg_replace("/\./", "\\.", $this->zonename)."\.$/", "", $record[1]);
 					switch($record[3]){
 						case "SOA":
 							if($first){
@@ -813,16 +824,17 @@ endif;
 									 . $data[2] . "','" . $data[3] . "','" . $record[2] . "')";
 							break;
 						case "TXT":
-							$txt = mysql_real_escape_string(preg_replace('/"/', '', $record[4]));
+                            $txt = mysql_real_escape_string(preg_replace("/^\"(.*)\"$/", "\"$1\"", $record[4]));
 							$query = "INSERT INTO dns_record (zoneid,type,val1,val2,ttl)
 									VALUES('" . $this->zoneid . "','TXT','" .
-									$shortname . "','\"" . $txt . "\"','" . $record[2] . "')";
+									$shortname . "','" . $txt . "','" . $record[2] . "')";
 							break;
 						default:
 							print "<p><span class=\"error\">" . $l['str_log_unknown'] . "</span>" .
 				  "<br>\n" . $line . "\n</p>";
 					}
 					if(notnull($query)){
+						$dbqueries++;
 						$db->query($query);
 						if($db->error()){
 							$this->error = $l['str_trouble_with_db'];
@@ -833,15 +845,9 @@ endif;
 			} // not ";" beginning line
 		} // end foreach line of dig result
 
-		// flag as 'M'odified to be generated & reloaded
-		$query = "UPDATE dns_zone SET 
-			status='M' WHERE id='" . $this->zoneid . "'";
-		$res = $db->query($query);
-		if($db->error()){
-			$this->error = $l['str_trouble_with_db'];
-			return 0;
-		}
-		return 1;
+    $query = "UPDATE dns_record SET ttl='-1' WHERE ttl='86400' AND zoneid='".$this->zoneid."';";
+    $db->query($query);
+		return $dbqueries;
 	}
 }
 ?>
