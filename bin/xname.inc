@@ -9,7 +9,7 @@
 ###############################################################
 
 sub logtimestamp {
-	$timestamptxt = strftime("%Y%m%d %H:%M:%S", gmtime);
+	$timestamptxt = strftime("%Y%m%d %H:%M:%S", CORE::localtime);
 	return $timestamptxt;
 } # end logtimestamp
 
