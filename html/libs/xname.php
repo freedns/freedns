@@ -422,7 +422,7 @@ function vrfyEmail($string){
  */
 function checkDig($server,$zone){	
 	global $config;
-	$result = `$config->bindig soa '$zone' @'$server'`;
+	$result = `$config->bindig soa '$zone' @'$server' -b '$config->nsaddress'`;
 
 	// check if status:*
 	// return *
@@ -453,12 +453,11 @@ function checkDig($server,$zone){
  */
 function DigSerial($server,$zone){
 	global $config, $l;
-	$result = `$config->binhost -t soa '$zone' '$server'`;
+	$result = `$config->bindig @'$server' '$zone' soa -b '$config->nsaddress' +short`;
 	if(ereg("try again",$result)){
 		return $result;
 	}else{
-// modified 02/05/2002 to match host v9.2.1
-		preg_match("/.*SOA [^\s\t]+ [^\s\t]+ ([^\s\t]+)/",$result,$serial);
+		preg_match("/[^\s\t]+ [^\s\t]+ ([^\s\t]+) .*/", $result, $serial);
 		if(isset($serial[1])){
 			return $serial[1];
 		}else{
@@ -478,7 +477,7 @@ function DigSerial($server,$zone){
  */ 
 function zoneDig($server,$zone){
 	global $config;
-	$result = `$config->bindig axfr '$zone' @'$server'`;
+	$result = `$config->bindig @'$server' '$zone' axfr -b '$config->nsaddress'`;
 	return $result;
 }
 
@@ -626,19 +625,9 @@ function diffDate($date){
  *@return generated serial number
  */
 	Function getSerial($previous){
-		// if previous not null, construct against previous
-		// else, construct YYYYMMDD01
-
-		$current = strftime("%Y%m%d");
-		if(!notnull($previous) || ($current != substr($previous,0,8))){
-			$serial = $current . '01';			
-		}else{
-			$previousnbr=substr($previous,8,strlen($previous) - 8);
-			$previousnbr++;
-			if(strlen($previousnbr) < 2){
-				$previousnbr = '0' . $previousnbr;
-			}
-			$serial = $current . $previousnbr;
+		$serial = time();
+		if (notnull($previous) && $previous > $serial){
+				$serial = $previous + 1;
 		}
 		return $serial;
 	}
