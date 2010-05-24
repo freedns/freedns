@@ -26,7 +26,7 @@ require $XNAME_HOME . "xname.inc";
 # load all languages
 if(opendir(DIR,$XNAME_HOME . "strings")){
         foreach(readdir(DIR)){
-                if(/^[^\.]*$/){
+                if(/^[a-z][a-z]$/){
                         require $XNAME_HOME . "strings/" . $_ . "/strings.inc";
                 }
         }
@@ -329,8 +329,10 @@ sub getTimestamp(){
 	# WARNING : what will happen 31/12 and 01/01 ?	
 	$year = localtime->year() + 1900;
 
-	if(localtime->mon() == 0){ # Jan
-		if($monthpart ne "01"){ # month != jan ==> dec or previous
+	#PK#if(localtime->mon() == 0){ # Jan
+	#PK#	if($monthpart ne "01"){ # month != jan ==> dec or previous
+	if(localtime->mon() < 3){ # Jan or Feb
+		if($monthpart ne "01" && $monthpart ne "02"){ # month != jan ==> dec or previous
 			$year = $year - 1;
 		}
 	}
