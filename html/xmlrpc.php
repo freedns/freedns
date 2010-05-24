@@ -95,7 +95,7 @@ Function updateArecord($m) {
 				$zone->RetrieveUser() != $user->userid) ||
 				($config->usergroups && 
 				$zone->RetrieveUser() != $group->groupid)){
-		return new xmlrpcresp(0, $xmlrpcerruser, "You can not manage zone". $zone->zonename);
+		return new xmlrpcresp(0, $xmlrpcerruser, "You can not manage zone ". $zone->zonename);
 	}
         $currentzone = new Primary($zone->zonename, $zone->zonetype, $user);
 	if (notnull($req["oldaddress"])) {
