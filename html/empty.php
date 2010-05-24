@@ -11,16 +11,16 @@ a {text-decoration: none; }
 </style>
 </head>
 <body>
-<h1>Ta nazwa nie jest prawid³owa...</h1>
+<h1>Ta nazwa nie jest prawidÅ‚owa...</h1>
 <p>
-Nazwa <strong><?=$site?></strong> nie jest prawid³owa.
-<br />
-Je¿eli sprowadzi³o Ciê tu klikniêcie w jaki¶ odno¶nik, wróæ do tamtej strony
-i zg³o¶ problem webmasterowi.
+Nazwa <strong><?=$site?></strong> nie jest prawidÅ‚owa.
+<br>
+JeÅ¼eli sprowadziÅ‚o CiÄ™ tu klikniÄ™cie w jakiÅ› odnoÅ›nik, wrÃ³Ä‡ do tamtej strony
+i zgÅ‚oÅ› problem webmasterowi.
 </p>
 <p class="ok">
-W ka¿dym razie zapraszam do us³ugi FreeDNS::SGH
-pod adresem <a href="http://FreeDNS.sgh.waw.pl/"> http://FreeDNS.sgh.waw.pl/</a>
+W kaÅ¼dym razie zapraszam do usÅ‚ugi FreeDNS::42
+pod adresem <a href="http://freedns.42.pl/"> http://freedns.42.pl/</a>
 </p>
 </body>
 </html>
