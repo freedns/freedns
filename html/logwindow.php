@@ -66,9 +66,9 @@ if(isset($_REQUEST)){
 		$lang = $config->defaultlanguage;
 	}
 }
+$lang=substr($lang, 0, 2);
 if (!is_file('includes/strings/' . $lang. '/strings.php'))
-  $lang='en';
-include 'includes/strings/' . $lang . '/strings.php';
+	$lang = $config->defaultlanguage;
 $html->initialize();
 
 $user = new User($login,$password,$idsession);
