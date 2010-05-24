@@ -49,7 +49,7 @@ if($user->authenticated){
 			// delete 
 			if((isset($_REQUEST) && (isset($_REQUEST['delete'])))
 				|| (!isset($_REQUEST) && isset($delete))){
-				$listofdelete = retrieveArgs("delete", $HTTP_GET_VARS);
+				$listofdelete = retrieveArgs("delete", $_REQUEST);
 				$numbertodelete = count($listofdelete);
 				$localerror ="";
 				while($todelete=array_pop($listofdelete)){
@@ -61,13 +61,13 @@ if($user->authenticated){
 					$content .= sprintf($html->string_error,
 								sprintf($l['str_while_deleting_logs_x'],
 								$localerror)
-							) . '<br />';
+							) . '<br>';
 				}else{
 					if($numbertodelete){
 						$content .= $numbertodelete . " " .
-									$l['str_logs_successfully_deleted'] . '<br />';
+									$l['str_logs_successfully_deleted'] . '<br>';
 					}else{
-						$content .= $l['str_no_logs_for_deletion'] . '<br />';
+						$content .= $l['str_no_logs_for_deletion'] . '<br>';
 					}
 				}
 			
@@ -92,7 +92,7 @@ if($user->authenticated){
 
 				switch($purge){
 					case "all":
-						$listofdelete = retrieveArgs("id", $HTTP_GET_VARS);
+						$listofdelete = retrieveArgs("id", $_REQUEST);
 						$numbertodelete = count($listofdelete);
 						$localerror ="";
 						while($todelete=array_pop($listofdelete)){
@@ -106,7 +106,7 @@ if($user->authenticated){
 							if($numbertodelete){
 								$content .= sprintf($l['str_x_logs_purged'],
 												$numbertodelete)
-											.'<br />';
+											.'<br>';
 							}
 						}
 						break;
@@ -128,7 +128,7 @@ if($user->authenticated){
 					$content .= sprintf($html->string_error, 
 						sprintf($l['str_while_purging_logs_x'],
 							$userlogs->error) 
-							) . '<br />';
+							) . '<br>';
 				}
 			} // end if purge
 			
@@ -144,13 +144,13 @@ if($user->authenticated){
 			|&nbsp;&nbsp; <a href="' . $PHP_SELF . $link .
 			'&amp;sortcategory=Z">' . $l['str_per_zone'] . '</a>&nbsp;&nbsp; |&nbsp;&nbsp; 
 			<a href="' .  $_SERVER["PHP_SELF"] . $link .
-			'&amp;sortcategory=U">' . $l['str_per_user'] . '</a><br />
+			'&amp;sortcategory=U">' . $l['str_per_user'] . '</a><br>
 			<a href="' .  $_SERVER["PHP_SELF"] . $link . '&amp;sortcategory=' .
 			$sortcategory . '&amp;order=A">&lt;</a> 
 			<a href="' .  $_SERVER["PHP_SELF"] . $link . '&amp;sortcategory=' .
 			$sortcategory . '&amp;order=D">&gt;</a> 
-			<p />
-			<table border="0" width="100%">
+			<p >
+			<table id="userlogstable">
 			';
 
 			switch($sortcategory){
@@ -193,17 +193,17 @@ if($user->authenticated){
 				value="' . $line[0] . '">' . $l['str_delete'] . '</td></tr>';
 			}
 			$content .= '</table>
-			<table border="0" width="100%"><tr><td align="center">
+			<table id="clearlogstable"><tr><td align="center">
 			<select name="purge">
 			<option value="all" selected>' . $l['str_purge_all'] . '</option>
 			<option value="day">' . $l['str_purge_keeping_last_day'] . '</option>
 			<option value="month">' . $l['str_purge_keeping_last_month'] . '</option>
 			<option value="year">' . $l['str_purge_keeping_last_year'] . '</option>
-			</select><input type="submit" name="purgebutton" value="' .
+			</select><input type="submit" class="submit" name="purgebutton" value="' .
 			$l['str_purge'] . '">
 			</td>
 			<td align="right">
-			<input type="submit" name="delete" value="' . 
+			<input type="submit" class="submit" name="delete" value="' . 
 			$l['str_delete_selected'].'">
 			</td></tr></table>
 			</form>';
