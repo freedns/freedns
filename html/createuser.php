@@ -100,30 +100,30 @@ if($config->public){
 			$missing = substr($missing,0, -1);
 			$content .= sprintf($html->fontred, 
 					sprintf($l['str_error_missing_fields'],$missing)
-					) . '<br />';
+					) . '<br>';
 		}
 	
 	
 		if(!$localerror){
 			if(!checkName($loginnew)){
 				$localerror = 1;
-				$content .= $l['str_bad_login_name'] . '<br />';
+				$content .= $l['str_bad_login_name'] . '<br>';
 			}
 		
 			if(!checkEmail($email)){
 				$localerror = 1;
-				$content .= $l['str_bad_email_syntax'] . '<br />';
+				$content .= $l['str_bad_email_syntax'] . '<br>';
 			}else{
 				$result = vrfyEmail($email);
 				if($result != 1){
 					$localerror =1;
-					$content .= sprintf($html->string_error,$result) . '<br />';
+					$content .= sprintf($html->string_error,$result) . '<br>';
 				}
 			}
 	
 			if($passwordnew != $confirmpasswordnew){
 				$localerror = 1;
-				$content .= $l['str_passwords_dont_match'] . '<br />';
+				$content .= $l['str_passwords_dont_match'] . '<br>';
 			}
 		} // end no error after empty checks
 	
@@ -162,6 +162,26 @@ if($config->public){
 			}else{ // end ipv6interface set
 				$newuser->ipv6=0;
 			}
+			if($config->txtrecords){
+				if((isset($_REQUEST) && $_REQUEST['txtrecords']) ||
+					(!isset($_REQUEST) && $txtrecords)){
+					$newuser->txtrecords = 1;
+				}else{ 
+					$newuser->txtrecords = 0;
+				}
+			}else{ // end txtrecords set
+				$newuser->txtrecords=0;
+			}
+			if($config->srvrecords){
+				if((isset($_REQUEST) && $_REQUEST['srvrecords']) ||
+					(!isset($_REQUEST) && $srvrecords)){
+					$newuser->srvrecords = 1;
+				}else{ 
+					$newuser->srvrecords = 0;
+				}
+			}else{ // end srvrecords set
+				$newuser->srvrecords=0;
+			}
 
 			if(isset($_REQUEST) && $_REQUEST['nbrows']){
 				$newuser->nbrows = intval($_REQUEST['nbrows']);
@@ -173,7 +193,7 @@ if($config->public){
 				}
 			}			
 
-			$options = "advanced=" . $newuser->advanced . ";ipv6=" . $newuser->ipv6 . ";nbrows=" . $newuser->nbrows . ";grouprights=A;";
+			$options = "advanced=" . $newuser->advanced . ";ipv6=" . $newuser->ipv6 . ";nbrows=" . $newuser->nbrows . ";grouprights=A;txtrecords=". $newuser->txtrecords .";srvrecords=".$newuser->srvrecords .";";
 			$newuser->grouprights='A';
 			$newuser->lang=$lang;
 			$newuser->options=$options;
