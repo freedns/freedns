@@ -59,7 +59,7 @@ if($DB_AUTH_NAME){
 }
 open(LOG, ">>" . $LOG_FILE);
 
-$timetouse = strftime("%Y%m%d%H%M%S", localtime(time()-86400));
+$timetouse = strftime("%Y%m%d%H%M%S", localtime(time()-604800));
 
 $query = sprintf("SELECT w.%s as userid,u.%s as login
 			FROM %s w, %s u
