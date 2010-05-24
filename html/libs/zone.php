@@ -550,13 +550,13 @@ endif;
 						WHERE c.zoneid=z.id AND z.zone='" . $templatezone . "'
 						AND z.zonetype='S'";
 				$res=$db->query($query);
-                		$line=$db->fetch_row($res);
-		                if($db->error()){
+				$line=$db->fetch_row($res);
+				if($db->error()){
 					$this->error=$l['str_trouble_with_db'];
 					return 0;
 				}else{
-				        $query = "INSERT INTO dns_confsecondary (zoneid,masters,xfer)
-	                        		 VALUES('" . $this->zoneid . "','" . $line[0]. "','" . $line[1]. "')";
+					$query = "INSERT INTO dns_confsecondary (zoneid,masters,xfer)
+						 VALUES('" . $this->zoneid . "','" . $line[0]. "','" . $line[1]. "')";
 					$res = $db->query($query);
 					if($db->error()){ 
 						$this->error=$l['str_trouble_with_db'];
@@ -571,14 +571,14 @@ endif;
 						WHERE c.zoneid=z.id AND z.zone='" . $templatezone . "'
 						AND z.zonetype='P'";
 				$res=$db->query($query);
-           		$line=$db->fetch_row($res);
-                if($db->error()){
+	   		$line=$db->fetch_row($res);
+		if($db->error()){
 					$this->error=$l['str_trouble_with_db'];
 					return 0;
 				}else{
-			        $query = "INSERT INTO dns_confprimary
+				$query = "INSERT INTO dns_confprimary
 					(zoneid,refresh,retry,expiry,minimum,xfer,defaultttl,serial)
-                        		 VALUES('" . $this->zoneid . "','" . $line[0]. "','" . $line[1]. "','".
+					 VALUES('" . $this->zoneid . "','" . $line[0]. "','" . $line[1]. "','".
 								 			$line[2] ."','". $line[3] ."','".$line[4] . "','" . 
 											$line[5] ."','" . getSerial("") . "')";
 					$res = $db->query($query);
@@ -592,7 +592,7 @@ endif;
 						WHERE r.zoneid=z.id AND z.zone='" . $templatezone . "'
 						AND z.zonetype='P'";
 				$res=$db->query($query);
-                if($db->error()){
+		if($db->error()){
 					$this->error=$l['str_trouble_with_db'];
 					return 0;
 				}else{
@@ -736,6 +736,10 @@ endif;
 			if(!preg_match("/^\s*;/",$line)){
 				if(preg_match("/^\s*?(.*?)\s+(.*?)\s+IN\s+(.*?)\s+(.*)\s*$/",$line,$record)){
 					$data=preg_split("/\s+/",$record[4]);
+					// first turn dots into escaped dots, so next regex matches literal dot
+					$shortname = preg_replace("/\./", "\\.", $this->zonename);
+					// now remove zonename from the end of fqdn 
+					$shortname = preg_replace("/\.".$shortname."\.$/", "", $record[1]);
 					switch($record[3]){
 						case "SOA":
 							if($first){
@@ -766,8 +770,8 @@ endif;
 							}else{
 							// subns
 								$query = "INSERT INTO dns_record (zoneid,type,val1,val2,ttl)
-                                               	                                VALUES ('" . $this->zoneid . "','SUBNS','" .
-										substr($record[1],0,-strlen("." . $this->zonename . ".")) . "','" .
+					       					VALUES ('" . $this->zoneid . "','SUBNS','" .
+										$shortname . "','" .
 										$data[0] . "','" . $record[2] . "')";
 							}
 							break;
@@ -777,48 +781,50 @@ endif;
 									$data[1] . "','" . $data[0] . "','" . $record[2] . "')";
 							break;
 						case "A":
-							if(!strcmp($this->zonename . ".", $record[1])){
-								$record[1].= "." . $record[1]; // if zone itself, use zone.name..zone.name.
-							}
-							// remove ".zone.name." from record before insertion
 							$query = "INSERT INTO dns_record (zoneid,type,val1,val2,ttl)
-                                                                        VALUES('" . $this->zoneid . "','A','" .
-									substr($record[1],0,-strlen("." . $this->zonename . ".")) . "','" .
-                                                                        $data[0] . "','" . $record[2] . "')";
+								VALUES('" . $this->zoneid . "','A','" .  $shortname . "','" .
+									$data[0] . "','" . $record[2] . "')";
 							break;
 						case "AAAA":
 							$query = "INSERT INTO dns_record (zoneid,type,val1,val2,ttl)
-                                                                        VALUES('" . $this->zoneid . "','AAAA','" .
-									substr($record[1],0,-strlen("." . $this->zonename . ".")) . "','" .
-                                                                        $data[0] . "','" . $record[2] . "')";
+									VALUES('" . $this->zoneid . "','AAAA','" .
+									$shortname . "','" .
+									$data[0] . "','" . $record[2] . "')";
 							break;
 						case "CNAME":
 							if(preg_match("/^(.*)." . $this->zonename . ".$/",$data[0],$tmp)){
 								$data[0]=$tmp[1];
 							}
 							$query = "INSERT INTO dns_record (zoneid,type,val1,val2,ttl)
-                                                                        VALUES('" . $this->zoneid . "','CNAME','" .
-									substr($record[1],0,-strlen("." . $this->zonename . ".")) . "','" .
-                                                                        $data[0] . "','" . $record[2] . "')";
+									VALUES('" . $this->zoneid . "','CNAME','" .
+									$shortname . "','" .
+									$data[0] . "','" . $record[2] . "')";
 							break;
 						case "PTR":
 							$query = "INSERT INTO dns_record (zoneid,type,val1,val2,ttl)
-                                                                        VALUES('" . $this->zoneid . "','AAAA','" .
-									substr($record[1],0,-strlen("." . $this->zonename . ".")) . "','" .
-                                                                        $data[0] . "','" . $record[2] . "')";
+									VALUES('" . $this->zoneid . "','AAAA','" .
+									$shortname . "','" .
+									$data[0] . "','" . $record[2] . "')";
 							break;
 						case "SRV":
 							$query = "INSERT INTO dns_record (zoneid,type,val1,val2,val3,val4,val5,ttl)
 									VALUES('" . $this->zoneid . "','SRV','" .
-									$record[1] . "','" . $data[0] . "','" . $data[1] . "','"
+									$shortname . "','" . $data[0] . "','" . $data[1] . "','"
 									 . $data[2] . "','" . $data[3] . "','" . $record[2] . "')";
 							break;
+						case "TXT":
+							$txt = mysql_real_escape_string(preg_replace('/"/', '', $record[4]));
+							$query = "INSERT INTO dns_record (zoneid,type,val1,val2,ttl)
+									VALUES('" . $this->zoneid . "','TXT','" .
+									$shortname . "','\"" . $txt . "\"','" . $record[2] . "')";
+							break;
 						default:
-							print "<br />" . $record[1] . " - " . $record[3] . " - " . $record[4];
+							print "<p><span class=\"error\">" . $l['str_log_unknown'] . "</span>" .
+				  "<br>\n" . $line . "\n</p>";
 					}
 					if(notnull($query)){
 						$db->query($query);
-				                if($db->error()){
+						if($db->error()){
 							$this->error = $l['str_trouble_with_db'];
 							return 0;
 						}
