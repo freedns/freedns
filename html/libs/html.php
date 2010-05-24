@@ -58,14 +58,17 @@ Class Html{
 		$l;
 	Header("Content-Type: text/html; charset=" . $l['str_content_type']);
 	$result ='
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
+   $result ='<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 	<title>' . $config->sitename . ' - ' . $title . '</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=' . $l['str_content_type'] . '" />
-	<link rel="stylesheet" type="text/css" href="' . $config->cssurl . '" />
+	<meta http-equiv="Content-Type" content="text/html; charset=' . $l['str_content_type'] . '">
+	<link rel="stylesheet" type="text/css" href="' . $config->cssurl . '">
 </head>
 <body>
+<div id="container">
 	';
 	
 		return $result;
@@ -135,7 +138,7 @@ Class Html{
 	 *@return string HTML code
 	 */
 	function footerlight(){
-		$result = "</body></html>";
+		$result = "</div></body></html>";
 		return $result;
 	}
 	
