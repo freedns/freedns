@@ -490,9 +490,9 @@ zone "' . $ref->{'zone'} . '" {
 			$zone = $ref->{'zone'};
 			print LOG logtimestamp() . " " . $LOG_PREFIX .
                         	" : DEBUG : " . "$RNDC_COMMAND reload $zone\n";
-			if (system("$RNDC_COMMAND reload $zone") == 0)
+			if (system("$RNDC_COMMAND reload $zone || { echo '$zone'; false; };") == 0)
 			{
-				system("$RNDC2_COMMAND retransfer $zone") == 0
+				system("$RNDC2_COMMAND retransfer $zone || { echo '$zone'; false; };") == 0
 					or print LOG logtimestamp() . " " . $LOG_PREFIX .
                         	" : " . "fns2 retransfer $zone failed: $?\n";
 			} else {
