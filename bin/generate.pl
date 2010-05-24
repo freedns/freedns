@@ -14,7 +14,10 @@ use DBI;
 use IO::Handle;
 use Mail::Sendmail;
 use Time::localtime;
+use Time::HiRes qw(gettimeofday tv_interval);
 use POSIX qw(strftime);
+
+$t1 = [gettimeofday];
 
 # *****************************************************
 # Where am i run from
@@ -80,6 +83,7 @@ if($DB_AUTH_NAME){
 }
 
 open(LOG, ">>" . $LOG_FILE);
+#print LOG logtimestamp() . " " . $LOG_PREFIX . " : DEBUG : start (" . tv_interval ($t1) . ")\n";
 
 
 $query = "SELECT count(*) as count FROM dns_zone 
@@ -114,6 +118,7 @@ sub RetrieveRecords {
 		# A: val1 [ttl] IN A val2
 		# PTR: val1 [ttl] IN PTR val2
 		# SRV: val1 [ttl] IN SRV val2 val3 val4 val5
+		# WWW: val1 [ttl] IN A $SITE_WWW_IP
 		$ret .= do {
                        if (/^NS$/)
 				{ "\t$ttl\tIN\tNS\t" . $ref->{'val1'} }
@@ -127,6 +132,8 @@ sub RetrieveRecords {
 				{ $ref->{'val1'} . "\t$ttl\tIN\tAAAA\t" . $ref->{'val2'} }
                        elsif (/^A$/)
 				{ $ref->{'val1'} . "\t$ttl\tIN\tA\t" . $ref->{'val2'} }
+                       elsif (/^WWW$/)
+				{ $ref->{'val1'} . "\t$ttl\tIN\tA\t" . $SITE_WWW_IP }
                        elsif (/^TXT$/)
 				{ $ref->{'val1'} . "\t$ttl\tIN\tTXT\t" . $ref->{'val2'} }
                        elsif (/^PTR$/)
@@ -161,14 +168,16 @@ if($ref->{'count'}){
 # GENERATING NAMED_CONF FILE
 ########################################################################
 
+   $t0 = [gettimeofday];
 	# backup named.conf
-	$cpcommand="[ -f " . $NAMED_CONF . " ] && " . $CP_COMMAND . " " . $NAMED_CONF . " " .
-	$NAMED_TMP_DIR . "named.conf.bak-" . $$;
-	@output = `$cpcommand 2>&1`;
+	#$cpcommand="[ -f " . $NAMED_CONF . " ] && " . $CP_COMMAND . " " . $NAMED_CONF . " " .
+	#$NAMED_TMP_DIR . "named.conf.bak-" . $$;
+	#@output = `$cpcommand 2>&1`;
 	$cpcommand="[ -f " . $NAMED_CONF_ZONES . " ] && " . $CP_COMMAND . " " . $NAMED_CONF_ZONES . " " .
 	$NAMED_TMP_DIR . "named.zones.bak-" . $$;
 	@output2 = `$cpcommand 2>&1`;
-	if($#output != -1 || $#output2 != -1){
+	## if($#output != -1 || $#output2 != -1)
+	if($#output2 != -1){
 		print  LOG logtimestamp() . " " . $LOG_PREFIX .
 			" : " . $str_log_error_can_not_backup{$SITE_DEFAULT_LANGUAGE} . "\n" . "\t" . $output[0] . " " . $output2[0] . "\n";			
 	}else{
@@ -229,7 +238,6 @@ zone "' . $ref->{'zone'} . '" {
 
 # *********************************************************
 
-
 ################
 # secondary NS #
 ################
@@ -285,7 +293,8 @@ zone "' . $ref->{'zone'} . '" {
 	allow-query { ' . $NAMED_ALLOW_QUERY . '; };';
 				}
 				print CONF '
-};';
+};
+';
 
 			} # end if master ne ''
 		} # end while
@@ -296,6 +305,7 @@ zone "' . $ref->{'zone'} . '" {
 
 ########################################################################
 
+#      print LOG logtimestamp() . " " . $LOG_PREFIX . " : DEBUG : freedns.conf done " . tv_interval ($t0) . "\n";
 
 
 ########################################################################
@@ -303,15 +313,19 @@ zone "' . $ref->{'zone'} . '" {
 # Primary only
 ########################################################################
 
+		$t0 = [gettimeofday];
+
 #		$query = "SELECT c.zoneid, LOWER(z.zone) AS zone, u.email, c.serial, c.refresh,
 #				c.retry,c.expiry,c.minimum,c.defaultttl
 #				FROM  dns_confprimary c, dns_zone z, dns_user u
 #				WHERE c.zoneid = z.id AND z.userid=u.id
 #				AND z.status='M'";
+		$query = "UPDATE dns_zone SET status='X' WHERE status='M'";
+		my $sth = dbexecute($query,$dbh,LOG);
 		$query = "SELECT c.zoneid, LOWER(z.zone) AS zone, c.serial, c.refresh, z.userid,
 				c.retry,c.expiry,c.minimum,c.defaultttl
 				FROM  dns_confprimary c, dns_zone z
-				WHERE c.zoneid = z.id AND  z.status='M'";
+				WHERE c.zoneid = z.id AND  z.status='X'";
 
 		my $sth = dbexecute($query,$dbh,LOG);
 		while (my $ref = $sth->fetchrow_hashref()) {
@@ -367,6 +381,7 @@ zone "' . $ref->{'zone'} . '" {
 
 
                         $toprint .= RetrieveRecords("A");
+                        $toprint .= RetrieveRecords("WWW");
                         $toprint .= RetrieveRecords("AAAA");
                         $toprint .= RetrieveRecords("CNAME");
                         $toprint .= RetrieveRecords("PTR");
@@ -387,7 +402,7 @@ zone "' . $ref->{'zone'} . '" {
 		$sth->finish();
 ########################################################################
 
-
+#      print LOG logtimestamp() . " " . $LOG_PREFIX . " : DEBUG : master zones done " . tv_interval ($t0) . "\n";
 
 
 
@@ -397,20 +412,22 @@ zone "' . $ref->{'zone'} . '" {
 
 #  check if error. If error, DO NOT RELOAD
 
+		$t0 = [gettimeofday];
 		$error = 0;
 		@result=`$CHECKCONF_COMMAND $NAMED_CONF_ZONES 2>&1`;
 		# should be
-		# if ( WEXITVALUE($?) ) {
+		# if ( WEXITVALUE($?) )
 		if ($?>>8) {
 			$error = 1;
 		}
+#      print LOG logtimestamp() . " " . $LOG_PREFIX . " : DEBUG : named checkconf done " . tv_interval ($t0) . "\n";
 		if($error == 1){
 		# mail admin
 			# copy to named.conf.error, send mail, restore backup
 			# where is that "restore backup"?
-			$command=$CP_COMMAND . " " . $NAMED_CONF . " " . 
-				$NAMED_TMP_DIR . "named.conf.error";
-			system($command);
+			#$command=$CP_COMMAND . " " . $NAMED_CONF . " " . 
+			#	$NAMED_TMP_DIR . "named.conf.error";
+			#system($command);
 			$command=$CP_COMMAND . " " . $NAMED_CONF_ZONES . " " . 
 				$NAMED_TMP_DIR . "named.zones.error";
 			system($command);
@@ -437,16 +454,18 @@ zone "' . $ref->{'zone'} . '" {
 
 		}else{
 			# move backup to named.conf.bak 
-			$command=$MV_COMMAND . " " . 
-				$NAMED_TMP_DIR . "named.conf.bak-" . $$ . " " .
-				$NAMED_TMP_DIR . "named.conf.bak";
-			system($command);
+			#$command=$MV_COMMAND . " " . 
+			#	$NAMED_TMP_DIR . "named.conf.bak-" . $$ . " " .
+			#	$NAMED_TMP_DIR . "named.conf.bak";
+			#system($command);
 			$command=$MV_COMMAND . " " . 
 				$NAMED_TMP_DIR . "named.zones.bak-" . $$ . " " .
 				$NAMED_TMP_DIR . "named.zones.bak";
 			system($command);
 			# reload
-			system("$RNDC_COMMAND reconfig"); 
+		$t0 = [gettimeofday];
+			system("$HELPER_COMMAND"); 
+#      print LOG logtimestamp() . " " . $LOG_PREFIX . " : DEBUG : rndc helper done " . tv_interval ($t0) . "\n";
 		}
 
 ########################################################################
@@ -454,21 +473,31 @@ zone "' . $ref->{'zone'} . '" {
 
 
 
+		$t0 = [gettimeofday];
 ########################################################################
 # Reload all modified zones - not new zones
 ########################################################################
 		$query = "SELECT LOWER(zone) AS zone FROM dns_zone 
-				WHERE status='M'";
+				WHERE status='X'";
 		my $sth = dbexecute($query,$dbh,LOG);
+		$tmp_counter = 0;
 		while (my $ref = $sth->fetchrow_hashref()) {
+			$tmp_counter++;
 			$zone = $ref->{'zone'};
-			system("$RNDC_COMMAND reload $zone") == 0
-				or print LOG logtimestamp() . " " . $LOG_PREFIX .
+			if (system("$RNDC_COMMAND reload $zone") == 0)
+			{
+				system("$RNDC2_COMMAND retransfer $zone") == 0
+					or print LOG logtimestamp() . " " . $LOG_PREFIX .
+                        	" : " . "refresh $zone failed: $?\n";
+			} else {
+				print LOG logtimestamp() . " " . $LOG_PREFIX .
                         	" : " . "reload $zone failed: $?\n";
+			}
 		}
 		$sth->finish();
 ########################################################################
 
+#      print LOG logtimestamp() . " " . $LOG_PREFIX . " : DEBUG : rndc $tmp_counter reloads done " . tv_interval ($t0) . "\n";
 
 
 
@@ -503,6 +532,7 @@ zone "' . $ref->{'zone'} . '" {
 		# generate timestamp for filenames
 		$timestamptxt = strftime("%Y%m%d%H%M%S\n", gmtime);
 
+if (0) { #PK
 		# for each server, retrieve zones registered for this server
 		# and print output in server cmd file
 		# Retrieve ONLY modified or deleted zones
@@ -575,6 +605,7 @@ zone "' . $ref->{'zone'} . '" {
 
 			close(CMD);
 		} # end foreach server
+} #0#PK
 
 ########################################################################
 
@@ -584,6 +615,7 @@ zone "' . $ref->{'zone'} . '" {
 
 
 
+		$t0 = [gettimeofday];
 ########################################################################
 # retrieve emails & warn
 ########################################################################
@@ -592,7 +624,7 @@ zone "' . $ref->{'zone'} . '" {
 #				 dns_user u WHERE z.userid=u.id
 #				 AND z.status='M'";
 		$query = "SELECT id, LOWER(zone) AS zone, userid FROM dns_zone  
-				 WHERE status='M'";
+				 WHERE status='X'";
 
 		my $sth = dbexecute($query,$dbh,LOG);
 		while (my $ref = $sth->fetchrow_hashref()) {
@@ -645,7 +677,7 @@ zone "' . $ref->{'zone'} . '" {
 				'Content-Type' => 'text/plain; charset="' . $str_content_type{$userlang} . '"',
 				message	=> $message,
 			);
-			
+
 			if(!sendmail %mail) {
 				require $XNAME_HOME . "strings/" . $EMAIL_DEFAULT_LANGUAGE . "/strings.inc";
 				print LOG logtimestamp() . " " . $LOG_PREFIX . " : " . 
@@ -655,10 +687,12 @@ zone "' . $ref->{'zone'} . '" {
 			}
 		} # end while each %zonelist
 ########################################################################
+#      print LOG logtimestamp() . " " . $LOG_PREFIX . " : DEBUG : sending mails done " . tv_interval ($t0) . "\n";
 
 	} # end named.conf backup successfull
 
 } # end count of zone modified >= 1 
 # Disconnect from the database.
 $dbh->disconnect();
+#print LOG logtimestamp() . " " . $LOG_PREFIX . " : DEBUG : stop (" . tv_interval ($t1) . ")\n";
 close LOG;
