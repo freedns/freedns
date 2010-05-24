@@ -56,7 +56,7 @@ class User extends Auth {
 		
 		if(notnull($login)){
 			if($this->Auth($login,$password)){
-				$this->authenticated=1;
+  				$this->authenticated=1;
 				$id = $this->generateIDSession();
 				$query = "INSERT INTO dns_session 
 				(sessionID,userid) VALUES ('" . $id . "','" .
@@ -95,6 +95,9 @@ class User extends Auth {
 				return 0;
 			}
 		} // end else if not null login 
+        if (!$this->Migrated()) {
+          $this->authenticated=2;
+        }
 
 		// retrieve advanced param
 		
@@ -120,7 +123,43 @@ class User extends Auth {
 		
 	}
 
+    Function Migrated() {
+      global $db,$l;
+      $this->error="";
+      if ($this->authenticated == 0) {
+        return 0;
+      }
+      $query = "SELECT migrated FROM dns_user WHERE id='".$this->userid."'";
+      $res = $db->query($query);
+      $line = $db->fetch_row($res);
+      if($db->error()){
+          $this->error=$l['str_trouble_with_db'];
+          return 0;
+      }
+      return $line[0];
+    }
 
+    Function MigrateMe() {
+      global $db,$l;
+      $this->error="";
+      if ($this->authenticated != 2) {
+        return 0;
+      }
+      $query = "UPDATE dns_zone SET status='M' WHERE userid='".$this->userid."' AND status!='D';";
+      $res = $db->query($query);
+      if($db->error()){
+          $this->error=$l['str_trouble_with_db'];
+          return 0;
+      }
+      $query = "UPDATE dns_user SET migrated=1 WHERE id='".$this->userid."';";
+      $res = $db->query($query);
+      if($db->error()){
+          $this->error=$l['str_trouble_with_db'];
+          return 0;
+      }
+      $this->authenticated = 1;
+      return 1;
+    }
 
 // Function changeOptions()	
         /**
@@ -296,8 +335,13 @@ class User extends Auth {
 	 */	
 	Function listallzones(){
 		global $db,$l;
+    global $user;
 		// warning: be sure to validate user before using this function
 		$this->error="";
+    if ($user->authenticated == 2) {
+      $this->error=migrationbox();
+      return "";
+    }
 
 		$query = "SELECT zone, zonetype, id FROM dns_zone
 		WHERE userid='" . $this->userid . "' AND status!='D' ORDER BY zone DESC";
