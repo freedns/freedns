@@ -169,7 +169,7 @@ if($user->authenticated==1){
 		' . $hiddenfields . '
 		<input type="hidden" name="zonename" value="' . $zonename . '">
 		<input type="hidden" name="zonetype" value="' . $zonetype . '">		
-		<input type="submit" name="deletebutton" value="' . 
+		<input type="submit" class="submit" name="deletebutton" value="' . 
 		$l['str_delete_all_logs'] . '">
 		</form></div>';
 	
