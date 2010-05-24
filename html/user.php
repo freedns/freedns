@@ -36,33 +36,33 @@ if($user->authenticated != 1){
 		<form action="' .  $_SERVER["PHP_SELF"] . '" method="post">
 		<input type="hidden" name="modify" value="1">
 		' . $hiddenfields . '
-		<table border="0" width="100%">
-		<tr><td align="right">' . $l['str_login'] . ': </td><td><div class="boxheader">' . $user->login .
+		<table id="user">
+		<tr><td class="left">' . $l['str_login'] . ': </td><td><div class="boxheader">' . $user->login .
 		'</div></td></tr>
-		<tr><td align="right">' . $l['str_you_can_change_your_login'] . ':</td><td><input type="text"
+		<tr><td class="left">' . $l['str_you_can_change_your_login'] . ':</td><td><input type="text"
 		name="newlogin"></td></tr>
 		';
 		if(!$config->usergroups || $usergrouprights == 'A'){
-			$content .= '<tr><td colspan="2">' . 
-						sprintf($html->string_warning, 
-						 $l['str_changing_email_warning']  
-						 ) . '</td></tr>
-			<tr><td align="right">' . $l['str_your_valid_email'] . ':</td><td><input type=text name="email" value="' . 
+      $content .= '<tr><td colspan="2">' .
+				sprintf($html->string_warning,
+				$l['str_changing_email_warning']
+				) . '</td></tr>
+		  $content .=	'<tr><td class="left">' . $l['str_your_valid_email'] . ':</td><td><input type=text name="email" value="' . 
 			$user->Retrievemail() . '"></td></tr>
 			';
 		}
-		$content .= '<tr><td colspan="2">' . 
+		$content .= '<tr><td colspan="2" class="left">' . 
 			$l['str_type_your_password_to_change_it'] . '</td></tr>
-		<tr><td align="right">' . $l['str_current_password'] . ':</td><td><input type="password"
+		<tr><td class="left">' . $l['str_current_password'] . ':</td><td><input type="password"
 		name="oldpass"></td></tr>
-		<tr><td align="right">' . $l['str_new_password'] . ':</td><td><input type="password"
+		<tr><td class="left">' . $l['str_new_password'] . ':</td><td><input type="password"
 		name="passnew"></td></tr>
-		<tr><td align="right">' . $l['str_confirm_password'] . ':</td><td><input type="password"
+		<tr><td class="left">' . $l['str_confirm_password'] . ':</td><td><input type="password"
 		name="confirmpassnew"></td></tr>
 		';
 		if($config->advancedinterface){
-			$content .= '<tr><td align="right">' . $l['str_advanced_interface']  . 
-			'<br />(' . $l['str_advanced_interface_details'] . ')</td>
+			$content .= '<tr><td class="left">' . $l['str_advanced_interface']  . 
+			'<br>(' . $l['str_advanced_interface_details'] . ')</td>
 			<td><input type=checkbox name="advanced"';
 			if($user->advanced){
 				$content .= ' checked';
@@ -71,8 +71,8 @@ if($user->authenticated != 1){
 			';
 		}
 		if($config->ipv6interface){
-			$content .= '<tr><td align="right">' . 
-			$l['str_ipv6_interface'] . '<br />(' . 
+			$content .= '<tr><td class="left">' . 
+			$l['str_ipv6_interface'] . '<br>(' . 
 			$l['str_ipv6_interface_details'] . ')</td>
 			<td><input type=checkbox name="ipv6"';
 			if($user->ipv6){
@@ -82,8 +82,8 @@ if($user->authenticated != 1){
 			';
 		}
 		if($config->txtrecords){
-			$content .= '<tr><td align="right">' . 
-			$l['str_txt_records'] . '<br />(' . 
+			$content .= '<tr><td class="left">' . 
+			$l['str_txt_records'] . '<br>(' . 
 			$l['str_txt_records_details'] . ')</td>
 			<td><input type=checkbox name="txtrecords"';
 			if($user->txtrecords){
@@ -93,8 +93,8 @@ if($user->authenticated != 1){
 			';
 		}
 		if($config->srvrecords){
-			$content .= '<tr><td align="right">' . 
-			$l['str_srv_records'] . '<br />(' . 
+			$content .= '<tr><td class="left">' . 
+			$l['str_srv_records'] . '<br>(' . 
 			$l['str_srv_records_details'] . ')</td>
 			<td><input type=checkbox name="srvrecords"';
 			if($user->srvrecords){
@@ -104,12 +104,12 @@ if($user->authenticated != 1){
 			';
 		}
 		
-		$content .= '<tr><td align="right">' . 
+		$content .= '<tr><td class="left">' . 
 		$l['str_number_of_rows_per_record'] . ':</td>
 		<td><input type=text name="nbrows" value="' . $user->nbrows . '" size="3"></td></tr>
 		';
 		
-		$content .= '<tr><td align="right">' . 
+		$content .= '<tr><td class="left">' . 
 					$l['str_language']  . ':</td>
 					<td><select name="newlang">';
 		// select current available langs
@@ -125,10 +125,10 @@ if($user->authenticated != 1){
 		
 		$content .= '</select></td></tr>
 		<tr><td colspan="2" align="center">
-		<input type="submit" value="' . $l['str_modify_button'] . '"></td></tr>
+		<input type="submit" class="submit" value="' . $l['str_modify_button'] . '"></td></tr>
 		</table>
-		</form>
-		';
+    </form>';
+
 	}else{
 		$content = "";
 		// check if newlogin already exists or not
@@ -143,21 +143,21 @@ if($user->authenticated != 1){
 				$localerror = 1;
 				$content .= sprintf($html->string_error,  
 							$l['str_bad_login_name']
-						) . '<br />';
+						) . '<br>';
 			}else{
 				if($user->Exists($newlogin)){
 					$content .= sprintf($html->string_error,
 								$l['str_login_already_exists']
-							) . '<br />';
+							) . '<br>';
 					$localerror = 1;
 				}else{
 					if($user->changeLogin($newlogin)){
-						$content .= $l['str_ok'] . '<br />';
+						$content .= $l['str_ok'] . '<br>';
 					}else{
 						$localerror = 1;
 						$content .= sprintf($html->string_error,
 								$user->error
-								) . '<br />';
+								) . '<br>';
 					}
 				}
 			}
@@ -179,14 +179,14 @@ if($user->authenticated != 1){
 					$localerror = 1;
 					$content .= sprintf($html->string_error,
 					 			$l['str_bad_email_syntax']
-							) . '<br />';
+							) . '<br>';
 				}else{
 					$result = vrfyEmail($email);
 					if($result != 1){
 						$localerror =1;
 						$content .= sprintf($html->string_error,
 									$result
-								) . '<br />';
+								) . '<br>';
 					}
 				}
 				if(!$localerror){
@@ -217,8 +217,8 @@ if($user->authenticated != 1){
 								$config->sitename .
 								" " . $l['str_email_validation'],"",$mailbody)){
 
-								$content .= $l['str_ok'] . '<p />' .
-								$l['str_email_validation_mail_sent'] . '<p />
+								$content .= $l['str_ok'] . '<p >' .
+								$l['str_email_validation_mail_sent'] . '<p >
 								';
 							}else{
 								$content .= 
@@ -315,27 +315,27 @@ if($user->authenticated != 1){
 						$localerror = 1;
 						$content .= sprintf($html->string_error, 
 						 			$l['str_new_passwords_dont_match']
-								) . '<br />';
+								) . '<br>';
 					}else{
 						// update user
 						$passnew = addslashes($passnew);
 						$user->UpdatePassword($passnew);
 						if(!$user->error){
-							$content .= $l['str_ok'] . '<br />';
+							$content .= $l['str_ok'] . '<br>';
 						}
 					}
 				}else{
 					$localerror = 1;
 					$content .= sprintf($html->string_error, 
 					 			$l['str_bad_current_password']
-							) . '<br />';
+							) . '<br>';
 				}
 			}
 		} // end no error
 
 		if($user->error){
 			$localerror = 1;
-			$content .= sprintf($html->string_error, $user->error) . '<br />';
+			$content .= sprintf($html->string_error, $user->error) . '<br>';
 		}
 		
 		if($localerror){
@@ -344,10 +344,10 @@ if($user->authenticated != 1){
 		}else{
 			$content .= $l['str_parameters_successfully_updated'];
 			if($email != $user->Retrievemail()){
-				$content .= '<br />' . sprintf($html->string_warning, 
-							$l['str_email_changed_warning'] . '<br />' . 
+				$content .= '<br>' . 
+							$l['str_email_changed_warning'] . '<br>' . 
 							sprintf($l['str_if_x_is_not_the_right_one'],$email) 
-							);
+							;
 			}
 		}
 	}
