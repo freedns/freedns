@@ -1104,6 +1104,23 @@ $result .= '
 		return $result;
 	}
 
+  Function VerifyAllTTL($httpvars) {
+   global $user, $l;
+   if ($user->userid != 1) {
+     return 1;
+   }
+
+    // parse all http vars 
+    while (list($key, $val) = each($httpvars)) {
+      if (ereg("[a-z]+ttl[0-9]+", $key)) {
+         if ($val != $l['str_primary_default']) {
+           $this->VerifySOA($val, -1, "TTL");
+         }
+      }
+    }
+    return !notnull($this->error);
+  }
+
 // *******************************************************	
 //	Function PrintModified($params)
 	/**
@@ -1125,6 +1142,8 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 		$this->error="";
 		$result = '';
 
+    if (!$this->VerifyAllTTL($VARS))
+      return sprintf($html->string_error, $this->error);
 		$delete = retrieveArgs("delete", $VARS);
 		$ns = retrieveArgs("ns", $VARS);
 		$nsttl = retrieveArgs("nsttl",$VARS);
@@ -3130,6 +3149,20 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 
 
 
+  Function VerifySOA($val, $defval, $soattl = "SOA") {
+    global $l;
+    if (!notnull($val)) {
+      $val=$defval;
+    } else {
+      $nval = intval($val);
+      if (0!=strcmp($nval, $val) || $nval <= 0) {
+        $this->error .= sprintf($l['str_primary_x_parameter_x_has_to_be_int'], $soattl, $val);
+        return;
+      }
+      $val = $nval;
+    }
+  }
+
 
 // *******************************************************
 //	Function UpdateSOA($xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum)
@@ -3150,32 +3183,25 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 		global $db, $l;
 
 		$result ="";
-		$localerror=0;
-		if(!notnull($defaultttl)){
-			$defaultttl = 86400;
-		}
-		if(!notnull($soarefresh)){
-			$soarefresh = 10800;
-		}
-		if(!notnull($soaretry)){
-			$soaretry = 3600;
-		}
-		if(!notnull($soaexpire)){
-			$soaexpire = 604800;
-		}
-		if(!notnull($soaminimum)){
-			$soaminimum = 10800;
-		}
+
+    $this->VerifySOA(&$defaultttl, 86400, "TTL");
+    $this->VerifySOA(&$soarefresh, 10800);
+    $this->VerifySOA(&$soaretry, 10800);
+    $this->VerifySOA(&$soaexpire, 604800);
+    $this->VerifySOA(&$soaminimum, 10800);
+
 		if(notnull($xferip)){
 			if(!checkPrimary($xferip)){
-				$localerror = 1;
-				$this->error = $l['str_primary_soa_invalid_xfer'];
+				$this->error .= $l['str_primary_soa_invalid_xfer'];
 			}
 		}else{
 			$xferip='any';
 		}
 	
-		if(!$localerror){
+    if (notnull($this->error)) {
+			return 0;
+		}
+		
 	
 			// dns_confprimary
 			// upgrade serial
@@ -3218,11 +3244,6 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 			$this->minimum = $soaminimum;
 			$this->defaultttl = $defaultttl;
 			return 1;
-		}else{
-			return 0;
-		}
-		return 0;
-		
 	}
 
 
