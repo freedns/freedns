@@ -139,6 +139,14 @@ if($user->authenticated==1){
 	$zone = new Zone($zonename,$zonetype);
 	if($zone->error){
 		printf($html->string_error,$user->error);
+	}else if($zone->RetrieveUser() != $user->userid &&
+         ($config->usergroups && 
+         $zone->RetrieveUser() != $group->groupid)){
+         $content = sprintf($html->string_error, 
+         sprintf($l['str_you_can_not_view_logs_zone_x_x'],
+                $zone->zonename,$zone->zonetype)
+                );
+		print $html->box('logwindow',$title,$content);
 	}else{
 		$title = sprintf($l['str_last_logs_for_x'],$zone->zonename);
 		$content = "";
