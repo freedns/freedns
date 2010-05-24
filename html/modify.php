@@ -261,6 +261,7 @@ if($user->authenticated==1){
 							}
 						}
 					}
+          if ($nbrows > 16) $nbrows = 16;
 
 					$content .= $currentzone->printModifyForm(array($advanced,$ipv6,$nbrows));
 				}
