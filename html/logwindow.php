@@ -72,6 +72,14 @@ if (!is_file('includes/strings/' . $lang. '/strings.php'))
 $html->initialize();
 
 $user = new User($login,$password,$idsession);
+if($config->usergroups){
+        include 'libs/group.php';
+        $group = new Group($user->userid);
+        if($config->userlogs){
+                include 'libs/userlogs.php';
+                $userlogs=new UserLogs($group->groupid,$user->userid);
+        }
+}
 $lang = $config->defaultlanguage;
 // overwrite default strings
 if(isset($user->lang)){
@@ -101,6 +109,7 @@ include 'includes/strings/' . $lang . '/strings.php';
 // reinitialize with definitive right language
 $html->initialize();
 print $html->header($l['str_log_viewer_title']);
+$title=$l['str_log_viewer_title'];
 
 if(!notnull($idsession)){
 	$idsession=$user->idsession;

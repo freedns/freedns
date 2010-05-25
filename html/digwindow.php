@@ -71,6 +71,14 @@ if (!is_file('includes/strings/' . $lang. '/strings.php'))
 include 'includes/strings/' . $lang . '/strings.php';
 $html->initialize();
 $user = new User($login,$password,$idsession);
+if($config->usergroups){
+        include 'libs/group.php';
+        $group = new Group($user->userid);
+        if($config->userlogs){
+                include 'libs/userlogs.php';
+                $userlogs=new UserLogs($group->groupid,$user->userid);
+        }
+}
 $lang = $config->defaultlanguage;
 // overwrite default strings
 if(isset($user->lang)){
@@ -131,7 +139,8 @@ if($user->authenticated==1){
 	if($zone->error){
 	printf($html->string_error,$zone->error);
 	}else{
-		if($zone->RetrieveUser() != $user->userid){
+		if($zone->RetrieveUser() != $user->userid &&
+			($config->usergroups && $zone->RetrieveUser() != $group->groupid)){
 			printf($html->string_error,$l['str_you_dont_own_this_zone']);
 		}else{
 			$title = sprintf($l['str_zone_content_for_x_on_server_x'],
