@@ -464,12 +464,10 @@ zone "' . $ref->{'zone'} . '" {
 				$NAMED_TMP_DIR . "named.zones.bak";
 			system($command);
 			# reload
-		$t0 = [gettimeofday];
-      print LOG logtimestamp() . " " . $LOG_PREFIX . " : DEBUG : generate helper start " . tv_interval ($t0) . "\n";
+			$t0 = [gettimeofday];
 			system("$HELPER_COMMAND"); 
 			# @out=`$HELPER_COMMAND 2>&1`; 
-      # print LOG logtimestamp() . " " . $LOG_PREFIX . " : DEBUG : generate helper output " . @out. "\n";
-      print LOG logtimestamp() . " " . $LOG_PREFIX . " : DEBUG : generate helper done " . tv_interval ($t0) . "\n";
+			print LOG logtimestamp() . " " . $LOG_PREFIX . " : DEBUG : generate helper done " . tv_interval ($t0) . "\n";
 		}
 
 ########################################################################
@@ -488,16 +486,14 @@ zone "' . $ref->{'zone'} . '" {
 		while (my $ref = $sth->fetchrow_hashref()) {
 			$tmp_counter++;
 			$zone = $ref->{'zone'};
-			print LOG logtimestamp() . " " . $LOG_PREFIX .
-                        	" : DEBUG : " . "$RNDC_COMMAND reload $zone\n";
-			if (system("$RNDC_COMMAND reload $zone || { echo '$zone'; false; };") == 0)
+			if (system("$RNDC_COMMAND reload $zone") == 0)
 			{
-				system("$RNDC2_COMMAND retransfer $zone || { echo '$zone'; false; };") == 0
+				system("$RNDC2_COMMAND retransfer $zone") == 0
 					or print LOG logtimestamp() . " " . $LOG_PREFIX .
-                        	" : " . "fns2 retransfer $zone failed: $?\n";
+						" : " . "fns2 retransfer $zone failed: ".($?>>8)."\n";
 			} else {
 				print LOG logtimestamp() . " " . $LOG_PREFIX .
-                        	" : " . "fns1 reload $zone failed: $?\n";
+					" : " . "fns1 reload $zone failed: ".($?>>8)."\n";
 			}
 		}
 		$sth->finish();
@@ -530,7 +526,7 @@ zone "' . $ref->{'zone'} . '" {
 	
 		# list of server IPs, to be included in allow_transfer if not "any"
 		# and list of master servers... 
-        $masters=$SITE_NS_IP . ";";
+		$masters=$SITE_NS_IP . ";";
 		foreach(values(%serverip)){
 			$masters .= $_ . ";";
 		}
