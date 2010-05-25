@@ -33,6 +33,9 @@ if($user->authenticated == 0){
 	if((isset($_REQUEST) && !isset($_REQUEST['modify'])) ||
 		(!isset($_REQUEST) && !$modify)){
     $content = "";
+		if ($user->authenticated == 3) {
+			$content = $l['str_migrate_subaccount'];
+		} else
     if ($user->authenticated == 2) {
     $content .= '
       <form action="' .  $_SERVER["PHP_SELF"] . '" method="post">

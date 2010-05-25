@@ -96,7 +96,10 @@ class User extends Auth {
 			}
 		} // end else if not null login 
         if (!$this->Migrated()) {
+          if (notnull($this->email))
           $this->authenticated=2;
+         	else
+          	$this->authenticated=3;
         }
 
 		// retrieve advanced param
@@ -129,13 +132,14 @@ class User extends Auth {
       if ($this->authenticated == 0) {
         return 0;
       }
-      $query = "SELECT migrated FROM dns_user WHERE id='".$this->userid."'";
+      $query = "SELECT migrated,email FROM dns_user WHERE id='".$this->userid."'";
       $res = $db->query($query);
       $line = $db->fetch_row($res);
       if($db->error()){
           $this->error=$l['str_trouble_with_db'];
           return 0;
       }
+      $this->email=$line[1];
       return $line[0];
     }
 
@@ -151,7 +155,7 @@ class User extends Auth {
           $this->error=$l['str_trouble_with_db'];
           return 0;
       }
-      $query = "UPDATE dns_user SET migrated=1 WHERE id='".$this->userid."';";
+      $query = "UPDATE dns_user SET migrated=1 WHERE groupid='".$this->userid."';";
       $res = $db->query($query);
       if($db->error()){
           $this->error=$l['str_trouble_with_db'];
@@ -338,7 +342,7 @@ class User extends Auth {
     global $user;
 		// warning: be sure to validate user before using this function
 		$this->error="";
-    if ($user->authenticated == 2) {
+    if ($user->authenticated >= 2) {
       $this->error=migrationbox();
       return "";
     }

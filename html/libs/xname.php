@@ -711,7 +711,7 @@ function ConvertIPv6toDotted($string, $bytes = 32){
 
 function migrationbox($box=0) {
   global $l,$html, $user, $link;
-  if ($user->authenticated == 2) { 
+  if ($user->authenticated >= 2) { 
     $migrate_content = sprintf($l['str_migrate_content_x'], $link); 
     if ($box)
       return $html->box('migrate', $l['str_index_migrate'], $migrate_content); 

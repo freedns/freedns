@@ -31,7 +31,7 @@ if(file_exists("includes/left_side.php")) {
 $title=$l['str_create_new_zone'];
 if($user->authenticated == 0){
 	$content = $l['str_must_log_before_creating_new_zone'];
-}else if ($user->authenticated == 2) {
+}else if ($user->authenticated >= 2) {
   $content = migrationbox();
 }else{
 	if($config->usergroups && ($usergrouprights == 'R')){ 

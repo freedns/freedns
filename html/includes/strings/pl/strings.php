@@ -538,4 +538,5 @@ $l['str_you_are_logged_in_as_x'] = 'Zalogowano jako %s.';
 $l['str_user_count'] = 'Liczba u¿ytkowników';
 $l['str_user_count_prod'] = '...ze strefami';
 $l['str_create_migrated'] = '<p><strong>Uwaga!</strong> Je¶li mia³e¶ konto na starym serwisie FreeDNS, to nie zak³adaj nowego konta! Po prostu zaloguj siê na ten sam login i has³o! I potem sprawd¼ poprawno¶æ adresu email oraz zmieñ has³o.</p>';
+$l['str_migrate_subaccount'] = 'Korzystasz z subkonta, migracji musi dokonaæ g³ówny u¿ytkownik.';
 ?>

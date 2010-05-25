@@ -1,6 +1,6 @@
 <?
 $title = $l['str_loginbox'];
-if($user->authenticated != 1 && $user->authenticated != 2){
+if($user->authenticated == 0){
 	// login box
 	$content ="";
 	if($user->error){
@@ -142,7 +142,7 @@ return false">'.
 		$content .= '</table>';
 	}else{
 		$content = $user->error;
-    if ($user->authenticated == 2) $content = "";
+    if ($user->authenticated >= 2) $content = "";
 	}
   $title = $l['str_all_your_zones'];
 	print $html->box('yourzones',$title,$content);

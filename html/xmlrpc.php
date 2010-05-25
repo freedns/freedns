@@ -81,7 +81,7 @@ Function updateArecord($m) {
 	if ($user->authenticated==0) {
 		return new xmlrpcresp(0, $xmlrpcerruser, "authentication refused");
 	}
-	elseif ($user->authenticated==2) {
+	elseif ($user->authenticated>=2) {
 		return new xmlrpcresp(0, $xmlrpcerruser, "you have to migrate first");
 	}
 	$zonename = $req["zone"];

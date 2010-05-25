@@ -286,7 +286,7 @@ class Group {
 		global $user;
 		// warning: be sure to validate user before using this function
 		$this->error="";
-		if ($user->authenticated == 2) {
+		if ($user->authenticated >= 2) {
 		  $this->error=migrationbox();
 		  return "";
 		}
