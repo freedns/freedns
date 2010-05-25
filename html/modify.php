@@ -327,6 +327,9 @@ return false">'.
 			$content = $user->error;
 		}
 	}
+}elseif($user->authenticated==2){
+	$title = $l['str_modify_zone_title'];
+  $content = migrationbox();
 }else{
 	$title = $l['str_modify_zone_title'];
 	$content = $l['str_must_log_before_modifying_zone'];
