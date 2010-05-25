@@ -184,6 +184,8 @@ if($user->authenticated==1){
 	
 		print $html->box('logwindow',$title,$content);
 	}
+} elseif ($user->authenticated == 2) {
+  print migrationbox(1);
 }
 
 // print close "window"
