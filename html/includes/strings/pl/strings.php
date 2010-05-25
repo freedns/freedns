@@ -97,7 +97,7 @@ $l['str_can_not_open_x_for_writing'] = "nie mogê otworzyæ pliku %s do zapisu";
 $l['str_can_not_open_x_for_reading'] = "nie mogê otworzyæ pliku %s do odczytu";
 $l['str_primary_trouble_occured_when_checking'] = "Wyst±pi³ jaki¶ problem przy sprawdzaniu tego pliku";
 $l['str_primary_error_if_engine_error_x_contact_admin_x'] = "Mo¿esz wróciæ do strony modyfikacji, ¿eby to poprawiæ (kliknij na strefê po lewej stronie).<p > Je¶li uwa¿asz, ¿e to problem systemu, %sskontaktuj siê z administratorem%s.";
-$l['str_primary_zone_error_warning'] = "W trakcie sprawdzania konfiguracji wyst±pi³ b³±d.<br >Ta strefa <b>nie</b> zostanie za³adowana dopóki b³êdy nie zostan± poprawione.<p >Oto wynik sprawdzenia";
+$l['str_primary_zone_error_warning'] = "W trakcie sprawdzania konfiguracji wyst±pi³ b³±d.<br>Ta strefa <b>nie</b> zostanie za³adowana dopóki b³êdy nie zostan± poprawione.<p >Oto wynik sprawdzenia";
 $l['str_primary_zone_error_not_available_try_again'] = "Twoja strefa nie bêdzie dostêpna po kolejnym prze³adowaniu. Wróæ pó¼niej i zmodyfikuj j± jeszcze raz.";
 $l['str_primary_generated_config'] = "Oto wygenerowana konfiguracja";
 $l['str_primary_internal_tests_ok'] = "Twoja strefa pomy¶lnie przesz³a nasze wewnêtrzne testy konfiguracji. Powinna byæ aktywna w ci±gu kwadransa.
@@ -106,18 +106,18 @@ $l['str_primary_new_serial_x'] = "Nowy numer seryjny: %s";
 $l['str_primary_reset_form_button'] = "Czy¶æ pola";
 $l['str_primary_generate_zone_button'] = "Utwórz konfiguracjê strefy";
 $l['str_primary_allow_transfer_ip_allowed'] = "Adresy IP, z których bêdzie wolno transferowaæ ca³e strefy (pozostaw puste, ¿eby zezwoliæ wszystkim)";
-$l['str_primary_allow_transfer_expl'] = "W celu ochrony Twojej strefy mo¿esz wyznaczyæ, które komputery mog± transferowaæ ca³± zawarto¶æ Twojej strefy.<br >Zwykle te komputery to dodatkowe serwery DNS dla Twojej strefy, czasem komputery administratorów.<br >Mo¿esz podaæ kilka adresów IP rozdzielonych ¶rednikami (';').";
+$l['str_primary_allow_transfer_expl'] = "W celu ochrony Twojej strefy mo¿esz wyznaczyæ, które komputery mog± transferowaæ ca³± zawarto¶æ Twojej strefy.<br>Zwykle te komputery to dodatkowe serwery DNS dla Twojej strefy, czasem komputery administratorów.<br >Mo¿esz podaæ kilka adresów IP rozdzielonych ¶rednikami (';').";
 $l['str_primary_allow_transfer_title'] = "Komputery, którym wolno transferowaæ ca³e strefy";
 $l['str_primary_sub_zones_zone'] = "Strefa";
-$l['str_primary_sub_zones_expl_on_x_x'] = "Mo¿esz zdefiniowaæ podstrefy, delegowane na inny serwer DNS. <b>Upewnij siê, ¿e te strefy s± zdefiniowane na serwerach, które wpiszesz.</b><br >
-Twoja nowa podstrefa w serwisie %s <b>musi</b> byæ podstref± %s, a tak¿e nie mo¿e zawieraæ kropki '.' w nazwie.<br >
+$l['str_primary_sub_zones_expl_on_x_x'] = "Mo¿esz zdefiniowaæ podstrefy, delegowane na inny serwer DNS. <b>Upewnij siê, ¿e te strefy s± zdefiniowane na serwerach, które wpiszesz.</b><br>
+Twoja nowa podstrefa w serwisie %s <b>musi</b> byæ podstref± %s, a tak¿e nie mo¿e zawieraæ kropki '.' w nazwie.<br>
 Serwery DNS musz± byæ <b>bezwzglêdne</b> i zakoñczone <b>kropk±</b>.";
 $l['str_primary_sub_zones_title'] = "Podstrefy";
 $l['str_primary_www_zones_zone'] = "Nazwa";
-$l['str_primary_www_zones_expl_on_x_x'] = "Ramki WWW to w skrócie &quot;ukryty&quot; prawdziwy URL (w pasce adresu przegl±darki widaæ tylko <i>Nazwa</i>, zawarto¶æ jest z <i>Adres WWW</i>). Przekierowania WWW to po prostu przekierowanie przegl±darki WWW na prawdziwy URL (w pasce adresu przegl±darki widaæ <i>Adres WWW</i>).<br >
-Nazwa przekierowania/ramki <b>musi</b> byæ podstref± %s (regu³y dot. nazw s± takie same, jak dla rekordów A).<br >
-<!-- Adres WWW musi zaczynaæ siê od <b>http://</b><br > -->
-<!-- Dodanie rekordu WWW wi±¿e siê z automatycznym dodaniem odpowiedniego rekordu A do strefy.<br > -->
+$l['str_primary_www_zones_expl_on_x_x'] = "Ramka WWW to w skrócie &quot;ukryty&quot; prawdziwy URL (w pasce adresu przegl±darki widaæ tylko <i>Nazwa</i> (z domen±), za¶ zawarto¶æ jest z <i>Adres WWW</i>). Przekierowanie WWW to po prostu przekierowanie przegl±darki WWW na prawdziwy URL (w pasce adresu przegl±darki widaæ <i>Adres WWW</i>).<br>
+Regu³y nazewnictwa s± takie same, jak dla rekordów A, gdy¿ automatycznie tworzony jest rekord A wskazuj±cy na adres serwera WWW, który obs³uguje to przekierowanie.<br>
+<!-- Adres WWW musi zaczynaæ siê od <b>http://</b><br> -->
+<!-- Dodanie rekordu WWW wi±¿e siê z automatycznym dodaniem odpowiedniego rekordu A do strefy.<br> -->
 <!-- <b>Uwaga! To eksperyment, proszê zg³aszaæ uwagi, je¿eli co¶ ¼le lub wcale nie dzia³a!</b> -->";
 $l['str_primary_www_zones_title'] = "Ramki i przekierowania WWW";
 $l['str_primary_www_zones_type'] = "Typ";
@@ -125,24 +125,24 @@ $l['str_primary_warning_www_x_exists_not_overwritten'] = "Uwaga: rekord %s ju¿ i
 $l['str_primary_cname_name_a_record'] = "Nazwa";
 $l['str_primary_cname_new_cname_x'] = "Nowy CNAME (%s)";
 $l['str_primary_cname_alias'] = "Alias";
-$l['str_primary_cname_expl'] = "Rekordy CNAME to definicje aliasów nazw.<br >Przyk³ad: je¶li ju¿ istnieje rekord A <i>praca</i> wskazuj±cy na adres IP <i>10.1.1.1</i>, to kolejna nazwa (np. <i>work</i>) wskazuj±ca na ten sam adres IP powinna byæ rekordem CNAME wskazuj±cym na istniej±c± ju¿ nazwê (czyli na <i>praca</i>).<br > Jest to po¿yteczne, gdy masz wiele nazw dla tego samego adresu IP.<br > Je¶li wskazywany rekord jest <b>poza bie¿±c± stref±</b>, musisz u¿yæ
-<b>nazwy bezwzglêdnej</b> z kropk± na koñcu.<br >
+$l['str_primary_cname_expl'] = "Rekordy CNAME to definicje aliasów nazw.<br>Przyk³ad: je¶li ju¿ istnieje rekord A <i>praca</i> wskazuj±cy na adres IP <i>10.1.1.1</i>, to kolejna nazwa (np. <i>work</i>) wskazuj±ca na ten sam adres IP powinna byæ rekordem CNAME wskazuj±cym na istniej±c± ju¿ nazwê (czyli na <i>praca</i>).<br > Jest to po¿yteczne, gdy masz wiele nazw dla tego samego adresu IP.<br > Je¶li wskazywany rekord jest <b>poza bie¿±c± stref±</b>, musisz u¿yæ
+<b>nazwy bezwzglêdnej</b> z kropk± na koñcu.<br>
 Je¶li wskazywany rekord jest <b>wewn±trz bie¿±cej strefy</b>, to <b>nie</b>
-dodawaj domeny.<br >
+dodawaj domeny.<br>
 Je¶li chcesz przechwyciæ wszystkie odwo³ania do strefy, nale¿y u¿yæ
 <b>CNAME wieloznacznego</b>.
 Musisz jednak byæ ¶wiadom tego, co robisz, zanim dodasz taki rekord.";
 $l['str_primary_cname_title'] = "Rekordy aliasów (CNAME)";
 $l['str_primary_ipv6_record_new_aaaa_x'] = "Nowy AAAA (%s)";
 $l['str_primary_ipv6_record_modify_reverse_x'] = "Zmodyfikowaæ odpowiednie rekordy PTR, je¶li strefa odwrotna jest zarz±dzana w serwisie %s?";
-$l['str_primary_ipv6_record_expl_zone_and_round_robin'] = "Je¶li chcesz dodaæ rekord AAAA <b>dla samej strefy</b>, u¿yj bezwzglêdnej nazwy <b>z kropk± na koñcu</b> lub znak '@' (at).<br >
+$l['str_primary_ipv6_record_expl_zone_and_round_robin'] = "Je¶li chcesz dodaæ rekord AAAA <b>dla samej strefy</b>, u¿yj bezwzglêdnej nazwy <b>z kropk± na koñcu</b> lub znak '@' (at).<br>
 Je¶li chcesz zrobiæ mapowanie jednej nazwy na <b>kilka podawanych na zmianê</b>
 adresów IP (aka Round Robin), to po prostu wpisz ró¿ne rekordy AAAA z tak± sam± nazw±, a innymi adresami IP.";
 $l['str_primary_ipv6_record_title'] = "Rekordy adresów IPv6 (AAAA)";
 $l['str_primary_ipv6_record_expl_before_x_x_x'] = "Rekordy AAAA przypisuj± nazwom adresy IPv6. <Nazwa jest wzglêdna</b>, tj. tylko to, co chcesz mieæ przed %s, jak www dla www.%s <b>oprócz wpisu dla samej domeny</b>, która musi byæ bezwzglêdna i zakoñczona kropk±, np. %s.";
 $l['str_primary_a_record_new_a_x'] = "Nowy A (%s)";
 $l['str_primary_a_record_modify_ptr_x'] = "Zmodyfikowaæ odpowiednie rekordy PTR, je¶li strefa odwrotna jest zarz±dzana w serwisie %s?";
-$l['str_primary_a_record_expl'] = "Je¶li chcesz dodaæ rekord A <b>dla samej strefy</b>, u¿yj bezwzglêdnej nazwy <b>z kropk± na koñcu</b> lub znak '@' (at).<br >
+$l['str_primary_a_record_expl'] = "Je¶li chcesz dodaæ rekord A <b>dla samej strefy</b>, u¿yj bezwzglêdnej nazwy <b>z kropk± na koñcu</b> lub znak '@' (at).<br>
 Je¶li chcesz zrobiæ mapowanie jednej nazwy na <b>kilka podawanych na zmianê</b>
 adresów IP (aka Round Robin), to po prostu wpisz ró¿ne rekordy A z tak± sam± nazw±, a innymi adresami IP.";
 $l['str_primary_a_record_title'] = "Rekordy adresów (A)";
@@ -153,7 +153,7 @@ $l['str_primary_reverse_sub_zone_range_to'] = "do";
 $l['str_primary_reverse_sub_zones_delegation_how'] = "To jest do zrobienia przy u¿yciu CNAME, jak nakazuje RFC 2317.";
 $l['str_primary_reverse_sub_zone_range'] = "Zakres";
 $l['str_primary_reverse_sub_zone_range_from'] = "od";
-$l['str_primary_reverse_sub_zones_delegation_expl_x_x'] = "Przydaje siê to bardzo, gdy masz strefê odwrotn± podzielon± miêdzy ró¿nych administratorów.<br >
+$l['str_primary_reverse_sub_zones_delegation_expl_x_x'] = "Przydaje siê to bardzo, gdy masz strefê odwrotn± podzielon± miêdzy ró¿nych administratorów.<br>
 Dla przyk³adu, je¶li chcesz mieæ adresy IP od 1 do 10 w strefie %s delegowane dla u¿ytkownika \"PrzyjemnyTypek\" w serwisie %s, bêdzie on móg³ zarz±dzaæ tymi rekordami PTR w tej strefie.";
 $l['str_primary_name'] = "Nazwa";
 $l['str_primary_ptr_new_ptr_x'] = "Nowy PTR";
@@ -250,14 +250,14 @@ $l['str_you_can_now_use_the_x_main_interface_x_to_log_in'] = "Mo¿esz teraz zalog
 $l['str_errors_occured_during_recovery_mail_sending'] = "W trakcie wysy³ania listu nast±pi³ b³±d. Spróbuj pó¼niej jeszcze raz.";
 $l['str_password_recovery_login_is'] = "Twój login to";
 $l['str_recovery_mail_sent'] = "Wys³ano do Ciebie list z URL-em wskazuj±cym na stronê, która poka¿e Ci Twoje nowe, tymczasowe has³o.<p >
-<b>UWAGA: jak najszybciej skorzystaj z tego URL-a, gdy¿ jest wysy³any w postaci niezaszyfrowanej, któr± ka¿dy mo¿e podpatrzeæ.</b><br >
+<b>UWAGA: jak najszybciej skorzystaj z tego URL-a, gdy¿ jest wysy³any w postaci niezaszyfrowanej, któr± ka¿dy mo¿e podpatrzeæ.</b><br>
 Ze wzglêdu na bezpieczeñstwo URL ten dzia³a przez jeden dzieñ i mo¿e zostaæ wykorzystany tylko raz.";
 $l['str_email_not_sent'] = "wygl±da na to, ¿e Twoje konto nie ma poprawnego adresu email. Nie mo¿emy Ci pomóc.";
 $l['str_you_did_not_specify_zonetype'] = "musisz wybraæ typ strefy";
 $l['str_recover_password_button'] = "Odzyskaj has³o";
 $l['str_or_one_of_your_zones'] = "<b>lub</b> jedna z Twoich stref";
 $l['str_password_recovery'] = "odzyskiwanie hasla";
-$l['str_lost_pwd_fill_in_fields_to_recover_password'] = "Nie pamiêtasz has³a?<br >
+$l['str_lost_pwd_fill_in_fields_to_recover_password'] = "Nie pamiêtasz has³a?<br>
 Wype³nij poni¿sze pola, wy¶lemy Ci URL-a, który pomo¿e Ci odzyskaæ has³o.";
 $l['str_must_log_before_modifying_zone'] = "Musisz siê zalogowaæ, zanim zaczniesz modyfikowaæ strefê.";
 $l['str_password_recovery_title'] = "Odzyskiwanie has³a";
@@ -511,8 +511,8 @@ $l['str_total_hosted_zones'] = "Razem";
 $l['str_primary_adding_txt_x'] = "Dodajê rekord TXT %s.";
 $l['str_primary_bad_txt_x'] = "z³a nazwa TXT %s.";
 $l['str_primary_deleting_txt_x'] = "Kasujê rekord TXT %s";
-$l['str_primary_txt_record_expl_x_x_x'] = "Rekordy TXT s³u¿± jako po³±czenie prostego tekstu i nazwy. Mog± zostaæ u¿yte do komentowania konfiguracji strefy lub do szczególnych zastosowañ (jak niektóre systemy antyspamowe). Nazw± mo¿e byæ istniej±cy rekord (A, NS, itd...), sama strefa lub co¶ nowego.<br >
-<strong>Nazwa jest wzglêdna</strong>, tj. tylko to, co chcesz mieæ przed %s, jak www dla www.%s <strong>oprócz nazwy samej domeny</strong>, która jest bezwzglêdna, tj. %s.<br >
+$l['str_primary_txt_record_expl_x_x_x'] = "Rekordy TXT s³u¿± jako po³±czenie prostego tekstu i nazwy. Mog± zostaæ u¿yte do komentowania konfiguracji strefy lub do szczególnych zastosowañ (jak niektóre systemy antyspamowe). Nazw± mo¿e byæ istniej±cy rekord (A, NS, itd...), sama strefa lub co¶ nowego.<br>
+<strong>Nazwa jest wzglêdna</strong>, tj. tylko to, co chcesz mieæ przed %s, jak www dla www.%s <strong>oprócz nazwy samej domeny</strong>, która jest bezwzglêdna, tj. %s.<br>
 Je¶li chcesz dodaæ rekord TXT <strong>dla samej strefy</strong>, u¿yj bezwzglêdnej nazwy domeny <strong>z kropk± na koñcu</strong>.";
 $l['str_primary_txt_record_title'] = "Rekordy (TXT) tekstowe";
 $l['str_txt_records_details'] = "rekordy TXT w strefach podstawowych";
@@ -529,7 +529,7 @@ $l['str_primary_x_name_ends_with_dot'] = "Nazwa PTR (%s) jest zakoñczona kropk±.
 $l['str_index_migrate'] = 'Migracja danych';
 $l['str_migrate_button'] = 'Migruj';
 $l['str_migrate_already_done'] = 'Ju¿ zmigrowane.';
-$l['str_migrate_me'] = 'W celu migracji danych ze starego systemu, przyci¶nij poni¿szy przycisk. <br >Spowoduje to zaimportowanie wszystkich Twoich stref i rekordów oraz (w ci±gu paru minut) wygenerowanie tych stref na nowych serwerach DNS. <br >Wszystkie zmiany wprowadzone w starym systemie po 23 maja 2010 <b>nie bêd±</b> przeniesione do nowego systemu.<p>Je¿eli nie chcesz korzystaæ z FreeDNS::42, to mo¿esz albo skasowaæ swoje konto, albo po prostu nic nie robiæ&nbsp;&mdash;&nbsp;niezmigrowane konta zostan± wraz z zawarto¶ci± skasowane w sierpniu 2010.<p>Przy okazji te¿ zerknij na swoje ustawienia, zw³aszcza na poprawno¶æ adresu email.';
+$l['str_migrate_me'] = 'W celu migracji danych ze starego systemu, przyci¶nij poni¿szy przycisk. <br>Spowoduje to zaimportowanie wszystkich Twoich stref i rekordów oraz (w ci±gu paru minut) wygenerowanie tych stref na nowych serwerach DNS. <br >Wszystkie zmiany wprowadzone w starym systemie po 23 maja 2010 <b>nie bêd±</b> przeniesione do nowego systemu.<p>Je¿eli nie chcesz korzystaæ z FreeDNS::42, to mo¿esz albo skasowaæ swoje konto, albo po prostu nic nie robiæ&nbsp;&mdash;&nbsp;niezmigrowane konta zostan± wraz z zawarto¶ci± skasowane w sierpniu 2010.<p>Przy okazji te¿ zerknij na swoje ustawienia, zw³aszcza na poprawno¶æ adresu email.';
 $l['str_migrate_content_x'] = '<dl><dt>Migracja danych</dt><dd>W celu migracji danych ze starego systemu <a href="migrate.php%s">wejd¼ tutaj</a>.</dd></dl>';
 $l['str_migrate_success'] = 'Zmigrowano wszystkie Twoje strefy. Pliki konfiguracyjne wygeneruj± siê w ci±gu kwadransa. Parê minut po otrzymaniu maila nowe serwery DNS powinny zacz±æ obs³ugiwaæ Twoje strefy. <p><strong>Po sprawdzeniu</strong>, ¿e nowe serwery DNS poprawnie odpowiadaj± na zapytania o Twoje domeny, zmieñ serwery nazw u swojego rejestratora domen. Szczegó³y, niestety, zale¿± od rejestratora.';
 $l['str_waiting_to_confirm_x'] = 'adres %s oczekuje na potwierdzenie poprawno¶ci.';
