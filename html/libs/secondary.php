@@ -91,7 +91,7 @@ class Secondary extends Zone {
 			$this->zonetype . '">
       <p>' . $l['str_secondary_be_sure_that_name_server_is_auth'] . '</p>
 			<table>
-			<tr><td class="left">' . $l['str_secondary_primary_ns_ip'] . ': </td>
+			<tr><td class="left">' . $l['str_secondary_primary_ns_ip'] . '</td>
 			<td><input type="text" name="primary"
 			value="' . $this->masters . '">
 			</td></tr>
@@ -125,7 +125,7 @@ class Secondary extends Zone {
 					$xferip = $this->xfer;
 				}
 			}
-			$result .= '>' . $l['str_secondary_allow_transfer_master_and_ip'] . '</label>: 
+			$result .= '>' . $l['str_secondary_allow_transfer_master_and_ip'] . '</label>
 			<input id="xferip" type="text" name="xferip" value="' . $xferip . '">
 			</td></tr>
       </table>
