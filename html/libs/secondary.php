@@ -126,7 +126,7 @@ class Secondary extends Zone {
 				}
 			}
 			$result .= '>' . $l['str_secondary_allow_transfer_master_and_ip'] . '</label>: 
-			<input type="text" name="xferip" value="' . $xferip . '">
+			<input id="xferip" type="text" name="xferip" value="' . $xferip . '">
 			</td></tr>
       </table>
       <table id="submit">
