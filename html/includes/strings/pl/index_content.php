@@ -3,6 +3,7 @@ $content = '
 <dl>
    <dt>Nowy start [2010-05-23]</dt>
    <dd>Ruszamy! Logujecie siê <strong>korzystaj±c z loginu i has³a ze starego systemu</strong>, klikacie przycisk "Migruj", czekacie, a¿ zacznie dzia³aæ, zmieniacie u rejestratorów domen wpisy dotycz±ce serwerów nazw, tj. na: fns1.42.pl&nbsp;(79.98.145.34) oraz fns2.42.pl&nbsp;(195.80.237.194), czekacie, a¿ siê zmiany rozpropaguj± i&nbsp;wtedy mo¿ecie skasowaæ strefy i&nbsp;konto ze starego systemu.</dd><dd>Powodzenia!</dd>
+<dd>Czasu nie jest tak du¿o: pod koniec czerwca stary system ma zostaæ wy³±czony i je¶li nie przeniesiecie gdzie¶ (zapraszam tu, rzecz jasna) waszych stref, to przestan± dzia³aæ.</dd>
 
    <dt>Polskie znaki w nazwach domen [2009-12-31]</dt>
    <dd>Polskie znaki w nazwach domen uzyskuje siê przez wpisanie w konfiguracji nazwy IDN,
