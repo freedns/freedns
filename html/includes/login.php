@@ -81,19 +81,6 @@ if($user->authenticated == 0){
 	
 	print $html->box('login',$title,$content);
 	
-	
-	$title = $l['str_log_legend'] ;
-	$content = '<div align="center"><table id="legendtable">
-	<tr><td class="loghighlightINFORMATION" align="center">' . 
-			$l['str_log_information'] . '</td></tr>
-	<tr><td class="loghighlightWARNING" align="center">'
-		 . $l['str_log_warning'] . '</td></tr>
-	<tr><td class="loghighlightERROR" align="center">' . 
-			$l['str_log_error'] . '</td></tr>
-	<tr><td class="loghighlightUNKNOWN" align="center">' . 
-			$l['str_log_unknown'] . '</td></tr>		
-	</table></div>';
-	print $html->box('legend',$title,$content);		
 
 	// list all other zones for current user
 	if($config->usergroups){
@@ -146,6 +133,19 @@ return false">'.
 	}
   $title = $l['str_all_your_zones'];
 	print $html->box('yourzones',$title,$content);
+	
+	$title = $l['str_log_legend'] ;
+	$content = '<div align="center"><table id="legendtable">
+	<tr><td class="loghighlightINFORMATION" align="center">' . 
+			$l['str_log_information'] . '</td></tr>
+	<tr><td class="loghighlightWARNING" align="center">'
+		 . $l['str_log_warning'] . '</td></tr>
+	<tr><td class="loghighlightERROR" align="center">' . 
+			$l['str_log_error'] . '</td></tr>
+	<tr><td class="loghighlightUNKNOWN" align="center">' . 
+			$l['str_log_unknown'] . '</td></tr>		
+	</table></div>';
+	print $html->box('legend',$title,$content);		
 }
 
 ?>
