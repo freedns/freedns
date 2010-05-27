@@ -50,10 +50,15 @@ if($user->authenticated == 0){
 			if(isset($_REQUEST)){
 				$zonenamenew = $_REQUEST['zonenamenew'];
 				$zonetypenew = $_REQUEST['zonetypenew'];
-				if(isset($_REQUEST['template'])){
-					$template = $_REQUEST['template'];
+				if(isset($_REQUEST['templatep'])){
+					$templatep = $_REQUEST['templatep'];
 				}else{
-					$template = "";
+					$templatep = "";
+				}
+				if(isset($_REQUEST['templates'])){
+					$templates = $_REQUEST['templates'];
+				}else{
+					$templates = "";
 				}
 				if(isset($_REQUEST['serverimport'])){
 					$serverimport = $_REQUEST['serverimport'];
@@ -78,7 +83,18 @@ endif;
 			if(!notnull($zonetypenew)){
 				$missing .= " " . $l['str_zonetype'] . ",";
 			}
-		
+			if($zonetypenew=='S'){
+				if(!notnull($templates) || $templates==$l['str_none']){
+					if(!notnull($serverimport)){
+						$missing .= " " . $l['str_authoritative_server'] . ",";
+					}elseif (!checkIP($serverimport)){
+						$missing .= " " . $l['str_secondary_your_primary_should_be_an_ip'] . ",";
+		          	} 
+	      		} else {
+		          // we take all from template
+		          $serverimport = "";
+		        }
+			}
 			if(notnull($missing)){
 				$localerror = 1;
 				$missing = substr($missing,0, -1);
@@ -135,29 +151,18 @@ endif;
 				// ****************************************
 				// *            Create new zone           *
 				// ****************************************
-				if(notnull($template) && strcmp($zonetypenew,
-				substr($template,-2,1))){
-					$content .= sprintf($html->string_warning, 
-						$l['str_template_type_missmatch_noone_will_be_used']);
-					$template = $l['str_none'];
-				}else{
-					if(!notnull($template)){
-						$template = $l['str_none'];
-					}
-				}
+				$template = $l['str_none'];
+				if(notnull($templates) && $zonetypenew=="S") $template = $templates;
+				if(notnull($templatep) && $zonetypenew=="P") $template = $templatep;
 				// import zone content
 				if(notnull($serverimport)){
-					if(strcmp($zonetypenew, 'P')){
-						$content .= sprintf($html->string_warning, 
-							$l['str_no_serverimport']); 
-						$serverimport="";
-					}else{
 						// check if serverimport is IP or NS name
-						if(!( checkIP($serverimport) || checkDomain($serverimport) )){
-							$l['str_bad_serverimport_name'];
+						if($zonetypenew=='P'
+							&& !(checkIP($serverimport) || checkDomain($serverimport)) ){
+							$content .= sprintf($html->string_warning, 
+								$l['str_bad_serverimport_name']);
 							$serverimport="";
 						} 
-					}
 				}
 if (0):
 				if(notnull($zonearea)){
@@ -168,8 +173,7 @@ if (0):
 					}
 				}
 endif;
-				
-				if($config->usergroups){ 
+				if($config->usergroups){
 					// if usergroups, zone is owned by
 					// group and not individuals
 					if($usergrouprights != 'R'){
@@ -203,21 +207,21 @@ endif;
 									$newzone->error);
 					}
 				}else{
-					if(strcmp($template,$l['str_none'])){
-						$content .= '<p >' . 
-								sprintf($l['str_using_zone_x_as_template'],$template);
+					if($template && $template!=$l['str_none']){
+						$content .= '<p>' . 
+								sprintf($l['str_using_zone_x_as_template'], $template);
 						if($newzone->error){
-							$content .= "<p >" . 
+							$content .= "<p>" . 
 									sprintf($html->string_warning, 
 									$l['str_errors_occured_during_tmpl_usage_check_content']);
 						}
 					}
 					// send email & print message
-					$content .= '<p >' .
+					$content .= '<p>' .
 						sprintf($l['str_zone_x_successfully_registered_on_x_server'],
 							 $zonenamenew,$config->sitename) . '<p > 
 					';
-					if(strcmp($template,$l['str_none'])){
+					if($template && $template!=$l['str_none']){
 						$content .=
 							sprintf($l['str_you_can_now_use_the_x_modif_interface_x_to_configure'],
 									'<a href="modify.php' . $link . 

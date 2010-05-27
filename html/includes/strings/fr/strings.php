@@ -749,7 +749,10 @@ $l['str_failed_serverimport'] = "L'import depuis le serveur a échoué.";
 $l['str_bad_serverimport_name'] = "Mauvais nom de serveur pour l'import. Utilisez soit le nom du serveur, soit l'adresse IP.";
 $l['str_no_serverimport'] = "L'import depuis un serveur n'est pas possible pour les zones secondaires.";
 $l['str_use_server_for_import_x'] = "Import de la zone depuis le serveur autoritaire suivant (le transfert de zone doit être autorisé depuis %s). Pour zone primaire uniquement.";
-
+$l['str_authoritative_server'] = "Le serveur autoritaire";
+$l['str_authoritative_server_x'] = "Optional for primaries -- if present, server will try to import zone records.<br>
+Required for proper working of secondary zones.<br>
+If given, it has to allow zone transfer at least for for %s.";
 $l['str_not_migrated'] = 'You have not migrated yet.';
 $l['str_index_migrate'] = 'Data migration';
 $l['str_migrate_button'] = 'Migrate';

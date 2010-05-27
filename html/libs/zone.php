@@ -217,7 +217,8 @@ class Zone {
 		if(!$this->Exists($zonename,$zonetype)){
 			// does not exist already ==> OK
 			$query = "INSERT INTO dns_zone (zone,zonetype,userid)
-			VALUES ('".mysql_real_escape_string($zonename)."','".$zonetype."','".$userid."')";
+				VALUES ('".mysql_real_escape_string($zonename)."','".
+					mysql_real_escape_string($zonetype)."','".$userid."')";
 			$res = $db->query($query);
 			if($db->error()){
 				$this->error = $l['str_trouble_with_db'];
@@ -229,11 +230,10 @@ class Zone {
 
 				// if $template, fill-in zone with template content
 				// modified for current zone
-				if ($template != $l['str_none']) {
+				if ($template && $template != $l['str_none']) {
 					// only if template is owned by group !
-					// $template is "xname.org(P)"
-					$templatezone = mysql_real_escape_string(substr($template,0,strlen($template)-3));
-					$templatetype = mysql_real_escape_string(substr($template,-2,1));
+					$templatezone = mysql_real_escape_string($template);
+					$templatetype = mysql_real_escape_string($zonetype);
 					if($userid != $this->getUserIdByZone($templatezone)){
 						$this->error.= $l['str_while_configuring_from_template'];
 					}else{
@@ -243,6 +243,7 @@ class Zone {
 					}
 				}
 
+        if ($zonetype=='P')
 				// if $serverimport, fill-in zone with dig result
 				if ($serverimport) {
 					if(!$this->fillinWithImport($serverimport)){
@@ -303,18 +304,26 @@ endif;
 							$res2 = $db->query($query);
 						}
 					}
-					# TODO: change createzone to fetch master for secondary
-					if ($zonetype=='P'){
-						// flag as 'M'odified to be generated & reloaded
-						$query = "UPDATE dns_zone SET 
-							  status='M' WHERE id='" . $this->zoneid . "'";
-						$res = $db->query($query);
-						if($db->error()){
-							  $this->error .= $l['str_trouble_with_db'];
-							  return 0;
-						}
-						return 1;
-       					}
+          if ($zonetype=='S' && notnull($serverimport)){
+            $query = "INSERT INTO dns_confsecondary
+              (zoneid, masters, xfer) VALUES ('" . $this->zoneid . "', '".
+              mysql_real_escape_string($serverimport) . "', '".
+							mysql_real_escape_string($serverimport) . "')";
+						$res2 = $db->query($query);
+            if($db->error()){
+                $this->error .= $l['str_trouble_with_db'];
+                return 0;
+            }
+          }
+          // flag as 'M'odified to be generated & reloaded
+          $query = "UPDATE dns_zone SET 
+              status='M' WHERE id='" . $this->zoneid . "'";
+          $res = $db->query($query);
+          if($db->error()){
+              $this->error .= $l['str_trouble_with_db'];
+              return 0;
+          }
+          return 1;
 				} // notnull($this->error)
 			}
 		}else{
