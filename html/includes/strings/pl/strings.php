@@ -144,7 +144,8 @@ $l['str_primary_a_record_new_a_x'] = "Nowy A (%s)";
 $l['str_primary_a_record_modify_ptr_x'] = "Zmodyfikowaæ odpowiednie rekordy PTR, je¶li strefa odwrotna jest zarz±dzana w serwisie %s?";
 $l['str_primary_a_record_expl'] = "Je¶li chcesz dodaæ rekord A <b>dla samej strefy</b>, u¿yj bezwzglêdnej nazwy <b>z kropk± na koñcu</b> lub znak '@' (at).<br>
 Je¶li chcesz zrobiæ mapowanie jednej nazwy na <b>kilka podawanych na zmianê</b>
-adresów IP (aka Round Robin), to po prostu wpisz ró¿ne rekordy A z tak± sam± nazw±, a innymi adresami IP.";
+adresów IP (aka Round Robin), to po prostu wpisz ró¿ne rekordy A z tak± sam± nazw±, a innymi adresami IP.<br>
+Je¶li chcesz ustawiæ rekord wieloznaczny (wildcard, '*'), to utwórz jaki¶ rekord A (np. www) i ustaw na niego CNAME wieloznaczny.";
 $l['str_primary_a_record_title'] = "Rekordy adresów (A)";
 $l['str_primary_a_record_what_you_want_before_x_x_x'] = "Rekordy A przypisuj± nazwom adresy IP. <b>Nazwa jest wzglêdna</b>, tj. tylko to, co chcesz mieæ przed %s, jak www dla www.%s <b>oprócz wpisu dla samej domeny</b>, która musi byæ bezwzglêdna i zakoñczona kropk±, np. %s.";
 $l['str_primary_reverse_sub_zone_delegated_to_user_x'] = "delegowany u¿ytkownikowi %s";
