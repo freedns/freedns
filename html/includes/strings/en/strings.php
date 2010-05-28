@@ -1,6 +1,6 @@
 <?
+$l['str_content_type'] = "utf-8";
 $l['str_primary_bad_cname_x'] = "Bad CNAME  %s";
-$l['str_content_type'] = "iso-8859-1";
 $l['str_create_new_user_title'] = "Create a new user";
 $l['str_login'] = "Account";
 $l['str_password'] = "Password";

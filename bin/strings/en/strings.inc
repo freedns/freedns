@@ -1,5 +1,5 @@
+$str_content_type{'en'}  = "utf-8";
 $str_primary_bad_cname_x{'en'}  = "Bad CNAME  %s";
-$str_content_type{'en'}  = "iso-8859-1";
 $str_create_new_user_title{'en'}  = "Create a new user";
 $str_login{'en'}  = "Login";
 $str_password{'en'}  = "Password";

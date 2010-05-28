@@ -1,13 +1,14 @@
 <?
+$l['str_content_type'] = "utf-8";
 $l['str_primary_looking_for_zone_x'] = "Szukana strefa %s";
-$l['str_secondary_after_modif_add_to_configfile'] = "zmodyfikowaæ konfiguracjê Twojego serwera DNS, ¿eby pozwala³ na transfery do naszych serwerów DNS (dotyczy tylko je¶li Twój podstawowy serwer DNS jest oparty na bind)";
-$l['str_secondary_after_modif_add_lines_to_zonefile'] = "dodaæ nastêpuj±ce linie do Twojej strefy (z koñcz±cymi kropkami)";
-$l['str_secondary_after_modif_be_sure_to'] = "Upewnij siê, ¿eby";
-$l['str_secondary_zone_successfully_modified_on_x'] = "Strefa zosta³a zmodyfikowane na %s.";
-$l['str_secondary_your_zone_will_not_be_available'] = "Twoja strefa nie bêdzie dostêpna po kolejnym prze³adowaniu. Wróæ pó¼niej i zmodyfikuj j± jeszcze raz.";
-$l['str_secondary_invalid_list_of_allowtransfer'] = "B³êdna lista adresów IP serwerów, które mog± dokonywaæ transferów strefy. Je¶li chcesz wpisaæ kilka adresów IP, rozdziel je ¶rednikiem.";
-$l['str_secondary_non_blocking_warning_x_will_not_serve'] = "To ostrze¿enie nie powoduje niemo¿no¶ci rejestracji Twej strefy -- ale napraw ten b³±d jak najszybciej, w przeciwnym wypadku %s nie bêdzie móg³ poprawnie obs³ugiwaæ Twej strefy.";
-$l['str_trying_to_dig_from_x_returned_status_x'] = "polecenie 'dig %s' zwróci³o: %s";
+$l['str_secondary_after_modif_add_to_configfile'] = "zmodyfikowaÄ‡ konfiguracjÄ™ Twojego serwera DNS, Å¼eby pozwalaÅ‚ na transfery do naszych serwerÃ³w DNS (dotyczy tylko jeÅ›li TwÃ³j podstawowy serwer DNS jest oparty na bind)";
+$l['str_secondary_after_modif_add_lines_to_zonefile'] = "dodaÄ‡ nastÄ™pujÄ…ce linie do Twojej strefy (z koÅ„czÄ…cymi kropkami)";
+$l['str_secondary_after_modif_be_sure_to'] = "Upewnij siÄ™, Å¼eby";
+$l['str_secondary_zone_successfully_modified_on_x'] = "Strefa zostaÅ‚a zmodyfikowane na %s.";
+$l['str_secondary_your_zone_will_not_be_available'] = "Twoja strefa nie bÄ™dzie dostÄ™pna po kolejnym przeÅ‚adowaniu. WrÃ³Ä‡ pÃ³Åºniej i zmodyfikuj jÄ… jeszcze raz.";
+$l['str_secondary_invalid_list_of_allowtransfer'] = "BÅ‚Ä™dna lista adresÃ³w IP serwerÃ³w, ktÃ³re mogÄ… dokonywaÄ‡ transferÃ³w strefy. JeÅ›li chcesz wpisaÄ‡ kilka adresÃ³w IP, rozdziel je Å›rednikiem.";
+$l['str_secondary_non_blocking_warning_x_will_not_serve'] = "To ostrzeÅ¼enie nie powoduje niemoÅ¼noÅ›ci rejestracji Twej strefy -- ale napraw ten bÅ‚Ä…d jak najszybciej, w przeciwnym wypadku %s nie bÄ™dzie mÃ³gÅ‚ poprawnie obsÅ‚ugiwaÄ‡ Twej strefy.";
+$l['str_trying_to_dig_from_x_returned_status_x'] = "polecenie 'dig %s' zwrÃ³ciÅ‚o: %s";
 $l['str_dig_result_BADTIME'] = "bad time";
 $l['str_dig_result_BADKEY'] = "bad key";
 $l['str_dig_result_NOTZONE'] = "not in zone";
@@ -21,69 +22,69 @@ $l['str_dig_result_NXDOMAIN'] = "no such domain name";
 $l['str_dig_result_FORMERR'] = "format error";
 $l['str_dig_result_SERVFAIL'] = "server failed";
 $l['str_dig_result_NOERROR'] = "no error";
-$l['str_secondary_if_you_want_two_primary'] = "Je¶li chcesz u¿ywaæ 2 podstawowych serwerów DNS, oddziel adresy IP ¶rednikiem";
-$l['str_secondary_you_must_provide_a_primary'] = "musisz podaæ podstawowy serwer DNS";
-$l['str_secondary_your_primary_should_be_an_ip'] = "podstawowy serwer DNS musi byæ podany jako adres IP";
+$l['str_secondary_if_you_want_two_primary'] = "JeÅ›li chcesz uÅ¼ywaÄ‡ 2 podstawowych serwerÃ³w DNS, oddziel adresy IP Å›rednikiem";
+$l['str_secondary_you_must_provide_a_primary'] = "musisz podaÄ‡ podstawowy serwer DNS";
+$l['str_secondary_your_primary_should_be_an_ip'] = "podstawowy serwer DNS musi byÄ‡ podany jako adres IP";
 $l['str_secondary_modify_button'] = "Modyfikuj";
-$l['str_secondary_allow_transfer_master_and_ip'] = "podstawowemu serwerowi DNS oraz (u¿yj ¶rednika jako separatora)";
+$l['str_secondary_allow_transfer_master_and_ip'] = "podstawowemu serwerowi DNS oraz (uÅ¼yj Å›rednika jako separatora)";
 $l['str_secondary_allow_tranfer_all'] = "wszystkim";
 $l['str_secondary_allow_transfer_master_only'] = "tylko podstawowemu serwerowi DNS";
-$l['str_secondary_allow_transfer_from'] = "Zezwól na transfer ";
-$l['str_secondary_primary_ns_ip'] = "Adres(y) IP podstawowego serwera DNS<br>(u¿yj ¶rednika jako separatora)";
-$l['str_secondary_be_sure_that_name_server_is_auth'] = "Upewnij siê, ¿e nameserver jest autorytatywny dla Twojej strefy.";
+$l['str_secondary_allow_transfer_from'] = "ZezwÃ³l na transfer ";
+$l['str_secondary_primary_ns_ip'] = "Adres(y) IP podstawowego serwera DNS<br>(uÅ¼yj Å›rednika jako separatora)";
+$l['str_secondary_be_sure_that_name_server_is_auth'] = "Upewnij siÄ™, Å¼e nameserver jest autorytatywny dla Twojej strefy.";
 $l['str_primary_serial'] = "numer seryjny";
-$l['str_primary_soa_invalid_xfer'] = "b³êdna lista adresów IP serwerów, które mog± dokonywaæ transferów strefy. Je¶li chcesz wpisaæ kilka adresów IP, rozdziel je ¶rednikiem.";
-$l['str_primary_delegate_bad_limits_x_x_overlaps_existing_x_x'] = "Z³y limit zakresu: %s-%s zawiera siê w istniej±cym zakresie %s-%s";
-$l['str_primary_delegate_user_x_doesnot_exist'] = "u¿ytkownik %s nie istnieje";
-$l['str_primary_bad_limits_x_x'] = "Z³y limit zakresu: %s-%s";
-$l['str_primary_no_user_for_delegation'] = "brak u¿ytkownika do wydelegowania";
-$l['str_primary_bad_upper_limit_x'] = "Z³y górny limit zakresu %s";
-$l['str_primary_bad_lower_limit_x'] = "Z³y dolny limit zakresu %s";
-$l['str_primary_adding_delegate_x_x'] = "Dodajê rekord DELEGATE %s-%s";
+$l['str_primary_soa_invalid_xfer'] = "bÅ‚Ä™dna lista adresÃ³w IP serwerÃ³w, ktÃ³re mogÄ… dokonywaÄ‡ transferÃ³w strefy. JeÅ›li chcesz wpisaÄ‡ kilka adresÃ³w IP, rozdziel je Å›rednikiem.";
+$l['str_primary_delegate_bad_limits_x_x_overlaps_existing_x_x'] = "ZÅ‚y limit zakresu: %s-%s zawiera siÄ™ w istniejÄ…cym zakresie %s-%s";
+$l['str_primary_delegate_user_x_doesnot_exist'] = "uÅ¼ytkownik %s nie istnieje";
+$l['str_primary_bad_limits_x_x'] = "ZÅ‚y limit zakresu: %s-%s";
+$l['str_primary_no_user_for_delegation'] = "brak uÅ¼ytkownika do wydelegowania";
+$l['str_primary_bad_upper_limit_x'] = "ZÅ‚y gÃ³rny limit zakresu %s";
+$l['str_primary_bad_lower_limit_x'] = "ZÅ‚y dolny limit zakresu %s";
+$l['str_primary_adding_delegate_x_x'] = "DodajÄ™ rekord DELEGATE %s-%s";
 $l['str_primary_no_ns_x'] = "Brak rekordu NS dla %s";
-$l['str_primary_adding_zone_ns_x'] = "Dodajê rekord NS %s";
-$l['str_primary_warning_a_x_exists_not_overwritten'] = "Uwaga: rekord A dla %s ju¿ istnieje -- nie zosta³ nadpisany";
-$l['str_primary_adding_cname_x'] = "Dodajê rekord CNAME %s";
-$l['str_primary_adding_www_x_x'] = "Dodajê rekord WWW (%s) %s";
-$l['str_primary_bad_www_value_x'] = "nieprawid³owa zawarto¶æ rekordu WWW %s";
-$l['str_primary_bad_www_x'] = "z³a nazwa WWW %s.";
+$l['str_primary_adding_zone_ns_x'] = "DodajÄ™ rekord NS %s";
+$l['str_primary_warning_a_x_exists_not_overwritten'] = "Uwaga: rekord A dla %s juÅ¼ istnieje -- nie zostaÅ‚ nadpisany";
+$l['str_primary_adding_cname_x'] = "DodajÄ™ rekord CNAME %s";
+$l['str_primary_adding_www_x_x'] = "DodajÄ™ rekord WWW (%s) %s";
+$l['str_primary_bad_www_value_x'] = "nieprawidÅ‚owa zawartoÅ›Ä‡ rekordu WWW %s";
+$l['str_primary_bad_www_x'] = "zÅ‚a nazwa WWW %s.";
 $l['str_primary_www_redirect'] = "przekierowanie";
 $l['str_primary_www_frame'] = "ramka";
 $l['str_primary_www_address'] = "Adres WWW";
 $l['str_primary_no_record_x'] = "Brak wpisu dla %s";
-$l['str_primary_warning_ptr_x_exists_with_diff_value'] = "Uwaga: rekord PTR dla %s ju¿ istnieje z inn± warto¶ci±. Zak³adam, ¿e chcesz mieæ kilka rekordów wskazuj±cych na ten sam adres (aka Round Robin) ";
-$l['str_primary_warning_ptr_x_already_exists_not_overwritten'] = "Uwaga: rekord PTR dla %s ju¿ istnieje, wskazuj±c na tê sam± nazwê -- nie zosta³ nadpisany";
-$l['str_primary_adding_ptr_x'] = "Dodajê rekord PTR %s";
-$l['str_primary_x_name_has_to_be_fully_qualified_x'] = "nazwa, na któr± wskazuje %s musi byæ bezwzglêdna (z domen± i koñcz±c± kropk±): %s";
+$l['str_primary_warning_ptr_x_exists_with_diff_value'] = "Uwaga: rekord PTR dla %s juÅ¼ istnieje z innÄ… wartoÅ›ciÄ…. ZakÅ‚adam, Å¼e chcesz mieÄ‡ kilka rekordÃ³w wskazujÄ…cych na ten sam adres (aka Round Robin) ";
+$l['str_primary_warning_ptr_x_already_exists_not_overwritten'] = "Uwaga: rekord PTR dla %s juÅ¼ istnieje, wskazujÄ…c na tÄ™ samÄ… nazwÄ™ -- nie zostaÅ‚ nadpisany";
+$l['str_primary_adding_ptr_x'] = "DodajÄ™ rekord PTR %s";
+$l['str_primary_x_name_has_to_be_fully_qualified_x'] = "nazwa, na ktÃ³rÄ… wskazuje %s musi byÄ‡ bezwzglÄ™dna (z domenÄ… i koÅ„czÄ…cÄ… kropkÄ…): %s";
 $l['str_primary_no_name_for_x'] = "Brak NAZWY dla %s";
-$l['str_primary_bad_ptr_x'] = "z³y rekord PTR %s";
-$l['str_primary_aaaa_x_with_same_ip'] = "Uwaga: rekord AAAA dla %s ju¿ istnieje z tym samym IP -- nie zosta³ nadpisany";
-$l['str_primary_warning_aaaa_x_exists_with_diff_value'] = "Uwaga: rekord AAAA dla %s ju¿ istnieje z inn± warto¶ci±. Zak³adam, ¿e chcesz mieæ kilka rekordów wskazuj±cych na ten sam adres (aka Round Robin) ";
-$l['str_primary_adding_aaaa_x'] = "Dodajê rekord AAAA %s";
-$l['str_primary_x_ip_has_to_be_ipv6'] = "Adres %s musi byæ poprawnym adresem IPv6";
-$l['str_primary_aaaa_bad_aaaa_x'] = "z³y rekord AAAA %s";
+$l['str_primary_bad_ptr_x'] = "zÅ‚y rekord PTR %s";
+$l['str_primary_aaaa_x_with_same_ip'] = "Uwaga: rekord AAAA dla %s juÅ¼ istnieje z tym samym IP -- nie zostaÅ‚ nadpisany";
+$l['str_primary_warning_aaaa_x_exists_with_diff_value'] = "Uwaga: rekord AAAA dla %s juÅ¼ istnieje z innÄ… wartoÅ›ciÄ…. ZakÅ‚adam, Å¼e chcesz mieÄ‡ kilka rekordÃ³w wskazujÄ…cych na ten sam adres (aka Round Robin) ";
+$l['str_primary_adding_aaaa_x'] = "DodajÄ™ rekord AAAA %s";
+$l['str_primary_x_ip_has_to_be_ipv6'] = "Adres %s musi byÄ‡ poprawnym adresem IPv6";
+$l['str_primary_aaaa_bad_aaaa_x'] = "zÅ‚y rekord AAAA %s";
 $l['str_primary_no_ipv6_for_x'] = "Brak adresu IPv6 dla %s";
-$l['str_primary_a_x_with_same_ip'] = "Uwaga: rekord A dla %s ju¿ istnieje z tym samym IP -- nie nadpisujê";
-$l['str_primary_warning_a_x_exists_with_diff_value'] = "Uwaga: rekord A dla %s ju¿ istnieje z inn± warto¶ci±. Zak³adam, ¿e chcesz mieæ kilka rekordów wskazuj±cych na ten sam adres (aka Round Robin) ";
-$l['str_primary_warning_cname_x_exists_not_overwritten'] = "Uwaga: rekord CNAME dla %s ju¿ istnieje -- nie zosta³ nadpisany";
-$l['str_primary_not_managed_by_x'] = "Nie zarz±dzana przez %s";
-$l['str_primary_main_zone_not_managed_by_you'] = "g³ówna strefa nie jest zarz±dzana przez Ciebie... sprawdzanie delegacji.";
-$l['str_primary_reverse_exists_but_ip_not_manageable'] = "strefa odwrotna istnieje, ale to IP nie jest w bloku adresów, którymi mo¿esz zarz±dzaæ";
-$l['str_primary_zone_managed_by_you'] = "g³ówna strefa zarz±dzana przez Ciebie";
-$l['str_primary_record_exists_assuming_rr'] = "Rekord ju¿ istnieje... zak³adam, ¿e chcesz robiæ Round Robin";
+$l['str_primary_a_x_with_same_ip'] = "Uwaga: rekord A dla %s juÅ¼ istnieje z tym samym IP -- nie nadpisujÄ™";
+$l['str_primary_warning_a_x_exists_with_diff_value'] = "Uwaga: rekord A dla %s juÅ¼ istnieje z innÄ… wartoÅ›ciÄ…. ZakÅ‚adam, Å¼e chcesz mieÄ‡ kilka rekordÃ³w wskazujÄ…cych na ten sam adres (aka Round Robin) ";
+$l['str_primary_warning_cname_x_exists_not_overwritten'] = "Uwaga: rekord CNAME dla %s juÅ¼ istnieje -- nie zostaÅ‚ nadpisany";
+$l['str_primary_not_managed_by_x'] = "Nie zarzÄ…dzana przez %s";
+$l['str_primary_main_zone_not_managed_by_you'] = "gÅ‚Ã³wna strefa nie jest zarzÄ…dzana przez Ciebie... sprawdzanie delegacji.";
+$l['str_primary_reverse_exists_but_ip_not_manageable'] = "strefa odwrotna istnieje, ale to IP nie jest w bloku adresÃ³w, ktÃ³rymi moÅ¼esz zarzÄ…dzaÄ‡";
+$l['str_primary_zone_managed_by_you'] = "gÅ‚Ã³wna strefa zarzÄ…dzana przez Ciebie";
+$l['str_primary_record_exists_assuming_rr'] = "Rekord juÅ¼ istnieje... zakÅ‚adam, Å¼e chcesz robiÄ‡ Round Robin";
 $l['str_primary_looking_for_reverse'] = "Sprawdzanie strefy odwrotnej";
 $l['str_primary_adding_a_x'] = "Dodawanie rekordu A %s";
-$l['str_primary_x_ip_has_to_be_ip'] = "adres serwera %s musi byæ poprawnym adresem IP";
-$l['str_primary_bad_a_x'] = "z³y rekord A %s";
+$l['str_primary_x_ip_has_to_be_ip'] = "adres serwera %s musi byÄ‡ poprawnym adresem IP";
+$l['str_primary_bad_a_x'] = "zÅ‚y rekord A %s";
 $l['str_primary_no_ip_for_x'] = "Brak adresu IP dla %s";
-$l['str_primary_warning_ns_x_exists_not_overwritten'] = "Uwaga: rekord NS dla %s ju¿ istnieje -- nie zosta³ nadpisany";
+$l['str_primary_warning_ns_x_exists_not_overwritten'] = "Uwaga: rekord NS dla %s juÅ¼ istnieje -- nie zostaÅ‚ nadpisany";
 $l['str_primary_adding_ns_x'] = "Dodawanie rekordu NS %s";
-$l['str_primary_bad_ns_x'] = "z³a nazwa NS %s";
-$l['str_primary_warning_mx_x_exists_not_overwritten'] = "Uwaga: rekord MX %s ju¿ istnieje -- nie zosta³ nadpisany";
+$l['str_primary_bad_ns_x'] = "zÅ‚a nazwa NS %s";
+$l['str_primary_warning_mx_x_exists_not_overwritten'] = "Uwaga: rekord MX %s juÅ¼ istnieje -- nie zostaÅ‚ nadpisany";
 $l['str_primary_adding_mx_x'] = "Dodawanie rekordu MX %s";
-$l['str_primary_preference_for_mx_x_has_to_be_int'] = "numer preferencyjny dla rekordu MX %s musi byæ liczb± naturaln±";
-$l['str_primary_data_error'] = "B³±d danych";
-$l['str_primary_bad_mx_name_x'] = "z³a nazwa MX %s";
+$l['str_primary_preference_for_mx_x_has_to_be_int'] = "numer preferencyjny dla rekordu MX %s musi byÄ‡ liczbÄ… naturalnÄ…";
+$l['str_primary_data_error'] = "BÅ‚Ä…d danych";
+$l['str_primary_bad_mx_name_x'] = "zÅ‚a nazwa MX %s";
 $l['str_primary_ok'] = "OK";
 $l['str_primary_deleting_sub_zone_x'] = "Kasowanie podstrefy %s";
 $l['str_primary_deleting_ok'] = "OK";
@@ -93,456 +94,455 @@ $l['str_primary_deleting_ns_x'] = "Kasowanie rekordu NS %s";
 $l['str_primary_deleting_mx_x'] = "Kasowanie rekordu MX %s";
 $l['str_primary_deleting_cname_x'] = "Kasowanie rekordu CNAME %s";
 $l['str_primary_deleting_a_x'] = "Kasowanie rekordu A %s";
-$l['str_can_not_open_x_for_writing'] = "nie mogê otworzyæ pliku %s do zapisu";
-$l['str_can_not_open_x_for_reading'] = "nie mogê otworzyæ pliku %s do odczytu";
-$l['str_primary_trouble_occured_when_checking'] = "Wyst±pi³ jaki¶ problem przy sprawdzaniu tego pliku";
-$l['str_primary_error_if_engine_error_x_contact_admin_x'] = "Mo¿esz wróciæ do strony modyfikacji, ¿eby to poprawiæ (kliknij na strefê po lewej stronie).<p > Je¶li uwa¿asz, ¿e to problem systemu, %sskontaktuj siê z administratorem%s.";
-$l['str_primary_zone_error_warning'] = "W trakcie sprawdzania konfiguracji wyst±pi³ b³±d.<br>Ta strefa <b>nie</b> zostanie za³adowana dopóki b³êdy nie zostan± poprawione.<p >Oto wynik sprawdzenia";
-$l['str_primary_zone_error_not_available_try_again'] = "Twoja strefa nie bêdzie dostêpna po kolejnym prze³adowaniu. Wróæ pó¼niej i zmodyfikuj j± jeszcze raz.";
+$l['str_can_not_open_x_for_writing'] = "nie mogÄ™ otworzyÄ‡ pliku %s do zapisu";
+$l['str_can_not_open_x_for_reading'] = "nie mogÄ™ otworzyÄ‡ pliku %s do odczytu";
+$l['str_primary_trouble_occured_when_checking'] = "WystÄ…piÅ‚ jakiÅ› problem przy sprawdzaniu tego pliku";
+$l['str_primary_error_if_engine_error_x_contact_admin_x'] = "MoÅ¼esz wrÃ³ciÄ‡ do strony modyfikacji, Å¼eby to poprawiÄ‡ (kliknij na strefÄ™ po lewej stronie).<p > JeÅ›li uwaÅ¼asz, Å¼e to problem systemu, %sskontaktuj siÄ™ z administratorem%s.";
+$l['str_primary_zone_error_warning'] = "W trakcie sprawdzania konfiguracji wystÄ…piÅ‚ bÅ‚Ä…d.<br>Ta strefa <b>nie</b> zostanie zaÅ‚adowana dopÃ³ki bÅ‚Ä™dy nie zostanÄ… poprawione.<p >Oto wynik sprawdzenia";
+$l['str_primary_zone_error_not_available_try_again'] = "Twoja strefa nie bÄ™dzie dostÄ™pna po kolejnym przeÅ‚adowaniu. WrÃ³Ä‡ pÃ³Åºniej i zmodyfikuj jÄ… jeszcze raz.";
 $l['str_primary_generated_config'] = "Oto wygenerowana konfiguracja";
-$l['str_primary_internal_tests_ok'] = "Twoja strefa pomy¶lnie przesz³a nasze wewnêtrzne testy konfiguracji. Powinna byæ aktywna w ci±gu kwadransa.
-Otrzymasz list informuj±cy Ciê o jej aktywowaniu.";
+$l['str_primary_internal_tests_ok'] = "Twoja strefa pomyÅ›lnie przeszÅ‚a nasze wewnÄ™trzne testy konfiguracji. Powinna byÄ‡ aktywna w ciÄ…gu kwadransa.
+Otrzymasz list informujÄ…cy CiÄ™ o jej aktywowaniu.";
 $l['str_primary_new_serial_x'] = "Nowy numer seryjny: %s";
-$l['str_primary_reset_form_button'] = "Czy¶æ pola";
-$l['str_primary_generate_zone_button'] = "Utwórz konfiguracjê strefy";
-$l['str_primary_allow_transfer_ip_allowed'] = "Adresy IP, z których bêdzie wolno transferowaæ ca³e strefy (pozostaw puste, ¿eby zezwoliæ wszystkim)";
-$l['str_primary_allow_transfer_expl'] = "W celu ochrony Twojej strefy mo¿esz wyznaczyæ, które komputery mog± transferowaæ ca³± zawarto¶æ Twojej strefy.<br>Zwykle te komputery to dodatkowe serwery DNS dla Twojej strefy, czasem komputery administratorów.<br >Mo¿esz podaæ kilka adresów IP rozdzielonych ¶rednikami.";
-$l['str_primary_allow_transfer_title'] = "Komputery, którym wolno transferowaæ ca³e strefy";
+$l['str_primary_reset_form_button'] = "CzyÅ›Ä‡ pola";
+$l['str_primary_generate_zone_button'] = "UtwÃ³rz konfiguracjÄ™ strefy";
+$l['str_primary_allow_transfer_ip_allowed'] = "Adresy IP, z ktÃ³rych bÄ™dzie wolno transferowaÄ‡ caÅ‚e strefy (pozostaw puste, Å¼eby zezwoliÄ‡ wszystkim)";
+$l['str_primary_allow_transfer_expl'] = "W celu ochrony Twojej strefy moÅ¼esz wyznaczyÄ‡, ktÃ³re komputery mogÄ… transferowaÄ‡ caÅ‚Ä… zawartoÅ›Ä‡ Twojej strefy.<br>Zwykle te komputery to dodatkowe serwery DNS dla Twojej strefy, czasem komputery administratorÃ³w.<br >MoÅ¼esz podaÄ‡ kilka adresÃ³w IP rozdzielonych Å›rednikami.";
+$l['str_primary_allow_transfer_title'] = "Komputery, ktÃ³rym wolno transferowaÄ‡ caÅ‚e strefy";
 $l['str_primary_sub_zones_zone'] = "Strefa";
-$l['str_primary_sub_zones_expl_on_x_x'] = "Mo¿esz zdefiniowaæ podstrefy, delegowane na inny serwer DNS. <b>Upewnij siê, ¿e te strefy s± zdefiniowane na serwerach, które wpiszesz.</b><br>
-Twoja nowa podstrefa w serwisie %s <b>musi</b> byæ podstref± %s, a tak¿e nie mo¿e zawieraæ kropki '.' w nazwie.<br>
-Serwery DNS musz± byæ <b>bezwzglêdne</b> i zakoñczone <b>kropk±</b>.";
+$l['str_primary_sub_zones_expl_on_x_x'] = "MoÅ¼esz zdefiniowaÄ‡ podstrefy, delegowane na inny serwer DNS. <b>Upewnij siÄ™, Å¼e te strefy sÄ… zdefiniowane na serwerach, ktÃ³re wpiszesz.</b><br>
+Twoja nowa podstrefa w serwisie %s <b>musi</b> byÄ‡ podstrefÄ… %s, a takÅ¼e nie moÅ¼e zawieraÄ‡ kropki '.' w nazwie.<br>
+Serwery DNS muszÄ… byÄ‡ <b>bezwzglÄ™dne</b> i zakoÅ„czone <b>kropkÄ…</b>.";
 $l['str_primary_sub_zones_title'] = "Podstrefy";
 $l['str_primary_www_zones_zone'] = "Nazwa";
-$l['str_primary_www_zones_expl_on_x_x'] = "Ramka WWW to w skrócie &quot;ukryty&quot; prawdziwy URL (w pasce adresu przegl±darki widaæ tylko <i>Nazwa</i> (z domen±), za¶ zawarto¶æ jest z <i>Adres WWW</i>). Przekierowanie WWW to po prostu przekierowanie przegl±darki WWW na prawdziwy URL (w pasce adresu przegl±darki widaæ <i>Adres WWW</i>).<br>
-Regu³y nazewnictwa s± takie same, jak dla rekordów A, gdy¿ automatycznie tworzony jest rekord A wskazuj±cy na adres serwera WWW, który obs³uguje to przekierowanie.<br>
-<!-- Adres WWW musi zaczynaæ siê od <b>http://</b><br> -->
-<!-- Dodanie rekordu WWW wi±¿e siê z automatycznym dodaniem odpowiedniego rekordu A do strefy.<br> -->
-<!-- <b>Uwaga! To eksperyment, proszê zg³aszaæ uwagi, je¿eli co¶ ¼le lub wcale nie dzia³a!</b> -->";
+$l['str_primary_www_zones_expl_on_x_x'] = "Ramka WWW to w skrÃ³cie &quot;ukryty&quot; prawdziwy URL (w pasce adresu przeglÄ…darki widaÄ‡ tylko <i>Nazwa</i> (z domenÄ…), zaÅ› zawartoÅ›Ä‡ jest z <i>Adres WWW</i>). Przekierowanie WWW to po prostu przekierowanie przeglÄ…darki WWW na prawdziwy URL (w pasce adresu przeglÄ…darki widaÄ‡ <i>Adres WWW</i>).<br>
+ReguÅ‚y nazewnictwa sÄ… takie same, jak dla rekordÃ³w A, gdyÅ¼ automatycznie tworzony jest rekord A wskazujÄ…cy na adres serwera WWW, ktÃ³ry obsÅ‚uguje to przekierowanie.<br>
+<!-- Adres WWW musi zaczynaÄ‡ siÄ™ od <b>http://</b><br> -->
+<!-- Dodanie rekordu WWW wiÄ…Å¼e siÄ™ z automatycznym dodaniem odpowiedniego rekordu A do strefy.<br> -->
+<!-- <b>Uwaga! To eksperyment, proszÄ™ zgÅ‚aszaÄ‡ uwagi, jeÅ¼eli coÅ› Åºle lub wcale nie dziaÅ‚a!</b> -->";
 $l['str_primary_www_zones_title'] = "Ramki i przekierowania WWW";
 $l['str_primary_www_zones_type'] = "Typ";
-$l['str_primary_warning_www_x_exists_not_overwritten'] = "Uwaga: rekord %s ju¿ istnieje -- nie zosta³ nadpisany";
+$l['str_primary_warning_www_x_exists_not_overwritten'] = "Uwaga: rekord %s juÅ¼ istnieje -- nie zostaÅ‚ nadpisany";
 $l['str_primary_cname_name_a_record'] = "Nazwa";
 $l['str_primary_cname_new_cname_x'] = "Nowy CNAME (%s)";
 $l['str_primary_cname_alias'] = "Alias";
-$l['str_primary_cname_expl'] = "Rekordy CNAME to definicje aliasów nazw.<br>Przyk³ad: je¶li ju¿ istnieje rekord A <i>praca</i> wskazuj±cy na adres IP <i>10.1.1.1</i>, to kolejna nazwa (np. <i>work</i>) wskazuj±ca na ten sam adres IP powinna byæ rekordem CNAME wskazuj±cym na istniej±c± ju¿ nazwê (czyli na <i>praca</i>).<br > Jest to po¿yteczne, gdy masz wiele nazw dla tego samego adresu IP.<br > Je¶li wskazywany rekord jest <b>poza bie¿±c± stref±</b>, musisz u¿yæ
-<b>nazwy bezwzglêdnej</b> z kropk± na koñcu.<br>
-Je¶li wskazywany rekord jest <b>wewn±trz bie¿±cej strefy</b>, to <b>nie</b>
+$l['str_primary_cname_expl'] = "Rekordy CNAME to definicje aliasÃ³w nazw.<br>PrzykÅ‚ad: jeÅ›li juÅ¼ istnieje rekord A <i>praca</i> wskazujÄ…cy na adres IP <i>10.1.1.1</i>, to kolejna nazwa (np. <i>work</i>) wskazujÄ…ca na ten sam adres IP powinna byÄ‡ rekordem CNAME wskazujÄ…cym na istniejÄ…cÄ… juÅ¼ nazwÄ™ (czyli na <i>praca</i>).<br > Jest to poÅ¼yteczne, gdy masz wiele nazw dla tego samego adresu IP.<br > JeÅ›li wskazywany rekord jest <b>poza bieÅ¼Ä…cÄ… strefÄ…</b>, musisz uÅ¼yÄ‡
+<b>nazwy bezwzglÄ™dnej</b> z kropkÄ… na koÅ„cu.<br>
+JeÅ›li wskazywany rekord jest <b>wewnÄ…trz bieÅ¼Ä…cej strefy</b>, to <b>nie</b>
 dodawaj domeny.<br>
-Je¶li chcesz przechwyciæ wszystkie odwo³ania do strefy, nale¿y u¿yæ
+JeÅ›li chcesz przechwyciÄ‡ wszystkie odwoÅ‚ania do strefy, naleÅ¼y uÅ¼yÄ‡
 <b>CNAME wieloznacznego</b>.
-Musisz jednak byæ ¶wiadom tego, co robisz, zanim dodasz taki rekord.";
-$l['str_primary_cname_title'] = "Rekordy aliasów (CNAME)";
+Musisz jednak byÄ‡ Å›wiadom tego, co robisz, zanim dodasz taki rekord.";
+$l['str_primary_cname_title'] = "Rekordy aliasÃ³w (CNAME)";
 $l['str_primary_ipv6_record_new_aaaa_x'] = "Nowy AAAA (%s)";
-$l['str_primary_ipv6_record_modify_reverse_x'] = "Zmodyfikowaæ odpowiednie rekordy PTR, je¶li strefa odwrotna jest zarz±dzana w serwisie %s?";
-$l['str_primary_ipv6_record_expl_zone_and_round_robin'] = "Je¶li chcesz dodaæ rekord AAAA <b>dla samej strefy</b>, u¿yj bezwzglêdnej nazwy <b>z kropk± na koñcu</b> lub znak '@' (at).<br>
-Je¶li chcesz zrobiæ mapowanie jednej nazwy na <b>kilka podawanych na zmianê</b>
-adresów IP (aka Round Robin), to po prostu wpisz ró¿ne rekordy AAAA z tak± sam± nazw±, a innymi adresami IP.";
-$l['str_primary_ipv6_record_title'] = "Rekordy adresów IPv6 (AAAA)";
-$l['str_primary_ipv6_record_expl_before_x_x_x'] = "Rekordy AAAA przypisuj± nazwom adresy IPv6. <Nazwa jest wzglêdna</b>, tj. tylko to, co chcesz mieæ przed %s, jak www dla www.%s <b>oprócz wpisu dla samej domeny</b>, która musi byæ bezwzglêdna i zakoñczona kropk±, np. %s.";
+$l['str_primary_ipv6_record_modify_reverse_x'] = "ZmodyfikowaÄ‡ odpowiednie rekordy PTR, jeÅ›li strefa odwrotna jest zarzÄ…dzana w serwisie %s?";
+$l['str_primary_ipv6_record_expl_zone_and_round_robin'] = "JeÅ›li chcesz dodaÄ‡ rekord AAAA <b>dla samej strefy</b>, uÅ¼yj bezwzglÄ™dnej nazwy <b>z kropkÄ… na koÅ„cu</b> lub znak '@' (at).<br>
+JeÅ›li chcesz zrobiÄ‡ mapowanie jednej nazwy na <b>kilka podawanych na zmianÄ™</b>
+adresÃ³w IP (aka Round Robin), to po prostu wpisz rÃ³Å¼ne rekordy AAAA z takÄ… samÄ… nazwÄ…, a innymi adresami IP.";
+$l['str_primary_ipv6_record_title'] = "Rekordy adresÃ³w IPv6 (AAAA)";
+$l['str_primary_ipv6_record_expl_before_x_x_x'] = "Rekordy AAAA przypisujÄ… nazwom adresy IPv6. <Nazwa jest wzglÄ™dna</b>, tj. tylko to, co chcesz mieÄ‡ przed %s, jak www dla www.%s <b>oprÃ³cz wpisu dla samej domeny</b>, ktÃ³ra musi byÄ‡ bezwzglÄ™dna i zakoÅ„czona kropkÄ…, np. %s.";
 $l['str_primary_a_record_new_a_x'] = "Nowy A (%s)";
-$l['str_primary_a_record_modify_ptr_x'] = "Zmodyfikowaæ odpowiednie rekordy PTR, je¶li strefa odwrotna jest zarz±dzana w serwisie %s?";
-$l['str_primary_a_record_expl'] = "Je¶li chcesz dodaæ rekord A <b>dla samej strefy</b>, u¿yj bezwzglêdnej nazwy <b>z kropk± na koñcu</b> lub znak '@' (at).<br>
-Je¶li chcesz zrobiæ mapowanie jednej nazwy na <b>kilka podawanych na zmianê</b>
-adresów IP (aka Round Robin), to po prostu wpisz ró¿ne rekordy A z tak± sam± nazw±, a innymi adresami IP.<br>
-Je¶li chcesz ustawiæ rekord wieloznaczny (wildcard, '*'), to utwórz jaki¶ rekord A (np. www) i ustaw na niego CNAME wieloznaczny.";
-$l['str_primary_a_record_title'] = "Rekordy adresów (A)";
-$l['str_primary_a_record_what_you_want_before_x_x_x'] = "Rekordy A przypisuj± nazwom adresy IP. <b>Nazwa jest wzglêdna</b>, tj. tylko to, co chcesz mieæ przed %s, jak www dla www.%s <b>oprócz wpisu dla samej domeny</b>, która musi byæ bezwzglêdna i zakoñczona kropk±, np. %s.";
-$l['str_primary_reverse_sub_zone_delegated_to_user_x'] = "delegowany u¿ytkownikowi %s";
-$l['str_primary_reverse_sub_zone_delegated_to_user'] = "delegowany u¿ytkownikowi";
+$l['str_primary_a_record_modify_ptr_x'] = "ZmodyfikowaÄ‡ odpowiednie rekordy PTR, jeÅ›li strefa odwrotna jest zarzÄ…dzana w serwisie %s?";
+$l['str_primary_a_record_expl'] = "JeÅ›li chcesz dodaÄ‡ rekord A <b>dla samej strefy</b>, uÅ¼yj bezwzglÄ™dnej nazwy <b>z kropkÄ… na koÅ„cu</b> lub znak '@' (at).<br>
+JeÅ›li chcesz zrobiÄ‡ mapowanie jednej nazwy na <b>kilka podawanych na zmianÄ™</b>
+adresÃ³w IP (aka Round Robin), to po prostu wpisz rÃ³Å¼ne rekordy A z takÄ… samÄ… nazwÄ…, a innymi adresami IP.<br>
+JeÅ›li chcesz ustawiÄ‡ rekord wieloznaczny (wildcard, '*'), to utwÃ³rz jakiÅ› rekord A (np. www) i ustaw na niego CNAME wieloznaczny.";
+$l['str_primary_a_record_title'] = "Rekordy adresÃ³w (A)";
+$l['str_primary_a_record_what_you_want_before_x_x_x'] = "Rekordy A przypisujÄ… nazwom adresy IP. <b>Nazwa jest wzglÄ™dna</b>, tj. tylko to, co chcesz mieÄ‡ przed %s, jak www dla www.%s <b>oprÃ³cz wpisu dla samej domeny</b>, ktÃ³ra musi byÄ‡ bezwzglÄ™dna i zakoÅ„czona kropkÄ…, np. %s.";
+$l['str_primary_reverse_sub_zone_delegated_to_user_x'] = "delegowany uÅ¼ytkownikowi %s";
+$l['str_primary_reverse_sub_zone_delegated_to_user'] = "delegowany uÅ¼ytkownikowi";
 $l['str_primary_reverse_sub_zone_range_to'] = "do";
-$l['str_primary_reverse_sub_zones_delegation_how'] = "To jest do zrobienia przy u¿yciu CNAME, jak nakazuje RFC 2317.";
+$l['str_primary_reverse_sub_zones_delegation_how'] = "To jest do zrobienia przy uÅ¼yciu CNAME, jak nakazuje RFC 2317.";
 $l['str_primary_reverse_sub_zone_range'] = "Zakres";
 $l['str_primary_reverse_sub_zone_range_from'] = "od";
-$l['str_primary_reverse_sub_zones_delegation_expl_x_x'] = "Przydaje siê to bardzo, gdy masz strefê odwrotn± podzielon± miêdzy ró¿nych administratorów.<br>
-Dla przyk³adu, je¶li chcesz mieæ adresy IP od 1 do 10 w strefie %s delegowane dla u¿ytkownika \"PrzyjemnyTypek\" w serwisie %s, bêdzie on móg³ zarz±dzaæ tymi rekordami PTR w tej strefie.";
+$l['str_primary_reverse_sub_zones_delegation_expl_x_x'] = "Przydaje siÄ™ to bardzo, gdy masz strefÄ™ odwrotnÄ… podzielonÄ… miÄ™dzy rÃ³Å¼nych administratorÃ³w.<br>
+Dla przykÅ‚adu, jeÅ›li chcesz mieÄ‡ adresy IP od 1 do 10 w strefie %s delegowane dla uÅ¼ytkownika \"PrzyjemnyTypek\" w serwisie %s, bÄ™dzie on mÃ³gÅ‚ zarzÄ…dzaÄ‡ tymi rekordami PTR w tej strefie.";
 $l['str_primary_name'] = "Nazwa";
 $l['str_primary_ptr_new_ptr_x'] = "Nowy PTR";
 $l['str_primary_ptr_ip_under_x'] = "IP w %s";
-$l['str_primary_reverse_sub_zones_title'] = "Czê¶ciowe podstrefy";
-$l['str_primary_reverse_sub_zones_delegation_x'] = "Mo¿esz zdefiniowaæ kawa³ki swojej strefy wydelegowane do innych u¿ytkowników serwisu %s.";
-$l['str_primary_ptr_ipv6_note'] = "Uwaga: adresy IPv6 te¿ s± przyjmowane.";
+$l['str_primary_reverse_sub_zones_title'] = "CzÄ™Å›ciowe podstrefy";
+$l['str_primary_reverse_sub_zones_delegation_x'] = "MoÅ¼esz zdefiniowaÄ‡ kawaÅ‚ki swojej strefy wydelegowane do innych uÅ¼ytkownikÃ³w serwisu %s.";
+$l['str_primary_ptr_ipv6_note'] = "Uwaga: adresy IPv6 teÅ¼ sÄ… przyjmowane.";
 $l['str_primary_ptr_sample_content'] = "PTR: 4				Nazwa: www.example.com.";
-$l['str_primary_ptr_sample'] = "Przyk³ad dla IP 1.2.3.4, w strefie 3.2.1.in-addr.arpa";
+$l['str_primary_ptr_sample'] = "PrzykÅ‚ad dla IP 1.2.3.4, w strefie 3.2.1.in-addr.arpa";
 $l['str_primary_mx_pref'] = "Preferencja";
 $l['str_primary_ptr_title'] = "Rekordy nazw (PTR)";
-$l['str_primary_ptr_expl'] = "Rekordy PTR s± przypisaniem adresu IP do nazwy.
-<b>Nazwa jest bezwzglêdna</b>; musisz u¿yæ pe³nej nazwy, z domen± oraz <b>koñcow± kropk±</b>.
-Adresy IP s± opisywane w <b>odwrotnej kolejno¶ci</b>. Wpisuje siê tylko
-ostatni± czê¶æ adresu IP w bie¿±cej strefie.";
-$l['str_primary_mx_expl_for_pref'] = "Musisz tak¿e okre¶liæ liczbê preferencyjn±. Je¶li masz kilka MX-ów, domy¶lny bêdzie ten z najni¿sz± liczb± preferencyjn±.";
+$l['str_primary_ptr_expl'] = "Rekordy PTR sÄ… przypisaniem adresu IP do nazwy.
+<b>Nazwa jest bezwzglÄ™dna</b>; musisz uÅ¼yÄ‡ peÅ‚nej nazwy, z domenÄ… oraz <b>koÅ„cowÄ… kropkÄ…</b>.
+Adresy IP sÄ… opisywane w <b>odwrotnej kolejnoÅ›ci</b>. Wpisuje siÄ™ tylko
+ostatniÄ… czÄ™Å›Ä‡ adresu IP w bieÅ¼Ä…cej strefie.";
+$l['str_primary_mx_expl_for_pref'] = "Musisz takÅ¼e okreÅ›liÄ‡ liczbÄ™ preferencyjnÄ…. JeÅ›li masz kilka MX-Ã³w, domyÅ›lny bÄ™dzie ten z najniÅ¼szÄ… liczbÄ… preferencyjnÄ….";
 $l['str_primary_new_mx_x'] = "Nowy MX (%s)";
-$l['str_primary_mx_expl_with_sample_x'] = "Rekordy MX to <b>nazwy</b> (nie adresy IP). Musisz u¿yæ <b>nazwy bezwzglêdnej</b> komputera, razem z <b>koñcow± kropk±</b> (np: mail.%s.).";
-$l['str_primary_mail_exchanger_title'] = "Rekordy serwerów obs³uguj±cych pocztê (MX)";
-$l['str_primary_mandatory_ns'] = "Obowi±zkowy NS";
+$l['str_primary_mx_expl_with_sample_x'] = "Rekordy MX to <b>nazwy</b> (nie adresy IP). Musisz uÅ¼yÄ‡ <b>nazwy bezwzglÄ™dnej</b> komputera, razem z <b>koÅ„cowÄ… kropkÄ…</b> (np: mail.%s.).";
+$l['str_primary_mail_exchanger_title'] = "Rekordy serwerÃ³w obsÅ‚ugujÄ…cych pocztÄ™ (MX)";
+$l['str_primary_mandatory_ns'] = "ObowiÄ…zkowy NS";
 $l['str_primary_new_ns_x'] = "Nowy NS (%s)";
 $l['str_primary_negative_caching'] = "Negatywne buforowanie TTL";
-$l['str_primary_name_server_title'] = "Rekordy (NS) serwerów DNS";
-$l['str_primary_name_server_expl_with_sample_x'] = "Rekordy NS to <b>nazwy</b> (nie adresy IP). Musisz u¿yæ <b>nazwy bezwzglêdnej</b> komputera, razem z <b>koñcow± kropk±</b> (np: %s.)";
+$l['str_primary_name_server_title'] = "Rekordy (NS) serwerÃ³w DNS";
+$l['str_primary_name_server_expl_with_sample_x'] = "Rekordy NS to <b>nazwy</b> (nie adresy IP). Musisz uÅ¼yÄ‡ <b>nazwy bezwzglÄ™dnej</b> komputera, razem z <b>koÅ„cowÄ… kropkÄ…</b> (np: %s.)";
 $l['str_primary_negative_caching_expl'] = "Negatywne buforowanie TTL pozwala na kontrolowanie czasu buforowania przez inne serwery odpowiedzi typu	nie-ma-takiej-domeny (NXDOMAIN) z tego serwera.
 Maksymalny czas negatywnego buforowania to 3 godziny (10800 sekund).";
-$l['str_primary_expire_time'] = "Czas wyga¶niêcia (expire)";
-$l['str_primary_refresh_period'] = "Czêsto¶æ od¶wie¿ania (refresh)";
-$l['str_primary_retry_interval_expl'] = "Je¶li serwerowi dodatkowemu nie uda siê skontaktowaæ z serwerem podstawowym po czasie od¶wie¿ania, to próbuje co jaki¶ czas.";
-$l['str_primary_retry_interval'] = "Czêsto¶æ powtórek (retry)";
-$l['str_primary_expire_time_expl'] = "Je¶li serwerowi dodatkowemu nie uda siê skontaktowaæ z serwerem podstawowym przez czas wyga¶niêcia, to zaczyna usuwaæ stare dane. Czas wyga¶niêcia zawsze powinien byæ znacznie wiêkszy od czêsto¶ci od¶wie¿ania i powtórek.";
-$l['str_primary_default'] = "domy¶lny";
-$l['str_primary_default_ttl'] = "Domy¶lny TTL";
-$l['str_html_delete_zone'] = "Skasuj strefê";
-$l['str_html_go_on_xname'] = "Strona g³ówna";
+$l['str_primary_expire_time'] = "Czas wygaÅ›niÄ™cia (expire)";
+$l['str_primary_refresh_period'] = "CzÄ™stoÅ›Ä‡ odÅ›wieÅ¼ania (refresh)";
+$l['str_primary_retry_interval_expl'] = "JeÅ›li serwerowi dodatkowemu nie uda siÄ™ skontaktowaÄ‡ z serwerem podstawowym po czasie odÅ›wieÅ¼ania, to prÃ³buje co jakiÅ› czas.";
+$l['str_primary_retry_interval'] = "CzÄ™stoÅ›Ä‡ powtÃ³rek (retry)";
+$l['str_primary_expire_time_expl'] = "JeÅ›li serwerowi dodatkowemu nie uda siÄ™ skontaktowaÄ‡ z serwerem podstawowym przez czas wygaÅ›niÄ™cia, to zaczyna usuwaÄ‡ stare dane. Czas wygaÅ›niÄ™cia zawsze powinien byÄ‡ znacznie wiÄ™kszy od czÄ™stoÅ›ci odÅ›wieÅ¼ania i powtÃ³rek.";
+$l['str_primary_default'] = "domyÅ›lny";
+$l['str_primary_default_ttl'] = "DomyÅ›lny TTL";
+$l['str_html_delete_zone'] = "Skasuj strefÄ™";
+$l['str_html_go_on_xname'] = "Strona gÅ‚Ã³wna";
 $l['str_primary_global_params'] = "Parametry globalne";
-$l['str_primary_ttl_explanation'] = "Czas ¿ycia (Time To Live) jest u¿ywany przez klientów do decydowania o tym, jak d³ugo przetrzymywaæ informacjê o rekordzie w swoich buforach (cache).";
-$l['str_warning'] = "Ostrze¿enie";
-$l['str_html_create_zone'] = "Utwórz strefê";
-$l['str_purge_keeping_last_year'] = "Usuñ wszystko z wyj±tkiem ostatniego roku";
+$l['str_primary_ttl_explanation'] = "Czas Å¼ycia (Time To Live) jest uÅ¼ywany przez klientÃ³w do decydowania o tym, jak dÅ‚ugo przetrzymywaÄ‡ informacjÄ™ o rekordzie w swoich buforach (cache).";
+$l['str_warning'] = "OstrzeÅ¼enie";
+$l['str_html_create_zone'] = "UtwÃ³rz strefÄ™";
+$l['str_purge_keeping_last_year'] = "UsuÅ„ wszystko z wyjÄ…tkiem ostatniego roku";
 $l['str_email_validation_title'] = "Weryfikacja adresu email";
-$l['str_email_flagged_valid'] = "Twój adres email zosta³ oznaczony jako poprawny.";
-$l['str_error'] = "B³±d";
-$l['str_purge_keeping_last_month'] = "Usuñ wszystko z wyj±tkiem ostatniego miesi±ca";
-$l['str_purge_keeping_last_day'] = "Usuñ wszystko z wyj±tkiem ostatnich 24 godzin";
-$l['str_purge_all'] = "Usuñ wszystko";
-$l['str_no_logs_available'] = "Brak logów";
-$l['str_purge'] = "Usuñ";
+$l['str_email_flagged_valid'] = "TwÃ³j adres email zostaÅ‚ oznaczony jako poprawny.";
+$l['str_error'] = "BÅ‚Ä…d";
+$l['str_purge_keeping_last_month'] = "UsuÅ„ wszystko z wyjÄ…tkiem ostatniego miesiÄ…ca";
+$l['str_purge_keeping_last_day'] = "UsuÅ„ wszystko z wyjÄ…tkiem ostatnich 24 godzin";
+$l['str_purge_all'] = "UsuÅ„ wszystko";
+$l['str_no_logs_available'] = "Brak logÃ³w";
+$l['str_purge'] = "UsuÅ„";
 $l['str_delete_selected'] = "Skasuj oznaczone";
-$l['str_only_admin_can_access_logs'] = "Tylko administrator ma dostêp do logów";
+$l['str_only_admin_can_access_logs'] = "Tylko administrator ma dostÄ™p do logÃ³w";
 $l['str_per_zone'] = "wg stref";
-$l['str_per_user'] = "wg u¿ytkownika";
+$l['str_per_user'] = "wg uÅ¼ytkownika";
 $l['str_sort_results'] = "Wynik sortowania";
 $l['str_per_date'] = "wg dat";
-$l['str_no_logs_for_deletion'] = "Nie zaznaczono ¿adnych logów do skasowania";
-$l['str_x_logs_purged'] = "%s logów usuniêto";
-$l['str_while_purging_logs_x'] = "W trakcie usuwania logów %s";
-$l['str_user_logs_title'] = "Logi u¿ytkowników";
-$l['str_while_deleting_logs_x'] = "W trakcie kasowania logów %s";
-$l['str_logs_successfully_deleted'] = " szt. logów zosta³o skasowanych";
-$l['str_if_x_is_not_the_right_one'] = "Je¶li <b>%s</b> nie jest poprawny... i list poszed³ do innej osoby... popraw adres jak najszybciej, zanim kto¶ inny potwierdzi i przejmie konto.";
-$l['str_email_changed_warning'] = "Na nowy adres zosta³ wys³any list w celu weryfikacji jego poprawno¶ci.
-Dopóki nie dokoñczysz procedury weryfikacji, nowy adres nie bêdzie aktywny.";
-$l['str_parameters_successfully_updated'] = "Twoje ustawienia zosta³y zaktualizowane.";
-$l['str_some_errors_occured'] = "Wyst±pi³y jakie¶ b³êdy, nie wszystkie zmiany zosta³y wprowadzone.";
-$l['str_bad_current_password'] = "nieprawid³owe aktualne has³o";
-$l['str_new_passwords_dont_match'] = "nowe has³a nie pasuj±";
-$l['str_changing_password'] = "Zmiana has³a";
-$l['str_email_validation_error_occured_plz_vrfy_that_x_is_working_x'] = "W trakcie wysy³ania listu wyst±pi³ b³±d. Sprawd¼, czy Twój adres %s jest poprawny. W razie w±tpliwo¶ci mo¿esz siê ze mn± skontaktowaæ pod adresem %s.";
-$l['str_email_validation_mail_sent'] = "Wys³ano Ci list w celu potwierdzenia adresu email.";
+$l['str_no_logs_for_deletion'] = "Nie zaznaczono Å¼adnych logÃ³w do skasowania";
+$l['str_x_logs_purged'] = "%s logÃ³w usuniÄ™to";
+$l['str_while_purging_logs_x'] = "W trakcie usuwania logÃ³w %s";
+$l['str_user_logs_title'] = "Logi uÅ¼ytkownikÃ³w";
+$l['str_while_deleting_logs_x'] = "W trakcie kasowania logÃ³w %s";
+$l['str_logs_successfully_deleted'] = " szt. logÃ³w zostaÅ‚o skasowanych";
+$l['str_if_x_is_not_the_right_one'] = "JeÅ›li <b>%s</b> nie jest poprawny... i list poszedÅ‚ do innej osoby... popraw adres jak najszybciej, zanim ktoÅ› inny potwierdzi i przejmie konto.";
+$l['str_email_changed_warning'] = "Na nowy adres zostaÅ‚ wysÅ‚any list w celu weryfikacji jego poprawnoÅ›ci.
+DopÃ³ki nie dokoÅ„czysz procedury weryfikacji, nowy adres nie bÄ™dzie aktywny.";
+$l['str_parameters_successfully_updated'] = "Twoje ustawienia zostaÅ‚y zaktualizowane.";
+$l['str_some_errors_occured'] = "WystÄ…piÅ‚y jakieÅ› bÅ‚Ä™dy, nie wszystkie zmiany zostaÅ‚y wprowadzone.";
+$l['str_bad_current_password'] = "nieprawidÅ‚owe aktualne hasÅ‚o";
+$l['str_new_passwords_dont_match'] = "nowe hasÅ‚a nie pasujÄ…";
+$l['str_changing_password'] = "Zmiana hasÅ‚a";
+$l['str_email_validation_error_occured_plz_vrfy_that_x_is_working_x'] = "W trakcie wysyÅ‚ania listu wystÄ…piÅ‚ bÅ‚Ä…d. SprawdÅº, czy TwÃ³j adres %s jest poprawny. W razie wÄ…tpliwoÅ›ci moÅ¼esz siÄ™ ze mnÄ… skontaktowaÄ‡ pod adresem %s.";
+$l['str_email_validation_mail_sent'] = "WysÅ‚ano Ci list w celu potwierdzenia adresu email.";
 $l['str_email_validation'] = "potwierdzenie adresu email";
 $l['str_changing_email'] = "Zmiana Twojego adresu email";
 $l['str_ok'] = "OK";
-$l['str_login_already_exists'] = "taki login ju¿ istnieje";
+$l['str_login_already_exists'] = "taki login juÅ¼ istnieje";
 $l['str_changing_login_name'] = "Zmiana Twojego loginu";
-$l['str_language'] = "Jêzyk";
+$l['str_language'] = "JÄ™zyk";
 $l['str_modify_button'] = "Modyfikuj";
 $l['str_ipv6_interface_details'] = "rekordy IPv6 w strefach podstawowych";
-$l['str_number_of_rows_per_record'] = "Liczba wierszy do wprowadzania dla ka¿dego rekordu";
+$l['str_number_of_rows_per_record'] = "Liczba wierszy do wprowadzania dla kaÅ¼dego rekordu";
 $l['str_ipv6_interface'] = "Interfejs IPv6";
 $l['str_advanced_interface_details'] = "parametry SOA i TTL";
 $l['str_advanced_interface'] = "Interfejs zaawansowany";
-$l['str_type_your_password_to_change_it'] = "wpisz swoje aktualne has³o tylko wtedy, gdy chcesz je zmieniæ";
-$l['str_current_password'] = "Aktualne has³o";
-$l['str_your_valid_email'] = "Twój <span class=\"warning\">dzia³aj±cy</span> adres email";
-$l['str_changing_email_warning'] = "zmiana adresu email uniemo¿liwi Ci zalogowanie siê do momentu weryfikacji nowego adresu email. Upewnij siê, ¿e podajesz <b>dzia³aj±cy</b> adres email, gdy¿ w przeciwnym przypadku stracisz dostêp do tego konta!";
-$l['str_must_log_before_editing_pref'] = "Musisz siê zalogowaæ, zanim bêdziesz edytowaæ preferencje.";
-$l['str_you_can_change_your_login'] = "Mo¿esz zmieniæ swój login";
-$l['str_user_preferences'] = "Ustawienia u¿ytkownika";
-$l['str_you_did_not_enter_login_nor_zonename'] = "musisz podaæ login lub nazwê strefy";
-$l['str_bad_password_id'] = "Z³y ID, mo¿e ten URL zosta³ ju¿ wykorzystany?";
-$l['str_your_password_is'] = "Twoje has³o to";
-$l['str_you_can_now_use_the_x_main_interface_x_to_log_in'] = "Mo¿esz teraz zalogowaæ siê ze %sstrony g³ównej%s.";
-$l['str_errors_occured_during_recovery_mail_sending'] = "W trakcie wysy³ania listu nast±pi³ b³±d. Spróbuj pó¼niej jeszcze raz.";
-$l['str_password_recovery_login_is'] = "Twój login to";
-$l['str_recovery_mail_sent'] = "Wys³ano do Ciebie list z URL-em wskazuj±cym na stronê, która poka¿e Ci Twoje nowe, tymczasowe has³o.<p >
-<b>UWAGA: jak najszybciej skorzystaj z tego URL-a, gdy¿ jest wysy³any w postaci niezaszyfrowanej, któr± ka¿dy mo¿e podpatrzeæ.</b><br>
-Ze wzglêdu na bezpieczeñstwo URL ten dzia³a przez jeden dzieñ i mo¿e zostaæ wykorzystany tylko raz.";
-$l['str_email_not_sent'] = "wygl±da na to, ¿e Twoje konto nie ma poprawnego adresu email. Nie mo¿emy Ci pomóc.";
-$l['str_you_did_not_specify_zonetype'] = "musisz wybraæ typ strefy";
-$l['str_recover_password_button'] = "Odzyskaj has³o";
+$l['str_type_your_password_to_change_it'] = "wpisz swoje aktualne hasÅ‚o tylko wtedy, gdy chcesz je zmieniÄ‡";
+$l['str_current_password'] = "Aktualne hasÅ‚o";
+$l['str_your_valid_email'] = "TwÃ³j <span class=\"warning\">dziaÅ‚ajÄ…cy</span> adres email";
+$l['str_changing_email_warning'] = "zmiana adresu email uniemoÅ¼liwi Ci zalogowanie siÄ™ do momentu weryfikacji nowego adresu email. Upewnij siÄ™, Å¼e podajesz <b>dziaÅ‚ajÄ…cy</b> adres email, gdyÅ¼ w przeciwnym przypadku stracisz dostÄ™p do tego konta!";
+$l['str_must_log_before_editing_pref'] = "Musisz siÄ™ zalogowaÄ‡, zanim bÄ™dziesz edytowaÄ‡ preferencje.";
+$l['str_you_can_change_your_login'] = "MoÅ¼esz zmieniÄ‡ swÃ³j login";
+$l['str_user_preferences'] = "Ustawienia uÅ¼ytkownika";
+$l['str_you_did_not_enter_login_nor_zonename'] = "musisz podaÄ‡ login lub nazwÄ™ strefy";
+$l['str_bad_password_id'] = "ZÅ‚y ID, moÅ¼e ten URL zostaÅ‚ juÅ¼ wykorzystany?";
+$l['str_your_password_is'] = "Twoje hasÅ‚o to";
+$l['str_you_can_now_use_the_x_main_interface_x_to_log_in'] = "MoÅ¼esz teraz zalogowaÄ‡ siÄ™ ze %sstrony gÅ‚Ã³wnej%s.";
+$l['str_errors_occured_during_recovery_mail_sending'] = "W trakcie wysyÅ‚ania listu nastÄ…piÅ‚ bÅ‚Ä…d. SprÃ³buj pÃ³Åºniej jeszcze raz.";
+$l['str_password_recovery_login_is'] = "TwÃ³j login to";
+$l['str_recovery_mail_sent'] = "WysÅ‚ano do Ciebie list z URL-em wskazujÄ…cym na stronÄ™, ktÃ³ra pokaÅ¼e Ci Twoje nowe, tymczasowe hasÅ‚o.<p >
+<b>UWAGA: jak najszybciej skorzystaj z tego URL-a, gdyÅ¼ jest wysyÅ‚any w postaci niezaszyfrowanej, ktÃ³rÄ… kaÅ¼dy moÅ¼e podpatrzeÄ‡.</b><br>
+Ze wzglÄ™du na bezpieczeÅ„stwo URL ten dziaÅ‚a przez jeden dzieÅ„ i moÅ¼e zostaÄ‡ wykorzystany tylko raz.";
+$l['str_email_not_sent'] = "wyglÄ…da na to, Å¼e Twoje konto nie ma poprawnego adresu email. Nie moÅ¼emy Ci pomÃ³c.";
+$l['str_you_did_not_specify_zonetype'] = "musisz wybraÄ‡ typ strefy";
+$l['str_recover_password_button'] = "Odzyskaj hasÅ‚o";
 $l['str_or_one_of_your_zones'] = "<b>lub</b> jedna z Twoich stref";
 $l['str_password_recovery'] = "odzyskiwanie hasla";
-$l['str_lost_pwd_fill_in_fields_to_recover_password'] = "Nie pamiêtasz has³a?<br>
-Wype³nij poni¿sze pola, wy¶lemy Ci URL-a, który pomo¿e Ci odzyskaæ has³o.";
-$l['str_must_log_before_modifying_zone'] = "Musisz siê zalogowaæ, zanim zaczniesz modyfikowaæ strefê.";
-$l['str_password_recovery_title'] = "Odzyskiwanie has³a";
-$l['str_choose_a_zone_to_modify'] = "Wybierz strefê do modyfikacji";
-$l['str_modify_zone_title'] = "Modyfikuj strefê";
-$l['str_validation_of_this_form_will_be_inactive'] = "Weryfikacja tej strony bêdzie wy³±czona.";
-$l['str_errors_occured_during_modification_of_x_x'] = "W trakcie modyfikacji %s (%s) wyst±pi³y b³êdy: %s.";
+$l['str_lost_pwd_fill_in_fields_to_recover_password'] = "Nie pamiÄ™tasz hasÅ‚a?<br>
+WypeÅ‚nij poniÅ¼sze pola, wyÅ›lemy Ci URL-a, ktÃ³ry pomoÅ¼e Ci odzyskaÄ‡ hasÅ‚o.";
+$l['str_must_log_before_modifying_zone'] = "Musisz siÄ™ zalogowaÄ‡, zanim zaczniesz modyfikowaÄ‡ strefÄ™.";
+$l['str_password_recovery_title'] = "Odzyskiwanie hasÅ‚a";
+$l['str_choose_a_zone_to_modify'] = "Wybierz strefÄ™ do modyfikacji";
+$l['str_modify_zone_title'] = "Modyfikuj strefÄ™";
+$l['str_validation_of_this_form_will_be_inactive'] = "Weryfikacja tej strony bÄ™dzie wyÅ‚Ä…czona.";
+$l['str_errors_occured_during_modification_of_x_x'] = "W trakcie modyfikacji %s (%s) wystÄ…piÅ‚y bÅ‚Ä™dy: %s.";
 $l['str_log_modification_of_x_x'] = "Zmiana %s (%s). ";
 $l['str_log_modification_of_x_x_new_serial_x'] = "Zmiana %s (%s). Nowy numer seryjny: %s";
 $l['str_title_zone_type_x_x'] = "%s %s";
-$l['str_current_zone'] = "Bie¿±ca strefa";
+$l['str_current_zone'] = "BieÅ¼Ä…ca strefa";
 $l['str_delete_all_logs'] = "Skasuj wszystkie logi";
 $l['str_logs'] = "Logi";
 $l['str_log_viewer_title'] = "Logi";
 $l['str_last_logs_for_x'] = "Ostatnie logi dla %s";
-$l['str_zone_content'] = "zawarto¶æ strefy";
+$l['str_zone_content'] = "zawartoÅ›Ä‡ strefy";
 $l['str_not_available'] = "brak danych";
 $l['str_status'] = "Status";
 $l['str_view'] = "Obejrzyj";
 $l['str_serial'] = "#seryjny";
 $l['str_name_server'] = "Serwer DNS";
-$l['str_index_title'] = "Darmowa us³uga udostêpniania serwerów DNS";
-$l['str_must_log_first'] = "musisz siê najpierw zalogowaæ.";
-$l['str_groups_disabled_in_server_conf'] = "Grupy s± wy³±czone w konfiguracji serwisu.";
-$l['str_new_user_has_been_successfully_created'] = "Nowy u¿ytkownik zosta³ utworzony.";
-$l['str_you_are_not_admin_of_your_group'] = "Nie jeste¶ administratorem swojej grupy.";
-$l['str_errors_occured_during_user_deletion_x'] = "Wyst±pi³ b³±d w trakcie kasowania u¿ytkownika %s";
-$l['str_rights_for_x_successfully_set_to_x'] = "Uprawnienia dla %s zosta³y zmienione na %s.";
-$l['str_user_x_is_not_member_of_this_group'] = "u¿ytkownik %s nie jest cz³onkiem tej grupy.";
-$l['str_while_changing_group_rights_for_x'] = "w trakcie zmiany uprawnieñ grupy dla %s";
-$l['str_wrong_group_rights'] = "Nieprawid³owe prawa grupy.";
-$l['str_new_password'] = "Nowe has³o";
-$l['str_create_new_user_button'] = "Utwórz nowego u¿ytkownika";
-$l['str_write_explanation'] = "Zapis: u¿ytkownik bêdzie móg³ tak¿e edytowaæ zawarto¶æ strefy oraz tworzyæ nowe strefy.";
-$l['str_read_explanation'] = "Odczyt: u¿ytkownik bêdzie w stanie odczytaæ zawarto¶æ strefy, logi i status.";
-$l['str_warning_user_will_manage_only_group_zones'] = "Uwaga! U¿ytkownik bêdzie uprawniony do zarz±dzania strefami z Twojej grupy.";
-$l['str_add_user'] = "Dodaj u¿ytkownika.";
+$l['str_index_title'] = "Darmowa usÅ‚uga udostÄ™pniania serwerÃ³w DNS";
+$l['str_must_log_first'] = "musisz siÄ™ najpierw zalogowaÄ‡.";
+$l['str_groups_disabled_in_server_conf'] = "Grupy sÄ… wyÅ‚Ä…czone w konfiguracji serwisu.";
+$l['str_new_user_has_been_successfully_created'] = "Nowy uÅ¼ytkownik zostaÅ‚ utworzony.";
+$l['str_you_are_not_admin_of_your_group'] = "Nie jesteÅ› administratorem swojej grupy.";
+$l['str_errors_occured_during_user_deletion_x'] = "WystÄ…piÅ‚ bÅ‚Ä…d w trakcie kasowania uÅ¼ytkownika %s";
+$l['str_rights_for_x_successfully_set_to_x'] = "Uprawnienia dla %s zostaÅ‚y zmienione na %s.";
+$l['str_user_x_is_not_member_of_this_group'] = "uÅ¼ytkownik %s nie jest czÅ‚onkiem tej grupy.";
+$l['str_while_changing_group_rights_for_x'] = "w trakcie zmiany uprawnieÅ„ grupy dla %s";
+$l['str_wrong_group_rights'] = "NieprawidÅ‚owe prawa grupy.";
+$l['str_new_password'] = "Nowe hasÅ‚o";
+$l['str_create_new_user_button'] = "UtwÃ³rz nowego uÅ¼ytkownika";
+$l['str_write_explanation'] = "Zapis: uÅ¼ytkownik bÄ™dzie mÃ³gÅ‚ takÅ¼e edytowaÄ‡ zawartoÅ›Ä‡ strefy oraz tworzyÄ‡ nowe strefy.";
+$l['str_read_explanation'] = "Odczyt: uÅ¼ytkownik bÄ™dzie w stanie odczytaÄ‡ zawartoÅ›Ä‡ strefy, logi i status.";
+$l['str_warning_user_will_manage_only_group_zones'] = "Uwaga! UÅ¼ytkownik bÄ™dzie uprawniony do zarzÄ…dzania strefami z Twojej grupy.";
+$l['str_add_user'] = "Dodaj uÅ¼ytkownika.";
 $l['str_rights'] = "prawa";
 $l['str_delete'] = "Skasuj";
 $l['str_read_access'] = "Odczyt";
 $l['str_write_access'] = "Zapis";
-$l['str_modify_user_list'] = "Modyfikuj listê u¿ytkowników";
-$l['str_wrong_access'] = "Z³e uprawnienia";
-$l['str_no_users_in_your_group'] = "Brak (nie licz±c Ciebie) u¿ytkowników w Twojej grupie";
-$l['str_manage_your_users'] = "Zarz±dzaj u¿ytkownikami";
-$l['str_users_in_your_group'] = "U¿ytkownicy w Twojej grupie";
-$l['str_warranty_and_disclaimer'] = "Gwarancja oraz warunki u¿ywania us³ugi";
-$l['str_zone_content_for_x_on_server_x'] = "Zawarto¶æ strefy %s na serwerze %s";
+$l['str_modify_user_list'] = "Modyfikuj listÄ™ uÅ¼ytkownikÃ³w";
+$l['str_wrong_access'] = "ZÅ‚e uprawnienia";
+$l['str_no_users_in_your_group'] = "Brak (nie liczÄ…c Ciebie) uÅ¼ytkownikÃ³w w Twojej grupie";
+$l['str_manage_your_users'] = "ZarzÄ…dzaj uÅ¼ytkownikami";
+$l['str_users_in_your_group'] = "UÅ¼ytkownicy w Twojej grupie";
+$l['str_warranty_and_disclaimer'] = "Gwarancja oraz warunki uÅ¼ywania usÅ‚ugi";
+$l['str_zone_content_for_x_on_server_x'] = "ZawartoÅ›Ä‡ strefy %s na serwerze %s";
 $l['str_dig_zone_title'] = "Sprawdzanie strefy przy pomocy programu dig";
 $l['str_you_dont_own_this_zone'] = "Nie posiadasz tej strefy.";
 $l['str_log_deletion_of_x_x'] = "Skasowanie %s (%s).";
 $l['str_trouble_during_deletion_of_x_x'] = "Problem w trakcie kasowania %s (%s):";
 $l['str_deleting_x_x_x'] = "Kasowanie %s (%s) z serwisu %s";
 $l['str_yes_please_delete_x_x_from_x'] = "Tak, skasuj %s (%s) z serwisu %s";
-$l['str_do_you_confirm_zone_deletion_x_x_from_x'] = "Czy potwierdzasz, ¿e chcesz skasowaæ strefê %s (%s) z serwisu %s?";
-$l['str_you_can_not_manage_delete_zone_x_x'] = "Nie mo¿esz zarz±dzaæ ani kasowaæ strefy %s (%s)";
-$l['str_you_can_not_view_logs_zone_x_x'] = "Nie mo¿esz ogl±daæ logów strefy %s (%s)";
-$l['str_choose_a_zone_to_delete'] = "Wybierz strefê do skasowania";
-$l['str_must_log_before_deleting_zone'] = "Musisz siê zalogowaæ, zanim skasujesz strefê.";
+$l['str_do_you_confirm_zone_deletion_x_x_from_x'] = "Czy potwierdzasz, Å¼e chcesz skasowaÄ‡ strefÄ™ %s (%s) z serwisu %s?";
+$l['str_you_can_not_manage_delete_zone_x_x'] = "Nie moÅ¼esz zarzÄ…dzaÄ‡ ani kasowaÄ‡ strefy %s (%s)";
+$l['str_you_can_not_view_logs_zone_x_x'] = "Nie moÅ¼esz oglÄ…daÄ‡ logÃ³w strefy %s (%s)";
+$l['str_choose_a_zone_to_delete'] = "Wybierz strefÄ™ do skasowania";
+$l['str_must_log_before_deleting_zone'] = "Musisz siÄ™ zalogowaÄ‡, zanim skasujesz strefÄ™.";
 $l['str_delete_zone_title'] = "Kasowanie strefy";
-$l['str_you_have_been_successfully_deleted_x_go_back_x'] = "Twoje konto zosta³o skasowane. %sWróæ na stronê g³ówn±%s";
+$l['str_you_have_been_successfully_deleted_x_go_back_x'] = "Twoje konto zostaÅ‚o skasowane. %sWrÃ³Ä‡ na stronÄ™ gÅ‚Ã³wnÄ…%s";
 $l['str_while_deleting_your_user'] = "w trakcie kasowania Twojego konta.";
-$l['str_errors_occured_during_deletion_plz_refer_to_upper_msg'] = "W trakcie kasowania wyst±pi³ b³±d. Wyja¶nienia powinny byæ w liniach wy¿ej.";
-$l['str_while_deleting_user_x'] = "w trakcie kasowania u¿ytkownika %s.";
-$l['str_user_successfully_deleted'] = "U¿ytkownik zosta³ skasowany.";
-$l['str_user_x_successfully_deleted'] = "U¿ytkownik %s zosta³ skasowany.";
-$l['str_zone_successfully_deleted'] = "Strefa zosta³a skasowana.";
-$l['str_if_problem_persists_x_contact_us_x'] = "Je¶li problem siê ponowi, %sskontaktuj siê ze mn± %s";
-$l['str_errors_occured_during_deletion_plz_try_again'] = "W trakcie kasowania wyst±pi³ b³±d. Spróbuj pó¼niej.";
-$l['str_deleting_x_x_from_x'] = "Kasowanie %s (%s) z us³ugi %s";
+$l['str_errors_occured_during_deletion_plz_refer_to_upper_msg'] = "W trakcie kasowania wystÄ…piÅ‚ bÅ‚Ä…d. WyjaÅ›nienia powinny byÄ‡ w liniach wyÅ¼ej.";
+$l['str_while_deleting_user_x'] = "w trakcie kasowania uÅ¼ytkownika %s.";
+$l['str_user_successfully_deleted'] = "UÅ¼ytkownik zostaÅ‚ skasowany.";
+$l['str_user_x_successfully_deleted'] = "UÅ¼ytkownik %s zostaÅ‚ skasowany.";
+$l['str_zone_successfully_deleted'] = "Strefa zostaÅ‚a skasowana.";
+$l['str_if_problem_persists_x_contact_us_x'] = "JeÅ›li problem siÄ™ ponowi, %sskontaktuj siÄ™ ze mnÄ… %s";
+$l['str_errors_occured_during_deletion_plz_try_again'] = "W trakcie kasowania wystÄ…piÅ‚ bÅ‚Ä…d. SprÃ³buj pÃ³Åºniej.";
+$l['str_deleting_x_x_from_x'] = "Kasowanie %s (%s) z usÅ‚ugi %s";
 $l['str_no_dont_delete'] = "Nie, nie kasuj";
-$l['str_yes_please_delete_myself_from_x'] = "Tak, skasujcie MOJE konto z us³ugi %s";
+$l['str_yes_please_delete_myself_from_x'] = "Tak, skasujcie MOJE konto z usÅ‚ugi %s";
 $l['str_confirmation'] = "Potwierdzenie";
-$l['str_do_you_confirm_your_deletion_from_x'] = "Czy potwierdzasz, ¿e chcesz skasowaæ swoje konto z us³ugi %s?";
-$l['str_not_administrator_deletion'] = "Jako ¿e nie jeste¶ administratorem grupy, tylko Twoje konto zostanie skasowane z naszych serwerów.";
-$l['str_users_to_be_deleted'] = "U¿ytkownicy do skasowania";
-$l['str_following_users_will_be_deleted_from_x'] = "Nastêpuj±cy u¿ytkownicy, którymi zarz±dzasz, zostan± skasowani z us³ugi %s";
-$l['str_delete_user_title'] = "Kasowanie u¿ytkownika";
-$l['str_must_log_before_deleting_yourself'] = "Musisz siê zalogowaæ, zanim skasujesz swoje konto";
-$l['str_administrator_delete_content'] = "Jako ¿e jeste¶ administratorem grupy, ca³a Twoja grupa zostanie skasowana
-z naszych serwerów, zarówno strefy, jak i cz³onkowie grupy.";
+$l['str_do_you_confirm_your_deletion_from_x'] = "Czy potwierdzasz, Å¼e chcesz skasowaÄ‡ swoje konto z usÅ‚ugi %s?";
+$l['str_not_administrator_deletion'] = "Jako Å¼e nie jesteÅ› administratorem grupy, tylko Twoje konto zostanie skasowane z naszych serwerÃ³w.";
+$l['str_users_to_be_deleted'] = "UÅ¼ytkownicy do skasowania";
+$l['str_following_users_will_be_deleted_from_x'] = "NastÄ™pujÄ…cy uÅ¼ytkownicy, ktÃ³rymi zarzÄ…dzasz, zostanÄ… skasowani z usÅ‚ugi %s";
+$l['str_delete_user_title'] = "Kasowanie uÅ¼ytkownika";
+$l['str_must_log_before_deleting_yourself'] = "Musisz siÄ™ zalogowaÄ‡, zanim skasujesz swoje konto";
+$l['str_administrator_delete_content'] = "Jako Å¼e jesteÅ› administratorem grupy, caÅ‚a Twoja grupa zostanie skasowana
+z naszych serwerÃ³w, zarÃ³wno strefy, jak i czÅ‚onkowie grupy.";
 $l['str_zones_to_be_deleted'] = "Strefy do skasowania";
-$l['str_following_zones_will_be_deleted'] = "Nastêpuj±ce strefy zostan± skasowane z naszych serwerów -- upewnij siê, ¿e usuniesz wpisy o naszych serwerach w serwerach odpowiedzialnych za rejestracjê stref nadrzêdnych:";
-$l['str_as_member_of_group_action_logged'] = "Twoje dzia³ania jako cz³onka grupy bêd± zalogowane.";
-$l['str_primary_ptr_record_modify_a_x'] = "Zmodyfikowaæ odpowiedni rekord A, je¶li strefa zarz±dzana przez %s?";
-$l['str_primary_bad_cname_x'] = "Z³y CNAME %s";
+$l['str_following_zones_will_be_deleted'] = "NastÄ™pujÄ…ce strefy zostanÄ… skasowane z naszych serwerÃ³w -- upewnij siÄ™, Å¼e usuniesz wpisy o naszych serwerach w serwerach odpowiedzialnych za rejestracjÄ™ stref nadrzÄ™dnych:";
+$l['str_as_member_of_group_action_logged'] = "Twoje dziaÅ‚ania jako czÅ‚onka grupy bÄ™dÄ… zalogowane.";
+$l['str_primary_ptr_record_modify_a_x'] = "ZmodyfikowaÄ‡ odpowiedni rekord A, jeÅ›li strefa zarzÄ…dzana przez %s?";
+$l['str_primary_bad_cname_x'] = "ZÅ‚y CNAME %s";
 $l['str_none'] = "(pusta)";
 $l['str_creation_of_x_x'] = "Utworzenie %s (%s).";
-$l['str_you_can_now_use_the_x_modif_interface_x_to_verify'] = "W celu sprawdzenia zawarto¶ci mo¿esz teraz u¿yæ %szak³adki modyfikacji%s.";
-$l['str_you_can_now_use_the_x_modif_interface_x_to_configure'] = "W celu konfiguracji mo¿esz teraz u¿yæ %szak³adki modyfikacji%s.";
-$l['str_zone_x_successfully_registered_on_x_server'] = "Strefa %s zosta³a pomy¶lnie zarejestrowana na serwerze DNS %s.";
-$l['str_errors_occured_during_tmpl_usage_check_content'] = "Przy próbie u¿ycia wzorca wyst±pi³ b³±d. Szczegó³y sprawd¼ w zawarto¶ci strefy.";
-$l['str_using_zone_x_as_template'] = "Strefa %s u¿yta jako wzorzec";
-$l['str_template_type_missmatch_noone_will_be_used'] = "strefa wybrana jako wzorzec ma inny typ ni¿ nowa strefa. Wzorzec nie zostanie u¿yty.";
+$l['str_you_can_now_use_the_x_modif_interface_x_to_verify'] = "W celu sprawdzenia zawartoÅ›ci moÅ¼esz teraz uÅ¼yÄ‡ %szakÅ‚adki modyfikacji%s.";
+$l['str_you_can_now_use_the_x_modif_interface_x_to_configure'] = "W celu konfiguracji moÅ¼esz teraz uÅ¼yÄ‡ %szakÅ‚adki modyfikacji%s.";
+$l['str_zone_x_successfully_registered_on_x_server'] = "Strefa %s zostaÅ‚a pomyÅ›lnie zarejestrowana na serwerze DNS %s.";
+$l['str_errors_occured_during_tmpl_usage_check_content'] = "Przy prÃ³bie uÅ¼ycia wzorca wystÄ…piÅ‚ bÅ‚Ä…d. SzczegÃ³Å‚y sprawdÅº w zawartoÅ›ci strefy.";
+$l['str_using_zone_x_as_template'] = "Strefa %s uÅ¼yta jako wzorzec";
+$l['str_template_type_missmatch_noone_will_be_used'] = "strefa wybrana jako wzorzec ma inny typ niÅ¼ nowa strefa. Wzorzec nie zostanie uÅ¼yty.";
 $l['str_logging_action_x'] = "akcja zalogowana: %s";
-$l['str_zones_linked_exist_and_not_manageable'] = "strefy po³aczone z t± ju¿ istniej± i to nie Ty nimi zarz±dzasz: ";
-$l['str_zone_linked_exists_and_not_manageable'] = "strefa po³±czona z t± ju¿ istnieje i to nie Ty ni± zarz±dzasz: ";
-$l['str_bad_zone_name_x'] = "z³a nazwa strefy %s";
-$l['str_create'] = "Utwórz";
+$l['str_zones_linked_exist_and_not_manageable'] = "strefy poÅ‚aczone z tÄ… juÅ¼ istniejÄ… i to nie Ty nimi zarzÄ…dzasz: ";
+$l['str_zone_linked_exists_and_not_manageable'] = "strefa poÅ‚Ä…czona z tÄ… juÅ¼ istnieje i to nie Ty niÄ… zarzÄ…dzasz: ";
+$l['str_bad_zone_name_x'] = "zÅ‚a nazwa strefy %s";
+$l['str_create'] = "UtwÃ³rz";
 $l['str_secondary'] = "Zapasowe";
-$l['str_using_following_zone_as_template'] = "U¿yj tej strefy jako wzorca:";
+$l['str_using_following_zone_as_template'] = "UÅ¼yj tej strefy jako wzorca:";
 $l['str_primary'] = "Podstawowe";
 $l['str_zonetype'] = "Typ strefy";
 $l['str_zone'] = "Nazwa strefy";
-$l['str_must_log_before_creating_new_zone'] = "Musisz siê zalogowaæ, zanim utworzysz now± strefê.";
-$l['str_not_allowed_by_group_admin_to_create_write_zones'] = "Administrator grupy nie zezwoli³ Ci na tworzenie/zmianê/kasowanie stref.";
-$l['str_trouble_with_db'] = " Problem z baz± danych";
+$l['str_must_log_before_creating_new_zone'] = "Musisz siÄ™ zalogowaÄ‡, zanim utworzysz nowÄ… strefÄ™.";
+$l['str_not_allowed_by_group_admin_to_create_write_zones'] = "Administrator grupy nie zezwoliÅ‚ Ci na tworzenie/zmianÄ™/kasowanie stref.";
+$l['str_trouble_with_db'] = " Problem z bazÄ… danych";
 $l['str_create_new_zone'] = "Tworzenie nowej strefy";
-$l['str_not_public_server'] = "To nie jest serwer ogólnodostêpny";
-$l['str_uppercase_error'] = "B£¡D";
-$l['str_passwords_dont_match'] = "Wpisano dwa ró¿ne has³a!";
-$l['str_bad_email_syntax'] = "Z³a sk³adnia adresu email. Uwa¿aj, kropka przed '@' nie jest dozwolona w konfiguracji DNS.";
-$l['str_bad_login_name'] = "Z³y login lub has³o.";
-$l['str_error_missing_fields'] = "B³±d, brakuj±ce pola: %s";
-$l['str_confirm_password'] = "Potwierd¼ has³o";
+$l['str_not_public_server'] = "To nie jest serwer ogÃ³lnodostÄ™pny";
+$l['str_uppercase_error'] = "BÅÄ„D";
+$l['str_passwords_dont_match'] = "Wpisano dwa rÃ³Å¼ne hasÅ‚a!";
+$l['str_bad_email_syntax'] = "ZÅ‚a skÅ‚adnia adresu email. UwaÅ¼aj, kropka przed '@' nie jest dozwolona w konfiguracji DNS.";
+$l['str_bad_login_name'] = "ZÅ‚y login lub hasÅ‚o.";
+$l['str_error_missing_fields'] = "BÅ‚Ä…d, brakujÄ…ce pola: %s";
+$l['str_confirm_password'] = "PotwierdÅº hasÅ‚o";
 $l['str_email'] = "Email";
-$l['str_i_have_read_disclaimer'] = "Zgoda na warunki u¿ywania serwisu";
+$l['str_i_have_read_disclaimer'] = "Zgoda na warunki uÅ¼ywania serwisu";
 $l['str_primary_soa_params'] = "Parametry SOA";
-$l['str_primary_refresh_interval_expl'] = "Czêsto¶æ od¶wie¿ania decyduje o tym, jak czêsto serwery dodatkowe bêd± sprawdzaæ, czy ich dane na temat strefy s± aktualne.";
-$l['str_html_modify_zone'] = "Modyfikuj strefê";
+$l['str_primary_refresh_interval_expl'] = "CzÄ™stoÅ›Ä‡ odÅ›wieÅ¼ania decyduje o tym, jak czÄ™sto serwery dodatkowe bÄ™dÄ… sprawdzaÄ‡, czy ich dane na temat strefy sÄ… aktualne.";
+$l['str_html_modify_zone'] = "Modyfikuj strefÄ™";
 $l['str_login'] = "Login";
-$l['str_content_type'] = "iso-8859-2";
-$l['str_password'] = "Has³o";
-$l['str_create_new_user_title'] = "Utwórz nowego u¿ytkownika";
-$l['str_secondary_after_modif_comment_in_sample_1'] = "zmodyfikuj ten przyk³adowy plik konfiguracyjny,";
-$l['str_secondary_after_modif_comment_in_sample_2'] = "aby pasowa³ do Twoich potrzeb";
-$l['str_secondary_after_modif_delegate_x_to'] = "wydelegowaæ strefê %s do Twojego podstawowego serwera DNS oraz do naszych serwerów DNS";
-$l['str_secondary_reload_info'] = "Jako ¿e konfiguracja jest regularnie prze³adowywana na naszych serwerach DNS, wprowadzone zmiany bêd± aktywne po nastêpnym prze³adowaniu za jaki¶ kwadrans. Dostaniesz maila z informacj± na ten temat.";
-$l['str_session_expired'] = "Sesja utraci³a wa¿no¶æ.";
-$l['str_login_not_activated'] = "login ju¿ istnieje, acz adres email nie zosta³ zweryfikowany przez u¿ytkownika.";
+$l['str_password'] = "HasÅ‚o";
+$l['str_create_new_user_title'] = "UtwÃ³rz nowego uÅ¼ytkownika";
+$l['str_secondary_after_modif_comment_in_sample_1'] = "zmodyfikuj ten przykÅ‚adowy plik konfiguracyjny,";
+$l['str_secondary_after_modif_comment_in_sample_2'] = "aby pasowaÅ‚ do Twoich potrzeb";
+$l['str_secondary_after_modif_delegate_x_to'] = "wydelegowaÄ‡ strefÄ™ %s do Twojego podstawowego serwera DNS oraz do naszych serwerÃ³w DNS";
+$l['str_secondary_reload_info'] = "Jako Å¼e konfiguracja jest regularnie przeÅ‚adowywana na naszych serwerach DNS, wprowadzone zmiany bÄ™dÄ… aktywne po nastÄ™pnym przeÅ‚adowaniu za jakiÅ› kwadrans. Dostaniesz maila z informacjÄ… na ten temat.";
+$l['str_session_expired'] = "Sesja utraciÅ‚a waÅ¼noÅ›Ä‡.";
+$l['str_login_not_activated'] = "login juÅ¼ istnieje, acz adres email nie zostaÅ‚ zweryfikowany przez uÅ¼ytkownika.";
 $l['str_no_such_id'] = "Brak takiego ID.";
-$l['str_no_valid_mx_record'] = "najprawdopodobniej z³a nazwa domeny w adresie email (brak dla niej wpisów MX lub A).";
-$l['str_bad_zone_name'] = "z³a nazwa strefy";
-$l['str_zone_successfully_created'] = "Strefa zosta³a utworzona.";
+$l['str_no_valid_mx_record'] = "najprawdopodobniej zÅ‚a nazwa domeny w adresie email (brak dla niej wpisÃ³w MX lub A).";
+$l['str_bad_zone_name'] = "zÅ‚a nazwa strefy";
+$l['str_zone_successfully_created'] = "Strefa zostaÅ‚a utworzona.";
 $l['str_while_configuring_from_template'] = "w trakcie kopiowania konfiguracji z wzorca";
-$l['str_zone_already_exists'] = "Strefa ju¿ istnieje!";
-$l['str_zone_exists_in_deletion_status'] = "Strefa istnieje, ale jest w trakcie kasowania. Spróbuj pó¼niej (max kwadrans).";
-$l['str_no_logs_available_for_this_zone'] = "Brak logów dla tej strefy.";
-$l['str_zone_logs_purged'] = "logi strefy usuniête";
-$l['str_i_have_read_and_i_understand_discl_available_at_x'] = "O¶wiadczam, ¿e warunki korzystania z us³ugi dostêpne pod adresem %s s± mi znane i je akceptujê";
-$l['str_create_my_user_button'] = "Za³ó¿ konto";
-$l['str_email_this_is_an_automatic_email'] = "Ten list zosta³ wys³any automatycznie.";
-$l['str_email_you_have_created_an_account_on_x'] = "Zosta³o utworzone nowe konto w serwisie %s.";
-$l['str_email_this_email_is_sent_to_validate_email_x'] = "Ten list zosta³ wys³any w celu weryfikacji Twojego adresu email, %s.";
-$l['str_email_please_follow_this_link'] = "Proszê wej¶æ na poni¿szy odno¶nik ";
+$l['str_zone_already_exists'] = "Strefa juÅ¼ istnieje!";
+$l['str_zone_exists_in_deletion_status'] = "Strefa istnieje, ale jest w trakcie kasowania. SprÃ³buj pÃ³Åºniej (max kwadrans).";
+$l['str_no_logs_available_for_this_zone'] = "Brak logÃ³w dla tej strefy.";
+$l['str_zone_logs_purged'] = "logi strefy usuniÄ™te";
+$l['str_i_have_read_and_i_understand_discl_available_at_x'] = "OÅ›wiadczam, Å¼e warunki korzystania z usÅ‚ugi dostÄ™pne pod adresem %s sÄ… mi znane i je akceptujÄ™";
+$l['str_create_my_user_button'] = "ZaÅ‚Ã³Å¼ konto";
+$l['str_email_this_is_an_automatic_email'] = "Ten list zostaÅ‚ wysÅ‚any automatycznie.";
+$l['str_email_you_have_created_an_account_on_x'] = "ZostaÅ‚o utworzone nowe konto w serwisie %s.";
+$l['str_email_this_email_is_sent_to_validate_email_x'] = "Ten list zostaÅ‚ wysÅ‚any w celu weryfikacji Twojego adresu email, %s.";
+$l['str_email_please_follow_this_link'] = "ProszÄ™ wejÅ›Ä‡ na poniÅ¼szy odnoÅ›nik ";
 $l['str_email_account_can_not_be_used_without_this_validation'] = "Twoje konto jest zablokowane do momentu weryfikacji Twojego adresu email.";
 $l['str_email_regards'] = "pozdrawiamy,";
-$l['str_email_error_error_occured'] = "Wyst±pi³ b³±d w trakcie wysy³ania Ci listu.";
-$l['str_email_error_please_verify_address_x'] = "Upewnij siê, ¿e Twój adres email %s dzia³a poprawnie.";
-$l['str_in_doubt_you_can_contact_us_at_x'] = "W przypadku w±tpliwo¶ci, mo¿esz siê ze mn± skontaktowaæ pod adresem %s";
-$l['str_email_successfully_sent_explanation1'] = "Wys³ano Ci list w celu weryfikacji poprawno¶ci adresu email. Wejd¼ na stronê wskazywan± przez URL zawarty w tym li¶cie.";
-$l['str_email_successfully_sent_explanation2'] = "Dopiero potem mo¿esz siê zalogowaæ na swoje konto.";
+$l['str_email_error_error_occured'] = "WystÄ…piÅ‚ bÅ‚Ä…d w trakcie wysyÅ‚ania Ci listu.";
+$l['str_email_error_please_verify_address_x'] = "Upewnij siÄ™, Å¼e TwÃ³j adres email %s dziaÅ‚a poprawnie.";
+$l['str_in_doubt_you_can_contact_us_at_x'] = "W przypadku wÄ…tpliwoÅ›ci, moÅ¼esz siÄ™ ze mnÄ… skontaktowaÄ‡ pod adresem %s";
+$l['str_email_successfully_sent_explanation1'] = "WysÅ‚ano Ci list w celu weryfikacji poprawnoÅ›ci adresu email. WejdÅº na stronÄ™ wskazywanÄ… przez URL zawarty w tym liÅ›cie.";
+$l['str_email_successfully_sent_explanation2'] = "Dopiero potem moÅ¼esz siÄ™ zalogowaÄ‡ na swoje konto.";
 $l['str_currently_hosted'] = "Zarejestrowane";
 $l['str_loginbox'] = "Konto";
-$l['str_login_or_x_create_new_user_x'] = "Zaloguj siê lub %sutwórz nowego u¿ytkownika%s";
-$l['str_log_me_in'] = "Zaloguj siê";
-$l['str_forgot_password'] = "Zapomniane has³o?";
-$l['str_change_your_preferences'] = "Zmieñ swoje ustawienia";
-$l['str_administrate_your_group'] = "Zarz±dzaj grup±.";
-$l['str_view_group_logs'] = "Ogl±daj logi grupy";
-$l['str_you_have_read_only_access'] = "Masz dostêp tylko do odczytu ";
-$l['str_you_have_read_write_access'] = "Masz dostêp do odczytu i zapisu ";
+$l['str_login_or_x_create_new_user_x'] = "Zaloguj siÄ™ lub %sutwÃ³rz nowego uÅ¼ytkownika%s";
+$l['str_log_me_in'] = "Zaloguj siÄ™";
+$l['str_forgot_password'] = "Zapomniane hasÅ‚o?";
+$l['str_change_your_preferences'] = "ZmieÅ„ swoje ustawienia";
+$l['str_administrate_your_group'] = "ZarzÄ…dzaj grupÄ….";
+$l['str_view_group_logs'] = "OglÄ…daj logi grupy";
+$l['str_you_have_read_only_access'] = "Masz dostÄ™p tylko do odczytu ";
+$l['str_you_have_read_write_access'] = "Masz dostÄ™p do odczytu i zapisu ";
 $l['str_delete_your_account'] = "Skasuj konto";
 $l['str_logout'] = "Wyloguj";
 $l['str_log_legend'] = "Legenda";
 $l['str_log_information'] = "Informacje";
-$l['str_log_warning'] = "Ostrze¿enia";
+$l['str_log_warning'] = "OstrzeÅ¼enia";
 $l['str_log_unknown'] = "Nieznane";
 $l['str_all_your_zones'] = "Wszystkie Twoje strefy";
-$l['str_email_password_recovery_for_account_on_x'] = "W serwisie %s kto¶ (mam nadziejê, ¿e Ty) za¿yczy³ uzyskania tymczasowego has³a.";
-$l['str_email_go_on_followin_page_to_recover'] = "Udaj siê na tê tymczasow± stronê, uzyskasz tam has³o.
-Uwaga: stronê bêdziesz móg³ odwiedziæ tylko raz.";
-$l['str_email_address_modified_on_x'] = "Zmieni³e¶ swój adres email w serwisie %s.";
+$l['str_email_password_recovery_for_account_on_x'] = "W serwisie %s ktoÅ› (mam nadziejÄ™, Å¼e Ty) zaÅ¼yczyÅ‚ uzyskania tymczasowego hasÅ‚a.";
+$l['str_email_go_on_followin_page_to_recover'] = "Udaj siÄ™ na tÄ™ tymczasowÄ… stronÄ™, uzyskasz tam hasÅ‚o.
+Uwaga: stronÄ™ bÄ™dziesz mÃ³gÅ‚ odwiedziÄ‡ tylko raz.";
+$l['str_email_address_modified_on_x'] = "ZmieniÅ‚eÅ› swÃ³j adres email w serwisie %s.";
 $l['str_contact_title'] = "Kontakt";
-$l['str_contact_for_bugs_contact_us'] = "W sprawach zwi±zanych z problemami dotycz±cymi serwisu %s mo¿esz skontaktowaæ siê ze mn± pod adresem <a href=\"mailto:%s\" class=\"linkcolor\">%s</a>.";
+$l['str_contact_for_bugs_contact_us'] = "W sprawach zwiÄ…zanych z problemami dotyczÄ…cymi serwisu %s moÅ¼esz skontaktowaÄ‡ siÄ™ ze mnÄ… pod adresem <a href=\"mailto:%s\" class=\"linkcolor\">%s</a>.";
 $l['str_contribute_title'] = "Oprogramowanie";
-$l['str_contribute_content'] = "System %s to <a target=_blank href=\"http://www.xname.org/\">XName Software</a>, który na jêzyk polski przet³umaczy³, a tak¿e skonfigurowa³ i udostêpni³ ¶wiatu, Piotr Kucharski. Je¶li podoba Ci siê to oprogramowanie, mo¿esz <a target=_blank href=\"http://www.xname.org/contribute.php\" class=\"linkcolor\">pomóc</a> w jego tworzeniu i/lub przysy³aæ swoje poprawki i propozycje rozwoju (<a href=\"mailto:bugs@xname.org\">bugs@xname.org</a>). XName Software jest udostêpnione na <a target=_blank href=\"http://www.gnu.org/copyleft/gpl.html\" class=\"linkcolor\">licencji GPL</a>.";
-$l['str_languages_title'] = "Dostêpne jêzyki";
-$l['str_reload_mail_subject_x_x'] = "%s Prze³adowano Twoje strefy na %s";
-$l['str_reload_mail_content_x_x_x'] = "To jest automatyczny list z serwera DNS %s us³ugi %s.
-Nastêpuj±ce strefy zosta³y na nim prze³adowane:
+$l['str_contribute_content'] = "System %s to <a target=_blank href=\"http://www.xname.org/\">XName Software</a>, ktÃ³ry na jÄ™zyk polski przetÅ‚umaczyÅ‚, a takÅ¼e skonfigurowaÅ‚ i udostÄ™pniÅ‚ Å›wiatu, Piotr Kucharski. JeÅ›li podoba Ci siÄ™ to oprogramowanie, moÅ¼esz <a target=_blank href=\"http://www.xname.org/contribute.php\" class=\"linkcolor\">pomÃ³c</a> w jego tworzeniu i/lub przysyÅ‚aÄ‡ swoje poprawki i propozycje rozwoju (<a href=\"mailto:bugs@xname.org\">bugs@xname.org</a>). XName Software jest udostÄ™pnione na <a target=_blank href=\"http://www.gnu.org/copyleft/gpl.html\" class=\"linkcolor\">licencji GPL</a>.";
+$l['str_languages_title'] = "DostÄ™pne jÄ™zyki";
+$l['str_reload_mail_subject_x_x'] = "%s PrzeÅ‚adowano Twoje strefy na %s";
+$l['str_reload_mail_content_x_x_x'] = "To jest automatyczny list z serwera DNS %s usÅ‚ugi %s.
+NastÄ™pujÄ…ce strefy zostaÅ‚y na nim przeÅ‚adowane:
 
 %s
 
-Twoje zmiany na tym serwerze DNS powinny byæ widoczne w ci±gu kilku minut.";
+Twoje zmiany na tym serwerze DNS powinny byÄ‡ widoczne w ciÄ…gu kilku minut.";
 $l['str_log_generate_prefix'] = "generate";
-$l['str_log_error'] = "B³±d";
-$l['str_log_error_opening_x'] = "B³±d przy otwieraniu %s";
-$l['str_log_error_can_not_backup'] = "B³±d: nie mogê wykonaæ kopii named.conf";
-$l['str_log_error_sending_email_x'] = "B£¡D: wyst±pi³ b³±d w trakcie wysy³ania listu %s";
-$l['str_log_error_zone_x_not_valid'] = "B£¡D: strefa %s nie jest prawid³owa";
-$l['str_error_checking_subject_x'] = "%s named.conf b³±d w trakcie sprawdzania";
-$l['str_error_while_checking_conf_on_x_tmp_x'] = "B³ad w trakcie sprawdzania named.conf na %s
-Poprzedni plik named.conf zosta³ odtworzony.
-W katalogu %s s± dostêpne b³êdne pliki
+$l['str_log_error'] = "BÅ‚Ä…d";
+$l['str_log_error_opening_x'] = "BÅ‚Ä…d przy otwieraniu %s";
+$l['str_log_error_can_not_backup'] = "BÅ‚Ä…d: nie mogÄ™ wykonaÄ‡ kopii named.conf";
+$l['str_log_error_sending_email_x'] = "BÅÄ„D: wystÄ…piÅ‚ bÅ‚Ä…d w trakcie wysyÅ‚ania listu %s";
+$l['str_log_error_zone_x_not_valid'] = "BÅÄ„D: strefa %s nie jest prawidÅ‚owa";
+$l['str_error_checking_subject_x'] = "%s named.conf bÅ‚Ä…d w trakcie sprawdzania";
+$l['str_error_while_checking_conf_on_x_tmp_x'] = "BÅ‚ad w trakcie sprawdzania named.conf na %s
+Poprzedni plik named.conf zostaÅ‚ odtworzony.
+W katalogu %s sÄ… dostÄ™pne bÅ‚Ä™dne pliki
 named.conf.error i named.zones.error
 
 -----
 Wynik sprawdzania:";
 $l['str_log_delete_prefix'] = "delete";
-$l['str_log_deleting_user_x'] = "Kasowanie u¿ytkownika %s";
+$l['str_log_deleting_user_x'] = "Kasowanie uÅ¼ytkownika %s";
 $l['str_log_deleting_zone_x'] = "Kasowanie strefy %s";
 $l['str_log_getremotelogs_prefix'] = "getremotelogs";
-$l['str_log_error_executing_x'] = "B³±d wykonania %s";
+$l['str_log_error_executing_x'] = "BÅ‚Ä…d wykonania %s";
 $l['str_log_insertlogs_prefix'] = "insertlogs";
 $l['str_log_not_matching'] = "Nie pasuje";
 $l['str_log_install_prefix'] = "install";
 $l['str_install_new_server'] = "Dodawanie nowego serwera.
 
-Odpowiedz na nastêpuj±ce pytania
-(UWAGA: nie jest sprawdzana poprawno¶æ odpowiedzi... odpowiadaj uwa¿nie)";
+Odpowiedz na nastÄ™pujÄ…ce pytania
+(UWAGA: nie jest sprawdzana poprawnoÅ›Ä‡ odpowiedzi... odpowiadaj uwaÅ¼nie)";
 $l['str_install_servername'] = "Nazwa serwera";
 $l['str_install_server_ip'] = "Adres IP";
 $l['str_install_server_location'] = "Lokalizacja serwera (France/Paris, Polska/Warszawa, itd...)";
-$l['str_install_thanx'] = "Dziêkujê za odpowiedzi.";
+$l['str_install_thanx'] = "DziÄ™kujÄ™ za odpowiedzi.";
 $l['str_log_migrate_prefix'] = "migrate";
-$l['str_migrate_transferip_field'] = "Pole transferip zosta³o dodane w tabeli dns_server.
-Je¶li dla któregokolwiek serwera IP u¿ywane do transferu strefy jest inne od podstawowego, musisz rêcznie poprawiæ bazê danych.";
-$l['str_migrate_ptr_delegate'] = "Typy rekordów PTR i DELEGATE zosta³y dodane do tabeli dns_record.";
-$l['str_migrate_ipv6'] = "Opcja IPv6 zosta³a dodana do tabeli dns_user.";
-$l['str_migrate_nbrows'] = "Opcja liczby wierszy zosta³a dodana do tabeli dns_user.";
-$l['str_migrate_lang'] = "Opcja jêzyka zosta³a dodana do tabeli dns_user.";
+$l['str_migrate_transferip_field'] = "Pole transferip zostaÅ‚o dodane w tabeli dns_server.
+JeÅ›li dla ktÃ³regokolwiek serwera IP uÅ¼ywane do transferu strefy jest inne od podstawowego, musisz rÄ™cznie poprawiÄ‡ bazÄ™ danych.";
+$l['str_migrate_ptr_delegate'] = "Typy rekordÃ³w PTR i DELEGATE zostaÅ‚y dodane do tabeli dns_record.";
+$l['str_migrate_ipv6'] = "Opcja IPv6 zostaÅ‚a dodana do tabeli dns_user.";
+$l['str_migrate_nbrows'] = "Opcja liczby wierszy zostaÅ‚a dodana do tabeli dns_user.";
+$l['str_migrate_lang'] = "Opcja jÄ™zyka zostaÅ‚a dodana do tabeli dns_user.";
 $l['str_log_pushtoservers_prefix'] = "pushtoservers";
-$l['str_log_error_deleting_x'] = "B³±d w trakcie kasowania %s";
+$l['str_log_error_deleting_x'] = "BÅ‚Ä…d w trakcie kasowania %s";
 $l['str_log_sqloptimize_prefix'] = "sqloptimize";
-$l['str_migrate_ttl'] = "TTL w bazie danych zosta³ zmieniony tak, ¿eby u¿ywaæ '-1' zamiast 'default'.";
-$l['str_migrate_mandatory_field'] = "Pole mandatory zosta³o dodane w tabeli dns_server.
-Je¶li który¶ z u¿ywanych serwerów nie jest obowi±zkowy, musisz rêcznie poprawiæ bazê danych.";
+$l['str_migrate_ttl'] = "TTL w bazie danych zostaÅ‚ zmieniony tak, Å¼eby uÅ¼ywaÄ‡ '-1' zamiast 'default'.";
+$l['str_migrate_mandatory_field'] = "Pole mandatory zostaÅ‚o dodane w tabeli dns_server.
+JeÅ›li ktÃ³ryÅ› z uÅ¼ywanych serwerÃ³w nie jest obowiÄ…zkowy, musisz rÄ™cznie poprawiÄ‡ bazÄ™ danych.";
 $l['str_view_zones_title'] = "Lista Twoich stref";
 $l['str_html_view_zones'] = "Lista stref";
-$l['str_must_log_before_viewing_zones'] = "Musisz siê zalogowaæ, zanim obejrzysz swoje strefy.";
-$l['str_migrate_dns_admin'] = "Utworzono tabelê dns_admin. Rêcznie dodaj swój userID.";
+$l['str_must_log_before_viewing_zones'] = "Musisz siÄ™ zalogowaÄ‡, zanim obejrzysz swoje strefy.";
+$l['str_migrate_dns_admin'] = "Utworzono tabelÄ™ dns_admin. RÄ™cznie dodaj swÃ³j userID.";
 $l['str_srv_records_details'] = "rekordy SRV w strefach podstawowych";
 $l['str_srv_records'] = "Rekordy SRV";
 $l['str_primary_srv_port'] = "Port";
 $l['str_primary_srv_weight'] = "Waga";
-$l['str_primary_srv_priority'] = "Wa¿no¶æ";
-$l['str_primary_srv_record_expl'] = "Nazwy rekordów SRV powstaj± ze sklejenia nazwy us³ugi, protoko³u (tcp lub udp) i nazwy domeny (w bie¿±cej strefie). Np. \"_sip._tcp\" dla rekordu SRV dla VoIP.
-U¿yj parametru \"Port\" dla wyszczególnienia, na który port na serwerze docelowym nale¿y siê ³±czyæ z t± us³ug±.";
-$l['str_primary_srv_record_title'] = "Rekordy serwisów (SRV)";
-$l['str_primary_deleting_www_x'] = "Kasujê rekord WWW %s";
-$l['str_primary_deleting_srv_x'] = "Kasujê rekord SRV %s";
-$l['str_primary_warning_srv_x_exists_not_overwritten'] = "Uwaga: rekord SRV dla %s ju¿ istnieje -- nie zosta³ nadpisany.";
-$l['str_primary_bad_srvname_x'] = "Nieprawid³owa nazwa rekordu SRV %s";
-$l['str_primary_weight_for_srv_x_has_to_be_int'] = "Waga dla rekordu SRV musi byæ liczb± ca³kowit±.";
-$l['str_primary_adding_srv_x'] = "Dodajê rekord SRV %s.";
-$l['str_primary_priority_for_srv_x_has_to_be_int'] = "Wa¿no¶æ dla rekordu SRV %s musi byæ liczb± ca³kowit±";
-$l['str_primary_bad_srv_x'] = "Nieprawid³owa zawarto¶æ rekordu SRV %s";
-$l['str_blacklisted_zone_x_x'] = "Nie mo¿esz za³o¿yæ strefy %s (kod %s)";
+$l['str_primary_srv_priority'] = "WaÅ¼noÅ›Ä‡";
+$l['str_primary_srv_record_expl'] = "Nazwy rekordÃ³w SRV powstajÄ… ze sklejenia nazwy usÅ‚ugi, protokoÅ‚u (tcp lub udp) i nazwy domeny (w bieÅ¼Ä…cej strefie). Np. \"_sip._tcp\" dla rekordu SRV dla VoIP.
+UÅ¼yj parametru \"Port\" dla wyszczegÃ³lnienia, na ktÃ³ry port na serwerze docelowym naleÅ¼y siÄ™ Å‚Ä…czyÄ‡ z tÄ… usÅ‚ugÄ….";
+$l['str_primary_srv_record_title'] = "Rekordy serwisÃ³w (SRV)";
+$l['str_primary_deleting_www_x'] = "KasujÄ™ rekord WWW %s";
+$l['str_primary_deleting_srv_x'] = "KasujÄ™ rekord SRV %s";
+$l['str_primary_warning_srv_x_exists_not_overwritten'] = "Uwaga: rekord SRV dla %s juÅ¼ istnieje -- nie zostaÅ‚ nadpisany.";
+$l['str_primary_bad_srvname_x'] = "NieprawidÅ‚owa nazwa rekordu SRV %s";
+$l['str_primary_weight_for_srv_x_has_to_be_int'] = "Waga dla rekordu SRV musi byÄ‡ liczbÄ… caÅ‚kowitÄ….";
+$l['str_primary_adding_srv_x'] = "DodajÄ™ rekord SRV %s.";
+$l['str_primary_priority_for_srv_x_has_to_be_int'] = "WaÅ¼noÅ›Ä‡ dla rekordu SRV %s musi byÄ‡ liczbÄ… caÅ‚kowitÄ…";
+$l['str_primary_bad_srv_x'] = "NieprawidÅ‚owa zawartoÅ›Ä‡ rekordu SRV %s";
+$l['str_blacklisted_zone_x_x'] = "Nie moÅ¼esz zaÅ‚oÅ¼yÄ‡ strefy %s (kod %s)";
 $l['str_total_hosted_zones'] = "Razem";
-$l['str_primary_adding_txt_x'] = "Dodajê rekord TXT %s.";
-$l['str_primary_bad_txt_x'] = "z³a nazwa TXT %s.";
-$l['str_primary_deleting_txt_x'] = "Kasujê rekord TXT %s";
-$l['str_primary_txt_record_expl_x_x_x'] = "Rekordy TXT s³u¿± jako po³±czenie prostego tekstu i nazwy. Mog± zostaæ u¿yte do komentowania konfiguracji strefy lub do szczególnych zastosowañ (jak niektóre systemy antyspamowe). Nazw± mo¿e byæ istniej±cy rekord (A, NS, itd...), sama strefa lub co¶ nowego.<br>
-<strong>Nazwa jest wzglêdna</strong>, tj. tylko to, co chcesz mieæ przed %s, jak www dla www.%s <strong>oprócz nazwy samej domeny</strong>, która jest bezwzglêdna, tj. %s.<br>
-Je¶li chcesz dodaæ rekord TXT <strong>dla samej strefy</strong>, u¿yj bezwzglêdnej nazwy domeny <strong>z kropk± na koñcu</strong>.";
+$l['str_primary_adding_txt_x'] = "DodajÄ™ rekord TXT %s.";
+$l['str_primary_bad_txt_x'] = "zÅ‚a nazwa TXT %s.";
+$l['str_primary_deleting_txt_x'] = "KasujÄ™ rekord TXT %s";
+$l['str_primary_txt_record_expl_x_x_x'] = "Rekordy TXT sÅ‚uÅ¼Ä… jako poÅ‚Ä…czenie prostego tekstu i nazwy. MogÄ… zostaÄ‡ uÅ¼yte do komentowania konfiguracji strefy lub do szczegÃ³lnych zastosowaÅ„ (jak niektÃ³re systemy antyspamowe). NazwÄ… moÅ¼e byÄ‡ istniejÄ…cy rekord (A, NS, itd...), sama strefa lub coÅ› nowego.<br>
+<strong>Nazwa jest wzglÄ™dna</strong>, tj. tylko to, co chcesz mieÄ‡ przed %s, jak www dla www.%s <strong>oprÃ³cz nazwy samej domeny</strong>, ktÃ³ra jest bezwzglÄ™dna, tj. %s.<br>
+JeÅ›li chcesz dodaÄ‡ rekord TXT <strong>dla samej strefy</strong>, uÅ¼yj bezwzglÄ™dnej nazwy domeny <strong>z kropkÄ… na koÅ„cu</strong>.";
 $l['str_primary_txt_record_title'] = "Rekordy (TXT) tekstowe";
 $l['str_txt_records_details'] = "rekordy TXT w strefach podstawowych";
 $l['str_txt_records'] = "Rekordy TXT";
 $l['str_secondary_count'] = "Zapasowe";
 $l['str_primary_count'] = "Podstawowe";
 $l['str_primary_sub_zones_new_subzone_x'] = "Nowa podstrefa (%s)";
-$l['str_failed_serverimport'] = "Import z serwera nie powiód³ siê.";
-$l['str_bad_serverimport_name'] = "Z³a nazwa serwera importu. U¿yj nazwy serwera lub jego adresu IP.";
-$l['str_no_serverimport'] = "Import z serwera nie jest mo¿liwy dla stref zapasowych.";
+$l['str_failed_serverimport'] = "Import z serwera nie powiÃ³dÅ‚ siÄ™.";
+$l['str_bad_serverimport_name'] = "ZÅ‚a nazwa serwera importu. UÅ¼yj nazwy serwera lub jego adresu IP.";
+$l['str_no_serverimport'] = "Import z serwera nie jest moÅ¼liwy dla stref zapasowych.";
 $l['str_authoritative_server'] = "Serwer autorytatywny";
-$l['str_authoritative_server_x'] = "<p>W przypadku stref podstawowych serwer autorytatywny jest opcjonalny &mdash; je¿eli zostanie podany, system bêdzie chcia³ z niego ¶ci±gn±æ (zaimportowaæ) wszystkie rekordy danej strefy.</p>
-<p>W przypadku stref zapasowych, serwer autorytatywny jest wymagany do prawid³owego dzia³ania.</p>
-<p>W obu przypadkach musi byæ zezwolony transfer strefy przynajmniej dla %s.</p>";
+$l['str_authoritative_server_x'] = "<p>W przypadku stref podstawowych serwer autorytatywny jest opcjonalny &mdash; jeÅ¼eli zostanie podany, system bÄ™dzie chciaÅ‚ z niego Å›ciÄ…gnÄ…Ä‡ (zaimportowaÄ‡) wszystkie rekordy danej strefy.</p>
+<p>W przypadku stref zapasowych, serwer autorytatywny jest wymagany do prawidÅ‚owego dziaÅ‚ania.</p>
+<p>W obu przypadkach musi byÄ‡ zezwolony transfer strefy przynajmniej dla %s.</p>";
 $l['str_use_server_for_import_primary'] = "opcjonalne";
 $l['str_use_server_for_import_secondary'] = "wymagane";
-$l['str_use_textarea_for_import'] = "Importuj rekordy z poni¿szego formularza. Tylko dla stref podstawowych.";
-$l['str_primary_x_name_ends_with_dot'] = "Nazwa PTR (%s) jest zakoñczona kropk±. To jest dozwolone, ale wynik mo¿e byæ dla Ciebie nieoczekiwany.";
+$l['str_use_textarea_for_import'] = "Importuj rekordy z poniÅ¼szego formularza. Tylko dla stref podstawowych.";
+$l['str_primary_x_name_ends_with_dot'] = "Nazwa PTR (%s) jest zakoÅ„czona kropkÄ…. To jest dozwolone, ale wynik moÅ¼e byÄ‡ dla Ciebie nieoczekiwany.";
 $l['str_index_migrate'] = 'Migracja danych';
 $l['str_migrate_button'] = 'Migruj';
-$l['str_migrate_already_done'] = 'Ju¿ zmigrowane.';
-$l['str_migrate_me'] = 'W celu migracji danych ze starego systemu, przyci¶nij poni¿szy przycisk. <br>Spowoduje to zaimportowanie wszystkich Twoich stref i rekordów oraz (w ci±gu paru minut) wygenerowanie tych stref na nowych serwerach DNS. <br >Wszystkie zmiany wprowadzone w starym systemie po 23 maja 2010 <b>nie bêd±</b> przeniesione do nowego systemu.<p>Je¿eli nie chcesz korzystaæ z FreeDNS::42, to mo¿esz albo skasowaæ swoje konto, albo po prostu nic nie robiæ&nbsp;&mdash;&nbsp;niezmigrowane konta zostan± wraz z zawarto¶ci± skasowane w sierpniu 2010.<p>Przy okazji te¿ zerknij na swoje ustawienia, zw³aszcza na poprawno¶æ adresu email.';
-$l['str_migrate_content_x'] = '<dl><dt>Migracja danych</dt><dd>W celu migracji danych ze starego systemu <a href="migrate.php%s">wejd¼ tutaj</a>.</dd></dl>';
-$l['str_migrate_success'] = 'Zmigrowano wszystkie Twoje strefy. Pliki konfiguracyjne wygeneruj± siê w ci±gu kwadransa. Parê minut po otrzymaniu maila nowe serwery DNS powinny zacz±æ obs³ugiwaæ Twoje strefy. <p><strong>Po sprawdzeniu</strong>, ¿e nowe serwery DNS poprawnie odpowiadaj± na zapytania o Twoje domeny, zmieñ serwery nazw u swojego rejestratora domen. Szczegó³y, niestety, zale¿± od rejestratora.';
-$l['str_waiting_to_confirm_x'] = 'adres %s oczekuje na potwierdzenie poprawno¶ci.';
-$l['str_primary_x_parameter_x_has_to_be_int'] = 'parametr %s (%s) musi byæ liczb± naturaln±; ';
+$l['str_migrate_already_done'] = 'JuÅ¼ zmigrowane.';
+$l['str_migrate_me'] = 'W celu migracji danych ze starego systemu, przyciÅ›nij poniÅ¼szy przycisk. <br>Spowoduje to zaimportowanie wszystkich Twoich stref i rekordÃ³w oraz (w ciÄ…gu paru minut) wygenerowanie tych stref na nowych serwerach DNS. <br >Wszystkie zmiany wprowadzone w starym systemie po 23 maja 2010 <b>nie bÄ™dÄ…</b> przeniesione do nowego systemu.<p>JeÅ¼eli nie chcesz korzystaÄ‡ z FreeDNS::42, to moÅ¼esz albo skasowaÄ‡ swoje konto, albo po prostu nic nie robiÄ‡&nbsp;&mdash;&nbsp;niezmigrowane konta zostanÄ… wraz z zawartoÅ›ciÄ… skasowane w sierpniu 2010.<p>Przy okazji teÅ¼ zerknij na swoje ustawienia, zwÅ‚aszcza na poprawnoÅ›Ä‡ adresu email.';
+$l['str_migrate_content_x'] = '<dl><dt>Migracja danych</dt><dd>W celu migracji danych ze starego systemu <a href="migrate.php%s">wejdÅº tutaj</a>.</dd></dl>';
+$l['str_migrate_success'] = 'Zmigrowano wszystkie Twoje strefy. Pliki konfiguracyjne wygenerujÄ… siÄ™ w ciÄ…gu kwadransa. ParÄ™ minut po otrzymaniu maila nowe serwery DNS powinny zaczÄ…Ä‡ obsÅ‚ugiwaÄ‡ Twoje strefy. <p><strong>Po sprawdzeniu</strong>, Å¼e nowe serwery DNS poprawnie odpowiadajÄ… na zapytania o Twoje domeny, zmieÅ„ serwery nazw u swojego rejestratora domen. SzczegÃ³Å‚y, niestety, zaleÅ¼Ä… od rejestratora.';
+$l['str_waiting_to_confirm_x'] = 'adres %s oczekuje na potwierdzenie poprawnoÅ›ci.';
+$l['str_primary_x_parameter_x_has_to_be_int'] = 'parametr %s (%s) musi byÄ‡ liczbÄ… naturalnÄ…; ';
 $l['str_you_are_logged_in_as_x'] = 'Zalogowano jako %s.';
-$l['str_user_count'] = 'Liczba u¿ytkowników';
+$l['str_user_count'] = 'Liczba uÅ¼ytkownikÃ³w';
 $l['str_user_count_prod'] = '...ze strefami';
-$l['str_create_migrated'] = '<p><strong>Uwaga!</strong> Je¶li mia³e¶ konto na starym serwisie FreeDNS, to nie zak³adaj nowego konta! Po prostu zaloguj siê na ten sam login i has³o! I potem sprawd¼ poprawno¶æ adresu email oraz zmieñ has³o.</p>';
-$l['str_migrate_subaccount'] = 'Korzystasz z subkonta, migracji musi dokonaæ g³ówny u¿ytkownik.';
+$l['str_create_migrated'] = '<p><strong>Uwaga!</strong> JeÅ›li miaÅ‚eÅ› konto na starym serwisie FreeDNS, to nie zakÅ‚adaj nowego konta! Po prostu zaloguj siÄ™ na ten sam login i hasÅ‚o! I potem sprawdÅº poprawnoÅ›Ä‡ adresu email oraz zmieÅ„ hasÅ‚o.</p>';
+$l['str_migrate_subaccount'] = 'Korzystasz z subkonta, migracji musi dokonaÄ‡ gÅ‚Ã³wny uÅ¼ytkownik.';
 ?>
