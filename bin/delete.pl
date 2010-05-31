@@ -63,7 +63,7 @@ $timetouse = strftime("%Y%m%d%H%M%S", localtime(time()-604800));
 
 $query = sprintf("SELECT w.%s as userid,u.%s as login
 			FROM %s w, %s u
-			WHERE %s <= %s AND w.%s=u.%s",
+			WHERE %s <= %s AND w.%s=u.%s AND u.%s=0",
 		$DB_AUTH_WAITING_USERID,
 		$DB_AUTH_FLD_LOGIN,
 		$DB_AUTH_WAITING_TABLE,
@@ -71,7 +71,8 @@ $query = sprintf("SELECT w.%s as userid,u.%s as login
 		$DB_AUTH_WAITING_FIRSTDATE,
 		$timetouse,
 		$DB_AUTH_WAITING_USERID,
-		$DB_AUTH_FLD_ID);	
+		$DB_AUTH_FLD_ID,
+		$DB_AUTH_FLD_VALID);	
 
 my $sth = dbexecute($query,$dbhauth,LOG);
 while (my $ref = $sth->fetchrow_hashref()) {
