@@ -220,18 +220,11 @@ if($count){
 				$xferlist = "any";
 			}
 			($zonef = $ref->{'zone'}) =~ s,/,\\,g;
-			print CONF '
-		
-zone "' . $ref->{'zone'} . '" {
-	type master;
-	file "' . $NAMED_DATA_CHROOTED_DIR . $NAMED_MASTERS_DIR . $zonef . '";
-	allow-transfer { ' . $xferlist . '; };';
+			print CONF 'zone "' . $ref->{'zone'} . '" { type master; file "' . $NAMED_DATA_CHROOTED_DIR . $NAMED_MASTERS_DIR . $zonef . '"; allow-transfer { ' . $xferlist . '; };';
 			if($NAMED_ALLOW_QUERY){
-				print CONF '
-	allow-query { ' . $NAMED_ALLOW_QUERY . '; };';
+				print CONF ' allow-query { ' . $NAMED_ALLOW_QUERY . '; };';
 			}
-			print CONF '
-};
+			print CONF ' };
 ';
 		}
 
@@ -281,20 +274,11 @@ zone "' . $ref->{'zone'} . '" {
 				}
 
 				($zonef = $ref->{'zone'})=~ s,/,\\,g;
-				print CONF '
-		
-zone "' . $ref->{'zone'} . '" {
-	type slave;
-	file "' . $NAMED_DATA_CHROOTED_DIR . $NAMED_SLAVES_DIR . $zonef . '";
-	masters {' . $masters . '; };
-	allow-transfer {' . $xfer. '; };';
+				print CONF 'zone "' . $ref->{'zone'} . '" { type slave; file "' . $NAMED_DATA_CHROOTED_DIR . $NAMED_SLAVES_DIR . $zonef . '"; masters {' . $masters . '; }; allow-transfer {' . $xfer. '; };';
 
 				if($NAMED_ALLOW_QUERY){
-					print CONF '
-	allow-query { ' . $NAMED_ALLOW_QUERY . '; };';
-				}
-				print CONF '
-};
+					print CONF ' allow-query { ' . $NAMED_ALLOW_QUERY . '; };'; }
+				print CONF ' };
 ';
 
 			} # end if master ne ''
