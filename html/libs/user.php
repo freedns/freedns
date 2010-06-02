@@ -263,7 +263,7 @@ class User extends Auth {
 		global $db,$l;
 		
 		$query = "SELECT userid,date FROM dns_session
-		WHERE sessionID='" . $idsession . "'";
+		WHERE sessionID='" . mysql_real_escape_string($idsession) . "'";
 		$res = $db->query($query);
 		$line = $db->fetch_row($res);
 		if($db->error()){

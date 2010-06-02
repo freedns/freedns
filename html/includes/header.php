@@ -13,7 +13,7 @@ $config = new Config();
 // protect variables for db usage
 if(isset($_REQUEST)){
 	if(isset($_REQUEST['idsession'])){
-		$idsession=htmlspecialchars($_REQUEST['idsession']);
+		$idsession=$_REQUEST['idsession'];
 	}else{
 		$idsession='';
 	}
@@ -34,7 +34,7 @@ if(isset($_REQUEST)){
 	}
 }else{
 	if(isset($idsession)){
-		$idsession=htmlspecialchars($idsession);
+		$idsession=$idsession;
 	}else{
 		$idsession='';
 	}
@@ -153,8 +153,8 @@ $logout)){
 }
 
 if(notnull($idsession)){
-	$link="?idsession=" . $idsession;
-	$hiddenfields = '<input type="hidden" name="idsession" value="' . $idsession . '">';
+	$link="?idsession=" . htmlspecialchars($idsession);
+	$hiddenfields = '<input type="hidden" name="idsession" value="' . htmlspecialchars($idsession) . '">';
 	// add language only if different 
 	if(strcmp($lang,$user->lang)){
 		$link .= "&amp;language=" . $lang;
