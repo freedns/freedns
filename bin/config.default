@@ -151,6 +151,14 @@ $LOG_PATTERN_NAMED = "^([^\\s]+)\\s+([^\\s]+)\\s+([^\\s]+)\\s+[^\\s]+\\s+named[^
 # $4 : status
 # $5 : content
 #
+# 01-Jun-2010 14:50:35.170 xfer-in: info: transfer of 'example.com/IN' 
+#    from 87.98.164.164#53: Transfer completed: 0 messages, 0 records, 0 bytes, 74.997 secs (0 bytes/sec)
+$LOG_USE_NAMED_SEVERITY='1';
+$LOG_PATTERN_NAMED = "^([^-]+-[^-]+-[^\\s]+\\s+[^:]+:[^:]+[^\\s]+)\\s+[^\\s]+\\s+([^:]+):\\s+(.*)";
+# $1 : date
+# $2 : status
+# $3 : content
+#
 # content should match ZONE or FILE:
 # foo.com transfer of 'foo.com/IN' from 176.26.0.2#53: failed while receiving responses: REFUSED
 $LOG_PATTERN_ZONE = "\\s('|)([^\\/\\s]+)\\/IN";

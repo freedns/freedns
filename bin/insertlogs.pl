@@ -91,12 +91,11 @@ if(-e($SYSLOG_FILE)){
 	if($lastline ne ""){
 		$currentline=<FILE>;
 		# compare currentline date and $lastline date
-		# Apr 14 04:25:44 unlimited
-		$currentline =~ /^([^\s]+)\s+([^\s]+)\s+([^\s]+)\s+/;
-		$currentlinedate=getTimestamp($1,$2,$3);
+		$currentline =~ /$LOG_PATTERN_NAMED/;
+		$currentlinedate=str2time($1);
 
-		$lastline =~ /^([^\s]+)\s+([^\s]+)\s+([^\s]+)\s+/;
-		$lastlinedate=getTimestamp($1,$2,$3);
+		$lastline =~ /$LOG_PATTERN_NAMED/;
+		$lastlinedate=str2time($1);
 
 		# if currentline date > lastline date, file has been rotated
 		if($currentlinedate < $lastlinedate){
@@ -117,18 +116,16 @@ if(-e($SYSLOG_FILE)){
 		if (ord(substr($line,-1))!=10) {break;}
 		$readline++;
 	 	if(/$LOG_PATTERN_NAMED$/){
-			# $1 : month
-			# $2 : day
-			# $3 : hour:min:sec
+			# $1 : date
 			if ($LOG_USE_NAMED_SEVERITY) {
-				$status = $4;
-				$content = $5;
+				$status = $2;
+				$content = $3;
 			} else {
-				$content = $4;
+				$content = $2;
 			}
 	
 			# split line
-			my $timestamp = getTimestamp($1,$2,$3);
+			my $timestamp = strftime("%Y-%m-%d %H:%M:%S", strptime($1));
 		
 			# retrieve zonename...
 			if($content =~ /$LOG_PATTERN_ZONE/){
@@ -194,7 +191,6 @@ if(-e($SYSLOG_FILE)){
 					$query = "INSERT INTO dns_log (zoneid, date, content, status)
 					VALUES ('" . $ref->{'id'} . "','" . $timestamp . "','" . $content . 
 					"','" . $status . "')";
-
 					$sth = dbexecute($query,$dbh,LOG);
 				}
 			}else{
@@ -277,11 +273,8 @@ sub deleteOldLogs(){
 				$nbtodelete = $count - $nblogs;
 				$query = "DELETE FROM dns_log
 						WHERE zoneid='" . $zoneid . "'
+						ORDER BY date
 						LIMIT " . $nbtodelete;
-				# XXX: one day, when all are mysql 4.x.x, add
-				# "ORDER BY date" to above query. By that time
-				# pray that this DELETE does not remove
-				# most recent records. :-(
 				my $sth2 = dbexecute($query,$dbh,LOG);
 				$sth2->finish();
 			}
@@ -300,65 +293,4 @@ sub deleteOldLogs(){
 	} # end while zoneid
 	
 } # end deleteoldlogs
-
-
-# ###################################################################"
-
-sub getTimestamp(){
-	my $month = @_[0];
-	my $day = @_[1];
-	my $time = @_[2];
-
-	my $result;
-	my $monthpart;
-	my $daypart;
-	my $timepart;
-	my $year;
-	
-	if(!($month =~ /[0123456789]/)){
-		$monthpart = sprintf("%02d", getMonthNumber($month));
-	}else{
-		$monthpart = sprintf("%02d", $month);
-	}
-	$daypart = sprintf("%02d", $day);
-	
-	$timepart = $time;
-	$timepart =~ s/\.\d{3}$//g;
-	$timepart =~ s/://g;
-
-	# WARNING : what will happen 31/12 and 01/01 ?	
-	$year = localtime->year() + 1900;
-
-	#PK#if(localtime->mon() == 0){ # Jan
-	#PK#	if($monthpart ne "01"){ # month != jan ==> dec or previous
-	if(localtime->mon() < 3){ # Jan or Feb
-		if($monthpart ne "01" && $monthpart ne "02"){ # month != jan ==> dec or previous
-			$year = $year - 1;
-		}
-	}
-
-	$result = $year . $monthpart . $daypart . $timepart;
-	return $result;
-}
-
-
-
-
-# ###################################################################"
-
-sub getMonthNumber(){
-	my $month = @_[0];
-	my $result;
-	my $i;
-	my @months = ("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec");
-	$i=1;
-	foreach(@months){
-		if($month eq $_){
-			return $i;
-		}
-		$i++;
-	}
-	return "00";
-}
-
 
