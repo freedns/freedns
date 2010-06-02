@@ -112,7 +112,10 @@ if($config->public){
 		
 			if(!checkEmail($email)){
 				$localerror = 1;
-				$content .= $l['str_bad_email_syntax'] . '<br>';
+				$content .= sprintf($html->string_error, $l['str_bad_email_syntax']);
+				if (!preg_match('@gmail\.com$', $email))
+					$content .= ' ' .$l['str_bad_email_syntax_gmail'];
+				$content .= '<br>';
 			}else{
 				$result = vrfyEmail($email);
 				if($result != 1){
