@@ -744,12 +744,12 @@ endif;
 	 */
 	Function fillinWithImport($server){
 		$dig = zoneDig($server,$this->zonename);
-        return $this->parseZoneInput($dig);
-    }
+		return $this->parseZoneInput($dig);
+	}
 
 	Function parseZoneInput($dig){
 		global $db,$l;
-		$this->error="";
+		$this->error = "";
 		$first = 1;
 		$dbqueries = 0;
 
@@ -759,7 +759,8 @@ endif;
 			if(!preg_match("/^\s*;/",$line)){
 				if(preg_match("/^\s*?(.*?)\s+(.*?)\s+IN\s+(.*?)\s+(.*)\s*$/",$line,$record)){
 					$data=preg_split("/\s+/",$record[4]);
-                    $shortname = preg_replace("/\.".preg_replace("/\./", "\\.", $this->zonename)."\.$/", "", $record[1]);
+					$shortname = preg_replace("/\./", "\\.", $this->zonename);
+					$shortname = preg_replace("/\.".$shortname."\.$/", "", $record[1]);
 					switch($record[3]){
 						case "SOA":
 							if($first){
@@ -856,6 +857,7 @@ endif;
 
     $query = "UPDATE dns_record SET ttl='-1' WHERE ttl='86400' AND zoneid='".$this->zoneid."';";
     $db->query($query);
+    if (!$dbqueries) $this->error .= '<pre>' . $dig . '</pre>';
 		return $dbqueries;
 	}
 }
