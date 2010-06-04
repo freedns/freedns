@@ -1,8 +1,8 @@
 /*
 koloren:
-FC4C10 D63F0D B0340B (pomarañcze)
-FC9A0F D6820D B06B0B (br±zowiki)
-030303 FCFCFC 000000 (prawie czarne-prawie bia³e-czarne)
+FC4C10 D63F0D B0340B (pomarancze)
+FC9A0F D6820D B06B0B (brazowiki)
+030303 FCFCFC 000000 (prawie czarne-prawie biale-czarne)
 */
 
 body { overflow: scroll; }
@@ -190,7 +190,7 @@ div#logo {}
 div#logo { text-align: left; margin-left: 25% }
 div#logo img { border: 0px; margin-bottom: 20px; }
 
-/************ ¶rodkowa kolumna *****************/
+/************ srodkowa kolumna *****************/
 
 #supermainbox {
     width: 58%;
