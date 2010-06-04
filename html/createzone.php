@@ -41,15 +41,14 @@ if($user->authenticated == 0){
 				$l['str_not_allowed_by_group_admin_to_create_write_zones']);
 	}else{
 
-		if((isset($_REQUEST) && !isset($_REQUEST['zonenamenew'])) ||
-			(!isset($_REQUEST) && !isset($zonenamenew))){
+		if(!isset($_POST) || $_POST == array()){
 			$content = "";
 			include("includes/createzone_form.php");
 		}else{
 		// $zonenamenew is set
 			if(isset($_REQUEST)){
-				$zonenamenew = $_REQUEST['zonenamenew'];
 				$zonetypenew = $_REQUEST['zonetypenew'];
+				$zonenamenew = $_REQUEST['zonenamenew'];
 				if(isset($_REQUEST['templatep'])){
 					$templatep = $_REQUEST['templatep'];
 				}else{
@@ -65,6 +64,11 @@ if($user->authenticated == 0){
 				}else{
 					$serverimport = "";
 				}
+				if(isset($_REQUEST['authoritative'])){
+					$authoritative = $_REQUEST['authoritative'];
+				}else{
+					$authoritative = "";
+				}
 if (0):
 				if(isset($_REQUEST['zonearea'])){
 					$zonearea = $_REQUEST['zonearea'];
@@ -77,23 +81,23 @@ endif;
 			$localerror = 0;
 			$missing = "";
 		
-			if(!notnull($zonenamenew)){
-				$missing .= " " . $l['str_zone'] . ",";
-			}
 			if(!notnull($zonetypenew)){
 				$missing .= " " . $l['str_zonetype'] . ",";
 			}
+			if(!notnull($zonenamenew)){
+				$missing .= " " . $l['str_zone'] . ",";
+			}
 			if($zonetypenew=='S'){
 				if(!notnull($templates) || $templates==$l['str_none']){
-					if(!notnull($serverimport)){
+					if(!notnull($authoritative)){
 						$missing .= " " . $l['str_authoritative_server'] . ",";
-					}elseif (!checkIP($serverimport)){
+					}elseif (!checkIP($authoritative)){
 						$missing .= " " . $l['str_secondary_your_primary_should_be_an_ip'] . ",";
-		          	} 
-	      		} else {
-		          // we take all from template
-		          $serverimport = "";
-		        }
+					} 
+				} else {
+					// we take all from template
+					$authoritative = "";
+				}
 			}
 			if(notnull($missing)){
 				$localerror = 1;
@@ -104,6 +108,15 @@ endif;
 						) . '<br>';
 			}
 	
+			if ($zonetypenew == "S") {
+				$server = $authoritative;
+				$template = $templates;
+			}
+			if ($zonetypenew == "P") {
+				$server = $serverimport;
+				$template = $templatep;
+			}
+			if (!notnull($template)) $template = $l['str_none'];
 	
 			if(!$localerror){
 				if(!checkZone($zonenamenew)){
@@ -151,17 +164,13 @@ endif;
 				// ****************************************
 				// *            Create new zone           *
 				// ****************************************
-				$template = $l['str_none'];
-				if(notnull($templates) && $zonetypenew=="S") $template = $templates;
-				if(notnull($templatep) && $zonetypenew=="P") $template = $templatep;
 				// import zone content
 				if(notnull($serverimport)){
-						// check if serverimport is IP or NS name
-						if($zonetypenew=='P'
-							&& !(checkIP($serverimport) || checkDomain($serverimport)) ){
+						// check if server is IP or NS name
+						if(!(checkIP($serverimport) || checkDomain($serverimport)) ){
 							$content .= sprintf($html->string_warning, 
 								$l['str_bad_serverimport_name']);
-							$serverimport="";
+							$server="";
 						} 
 				}
 if (0):
@@ -178,7 +187,7 @@ endif;
 					// group and not individuals
 					if($usergrouprights != 'R'){
 						$newzonereturn = $newzone->zoneCreate($zonenamenew,
-							$zonetypenew,$template,$serverimport,$group->groupid,$zonearea);
+							$zonetypenew,$template,$server,$group->groupid,$zonearea);
 						// logs
 						if(!$newzone->error){
 							if($config->userlogs){
@@ -199,7 +208,7 @@ endif;
 						$localerror=1;
 					}
 				}else{
-					$newzonereturn = $newzone->zoneCreate($zonenamenew,$zonetypenew,$template,$serverimport,$user->userid,$zonearea);
+					$newzonereturn = $newzone->zoneCreate($zonenamenew,$zonetypenew,$template,$server,$user->userid,$zonearea);
 				}
 				if(($newzone->error && !$newzonereturn) || $localerror){
 					if(!$localerror){
