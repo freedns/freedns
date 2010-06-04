@@ -163,7 +163,7 @@ $l['str_primary_ptr_ip_under_x'] = "IP w %s";
 $l['str_primary_reverse_sub_zones_title'] = "Częściowe podstrefy";
 $l['str_primary_reverse_sub_zones_delegation_x'] = "Możesz zdefiniować kawałki swojej strefy wydelegowane do innych użytkowników serwisu %s.";
 $l['str_primary_ptr_ipv6_note'] = "Uwaga: adresy IPv6 też są przyjmowane.";
-$l['str_primary_ptr_sample_content'] = "PTR: 4				Nazwa: www.example.com.";
+$l['str_primary_ptr_sample_content'] = "PTR: 4&nbsp;&nbsp;&nbsp;&nbsp;Nazwa: www.example.com.";
 $l['str_primary_ptr_sample'] = "Przykład dla IP 1.2.3.4, w strefie 3.2.1.in-addr.arpa";
 $l['str_primary_mx_pref'] = "Preferencja";
 $l['str_primary_ptr_title'] = "Rekordy nazw (PTR)";
@@ -180,7 +180,7 @@ $l['str_primary_new_ns_x'] = "Nowy NS (%s)";
 $l['str_primary_negative_caching'] = "Negatywne buforowanie TTL";
 $l['str_primary_name_server_title'] = "Rekordy (NS) serwerów DNS";
 $l['str_primary_name_server_expl_with_sample_x'] = "Rekordy NS to <b>nazwy</b> (nie adresy IP). Musisz użyć <b>nazwy bezwzględnej</b> komputera, razem z <b>końcową kropką</b> (np: %s.)";
-$l['str_primary_negative_caching_expl'] = "Negatywne buforowanie TTL pozwala na kontrolowanie czasu buforowania przez inne serwery odpowiedzi typu	nie-ma-takiej-domeny (NXDOMAIN) z tego serwera.
+$l['str_primary_negative_caching_expl'] = "Negatywne buforowanie TTL pozwala na kontrolowanie czasu buforowania przez inne serwery odpowiedzi typu nie-ma-takiej-domeny (NXDOMAIN) z tego serwera.
 Maksymalny czas negatywnego buforowania to 3 godziny (10800 sekund).";
 $l['str_primary_expire_time'] = "Czas wygaśnięcia (expire)";
 $l['str_primary_refresh_period'] = "Częstość odświeżania (refresh)";
@@ -360,7 +360,7 @@ $l['str_zone_linked_exists_and_not_manageable'] = "strefa połączona z tą już
 $l['str_bad_zone_name_x'] = "zła nazwa strefy %s";
 $l['str_create'] = "Utwórz";
 $l['str_secondary'] = "Zapasowe";
-$l['str_using_following_zone_as_template'] = "Użyj tej strefy jako wzorca:";
+$l['str_using_following_zone_as_template'] = "(opcjonalnie) Użyj tej strefy jako wzorca";
 $l['str_primary'] = "Podstawowe";
 $l['str_zonetype'] = "Typ strefy";
 $l['str_zone'] = "Nazwa strefy";
@@ -371,7 +371,8 @@ $l['str_create_new_zone'] = "Tworzenie nowej strefy";
 $l['str_not_public_server'] = "To nie jest serwer ogólnodostępny";
 $l['str_uppercase_error'] = "BŁĄD";
 $l['str_passwords_dont_match'] = "Wpisano dwa różne hasła!";
-$l['str_bad_email_syntax'] = "Zła składnia adresu email. Uważaj, kropka przed '@' nie jest dozwolona w konfiguracji DNS.";
+$l['str_bad_email_syntax'] = "Zła składnia adresu email. Uważaj, kropka przed '@' nie jest dozwolona w konfiguracji DNS. To nie jest błąd serwisu, użyj adresu bez kropki przed '@'.";
+$l['str_bad_email_syntax_gmail'] = "Podpowiem, że gmail ignoruje kropki przed '@', co oznacza, że na to samo konto wpadnie imie.nazwisko@gmail.com, i.m.i.e.n.a.z.w.i.s.k.o@gmail.com oraz imienazwisko@gmail.com";
 $l['str_bad_login_name'] = "Zły login lub hasło.";
 $l['str_error_missing_fields'] = "Błąd, brakujące pola: %s";
 $l['str_confirm_password'] = "Potwierdź hasło";
@@ -496,12 +497,15 @@ $l['str_srv_records'] = "Rekordy SRV";
 $l['str_primary_srv_port'] = "Port";
 $l['str_primary_srv_weight'] = "Waga";
 $l['str_primary_srv_priority'] = "Ważność";
-$l['str_primary_srv_record_expl'] = "Nazwy rekordów SRV powstają ze sklejenia nazwy usługi, protokołu (tcp lub udp) i nazwy domeny (w bieżącej strefie). Np. \"_sip._tcp\" dla rekordu SRV dla VoIP.
-Użyj parametru \"Port\" dla wyszczególnienia, na który port na serwerze docelowym należy się łączyć z tą usługą.";
+$l['str_primary_srv_record_expl'] = "Nazwy rekordów SRV powstają ze sklejenia nazwy usługi, 
+  protokołu (tcp lub udp) i nazwy domeny (w bieżącej strefie). Np. \"_sip._tcp\" dla 
+  rekordu SRV dla VoIP. Użyj parametru \"Port\" dla wyszczególnienia, na który port 
+  na serwerze docelowym należy się łączyć z tą usługą.";
 $l['str_primary_srv_record_title'] = "Rekordy serwisów (SRV)";
 $l['str_primary_deleting_www_x'] = "Kasuję rekord WWW %s";
 $l['str_primary_deleting_srv_x'] = "Kasuję rekord SRV %s";
-$l['str_primary_warning_srv_x_exists_not_overwritten'] = "Uwaga: rekord SRV dla %s już istnieje -- nie został nadpisany.";
+$l['str_primary_warning_srv_x_exists_not_overwritten'] = "Uwaga: rekord SRV dla %s już 
+  istnieje &mdash; nie został nadpisany.";
 $l['str_primary_bad_srvname_x'] = "Nieprawidłowa nazwa rekordu SRV %s";
 $l['str_primary_weight_for_srv_x_has_to_be_int'] = "Waga dla rekordu SRV musi być liczbą całkowitą.";
 $l['str_primary_adding_srv_x'] = "Dodaję rekord SRV %s.";
@@ -512,9 +516,14 @@ $l['str_total_hosted_zones'] = "Razem";
 $l['str_primary_adding_txt_x'] = "Dodaję rekord TXT %s.";
 $l['str_primary_bad_txt_x'] = "zła nazwa TXT %s.";
 $l['str_primary_deleting_txt_x'] = "Kasuję rekord TXT %s";
-$l['str_primary_txt_record_expl_x_x_x'] = "Rekordy TXT służą jako połączenie prostego tekstu i nazwy. Mogą zostać użyte do komentowania konfiguracji strefy lub do szczególnych zastosowań (jak niektóre systemy antyspamowe). Nazwą może być istniejący rekord (A, NS, itd...), sama strefa lub coś nowego.<br>
-<strong>Nazwa jest względna</strong>, tj. tylko to, co chcesz mieć przed %s, jak www dla www.%s <strong>oprócz nazwy samej domeny</strong>, która jest bezwzględna, tj. %s.<br>
-Jeśli chcesz dodać rekord TXT <strong>dla samej strefy</strong>, użyj bezwzględnej nazwy domeny <strong>z kropką na końcu</strong>.";
+$l['str_primary_txt_record_expl_x_x_x'] = "Rekordy TXT służą jako połączenie prostego tekstu 
+  i nazwy. Mogą zostać użyte do komentowania konfiguracji strefy lub do szczególnych 
+  zastosowań (jak niektóre systemy antyspamowe). Nazwą może być istniejący rekord (A, NS, itd...), 
+  sama strefa lub coś nowego.<br>
+  <strong>Nazwa jest względna</strong>, tj. tylko to, co chcesz mieć przed %s, jak www dla 
+  www.%s <strong>oprócz nazwy samej domeny</strong>, która jest bezwzględna, tj. %s.<br>
+  Jeśli chcesz dodać rekord TXT <strong>dla samej strefy</strong>, użyj bezwzględnej nazwy 
+  domeny <strong>z kropką na końcu</strong>.";
 $l['str_primary_txt_record_title'] = "Rekordy (TXT) tekstowe";
 $l['str_txt_records_details'] = "rekordy TXT w strefach podstawowych";
 $l['str_txt_records'] = "Rekordy TXT";
@@ -524,25 +533,42 @@ $l['str_primary_sub_zones_new_subzone_x'] = "Nowa podstrefa (%s)";
 $l['str_failed_serverimport'] = "Import z serwera nie powiódł się.";
 $l['str_bad_serverimport_name'] = "Zła nazwa serwera importu. Użyj nazwy serwera lub jego adresu IP.";
 $l['str_no_serverimport'] = "Import z serwera nie jest możliwy dla stref zapasowych.";
-$l['str_authoritative_server'] = "Serwer autorytatywny";
-$l['str_authoritative_server_x'] = "<p>W przypadku stref podstawowych serwer autorytatywny jest opcjonalny &mdash; jeżeli zostanie podany, system będzie chciał z niego ściągnąć (zaimportować) wszystkie rekordy danej strefy.</p>
-<p>W przypadku stref zapasowych, serwer autorytatywny jest wymagany do prawidłowego działania.</p>
-<p>W obu przypadkach musi być zezwolony transfer strefy przynajmniej dla %s.</p>";
-$l['str_use_server_for_import_primary'] = "opcjonalne";
-$l['str_use_server_for_import_secondary'] = "wymagane";
+$l['str_authoritative_server'] = "IP serwera autorytatywnego";
+$l['str_authoritative_server_x'] = "Serwer autorytatywny (inaczej: master, podstawowy) jest 
+  wymagany do prawidłowego działania &mdash to od niego serwer zapasowy ściąga zawartość strefy. 
+  Musi być zezwolony transfer strefy przynajmniej dla %s";
+$l['str_import_server'] = "(opcjonalnie) Importuj z serwera";
+$l['str_import_server_x'] = "W przypadku stref podstawowych, jeżeli zostanie podany serwer do
+  importu, system będzie chciał z niego ściągnąć (zaimportować) wszystkie rekordy danej strefy. 
+  Musi być zezwolony transfer strefy przynajmniej dla %s";
 $l['str_use_textarea_for_import'] = "Importuj rekordy z poniższego formularza. Tylko dla stref podstawowych.";
-$l['str_primary_x_name_ends_with_dot'] = "Nazwa PTR (%s) jest zakończona kropką. To jest dozwolone, ale wynik może być dla Ciebie nieoczekiwany.";
+$l['str_primary_x_name_ends_with_dot'] = "Nazwa PTR (%s) jest zakończona kropką. To jest 
+  dozwolone, ale wynik może być dla Ciebie nieoczekiwany.";
 $l['str_index_migrate'] = 'Migracja danych';
 $l['str_migrate_button'] = 'Migruj';
 $l['str_migrate_already_done'] = 'Już zmigrowane.';
-$l['str_migrate_me'] = 'W celu migracji danych ze starego systemu, przyciśnij poniższy przycisk. <br>Spowoduje to zaimportowanie wszystkich Twoich stref i rekordów oraz (w ciągu paru minut) wygenerowanie tych stref na nowych serwerach DNS. <br >Wszystkie zmiany wprowadzone w starym systemie po 23 maja 2010 <b>nie będą</b> przeniesione do nowego systemu.<p>Jeżeli nie chcesz korzystać z FreeDNS::42, to możesz albo skasować swoje konto, albo po prostu nic nie robić&nbsp;&mdash;&nbsp;niezmigrowane konta zostaną wraz z zawartością skasowane w sierpniu 2010.<p>Przy okazji też zerknij na swoje ustawienia, zwłaszcza na poprawność adresu email.';
-$l['str_migrate_content_x'] = '<dl><dt>Migracja danych</dt><dd>W celu migracji danych ze starego systemu <a href="migrate.php%s">wejdź tutaj</a>.</dd></dl>';
-$l['str_migrate_success'] = 'Zmigrowano wszystkie Twoje strefy. Pliki konfiguracyjne wygenerują się w ciągu kwadransa. Parę minut po otrzymaniu maila nowe serwery DNS powinny zacząć obsługiwać Twoje strefy. <p><strong>Po sprawdzeniu</strong>, że nowe serwery DNS poprawnie odpowiadają na zapytania o Twoje domeny, zmień serwery nazw u swojego rejestratora domen. Szczegóły, niestety, zależą od rejestratora.';
+$l['str_migrate_me'] = 'W celu migracji danych ze starego systemu, przyciśnij poniższy przycisk.<br>
+  Spowoduje to zaimportowanie wszystkich Twoich stref i rekordów oraz (w ciągu paru minut) 
+  wygenerowanie tych stref na nowych serwerach DNS. <br >Wszystkie zmiany wprowadzone 
+  w starym systemie po 23 maja 2010 <b>nie będą</b> przeniesione do nowego systemu.<p>
+  Jeżeli nie chcesz korzystać z FreeDNS::42, to możesz albo skasować swoje konto, albo po 
+  prostu nic nie robić&nbsp;&mdash;&nbsp;niezmigrowane konta zostaną wraz z zawartością 
+  skasowane w sierpniu 2010.<p>Przy okazji też zerknij na swoje ustawienia, zwłaszcza na 
+  poprawność adresu email.';
+$l['str_migrate_content_x'] = '<dl><dt>Migracja danych</dt><dd>W celu migracji danych 
+  ze starego systemu <a href="migrate.php%s">wejdź tutaj</a>.</dd></dl>';
+$l['str_migrate_success'] = 'Zmigrowano wszystkie Twoje strefy. Pliki konfiguracyjne wygenerują 
+  się w ciągu kwadransa. Parę minut po otrzymaniu maila nowe serwery DNS powinny zacząć 
+  obsługiwać Twoje strefy. <p><strong>Po sprawdzeniu</strong>, że nowe serwery DNS poprawnie 
+  odpowiadają na zapytania o Twoje domeny, zmień serwery nazw u swojego rejestratora domen. 
+  Szczegóły, niestety, zależą od rejestratora.';
 $l['str_waiting_to_confirm_x'] = 'adres %s oczekuje na potwierdzenie poprawności.';
 $l['str_primary_x_parameter_x_has_to_be_int'] = 'parametr %s (%s) musi być liczbą naturalną; ';
 $l['str_you_are_logged_in_as_x'] = 'Zalogowano jako %s.';
 $l['str_user_count'] = 'Liczba użytkowników';
 $l['str_user_count_prod'] = '...ze strefami';
-$l['str_create_migrated'] = '<p><strong>Uwaga!</strong> Jeśli miałeś konto na starym serwisie FreeDNS, to nie zakładaj nowego konta! Po prostu zaloguj się na ten sam login i hasło! I potem sprawdź poprawność adresu email oraz zmień hasło.</p>';
+$l['str_create_migrated'] = '<p><strong>Uwaga!</strong> Jeśli miałeś konto na starym 
+  serwisie FreeDNS, to nie zakładaj nowego konta! Po prostu zaloguj się na ten sam login 
+  i hasło! I potem sprawdź poprawność adresu email oraz zmień hasło.</p>';
 $l['str_migrate_subaccount'] = 'Korzystasz z subkonta, migracji musi dokonać główny użytkownik.';
 ?>
