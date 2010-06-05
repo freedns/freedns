@@ -655,7 +655,7 @@ function GetDirList($dir){
     $list = array();
     if ($handle = opendir($dir)){
 		while (false !== ($file = readdir($handle))) {
-			if (ereg("^[a-z][a-z]$", $file)){
+			if (ereg("^[a-z][a-z]$", $file) && file_exists($dir."/".$file."/strings.php")){
 				array_push($list, $file);
 			}
 		}
