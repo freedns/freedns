@@ -120,7 +120,7 @@ if($user->authenticated == 0){
 '\',\'M\',\'toolbar=no,location=no,directories=no,status=yes,alwaysraised=yes,dependant=yes,resizable=yes,scrollbars=yes,menubar=no,width=640,height=480\');
 return false">'.
 			 $status . '</a></td>';
-         $content .= '<td><a href="modify.php'
+         $content .= '<td><a href="zones.php'
 			.$link.'&amp;zonename=' . $newzone->zonename . '&amp;zonetype=' .
 			$newzone->zonetype . '" class="linkcolor">' .
 			 $newzone->zonename . '</a> (' . $newzone->zonetype . ')</td>';

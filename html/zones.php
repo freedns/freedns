@@ -21,6 +21,8 @@ if(file_exists("includes/left_side.php")) {
         include "includes/left_side_default.php";
 }
 
+$zone = @$_REQUEST['zonename'];
+
 // main content
 $title = $l['str_view_zones_title'];
 if($user->authenticated == 0){
@@ -30,10 +32,10 @@ if($user->authenticated == 0){
 	// and form to change email & password for $user
 
 	if($config->usergroups){
-		$allzones = $group->listallzones();
+		$allzones = $group->listallzones($zone);
 		$user->error=$group->error;		
 	}else{
-		$allzones = $user->listallzones();
+		$allzones = $user->listallzones($zone);
 	}
 
 	if(!notnull($user->error)){

@@ -337,7 +337,7 @@ class User extends Auth {
 	 *@access public
 	 *@return array array of all zones/zonestypes owned by user or 0 if error
 	 */	
-	Function listallzones(){
+	Function listallzones($zone=""){
 		global $db,$l;
     global $user;
 		// warning: be sure to validate user before using this function
@@ -348,7 +348,9 @@ class User extends Auth {
     }
 
 		$query = "SELECT zone, zonetype, id FROM dns_zone
-		WHERE userid='" . $this->userid . "' AND status!='D' ORDER BY zone DESC";
+		WHERE userid='" . $this->userid . "'";
+		if (notnull($zone)) $query .= " AND zone='".mysql_real_escape_string($zone)."'";
+		$query .= " AND status!='D' ORDER BY zone DESC";
 		$res = $db->query($query);
 		if($db->error()){
 			$this->error=$l['str_trouble_with_db'];
