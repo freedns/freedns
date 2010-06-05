@@ -25,10 +25,10 @@ $l['str_not_allowed_by_group_admin_to_create_write_zones'] = "Vous n'êtes pas
   autorisé par l'administrateur de votre groupe à créer/modifier/effacer 
   des zones.";
 $l['str_zone'] = "Zone";
-$l['str_zonetype'] = "type de zone";
+$l['str_zonetype'] = "Type de zone";
 $l['str_primary'] = "Primaire";
 $l['str_secondary'] = "Secondaire";
-$l['str_using_following_zone_as_template'] = "Utiliser la zone suivante comme modèle";
+$l['str_using_following_zone_as_template'] = "(facultatif) Utiliser la zone suivante comme modèle";
 $l['str_create'] = "Créer";
 $l['str_bad_zone_name_x'] = "mauvais nom de zone %s.";
 $l['str_zone_linked_exists_and_not_manageable'] = "une zone liée avec celle-ci existe
@@ -758,13 +758,13 @@ $l['str_bad_serverimport_name'] = "Mauvais nom de serveur pour l'import. Utilise
 $l['str_no_serverimport'] = "L'import depuis un serveur n'est pas possible pour les zones secondaires.";
 $l['str_use_server_for_import_x'] = "Import de la zone depuis le serveur autoritaire suivant 
   (le transfert de zone doit être autorisé depuis %s). Pour zone primaire uniquement.";
-$l['str_import_server'] = "L'import un serveur";
-$l['str_import_server_x'] = "Facultatif pour les primaires - le cas échéant, 
+$l['str_import_server'] = "(facultatif) L'import un serveur";
+$l['str_import_server_x'] = "Le cas échéant, 
   le serveur va essayer d'importer des enregistrements de zone.
   Doit permettre le transfert de zone au moins pour %s.";
 $l['str_authoritative_server'] = "Le serveur autoritaire";
 $l['str_authoritative_server_x'] = "Requis pour le bon fonctionnement des zones secondaires. 
-  Si donné, elle doit permettre le transfert de zone au moins pour %s.";
+  Elle doit permettre le transfert de zone au moins pour %s.";
 $l['str_not_migrated'] = 'You have not migrated yet.';
 $l['str_index_migrate'] = 'Data migration';
 $l['str_migrate_button'] = 'Migrate';
