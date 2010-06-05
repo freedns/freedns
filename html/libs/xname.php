@@ -623,12 +623,13 @@ function diffDate($date){
 // *******************************************************
 //	Function getSerial($previous)
 /**
- * build zone serial number based on previous one, with a format YYYYMMDDxx
+ * build zone serial number based on timestamp
+ * fallback to previous plus one, if needed
  *
  *@param int $previous previous serial number, may be empty
  *@return generated serial number
  */
-	Function getSerial($previous){
+	Function getSerial($previous=0){
 		$serial = time();
 		if (notnull($previous) && $previous > $serial){
 				$serial = $previous + 1;
