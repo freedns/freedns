@@ -26,7 +26,7 @@ require $XNAME_HOME . "xname.inc";
 # load all languages
 if(opendir(DIR,$XNAME_HOME . "strings")){
         foreach(readdir(DIR)){
-                if(/^[a-z][a-z]$/){
+                if(/^[a-z][a-z]$/ && -e $XNAME_HOME . "strings/" . $_ . "/strings.inc"){
                         require $XNAME_HOME . "strings/" . $_ . "/strings.inc";
                 }
         }
