@@ -535,12 +535,12 @@ $l['str_bad_serverimport_name'] = "Zła nazwa serwera importu. Użyj nazwy serwe
 $l['str_no_serverimport'] = "Import z serwera nie jest możliwy dla stref zapasowych.";
 $l['str_authoritative_server'] = "IP serwera autorytatywnego";
 $l['str_authoritative_server_x'] = "Serwer autorytatywny (inaczej: master, podstawowy) jest 
-  wymagany do prawidłowego działania &mdash to od niego serwer zapasowy ściąga zawartość strefy. 
+  wymagany do prawidłowego działania&nbsp;&mdash;&nbsp;to od niego serwer zapasowy ściąga zawartość strefy. 
   Musi być zezwolony transfer strefy przynajmniej dla %s";
 $l['str_import_server'] = "(opcjonalnie) Importuj z serwera";
-$l['str_import_server_x'] = "W przypadku stref podstawowych, jeżeli zostanie podany serwer do
-  importu, system będzie chciał z niego ściągnąć (zaimportować) wszystkie rekordy danej strefy. 
-  Musi być zezwolony transfer strefy przynajmniej dla %s";
+$l['str_import_server_x'] = "Jeżeli zostanie podana nazwa serwera,
+  system spróbuje z niego ściągnąć wszystkie rekordy danej strefy. 
+  Musi być zezwolony transfer strefy dla %s";
 $l['str_use_textarea_for_import'] = "Importuj rekordy z poniższego formularza. Tylko dla stref podstawowych.";
 $l['str_primary_x_name_ends_with_dot'] = "Nazwa PTR (%s) jest zakończona kropką. To jest 
   dozwolone, ale wynik może być dla Ciebie nieoczekiwany.";

@@ -49,15 +49,13 @@ if($user->authenticated == 0){
 			if(isset($_REQUEST)){
 				$zonetypenew = $_REQUEST['zonetypenew'];
 				$zonenamenew = $_REQUEST['zonenamenew'];
-				if(isset($_REQUEST['templatep'])){
-					$templatep = $_REQUEST['templatep'];
+				if(isset($_REQUEST['template']) && $_REQUEST['template']!=''){
+					if ($_REQUEST['template'] != $l['str_none']) {
+						$template = substr($_REQUEST['template'], 0, -3);
+						$zonetypenew = substr($_REQUEST['template'], -2, -1);
+					}
 				}else{
-					$templatep = "";
-				}
-				if(isset($_REQUEST['templates'])){
-					$templates = $_REQUEST['templates'];
-				}else{
-					$templates = "";
+					$template = "";
 				}
 				if(isset($_REQUEST['serverimport'])){
 					$serverimport = $_REQUEST['serverimport'];
@@ -81,14 +79,14 @@ endif;
 			$localerror = 0;
 			$missing = "";
 		
-			if(!notnull($zonetypenew)){
-				$missing .= " " . $l['str_zonetype'] . ",";
-			}
 			if(!notnull($zonenamenew)){
 				$missing .= " " . $l['str_zone'] . ",";
 			}
+			if(!notnull($zonetypenew)){
+				$missing .= " " . $l['str_zonetype'] . ",";
+			}
 			if($zonetypenew=='S'){
-				if(!notnull($templates) || $templates==$l['str_none']){
+				if(!notnull($template) || $template==$l['str_none']){
 					if(!notnull($authoritative)){
 						$missing .= " " . $l['str_authoritative_server'] . ",";
 					}elseif (!checkIP($authoritative)){
@@ -110,11 +108,9 @@ endif;
 	
 			if ($zonetypenew == "S") {
 				$server = $authoritative;
-				$template = $templates;
 			}
 			if ($zonetypenew == "P") {
 				$server = $serverimport;
-				$template = $templatep;
 			}
 			if (!notnull($template)) $template = $l['str_none'];
 	
