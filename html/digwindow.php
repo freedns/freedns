@@ -133,7 +133,7 @@ if($user->authenticated==1){
 	if(isset($_REQUEST)){
 		$zonename = $_REQUEST['zonename'];
 		$zonetype = $_REQUEST['zonetype'];
-		$server = htmlspecialchars($_REQUEST['server']);		
+		$server = $_REQUEST['server'];		
 	}
 	$zone = new Zone($zonename,$zonetype);
 	if($zone->error){
@@ -144,7 +144,7 @@ if($user->authenticated==1){
 			printf($html->string_error,$l['str_you_dont_own_this_zone']);
 		}else{
 			$title = sprintf($l['str_zone_content_for_x_on_server_x'],
-						$zone->zonename,$server);
+						$zone->zonename,htmlspecialchars($server));
 			$content = '
 			<pre>' .
 			zoneDig($server,$zonename) . 
