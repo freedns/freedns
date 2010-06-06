@@ -422,9 +422,10 @@ function vrfyEmail($string){
  */
 function checkDig($server,$zone){	
 	global $config;
-	$server = escapeshellarg(str_replace('`', '', $server));
-	$zone = escapeshellarg(str_replace('`', '', $zone));
-	$result = `$config->bindig soa '$zone' @'$server' -b '$config->nsaddress'`;
+	$server = escapeshellarg($server);
+	$zone = escapeshellarg($zone);
+	$cmd = escapeshellcmd("$config->bindig soa '$zone' @'$server' -b '$config->nsaddress'");
+	$result = shell_exec($cmd);
 
 	// check if status:*
 	// return *
