@@ -776,7 +776,7 @@ endif;
 									*/
 									$query = sprintf("INSERT INTO dns_confprimary
 										(zoneid,serial,refresh,retry,expiry,minimum,xfer,defaultttl)
-										VALUES('%s', '%s', '%s', '%s', '%s', 'any', '86400', '%s')",
+										VALUES('%s', '%s', '%s', '%s', '%s', '%s', 'any', '86400')",
 										$this->zoneid,
 										mysql_real_escape_string(intval($soa[1])),
 										mysql_real_escape_string(intval($soa[2])),
