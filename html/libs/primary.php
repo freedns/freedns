@@ -2188,7 +2188,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 	 *@return string text of result (Adding PTR Record... Ok)
 	 */
 	Function AddPTRRecord($zoneid,$ptr,$ptrname,$ttl,$updatereverse){
-		global $db, $html,$l;
+		global $db, $html,$l,$config;
 				
 		$result = '';
 		// for each PTR, add PTR entry
@@ -2249,7 +2249,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 										$result .= $l['str_primary_ok'] . "<br >\n";
 										
 										// update associated A record
-										if($updatereverse){									
+										if($updatereverse){
 											// if "normal" zone is managed by current user, update A 
 											// remove all before first dot, and last char.
 											$newzone = substr(substr(strstr($ptrname[$i],'.'),1),0,-1);
@@ -2274,9 +2274,9 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 											$count = 0; // we have to count in case of zub-zones aa.bb.cc.dd-ee
 											while($ipitem = array_pop($iplist)){
 												$count++;
-												if(count < 4){
-													$newip .= "." . $ipitem;
-												}
+												if($count == 4) break;
+                        if(ereg('[^0-9]', $ipitem)) break;
+                        $newip .= "." . $ipitem;
 											}
 											$newip = substr($newip,1) . "." . $value;
 											$result .= sprintf($l['str_primary_looking_for_zone_x'],$newzone). "...";
@@ -3080,7 +3080,6 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 			}
 			$reversezone .= "ip6.arpa";
 		}
-
 		// TODO needed to recognize upper than a dot away for IPv6
 		if($this->Exists($reversezone,'P')){
 			$alluserzones = $this->user->listallzones();
@@ -3117,11 +3116,18 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 				$res = $db->query($query);
 				$newzoneid = 0;
 				while($line = $db->fetch_row($res)){
-					$range =array_pop(array_reverse(split('\.',$line[0])));
+					$range = array_pop(array_reverse(split('\.',$line[0])));
 					list($from,$to) = split('-',$range);
-					if(($firstip >= $from) && ($firstip <= $to)){
-						$newzoneid=$line[1];
-					}
+          if (notnull($to)) {
+            if(($firstip >= $from) && ($firstip <= $to)){
+              $newzoneid=$line[1];
+            }
+          } else {
+            list($start, $length) = split('/', $range);
+            if ($firstip >= $start && $length>0 && $length<32 && $firstip < ($start+pow(2, 32-$length))) {
+              $newzoneid=$line[1];
+            }
+          }
 				}
 				if($newzoneid){
 					$result .= " " . $this->AddPTRRecord($newzoneid,array($firstip),array($value .
@@ -3372,7 +3378,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 	 */
 	Function tempZoneFile(){
 		global $config;
-		$tmpzone = ereg_replace("/","\\\\",$this->zonename);
+		$tmpzone = ereg_replace("/","\\",$this->zonename);
 		return ("{$config->tmpdir}$tmpzone.{$this->zonetype}");
 	}
 
