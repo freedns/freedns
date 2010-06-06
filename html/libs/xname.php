@@ -480,6 +480,8 @@ function DigSerial($server,$zone){
  */ 
 function zoneDig($server,$zone){
 	global $config;
+	if (!checkIP($server) && !checkDomain($server))
+		return "";
 	$server = escapeshellarg($server);
 	$zone = escapeshellarg($zone);
 	$cmd = escapeshellcmd("$config->bindig @$server $zone axfr -b '$config->nsaddress'");
