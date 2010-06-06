@@ -232,12 +232,10 @@ class Zone {
 				// modified for current zone
 				if ($template && $template != $l['str_none']) {
 					// only if template is owned by group !
-					$templatezone = mysql_real_escape_string($template);
-					$templatetype = mysql_real_escape_string($zonetype);
-					if($userid != $this->getUserIdByZone($templatezone)){
+					if($userid != $this->getUserIdByZone($template)){
 						$this->error.= $l['str_while_configuring_from_template'];
 					}else{
-						if(!$this->fillinWithTemplate($templatezone, $templatetype)){
+						if(!$this->fillinWithTemplate($template, $zonetype)){
 							$this->error.= $l['str_while_configuring_from_template'];
 						}
 					}
@@ -548,7 +546,7 @@ endif;
 			return 0;
 		}
 		$query = "SELECT userid FROM dns_zone 
-			WHERE zone='" . $zone . "'";
+			WHERE zone='" . mysql_real_escape_string($zone) . "'";
 		$res=$db->query($query);
 		$line=$db->fetch_row($res);
 		if($db->error()){
@@ -560,6 +558,10 @@ endif;
 	}
 
 
+	Function _f($r) {
+		if ($r=="NULL") return $r;
+		return "'" . mysql_real_escape_string($r) . "'";
+	}
 
 //	Function fillinWithTemplate($templatezone, $templatetype)
 	/**
@@ -572,43 +574,54 @@ endif;
 	Function fillinWithTemplate($templatezone, $templatetype){
 		global $db,$l;
 		$this->error="";
+		$templatetype = $templatetype[0];
 		switch($templatetype){
 			case 'S':
 				$query = "SELECT c.masters,c.xfer FROM dns_confsecondary c, dns_zone z
-						WHERE c.zoneid=z.id AND z.zone='" . $templatezone . "'
-						AND z.zonetype='S'";
+						WHERE c.zoneid=z.id AND z.zone='" .
+						mysql_real_escape_string($templatezone) .
+						"' AND z.zonetype='S'";
 				$res=$db->query($query);
 				$line=$db->fetch_row($res);
 				if($db->error()){
 					$this->error=$l['str_trouble_with_db'];
 					return 0;
 				}else{
-					$query = "INSERT INTO dns_confsecondary (zoneid,masters,xfer)
-						 VALUES('" . $this->zoneid . "','" . $line[0]. "','" . $line[1]. "')";
+					$query = sprintf("INSERT INTO dns_confsecondary (zoneid,masters,xfer)
+						VALUES('%s', %s, %s)",
+						$this->zoneid,
+						$this->_f($line[0]),
+						$this->_f($line[1]));
 					$res = $db->query($query);
 					if($db->error()){ 
 						$this->error=$l['str_trouble_with_db'];
 						return 0;
 					}
 				}
+				break; // case 'S'
 
-				break;
 			case 'P':
 				$query = "SELECT c.refresh,c.retry,c.expiry,c.minimum,c.xfer,c.defaultttl
-							FROM dns_confprimary c, dns_zone z
-						WHERE c.zoneid=z.id AND z.zone='" . $templatezone . "'
-						AND z.zonetype='P'";
+					FROM dns_confprimary c, dns_zone z
+					WHERE c.zoneid=z.id AND z.zone='" . mysql_real_escape_string($templatezone) . "'
+					AND z.zonetype='P'";
 				$res=$db->query($query);
-	   		$line=$db->fetch_row($res);
-		if($db->error()){
+				$line=$db->fetch_row($res);
+				if($db->error()){
 					$this->error=$l['str_trouble_with_db'];
 					return 0;
 				}else{
-				$query = "INSERT INTO dns_confprimary
-					(zoneid,refresh,retry,expiry,minimum,xfer,defaultttl,serial)
-					 VALUES('" . $this->zoneid . "','" . $line[0]. "','" . $line[1]. "','".
-								 			$line[2] ."','". $line[3] ."','".$line[4] . "','" . 
-											$line[5] ."','" . getSerial("") . "')";
+					$query = sprintf("INSERT INTO dns_confprimary
+						(zoneid,refresh,retry,expiry,minimum,xfer,defaultttl,serial)
+						VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+						$this->zoneid,
+						mysql_real_escape_string($line[0]),
+						mysql_real_escape_string($line[1]),
+						mysql_real_escape_string($line[2]),
+						mysql_real_escape_string($line[3]),
+						mysql_real_escape_string($line[4]),
+						mysql_real_escape_string($line[5]),
+						getSerial());
 					$res = $db->query($query);
 					if($db->error()){ 
 						$this->error=$l['str_trouble_with_db'];
@@ -616,11 +629,12 @@ endif;
 					}
 				}
 				// fill in records
-				$query = "SELECT r.type,r.val1,r.val2,r.val3,r.val4,r.val5,r.ttl FROM dns_record r, dns_zone z
-						WHERE r.zoneid=z.id AND z.zone='" . $templatezone . "'
+				$query = "SELECT r.type,r.val1,r.val2,r.val3,r.val4,r.val5,r.ttl
+						FROM dns_record r, dns_zone z
+						WHERE r.zoneid=z.id AND z.zone='" . mysql_real_escape_string($templatezone) . "'
 						AND z.zonetype='P'";
 				$res=$db->query($query);
-		if($db->error()){
+				if($db->error()){
 					$this->error=$l['str_trouble_with_db'];
 					return 0;
 				}else{
@@ -639,95 +653,40 @@ endif;
 						// sub zones - simple copy
 						
 						switch($line[0]){
-							case "NS":
-								$query = "INSERT INTO dns_record (zoneid,type,val1,ttl)
-											VALUES ('" . $this->zoneid."','NS','" . $line[1] . "','" 
-												. $line[6] . "')";
-								$db->query($query);			
-								break;
-							case "MX":
-								$query = "INSERT INTO dns_record (zoneid,type,val1,val2,ttl)
-											VALUES ('" . $this->zoneid."','MX','" . $line[1] . "','" 
-												. $line[2] . "','" . $line[6] . "')";
-								$db->query($query);			
-								break;
-							case "A":
-								$pattern = "^" . $templatezone . ".\$";
-								if(ereg($pattern,$line[1])){
-									$val1 = $this->zonename . ".";
-								}else{
-									$val1 = $line[1];
-								}
-								$query = "INSERT INTO dns_record (zoneid,type,val1,val2,ttl)
-											VALUES ('" . $this->zoneid."','A','" . $val1 . "','" 
-												. $line[2] . "','" . $line[6] . "')";
-								$db->query($query);											
-								break;
-							case "AAAA":
-								$pattern = "^" . $templatezone . ".\$";
-								if(ereg($pattern,$line[1])){
-									$val1 = $this->zonename . ".";
-								}else{
-									$val1 = $line[1];
-								}
-								$query = "INSERT INTO dns_record (zoneid,type,val1,val2,ttl)
-											VALUES ('" . $this->zoneid."','AAAA','" . $val1 . "','" 
-												. $line[2] . "','" . $line[6] . "')";
-								$db->query($query);											
-								break;
 							case "WWW":
-								$pattern = "^" . $templatezone . ".\$";
-								if(ereg($pattern,$line[1])){
-									$val1 = $this->zonename . ".";
-								}else{
-									$val1 = $line[1];
-								}
-								$pattern = $templatezone . "/";
-								if(ereg($pattern,$line[2])){
-									$val2 = ereg_replace($templatezone, $this->zonename, $line[2]);
-								}else{
-									$val2 = $line[2];
-								}
-								$query = "INSERT INTO dns_record (zoneid,type,val1,val2,ttl,val3,val4)
-											VALUES ('" . $this->zoneid."','WWW','$val1', '" 
-												. $val2 . "','" . $line[6] . "','".$line[3]."','".$line[4]."')";
-								$db->query($query);											
-								break;
+								$line[2] = ereg_replace($templatezone."/", $this->zonename."/", $line[2]);
+							case "A":
+							case "AAAA":
+							case "TXT":
+								$line[1] = ereg_replace($templatezone."\.\$", $this->zonename.".", $line[1]);
+							case "NS":
+							case "MX":
 							case "CNAME":
-								$query = "INSERT INTO dns_record (zoneid,type,val1,val2,ttl)
-											VALUES ('" . $this->zoneid."','CNAME','" . $line[1] . "','" 
-												. $line[2] . "','" . $line[6] . "')";
-								$db->query($query);				
-								break;
 							case "SUBNS":
-								$query = "INSERT INTO dns_record (zoneid,type,val1,val2,ttl)
-											VALUES ('" . $this->zoneid."','SUBNS','" . $line[1] . "','" 
-												. $line[2] . "','" . $line[6] . "')";
-								$db->query($query);				
-								break;
 							case "PTR":
-								$query = "INSERT INTO dns_record (zoneid,type,val1,val2,ttl)
-											VALUES ('" . $this->zoneid."','PTR','" . $line[1] . "','" 
-												. $line[2] . "','" . $line[6] . "')";
-								$db->query($query);				
-								break;
 							case "SRV":
-								$query = "INSERT INTO dns_record (zoneid,type,val1,val2,val3,val4,val5,ttl)
-											VALUES ('" . $this->zoneid."','PTR','" . $line[1] . "','" 
-												. $line[2] . "','" . $line[3] . "','"
-												. $line[4] . "','" . $line[5] . "','"
-												. $line[6] . "')";
-								$db->query($query);				
 								break;
 						} // end switch
+						$query = sprintf("INSERT INTO dns_record
+							(zoneid,type,val1,val2,val3,val4,val5,ttl)
+							VALUES ('%s', '%s', %s, %s, %s, %s, %s, %s)",
+							$this->zoneid,
+							$line[0],
+							$this->_f($line[1]),
+							$this->_f($line[2]),
+							$this->_f($line[3]),
+							$this->_f($line[4]),
+							$this->_f($line[5]),
+							$this->_f($line[6]));
+						$db->query($query);				
 						if($db->error()){
 							$this->error =$l['str_trouble_with_db'];
 							return 0;
 						}
 					} // end while 
 				} // end no DB error
-				
-				break;
+				break; // case 'P'
+
 			default:
 				break;
 		}
