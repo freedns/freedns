@@ -479,9 +479,10 @@ function DigSerial($server,$zone){
  */ 
 function zoneDig($server,$zone){
 	global $config;
-	$server = escapeshellarg(str_replace('`', '', $server));
-	$zone = escapeshellarg(str_replace('`', '', $zone));
-	$result = `$config->bindig @'$server' '$zone' axfr -b '$config->nsaddress'`;
+	$server = escapeshellarg($server);
+	$zone = escapeshellarg($zone);
+	$cmd = escapeshellcmd("$config->bindig @'$server' '$zone' axfr -b '$config->nsaddress'");
+	$result = shell_exec($cmd);
 	return $result;
 }
 
