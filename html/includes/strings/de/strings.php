@@ -683,5 +683,5 @@ $l['str_failed_serverimport'] = "Import from server failed.";
 $l['str_bad_serverimport_name'] = "Bad server name for import. Use server name, or server IP address.";
 $l['str_no_serverimport'] = "Import from server is not possible for secondary zones.";
 $l['str_use_server_for_import_x'] = "Import zone from following authoritative server (transfer has to be allowed for %s). For primary only.";
-
+$l['str_primary_ptr_generate'] = "To add multiple similar PTR records you can use this named-like shortcut belw.";
 ?>

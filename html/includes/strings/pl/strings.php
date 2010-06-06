@@ -574,4 +574,6 @@ $l['str_create_migrated'] = '<p><strong>Uwaga!</strong> Jeśli miałeś konto na
   i hasło! I potem sprawdź poprawność adresu email oraz zmień hasło.</p>';
 $l['str_migrate_subaccount'] = 'Korzystasz z subkonta, migracji musi dokonać główny użytkownik.';
 $l['str_sponsor_title'] = 'Sponsorzy';
+$l['str_primary_ptr_generate'] = 'W celu dodania dużej ilości podobnie nazywających się rekordów PTR
+  możesz użyć poniższego skrótu, który działa podobnie jak w named.';
 ?>

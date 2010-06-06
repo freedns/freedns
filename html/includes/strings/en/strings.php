@@ -718,4 +718,5 @@ $l['str_user_count_prod'] = '...with zones';
 $l['str_create_migrated'] = 'If you had an account at FreeDNS::SGH, DO NOT create new user. 
   Simply login with your usual login and password.';
 $l['str_sponsor_title'] = 'Supported by';
+$l['str_primary_ptr_generate'] = "To add multiple similar PTR records you can use this named-like shortcut belw.";
 ?>
