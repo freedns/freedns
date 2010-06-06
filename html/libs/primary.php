@@ -3296,7 +3296,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 		$query = "SELECT id, val1, val2, ttl
 			FROM dns_record 
 			WHERE zoneid='" . $this->zoneid . "'
-			AND type='" . $type . "'";
+			AND type='" . $type . "' ORDER BY val1";
 		$res =  $db->query($query);
 		$arraytofill = array();
 		$ttltofill = array();
@@ -3336,7 +3336,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 		$query = "SELECT id,val1, val2, val3, val4, val5, ttl
 			FROM dns_record 
 			WHERE zoneid='" . $this->zoneid . "'
-			AND type='" . $type . "'";
+			AND type='" . $type . "' ORDER BY val1";
 		$res =  $db->query($query);
 		$array1tofill = array();
 		$array2tofill = array();
