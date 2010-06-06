@@ -774,70 +774,90 @@ endif;
 									   expire $soa[4];
 									   negative caching $soa[5];
 									*/
-									$query = "INSERT INTO dns_confprimary
-										(zoneid,refresh,retry,expiry,minimum,xfer,defaultttl,serial)
-										VALUES('" . $this->zoneid . "','" . $soa[2] . "','" .
-										$soa[3] . "','" . $soa[4] . "','" . $soa[5] . 
-										"','any','86400','" . $soa[1] . "')";
+									$query = sprintf("INSERT INTO dns_confprimary
+										(zoneid,serial,refresh,retry,expiry,minimum,xfer,defaultttl)
+										VALUES('%s', '%s', '%s', '%s', '%s', 'any', '86400', '%s')",
+										$this->zoneid,
+										mysql_real_escape_string(intval($soa[1])),
+										mysql_real_escape_string(intval($soa[2])),
+										mysql_real_escape_string(intval($soa[3])),
+										mysql_real_escape_string(intval($soa[4])),
+										mysql_real_escape_string(intval($soa[5]))
+										);
 								} // SOA params match
 							}
 							break;
 						case "NS":
 							// if NS on zone, create NS. Otherwise, create subns.
 							if(!strcmp($this->zonename . ".", $record[1])){
-								$query = "INSERT INTO dns_record (zoneid,type,val1,ttl)
-									VALUES ('" . $this->zoneid . "','NS','" . $data[0] . 
-									"','" . $record[2] . "')";
+								$query = sprintf("INSERT INTO dns_record (zoneid,type,val1,ttl)
+										VALUES ('%s', 'NS', '%s', '%s')", $this->zoneid,
+										mysql_real_escape_string($data[0]),
+										mysql_real_escape_string($record[2]));
 							}else{
 							// subns
-								$query = "INSERT INTO dns_record (zoneid,type,val1,val2,ttl)
-					       					VALUES ('" . $this->zoneid . "','SUBNS','" .
-										$shortname . "','" .
-										$data[0] . "','" . $record[2] . "')";
+								$query = sprintf("INSERT INTO dns_record (zoneid,type,val1,ttl)
+										VALUES ('%s', 'SUBNS', '%s', '%s', '%s')", $this->zoneid,
+										mysql_real_escape_string($shortname),
+										mysql_real_escape_string($data[0]),
+										mysql_real_escape_string($record[2]));
 							}
 							break;
 						case "MX":
-							$query = "INSERT INTO dns_record (zoneid,type,val1,val2,ttl)
-									VALUES('" . $this->zoneid . "','MX','" .
-									$data[1] . "','" . $data[0] . "','" . $record[2] . "')";
+							$query = sprintf("INSERT INTO dns_record (zoneid,type,val1,val2,ttl)
+									VALUES ('%s', 'MX', '%s', '%s', '%s')", $this->zoneid,
+									mysql_real_escape_string($data[1]),
+									mysql_real_escape_string($data[0]),
+									mysql_real_escape_string($record[2]));
 							break;
 						case "A":
-							$query = "INSERT INTO dns_record (zoneid,type,val1,val2,ttl)
-								VALUES('" . $this->zoneid . "','A','" .  $shortname . "','" .
-									$data[0] . "','" . $record[2] . "')";
+							$query = sprintf("INSERT INTO dns_record (zoneid,type,val1,val2,ttl)
+									VALUES ('%s', 'A', '%s', '%s', '%s')", $this->zoneid,
+									mysql_real_escape_string($shortname),
+									mysql_real_escape_string($data[0]),
+									mysql_real_escape_string($record[2]));
 							break;
 						case "AAAA":
-							$query = "INSERT INTO dns_record (zoneid,type,val1,val2,ttl)
-									VALUES('" . $this->zoneid . "','AAAA','" .
-									$shortname . "','" .
-									$data[0] . "','" . $record[2] . "')";
+							$query = sprintf("INSERT INTO dns_record (zoneid,type,val1,val2,ttl)
+									VALUES ('%s', 'AAAA', '%s', '%s', '%s')", $this->zoneid,
+									mysql_real_escape_string($shortname),
+									mysql_real_escape_string($data[0]),
+									mysql_real_escape_string($record[2]));
 							break;
 						case "CNAME":
 							if(preg_match("/^(.*)." . $this->zonename . ".$/",$data[0],$tmp)){
 								$data[0]=$tmp[1];
 							}
-							$query = "INSERT INTO dns_record (zoneid,type,val1,val2,ttl)
-									VALUES('" . $this->zoneid . "','CNAME','" .
-									$shortname . "','" .
-									$data[0] . "','" . $record[2] . "')";
+							$query = sprintf("INSERT INTO dns_record (zoneid,type,val1,val2,ttl)
+									VALUES ('%s', 'CNAME', '%s', '%s', '%s')", $this->zoneid,
+									mysql_real_escape_string($shortname),
+									mysql_real_escape_string($data[0]),
+									mysql_real_escape_string($record[2]));
 							break;
 						case "PTR":
-							$query = "INSERT INTO dns_record (zoneid,type,val1,val2,ttl)
-									VALUES('" . $this->zoneid . "','AAAA','" .
-									$shortname . "','" .
-									$data[0] . "','" . $record[2] . "')";
+							$query = sprintf("INSERT INTO dns_record (zoneid,type,val1,val2,ttl)
+									VALUES ('%s', 'PTR', '%s', '%s', '%s')", $this->zoneid,
+									mysql_real_escape_string($shortname),
+									mysql_real_escape_string($data[0]),
+									mysql_real_escape_string($record[2]));
 							break;
 						case "SRV":
-							$query = "INSERT INTO dns_record (zoneid,type,val1,val2,val3,val4,val5,ttl)
-									VALUES('" . $this->zoneid . "','SRV','" .
-									$shortname . "','" . $data[0] . "','" . $data[1] . "','"
-									 . $data[2] . "','" . $data[3] . "','" . $record[2] . "')";
+							$query = sprintf("INSERT INTO dns_record (zoneid,type,val1,val2,val3,val4,val5,ttl)
+									VALUES ('%s', 'SRV', '%s', '%s', '%s', '%s', '%s', '%s')", $this->zoneid,
+									mysql_real_escape_string($shortname),
+									mysql_real_escape_string($data[0]),
+									mysql_real_escape_string($data[1]),
+									mysql_real_escape_string($data[2]),
+									mysql_real_escape_string($data[3]),
+									mysql_real_escape_string($record[2]));
 							break;
 						case "TXT":
-                            $txt = mysql_real_escape_string(preg_replace("/^\"(.*)\"$/", "\"$1\"", $record[4]));
-							$query = "INSERT INTO dns_record (zoneid,type,val1,val2,ttl)
-									VALUES('" . $this->zoneid . "','TXT','" .
-									$shortname . "','" . $txt . "','" . $record[2] . "')";
+							$txt = mysql_real_escape_string(preg_replace("/^\"(.*)\"$/", "\"$1\"", $record[4]));
+							$query = sprintf("INSERT INTO dns_record (zoneid,type,val1,val2,ttl)
+									VALUES ('%s', 'TXT', '%s', '%s', '%s')", $this->zoneid,
+									mysql_real_escape_string($shortname),
+									mysql_real_escape_string($txt),
+									mysql_real_escape_string($record[2]));
 							break;
 						default:
 							print "<p><span class=\"error\">" . $l['str_log_unknown'] . "</span>" .
