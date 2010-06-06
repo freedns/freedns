@@ -424,7 +424,7 @@ function checkDig($server,$zone){
 	global $config;
 	$server = escapeshellarg($server);
 	$zone = escapeshellarg($zone);
-	$cmd = escapeshellcmd("$config->bindig soa '$zone' @'$server' -b '$config->nsaddress'");
+	$cmd = escapeshellcmd("$config->bindig soa $zone @$server -b '$config->nsaddress'");
 	$result = shell_exec($cmd);
 
 	// check if status:*
@@ -482,7 +482,7 @@ function zoneDig($server,$zone){
 	global $config;
 	$server = escapeshellarg($server);
 	$zone = escapeshellarg($zone);
-	$cmd = escapeshellcmd("$config->bindig @'$server' '$zone' axfr -b '$config->nsaddress'");
+	$cmd = escapeshellcmd("$config->bindig @$server $zone axfr -b '$config->nsaddress'");
 	$result = shell_exec($cmd);
 	return $result;
 }
