@@ -6,11 +6,13 @@ if($config->usergroups){
   $allzones = $user->listallzones();
 }
 
-if (!notnull($template) || $template==$l['str_none']) {
-  if ($zonetypenew=='S')
-   $checksec=" checked";
-  else if ($zonetypenew=='P')
-   $checkpri=" checked";
+$checksec="";
+$checkpri="";
+if (!@notnull($template) || $template==$l['str_none']) {
+	if (@$zonetypenew=='S')
+		$checksec=" checked";
+	else if (@$zonetypenew=='P')
+		$checkpri=" checked";
 }
 
 $form = '
@@ -18,7 +20,7 @@ $form = '
   <form action="' .  $_SERVER["PHP_SELF"] . '" method="post">' . $hiddenfields . '
   <tr>
   <td class="left">' . $l['str_zone'] . ':</td>
-  <td colspan="2"><input style="width:85%" type="text" name="zonenamenew" value="'.$zonenamenew.'">
+  <td colspan="2"><input style="width:85%" type="text" name="zonenamenew" value="'.@$zonenamenew.'">
   </td>
   </tr>
 ';
@@ -31,7 +33,7 @@ if(!notnull($user->error) && count($allzones)>0){
   ';
   while($otherzone = array_pop($allzones)){
     $form .= '<option value="'.$otherzone[0].'('.$otherzone[1].')"';
-    if ($otherzone[0]==$template && $otherzone[1]==$zonetypenew) $form .= " selected";
+    if ($otherzone[0]==@$template && $otherzone[1]==@$zonetypenew) $form .= " selected";
     $form .= '>'.$otherzone[0].'('.$otherzone[1].')</option>';
   }
   $form .= '
@@ -56,7 +58,7 @@ $form .= '
   <tr>
   <td></td>
   <td class="right">' . $l['str_import_server'] . ':</td>
-  <td class="right"><input type="text" name="serverimport" value="'.$serverimport.'"></td>
+  <td class="right"><input type="text" name="serverimport" value="'.@$serverimport.'"></td>
   </tr>
 ';
 
@@ -75,7 +77,7 @@ $form .= '
   <tr>
     <td></td>
     <td class="right">' . $l['str_authoritative_server'] . ':</td>
-    <td class="right"><input type="text" name="authoritative" value="'.$authoritative.'"></td>
+    <td class="right"><input type="text" name="authoritative" value="'.@$authoritative.'"></td>
   </tr>
 ';
 

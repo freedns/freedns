@@ -47,8 +47,8 @@ if($user->authenticated == 0){
 		}else{
 		// $zonenamenew is set
 			if(isset($_REQUEST)){
-				$zonetypenew = $_REQUEST['zonetypenew'];
-				$zonenamenew = $_REQUEST['zonenamenew'];
+				$zonetypenew = @$_REQUEST['zonetypenew'];
+				$zonenamenew = @$_REQUEST['zonenamenew'];
 				if(isset($_REQUEST['template']) && $_REQUEST['template']!=''){
 					if ($_REQUEST['template'] != $l['str_none']) {
 						$template = substr($_REQUEST['template'], 0, -3);
@@ -74,6 +74,7 @@ if (0):
 					$zonearea = "";
 				}
 endif;
+					$zonearea = "";
 			}
 			$content = "";
 			$localerror = 0;
