@@ -459,7 +459,7 @@ function DigSerial($server,$zone){
 	if(ereg("try again",$result)){
 		return $result;
 	}else{
-		preg_match("/[^\s\t]+ [^\s\t]+ ([^\s\t]+) .*/", $result, $serial);
+		preg_match("/^[^;\s\t]+ [^\s\t]+ ([^\s\t]+) .*/", $result, $serial);
 		if(isset($serial[1])){
 			return $serial[1];
 		}else{
