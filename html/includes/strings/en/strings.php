@@ -575,9 +575,8 @@ $l['str_email_go_on_followin_page_to_recover'] = "Go on following temporary page
 Warning: this page can be accessed only once.";
 $l['str_email_address_modified_on_x'] = "You have modified your email address on %s.";
 $l['str_contact_title'] = "Contact";
-$l['str_contact_for_bugs_contact_us'] = "For bugs regarding XName Software, 
-  contact us at <a href=\"mailto:bugs@xname.org\"
-  class=\"linkcolor\">bugs@xname.org</a> (in english or french).";
+$l['str_contact_for_bugs_contact_us'] = "For bugs regarding %s
+  contact me at <a href=\"mailto:%s\" class=\"linkcolor\">%s</a>.";
 $l['str_contribute_title'] = "Contribute";
 $l['str_contribute_content'] = "If you like this software, you can 
 <a href=\"http://www.xname.org/contribute.php\" 

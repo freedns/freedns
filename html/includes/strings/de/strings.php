@@ -35,9 +35,8 @@ XName Software is under <a href=\"http://www.gnu.org/copyleft/gpl.html\"
 class=\"linkcolor\">GPL License</a>";
 $l['str_email_address_modified_on_x'] = "Sie haben Ihre email-Adresse auf %s geändert";
 $l['str_contact_title'] = "Kontakt";
-$l['str_contact_for_bugs_contact_us'] = "For bugs regarding XName Software, 
-	contact us at <a href=\"mailto:bugs@xname.org\"
-	class=\"linkcolor\">bugs@xname.org</a> (in english or french)";
+$l['str_contact_for_bugs_contact_us'] = "In Angelegenheiten im Zusammenhang mit den Problemen 
+  der Service %s Sie erreichen mich unter Kontakt <a href=\"mailto:%s\" class=\"linkcolor\">%s</a>.";
 $l['str_log_unknown'] = "Unbekannt";
 $l['str_all_your_zones'] = "Alle Ihre Zonen";
 $l['str_email_password_recovery_for_account_on_x'] = "Sie haben Ihr Passwort für Ihren Account auf %s angefordert.";

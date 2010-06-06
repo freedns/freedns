@@ -319,7 +319,7 @@ $l['str_primary_mx_pref'] = "Pref";
 $l['str_primary_ptr_title'] = "Enregistrements de pointeurs (PTR)";
 $l['str_primary_ptr_expl'] = "Les enregistrements PTR sont des associations d'une 
   adresse IP et d'un nom.<b>Le nom est complet</b>, vous devez utiliser le 
-  nom avec le domaine correspondant accroché <b>avec le point final</a>. 
+  nom avec le domaine correspondant accroché <b>avec le point final</b>. 
   Seule la partie de l'adresse IP sous la zone courrante doit être donnée.";
 $l['str_primary_ptr_sample'] = "Exemple pour l'adresse IP 1.2.3.4 sous la zone 
   3.2.1.in-addr.arpa";
@@ -639,8 +639,8 @@ $l['str_email_go_on_followin_page_to_recover'] = "Allez sur la page temporaire s
 Attention: cette page ne peut être accédée qu'une seule fois.";
 $l['str_email_address_modified_on_x'] = "Vous avez modifié votre adresse mél sur %s.";
 $l['str_contact_title'] = "Contact";
-$l['str_contact_for_bugs_contact_us'] = "Pour des problèmes concernant le logiciel XName,
-  contactez-nous à l'adresse <a href=\"mailto:bugs@xname.org\" class=\"linkcolor\">bugs@xname.org</a> (en anglais ou français).";
+$l['str_contact_for_bugs_contact_us'] = "Pour des problèmes concernant le logiciel %s,
+  contactez-nous à l'adresse <a href=\"mailto:%s\" class=\"linkcolor\">%s</a>.";
 $l['str_contribute_title'] = "Contribuer";
 $l['str_contribute_content'] = "Si vous aimez ce logiciel, vous pouvez
   <a href=\"http://www.xname.org/contribute.php\" class=\"linkcolor\">contribuer !</a> et/ou envoyer vos correctifs
