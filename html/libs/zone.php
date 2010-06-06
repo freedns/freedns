@@ -755,7 +755,7 @@ endif;
 										mysql_real_escape_string($record[2]));
 							}else{
 							// subns
-								$query = sprintf("INSERT INTO dns_record (zoneid,type,val1,ttl)
+								$query = sprintf("INSERT INTO dns_record (zoneid,type,val1,val2,ttl)
 										VALUES ('%s', 'SUBNS', '%s', '%s', '%s')", $this->zoneid,
 										mysql_real_escape_string($shortname),
 										mysql_real_escape_string($data[0]),
