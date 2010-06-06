@@ -585,7 +585,9 @@ class=\"linkcolor\">contribute !</a> and/or submit your patches
 (<a href=\"mailto:bugs@xname.org\" class=\"linkcolor\">bugs@xname.org</a>, in
 english or french).
 XName Software is under <a href=\"http://www.gnu.org/copyleft/gpl.html\" 
-class=\"linkcolor\">GPL License</a>.";
+class=\"linkcolor\">GPL License</a>.
+<p id=\"logo\"><a href=\"http://source.xname.org\"><img src=\"images/xnamepowered.png\" alt=\"XName\"></a></p>
+";
 $l['str_languages_title'] = "Available Languages";
 $l['str_reload_mail_subject_x_x'] = "%s Reloading your zone(s) on %s.";
 $l['str_reload_mail_content_x_x_x'] = "This is an automatic email from name server %s of %s.
@@ -716,4 +718,5 @@ $l['str_user_count'] = 'Users';
 $l['str_user_count_prod'] = '...with zones';
 $l['str_create_migrated'] = 'If you had an account at FreeDNS::SGH, DO NOT create new user. 
   Simply login with your usual login and password.';
+$l['str_sponsor_title'] = 'Supported by';
 ?>

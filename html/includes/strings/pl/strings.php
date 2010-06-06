@@ -436,7 +436,9 @@ $l['str_email_address_modified_on_x'] = "Zmieniłeś swój adres email w serwisi
 $l['str_contact_title'] = "Kontakt";
 $l['str_contact_for_bugs_contact_us'] = "W sprawach związanych z problemami dotyczącymi serwisu %s możesz skontaktować się ze mną pod adresem <a href=\"mailto:%s\" class=\"linkcolor\">%s</a>.";
 $l['str_contribute_title'] = "Oprogramowanie";
-$l['str_contribute_content'] = "System %s to <a target=_blank href=\"http://www.xname.org/\">XName Software</a>, który na język polski przetłumaczył, a także skonfigurował i udostępnił światu, Piotr Kucharski. Jeśli podoba Ci się to oprogramowanie, możesz <a target=_blank href=\"http://www.xname.org/contribute.php\" class=\"linkcolor\">pomóc</a> w jego tworzeniu i/lub przysyłać swoje poprawki i propozycje rozwoju (<a href=\"mailto:bugs@xname.org\">bugs@xname.org</a>). XName Software jest udostępnione na <a target=_blank href=\"http://www.gnu.org/copyleft/gpl.html\" class=\"linkcolor\">licencji GPL</a>.";
+$l['str_contribute_content'] = "System %s to <a target=_blank href=\"http://www.xname.org/\">XName Software</a>, który na język polski przetłumaczył, a także skonfigurował i udostępnił światu, Piotr Kucharski. Jeśli podoba Ci się to oprogramowanie, możesz <a target=_blank href=\"http://www.xname.org/contribute.php\" class=\"linkcolor\">pomóc</a> w jego tworzeniu i/lub przysyłać swoje poprawki i propozycje rozwoju (<a href=\"mailto:bugs@xname.org\">bugs@xname.org</a>). XName Software jest udostępnione na <a target=_blank href=\"http://www.gnu.org/copyleft/gpl.html\" class=\"linkcolor\">licencji GPL</a>.
+<p id=\"logo\"><a href=\"http://source.xname.org\"><img src=\"images/xnamepowered.png\" alt=\"XName\"></a></p>
+";
 $l['str_languages_title'] = "Dostępne języki";
 $l['str_reload_mail_subject_x_x'] = "%s Przeładowano Twoje strefy na %s";
 $l['str_reload_mail_content_x_x_x'] = "To jest automatyczny list z serwera DNS %s usługi %s.
@@ -571,4 +573,5 @@ $l['str_create_migrated'] = '<p><strong>Uwaga!</strong> Jeśli miałeś konto na
   serwisie FreeDNS, to nie zakładaj nowego konta! Po prostu zaloguj się na ten sam login 
   i hasło! I potem sprawdź poprawność adresu email oraz zmień hasło.</p>';
 $l['str_migrate_subaccount'] = 'Korzystasz z subkonta, migracji musi dokonać główny użytkownik.';
+$l['str_sponsor_title'] = 'Sponsorzy';
 ?>

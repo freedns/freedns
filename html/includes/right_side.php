@@ -7,14 +7,11 @@
 
 // personnalize your layout HERE
 
-// contact 
-include 'contact.php';
-
 // languages
 include 'languages.php';
 
-// logo
-include 'logo.php';
+// contact 
+include 'contact.php';
 
 ?>
 

@@ -172,23 +172,27 @@ h3, h3.boxheader {
     margin: 0 0 1em 1em;
 }
 
-#contact { margin-top: 1em; }
+#contact { }
 #contact_title { padding-bottom: 1px; }
 #contact_content { }
 
-#contribute { }
+#contribute { margin-bottom: 3em; }
 #contribute_title { }
 #contribute_content { }
+#logo { text-align: center; padding-top: 1em; }
+#logo img { border: 0px; margin-bottom: 10px; }
 
-#languages { margin-bottom: 3em; }
+#languages { margin-top: 1em; }
 #languages_title { }
 #languages_content { }
 #languages_content p { text-align: center; }
 #languages_content a img { border: 1px solid #ccc; }
 
-div#logo {}
-div#logo { text-align: left; margin-left: 25% }
-div#logo img { border: 0px; margin-bottom: 20px; }
+#sponsor {}
+#sponsor_title {}
+#sponsor_content {}
+#sponsor_content p { text-align: center; }
+#sponsor_content a img { border: 0px; margin: 10px; }
 
 /************ srodkowa kolumna *****************/
 

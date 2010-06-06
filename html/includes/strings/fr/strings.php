@@ -646,7 +646,9 @@ $l['str_contribute_content'] = "Si vous aimez ce logiciel, vous pouvez
   <a href=\"http://www.xname.org/contribute.php\" class=\"linkcolor\">contribuer !</a> et/ou envoyer vos correctifs
   (<a href=\"mailto:bugs@xname.org\" class=\"linkcolor\">bugs@xname.org</a>, en anglais ou en français).
   Le logiciel XName est sous <a href=\"http://www.gnu.org/copyleft/gpl.html\" 
-class=\"linkcolor\">Licence GPL</a>.";
+class=\"linkcolor\">Licence GPL</a>.
+<p id=\"logo\"><a href=\"http://source.xname.org\"><img src=\"images/xnamepowered.png\" alt=\"XName\"></a></p>
+";
 $l['str_languages_title'] = "Langues disponibles";
 $l['str_reload_mail_subject_x_x'] = "%s Rechargement de l'une ou plusieurs de vos zones sur %s.";
 $l['str_reload_mail_content_x_x_x'] = "Ceci est un mail automatique, envoyé par le derveur %s de %s.
@@ -787,4 +789,5 @@ $l['str_user_count'] = 'Users';
 $l['str_user_count_prod'] = '...with zones';
 $l['str_create_migrated'] = 'Si vous aviez un compte à FreeDNS:: SGH, ne pas créer un 
   nouvel utilisateur. Connectez-vous simplement avec votre login et mot de passe habituels.';
+$l['str_sponsor_title'] = 'Supported by';
 ?>
