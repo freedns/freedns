@@ -1224,9 +1224,9 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 			}else{
 
 				// - do named-checkzone $zonename /tmp/zonename and return result
-				$checker = "$config->binnamedcheckzone ".$this->zonename." ".
-					$this->tempZoneFile();
-				$check = `$checker`;
+				$checker = "$config->binnamedcheckzone ".escapeshellarg($this->zonename)." ".
+					escapeshellarg($this->tempZoneFile());
+				$check = shell_exec(escapeshellcmd($checker));
 				// if ok
 				 if(preg_match("/OK/", $check)){
 				// if($check == "OK\n"){
