@@ -747,6 +747,11 @@ endif;
 							}
 							break;
 						case "NS":
+							if (!checkIP($data[0]) && !checkDomain($data[0])) {
+								print "<p><span class=\"error\">" . $l['str_log_unknown'] . "</span>" .
+									"<br>\n" . $line . "\n</p>";
+								break;
+							}
 							// if NS on zone, create NS. Otherwise, create subns.
 							if(!strcmp($this->zonename . ".", $record[1])){
 								$query = sprintf("INSERT INTO dns_record (zoneid,type,val1,ttl)
