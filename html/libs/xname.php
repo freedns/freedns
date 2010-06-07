@@ -448,16 +448,16 @@ function checkDig($server,$zone){
 // function DigSerial($server,$zone)
 // retrieve serial for zone on server
 /**
- * Retrieve serial of a zone on specified server using 'host'
+ * Retrieve serial of a zone on specified server using 'dig'
  *
  *@param string $server server to query
  *@param string $zone zone name to query for
- *@return string serial number of zone or "not availabl"
+ *@return string serial number of zone or "not available"
  */
 function DigSerial($server,$zone){
 	global $config, $l;
 	if (!checkIP($server) && !checkDomain($server))
-		return "";
+		return $l['str_not_available'];
 	$server = escapeshellarg($server);
 	$zone = escapeshellarg($zone);
 	$cmd = escapeshellcmd("$config->bindig @$server $zone soa -b '$config->nsaddress' +short");
@@ -465,7 +465,7 @@ function DigSerial($server,$zone){
 	if(ereg("try again",$result)){
 		return $result;
 	}else{
-		preg_match("/^[^;\s\t]+ [^\s\t]+ ([^\s\t]+) .*/", $result, $serial);
+		preg_match("/^[^;\s\t]+ [^\s\t]+ ([0-9]+) .*/", $result, $serial);
 		if(isset($serial[1])){
 			return $serial[1];
 		}else{
