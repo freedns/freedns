@@ -147,7 +147,7 @@ if($user->authenticated==1){
 						$zone->zonename,htmlspecialchars($server));
 			$content = '
 			<pre>' .
-			zoneDig($server,$zonename) . 
+			htmlspecialchars(zoneDig($server,$zonename)) . 
 			'</pre>';
 	
 			print $html->box('digwindow',$title,$content);
