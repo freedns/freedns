@@ -48,7 +48,8 @@ $l['str_primary_adding_cname_x'] = "Dodaję rekord CNAME %s";
 $l['str_primary_adding_www_x_x'] = "Dodaję rekord WWW (%s) %s";
 $l['str_primary_bad_www_value_x'] = "nieprawidłowa zawartość rekordu WWW %s";
 $l['str_primary_bad_www_x'] = "zła nazwa WWW %s.";
-$l['str_primary_www_redirect'] = "przekierowanie";
+$l['str_primary_www_redirect'] = "przekierowanie czasowe";
+$l['str_primary_www_redirect_301'] = "przekierowanie stałe";
 $l['str_primary_www_frame'] = "ramka";
 $l['str_primary_www_address'] = "Adres WWW";
 $l['str_primary_no_record_x'] = "Brak wpisu dla %s";
@@ -117,9 +118,7 @@ $l['str_primary_sub_zones_title'] = "Podstrefy";
 $l['str_primary_www_zones_zone'] = "Nazwa";
 $l['str_primary_www_zones_expl_on_x_x'] = "Ramka WWW to w skrócie &quot;ukryty&quot; prawdziwy URL (w pasce adresu przeglądarki widać tylko <i>Nazwa</i> (z domeną), zaś zawartość jest z <i>Adres WWW</i>). Przekierowanie WWW to po prostu przekierowanie przeglądarki WWW na prawdziwy URL (w pasce adresu przeglądarki widać <i>Adres WWW</i>).<br>
 Reguły nazewnictwa są takie same, jak dla rekordów A, gdyż automatycznie tworzony jest rekord A wskazujący na adres serwera WWW, który obsługuje to przekierowanie.<br>
-<!-- Adres WWW musi zaczynać się od <b>http://</b><br> -->
-<!-- Dodanie rekordu WWW wiąże się z automatycznym dodaniem odpowiedniego rekordu A do strefy.<br> -->
-<!-- <b>Uwaga! To eksperyment, proszę zgłaszać uwagi, jeżeli coś źle lub wcale nie działa!</b> -->";
+Różnica: 'przekierowanie stałe' (kod 301) polecane jest przy ostatecznym przekierowaniu (np. na nowy, zmieniony adres), a 'przekierowanie czasowe' (kod 302) przy tymczasowym. Ma to ponoć znaczenie przy wyszukiwarkach internetowych.";
 $l['str_primary_www_zones_title'] = "Ramki i przekierowania WWW";
 $l['str_primary_www_zones_type'] = "Typ";
 $l['str_primary_warning_www_x_exists_not_overwritten'] = "Uwaga: rekord %s już istnieje -- nie został nadpisany";
