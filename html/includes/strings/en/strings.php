@@ -719,4 +719,19 @@ $l['str_create_migrated'] = 'If you had an account at FreeDNS::SGH, DO NOT creat
   Simply login with your usual login and password.';
 $l['str_sponsor_title'] = 'Supported by';
 $l['str_primary_ptr_generate'] = "To add multiple similar PTR records you can use this named-like shortcut belw.";
+$l['str_primary_adding_www_x_x'] = "Adding WWW record (%s) %s";
+$l['str_primary_bad_www_value_x'] = "invalid WWW record content %s";
+$l['str_primary_bad_www_x'] = "bad WWW record name %s.";
+$l['str_primary_www_redirect'] = "temp redirect";
+$l['str_primary_www_redirect_301'] = "perm redirect";
+$l['str_primary_www_frame'] = "frame";
+$l['str_primary_www_address'] = "Target URL";
+$l['str_primary_www_zones_zone'] = "Name";
+$l['str_primary_www_zones_expl_on_x_x'] = "Frame in short is &quot;hidden&quot; true URL
+ (in browser address bar you can see only <i>Name</i> (w/ domain), but content comes from <i>Target URL</i>). 
+Redirect WWW is simply browser redirection to true URL (in browser address bar you can see <i>Target URL</i>).<br>";
+$l['str_primary_www_zones_title'] = "Frames and redirects";
+$l['str_primary_www_zones_type'] = "Type";
+$l['str_primary_warning_www_x_exists_not_overwritten'] = "Warning: record %s already exists -- not overwriting";
+$l['str_primary_deleting_www_x'] = "Deleting WWW record %s";
 ?>
