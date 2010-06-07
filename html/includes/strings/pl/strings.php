@@ -116,9 +116,11 @@ Twoja nowa podstrefa w serwisie %s <b>musi</b> być podstrefą %s, a także nie 
 Serwery DNS muszą być <b>bezwzględne</b> i zakończone <b>kropką</b>.";
 $l['str_primary_sub_zones_title'] = "Podstrefy";
 $l['str_primary_www_zones_zone'] = "Nazwa";
-$l['str_primary_www_zones_expl_on_x_x'] = "Ramka WWW to w skrócie &quot;ukryty&quot; prawdziwy URL (w pasce adresu przeglądarki widać tylko <i>Nazwa</i> (z domeną), zaś zawartość jest z <i>Adres WWW</i>). Przekierowanie WWW to po prostu przekierowanie przeglądarki WWW na prawdziwy URL (w pasce adresu przeglądarki widać <i>Adres WWW</i>).<br>
-Reguły nazewnictwa są takie same, jak dla rekordów A, gdyż automatycznie tworzony jest rekord A wskazujący na adres serwera WWW, który obsługuje to przekierowanie.<br>
-Różnica: 'przekierowanie stałe' (kod 301) polecane jest przy ostatecznym przekierowaniu (np. na nowy, zmieniony adres), a 'przekierowanie czasowe' (kod 302) przy tymczasowym. Ma to ponoć znaczenie przy wyszukiwarkach internetowych.";
+$l['str_primary_www_zones_expl_on_x_x'] = "<p>Ramki i przekierowania to połączenie serwera DNS i serwera WWW.
+Serwer DNS ustawia odpowiedni rekord <i>Nazwa</i> w domenie, a serwer WWW, jak ktoś się połączy, serwuje odpowiednią (patrz niżej) stronę z <i>Adres WWW</i>.</p>
+<p>Ramka WWW to, tak w uproszczeniu, &quot;ukryty&quot; prawdziwy URL, tj. w pasku adresu przeglądarki widać tylko <i>Nazwa</i> (z&nbsp;domeną), a&nbsp;zawartość jest z&nbsp;<i>Adres WWW</i>.<br>
+Przekierowanie WWW to przekierowanie przeglądarki WWW na prawdziwy URL, tj. w pasku adresu przeglądarki widać po prostu <i>Adres WWW</i>. 'Przekierowanie stałe' (kod 301) polecane jest przy ostatecznym przekierowaniu (np. na nowy, zmieniony adres), a 'przekierowanie czasowe' (kod 302) przy tymczasowym.</p>
+<p>Reguły nazewnictwa są takie same, jak dla rekordów A, gdyż automatycznie tworzony jest rekord A wskazujący na adres serwera WWW, który obsługuje to przekierowanie.</p>";
 $l['str_primary_www_zones_title'] = "Ramki i przekierowania WWW";
 $l['str_primary_www_zones_type'] = "Typ";
 $l['str_primary_warning_www_x_exists_not_overwritten'] = "Uwaga: rekord %s już istnieje -- nie został nadpisany";
