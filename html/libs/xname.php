@@ -456,7 +456,12 @@ function checkDig($server,$zone){
  */
 function DigSerial($server,$zone){
 	global $config, $l;
-	$result = `$config->bindig @'$server' '$zone' soa -b '$config->nsaddress' +short`;
+	if (!checkIP($server) && !checkDomain($server))
+		return "";
+	$server = escapeshellarg($server);
+	$zone = escapeshellarg($zone);
+	$cmd = escapeshellcmd("$config->bindig @$server $zone soa -b '$config->nsaddress' +short");
+	$result = shell_exec($cmd);
 	if(ereg("try again",$result)){
 		return $result;
 	}else{
