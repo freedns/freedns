@@ -38,14 +38,17 @@ else
   }
   $req = $line[0];
   if ($_SERVER["REQUEST_URI"] != "/") $req .= $_SERVER["REQUEST_URI"];
-  if (@$line[1] == "R") {
+  $redirect = 0;
+  if (@$line[1] == "R") $redirect = 302;
+  if (@$line[1] == "r") $redirect = 301;
+  if ($redirect) {
     if (0) {
     echo "<!-- $site: $hostn $siten ";
     var_dump($siten);
     var_dump($query);
     echo "-->";
     } else
-     Header("Location: $req");
+     Header("Location: $req", TRUE, $redirect);
   } else {
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
