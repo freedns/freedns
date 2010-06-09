@@ -1,12 +1,12 @@
 <?
 /*
-        This file is part of XName.org project
-        See     http://www.xname.org/ for details
+  This file is part of XName.org project
+  See     http://www.xname.org/ for details
 
-        License: GPLv2
-        See LICENSE file, or http://www.gnu.org/copyleft/gpl.html
+  License: GPLv2
+  See LICENSE file, or http://www.gnu.org/copyleft/gpl.html
 
-        Author(s): Yann Hirou <hirou@xname.org>
+  Author(s): Yann Hirou <hirou@xname.org>
 
 */
 
@@ -17,15 +17,16 @@
  *@return int number of zones or N/A in case of error
  */
 function countSecondary($migrated=1){
-                global $db;
-        $query = "SELECT count(*) FROM dns_zone z,dns_user u WHERE z.zonetype='S' AND z.userid=u.id AND u.migrated=$migrated";
-        $res = $db->query($query);
-        $line = $db->fetch_row($res);
-        if($db->error()){
-                return "N/A";
-        }else{
-                return $line[0];
-        }
+  global $db;
+  $query = "SELECT count(*) FROM dns_zone z,dns_user u " .
+    "WHERE z.zonetype='S' AND z.userid=u.id AND u.migrated=$migrated";
+  $res = $db->query($query);
+  $line = $db->fetch_row($res);
+  if($db->error()){
+    return "N/A";
+  }else{
+    return $line[0];
+  }
 }
 
 
@@ -36,15 +37,16 @@ function countSecondary($migrated=1){
  *@return int number of zones or N/A in case of error
  */
 function countPrimary($migrated=1){
-        global $db;
-        $query = "SELECT count(*) FROM dns_zone z,dns_user u WHERE z.zonetype='P' AND z.userid=u.id AND u.migrated=$migrated";
-        $res = $db->query($query);
-        $line = $db->fetch_row($res);
-        if($db->error()){
-                return "N/A";
-        }else{
-                return $line[0];
-        }
+  global $db;
+  $query = "SELECT count(*) FROM dns_zone z,dns_user u " .
+    "WHERE z.zonetype='P' AND z.userid=u.id AND u.migrated=$migrated";
+  $res = $db->query($query);
+  $line = $db->fetch_row($res);
+  if($db->error()){
+    return "N/A";
+  }else{
+    return $line[0];
+  }
 }
 
 // function countUsers()
@@ -54,16 +56,15 @@ function countPrimary($migrated=1){
  *@return int number of users or N/A in case of error
  */
 function countUsers($migrated=1){
-        global $dbauth,$config;
-        $query = sprintf("SELECT count(*) FROM %s WHERE migrated=$migrated",
-                        $config->userdbtable);
-        $res = $dbauth->query($query);
-        $line = $dbauth->fetch_row($res);
-        if($dbauth->error()){
-                return "N/A";
-        }else{
-                return $line[0];
-        }
+  global $dbauth,$config;
+  $query = sprintf("SELECT count(*) FROM %s WHERE migrated=$migrated", $config->userdbtable);
+  $res = $dbauth->query($query);
+  $line = $dbauth->fetch_row($res);
+  if($dbauth->error()){
+    return "N/A";
+  }else{
+    return $line[0];
+  }
 }
 
 // function countProdUsers()
@@ -73,18 +74,18 @@ function countUsers($migrated=1){
  *@return int number of users or N/A in case of error
  */
 function countProdUsers($migrated=1){
-        global $dbauth,$config;
-        $query = sprintf("SELECT count(*) FROM %s u, dns_zone z
-                                WHERE z.userid=u.%s AND u.migrated='%s' group by z.userid",
-                        $config->userdbtable,
-                        $config->userdbfldid, $migrated);
-        $res = $dbauth->query($query);
-        $count = $dbauth->num_rows($res);
-        if($dbauth->error()){
-                return "N/A";
-        }else{
-                return $count;
-        }
+  global $dbauth,$config;
+  $query = sprintf("SELECT count(*) FROM %s u, dns_zone z
+    WHERE z.userid=u.%s AND u.migrated='%s' group by z.userid",
+    $config->userdbtable,
+    $config->userdbfldid, $migrated);
+  $res = $dbauth->query($query);
+  $count = $dbauth->num_rows($res);
+  if($dbauth->error()){
+    return "N/A";
+  }else{
+    return $count;
+  }
 }
 
 // function showTopUsers($number)
@@ -94,28 +95,28 @@ function countProdUsers($migrated=1){
  *@return array array of users with id/login/email/nbzones
  */
 function showTopUsers($number){
-        global $db,$dbauth,$config;
-        $query = sprintf(
-                        "SELECT u.%s,u.%s,u.%s,count(*) as count FROM %s u, dns_zone z
-                                WHERE z.userid=u.%s
-                                GROUP BY z.userid
-                                ORDER BY count DESC
-                                LIMIT $number",
-                        $config->userdbfldid,
-                        $config->userdbfldlogin,
-                        $config->userdbfldemail,
-                        $config->userdbtable,
-                        $config->userdbfldid
-                );
-        $res = $dbauth->query($query);
-        if($dbauth->error()){
-                return 0;
-        }
-        $result = array();
-        while($line = $dbauth->fetch_row($res)){
-                array_push($result,$line);
-        }
-        return $result;
+  global $db,$dbauth,$config;
+  $query = sprintf(
+      "SELECT u.%s,u.%s,u.%s,count(*) as count FROM %s u, dns_zone z
+        WHERE z.userid=u.%s
+        GROUP BY z.userid
+        ORDER BY count DESC
+        LIMIT $number",
+      $config->userdbfldid,
+      $config->userdbfldlogin,
+      $config->userdbfldemail,
+      $config->userdbtable,
+      $config->userdbfldid
+    );
+  $res = $dbauth->query($query);
+  if($dbauth->error()){
+    return 0;
+  }
+  $result = array();
+  while($line = $dbauth->fetch_row($res)){
+    array_push($result,$line);
+  }
+  return $result;
 }
 
 // function showAbUsers($number)
@@ -125,30 +126,30 @@ function showTopUsers($number){
  *@return array array of users with id/login/email/nbzones
  */
 function showAbUsers($number){
-        global $db,$dbauth,$config;
-        $query = sprintf(
-                        "SELECT u.%s,u.%s,u.%s,count(*) as count FROM %s u, dns_zone z
-                                WHERE z.userid=u.%s
-                                GROUP BY z.userid
-                                ORDER BY count DESC",
-                        $config->userdbfldid,
-                        $config->userdbfldlogin,
-                        $config->userdbfldemail,
-                        $config->userdbtable,
-                        $config->userdbfldid
-                );
-        $res = $dbauth->query($query);
-        if($dbauth->error()){
-                return 0;
-        }
-        $result = array();
-        while($line = $dbauth->fetch_row($res)){
-                if($line[3] <= $number){
-                        return $result;
-                }
-                array_push($result,$line);
-        }
-        return $result;
+  global $db,$dbauth,$config;
+  $query = sprintf(
+      "SELECT u.%s,u.%s,u.%s,count(*) as count FROM %s u, dns_zone z
+        WHERE z.userid=u.%s
+        GROUP BY z.userid
+        ORDER BY count DESC",
+      $config->userdbfldid,
+      $config->userdbfldlogin,
+      $config->userdbfldemail,
+      $config->userdbtable,
+      $config->userdbfldid
+    );
+  $res = $dbauth->query($query);
+  if($dbauth->error()){
+    return 0;
+  }
+  $result = array();
+  while($line = $dbauth->fetch_row($res)){
+    if($line[3] <= $number){
+      return $result;
+    }
+    array_push($result,$line);
+  }
+  return $result;
 }
 
 // function showTopZones($number)
@@ -158,29 +159,30 @@ function showAbUsers($number){
  *@return array array of zones with zoneid/userid/login/email/zonename/nbrecords
  */
 function showTopZones($number){
-        global $db,$dbauth,$config;
-        $query = sprintf(
-                        "SELECT z.id,u.%s,u.%s,u.%s,z.zone,count(*) as count FROM %s u, dns_zone z, dns_record r
-                                WHERE z.userid=u.%s
-                                AND   z.id=r.zoneid
-                                GROUP BY z.id
-                                ORDER BY count DESC
-                                LIMIT $number",
-                        $config->userdbfldid,
-                        $config->userdbfldlogin,
-                        $config->userdbfldemail,
-                        $config->userdbtable,
-                        $config->userdbfldid
-                );
-        $res = $dbauth->query($query);
-        if($dbauth->error()){
-                return 0;
-        }
-        $result = array();
-        while($line = $dbauth->fetch_row($res)){
-                array_push($result,$line);
-        }
-        return $result;
+  global $db,$dbauth,$config;
+  $query = sprintf(
+      "SELECT z.id,u.%s,u.%s,u.%s,z.zone,count(*) as count
+        FROM %s u, dns_zone z, dns_record r
+        WHERE z.userid=u.%s
+        AND   z.id=r.zoneid
+        GROUP BY z.id
+        ORDER BY count DESC
+        LIMIT $number",
+      $config->userdbfldid,
+      $config->userdbfldlogin,
+      $config->userdbfldemail,
+      $config->userdbtable,
+      $config->userdbfldid
+    );
+  $res = $dbauth->query($query);
+  if($dbauth->error()){
+    return 0;
+  }
+  $result = array();
+  while($line = $dbauth->fetch_row($res)){
+    array_push($result,$line);
+  }
+  return $result;
 }
 
 // function showAbZones($number)
@@ -190,31 +192,32 @@ function showTopZones($number){
  *@return array array of users with zoneid/userid/login/email/zone/nbrecords
  */
 function showAbZones($number){
-        global $db,$dbauth,$config;
-        $query = sprintf(
-                        "SELECT z.id,u.%s,u.%s,u.%s,z.zone,count(*) as count FROM %s u, dns_zone z, dns_record r
-                                WHERE z.userid=u.%s
-                                AND   z.id=r.zoneid
-                                GROUP BY z.id
-                                ORDER BY count DESC",
-                        $config->userdbfldid,
-                        $config->userdbfldlogin,
-                        $config->userdbfldemail,
-                        $config->userdbtable,
-                        $config->userdbfldid
-                );
-        $res = $dbauth->query($query);
-        if($dbauth->error()){
-                return 0;
-        }
-        $result = array();
-        while($line = $dbauth->fetch_row($res)){
-                if($line[5] <= $number){
-                        return $result;
-                }
-                array_push($result,$line);
-        }
-        return $result;
+  global $db,$dbauth,$config;
+  $query = sprintf(
+      "SELECT z.id,u.%s,u.%s,u.%s,z.zone,count(*) as count
+        FROM %s u, dns_zone z, dns_record r
+        WHERE z.userid=u.%s
+        AND   z.id=r.zoneid
+        GROUP BY z.id
+        ORDER BY count DESC",
+      $config->userdbfldid,
+      $config->userdbfldlogin,
+      $config->userdbfldemail,
+      $config->userdbtable,
+      $config->userdbfldid
+    );
+  $res = $dbauth->query($query);
+  if($dbauth->error()){
+    return 0;
+  }
+  $result = array();
+  while($line = $dbauth->fetch_row($res)){
+    if($line[5] <= $number){
+      return $result;
+    }
+    array_push($result,$line);
+  }
+  return $result;
 }
 
 ?>

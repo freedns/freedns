@@ -1,7 +1,7 @@
 <?
 if($config->usergroups){
   $allzones = $group->listallzones();
-  $user->error = $group->error;			
+  $user->error = $group->error;      
 }else{
   $allzones = $user->listallzones();
 }
@@ -9,10 +9,10 @@ if($config->usergroups){
 $checksec="";
 $checkpri="";
 if (!@notnull($template) || $template==$l['str_none']) {
-	if (@$zonetypenew=='S')
-		$checksec=" checked";
-	else if (@$zonetypenew=='P')
-		$checkpri=" checked";
+  if (@$zonetypenew=='S')
+    $checksec=" checked";
+  else if (@$zonetypenew=='P')
+    $checkpri=" checked";
 }
 
 $form = '

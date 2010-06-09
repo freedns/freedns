@@ -1,12 +1,12 @@
 <?
 /*
-	This file is part of XName.org project
-	See	http://www.xname.org/ for details
-	
-	License: GPLv2
-	See LICENSE file, or http://www.gnu.org/copyleft/gpl.html
-	
-	Author(s): Yann Hirou <hirou@xname.org>
+  This file is part of XName.org project
+  See  http://www.xname.org/ for details
+  
+  License: GPLv2
+  See LICENSE file, or http://www.gnu.org/copyleft/gpl.html
+  
+  Author(s): Yann Hirou <hirou@xname.org>
 
 */
 
@@ -18,22 +18,22 @@ $config = new Config();
 $html = new Html();
 
 if(isset($_REQUEST)){
-	if(isset($_REQUEST['language'])){
-		$lang = $_REQUEST['language'];
-	}else{
-		$lang = $config->defaultlanguage;
-	}
+  if(isset($_REQUEST['language'])){
+    $lang = $_REQUEST['language'];
+  }else{
+    $lang = $config->defaultlanguage;
+  }
 }else{
-	if(isset($language)){
-		$lang=$language;
-	}else{
-		$lang = $config->defaultlanguage;
-	}
+  if(isset($language)){
+    $lang=$language;
+  }else{
+    $lang = $config->defaultlanguage;
+  }
 }
 $lang=substr($lang, 0, 2);
 // verify if language exists ! 
 if(!is_file('includes/strings/' . $lang .'/strings.php')){
-	$lang = $config->defaultlanguage;
+  $lang = $config->defaultlanguage;
 }
 
 include 'includes/strings/' . $lang . '/strings.php';

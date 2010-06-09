@@ -1,13 +1,13 @@
 <?
 
 /*
-	This file is part of XName.org project
-	See	http://www.xname.org/ for details
-	
-	License: GPLv2
-	See LICENSE file, or http://www.gnu.org/copyleft/gpl.html
-	
-	Author(s): Yann Hirou <hirou@xname.org>
+  This file is part of XName.org project
+  See  http://www.xname.org/ for details
+  
+  License: GPLv2
+  See LICENSE file, or http://www.gnu.org/copyleft/gpl.html
+  
+  Author(s): Yann Hirou <hirou@xname.org>
 
 */
 
@@ -19,111 +19,109 @@
  */
 Class Config {
 
-	/**
-	 * Class constructor, initialize all common vars
-	 *
-	 *@access public
-	 */
-	function Config(){
-		// site parameters
-		$this->sitename = 'XName Demo site';
-		$this->domainname = 'dev.xname.org';
-		$this->webserverip = '195.20.105.150';
-		$this->mainurl = 'http://dev.xname.org/';
-		$this->contactemail = 'demo@xname.org'; // used on web pages
-		$this->tousersource = 'webserver@xname.org'; // used in to-user emails
-		$this->emailsignature = 'XName DEMO team';
-		$this->cssurl = "style/xname.css";
-		// emailfrom & emailto are used when an error
-		// occurs, to warn administrator
-		$this->emailfrom = 'webserver@xname.org';
-		$this->emailto = 'demo@xname.org';
-		$this->dbpersistent = 1;
-		// host & port needed for chrooted web server
-		// without mysql unix socket access
-		// if using unix socket, put localhost and path to socket 
-		// instead of port
-		// for example: $this->dbport='/tmp/mysql.sock';
-		$this->dbhost = 'localhost';
-		$this->dbport = '/tmp/mysql.sock';
-		$this->dbuser = 'xnameuser';
-		$this->dbpass = 'password';
-		$this->dbname = 'xnamedev';
+  /**
+   * Class constructor, initialize all common vars
+   *
+   *@access public
+   */
+  function Config(){
+    // site parameters
+    $this->sitename = 'XName Demo site';
+    $this->domainname = 'dev.xname.org';
+    $this->webserverip = '195.20.105.150';
+    $this->mainurl = 'http://dev.xname.org/';
+    $this->contactemail = 'demo@xname.org'; // used on web pages
+    $this->tousersource = 'webserver@xname.org'; // used in to-user emails
+    $this->emailsignature = 'XName DEMO team';
+    $this->cssurl = "style/xname.css";
+    // emailfrom & emailto are used when an error
+    // occurs, to warn administrator
+    $this->emailfrom = 'webserver@xname.org';
+    $this->emailto = 'demo@xname.org';
+    $this->dbpersistent = 1;
+    // host & port needed for chrooted web server
+    // without mysql unix socket access
+    // if using unix socket, put localhost and path to socket 
+    // instead of port
+    // for example: $this->dbport='/tmp/mysql.sock';
+    $this->dbhost = 'localhost';
+    $this->dbport = '/tmp/mysql.sock';
+    $this->dbuser = 'xnameuser';
+    $this->dbpass = 'password';
+    $this->dbname = 'xnamedev';
 
-                // for authentication, if separated
-		// leave db infos empty if authentication is inside XName DB
-                $this->userdbhost = '';
-                $this->userdbport = '';
-                $this->userdbuser = '';
-                $this->userdbpass = '';
-                $this->userdbname = '';
-                // table name for user list
-		// leave alone for XName DB use
-                $this->userdbtable = 'dns_user';
-                // table fields for user 
-                $this->userdbfldid = 'id';
-                $this->userdbfldgroupid = 'groupid';
-                $this->userdbfldlogin = 'login';
-                $this->userdbfldemail = 'email';
-                $this->userdbfldpassword = 'password';
-                $this->userdbfldvalid = 'valid';
-                $this->userdbfldvalidvalue = '1';
-                $this->userdbfldvalidnullvalue = '0';
-                $this->userdbfldoptions = 'options';
-                $this->userdbfldlang = 'lang';
-                // table name & fields for recovery
-                $this->userdbrecoverytable='dns_recovery';
-                $this->userdbrecoveryfldinsertdate='insertdate';
-                $this->userdbrecoveryfldid='id';
-                $this->userdbrecoveryflduserid='userid';
-                // table name & fields for waitingreply
-                $this->userdbwaitingtable='dns_waitingreply';
-                $this->userdbwaitingfldid='id';
-                $this->userdbwaitingflduserid='userid';
-                $this->userdbwaitingfldemail='email';
+    // for authentication, if separated
+    // leave db infos empty if authentication is inside XName DB
+    $this->userdbhost = '';
+    $this->userdbport = '';
+    $this->userdbuser = '';
+    $this->userdbpass = '';
+    $this->userdbname = '';
+    // table name for user list
+    // leave alone for XName DB use
+    $this->userdbtable = 'dns_user';
+    // table fields for user 
+    $this->userdbfldid = 'id';
+    $this->userdbfldgroupid = 'groupid';
+    $this->userdbfldlogin = 'login';
+    $this->userdbfldemail = 'email';
+    $this->userdbfldpassword = 'password';
+    $this->userdbfldvalid = 'valid';
+    $this->userdbfldvalidvalue = '1';
+    $this->userdbfldvalidnullvalue = '0';
+    $this->userdbfldoptions = 'options';
+    $this->userdbfldlang = 'lang';
+    // table name & fields for recovery
+    $this->userdbrecoverytable='dns_recovery';
+    $this->userdbrecoveryfldinsertdate='insertdate';
+    $this->userdbrecoveryfldid='id';
+    $this->userdbrecoveryflduserid='userid';
+    // table name & fields for waitingreply
+    $this->userdbwaitingtable='dns_waitingreply';
+    $this->userdbwaitingfldid='id';
+    $this->userdbwaitingflduserid='userid';
+    $this->userdbwaitingfldemail='email';
 
 
-		// your MAIN NS parameters (for SOA)
-		$this->nsname = 'ns0.xname.org';
-		$this->nsaddress = '195.20.105.149';
-		$this->bindig = '/usr/local/bin/dig';
-		$this->binhost = '/usr/local/bin/host';
-		$this->binnamedcheckzone = '/usr/local/sbin/named-checkzone';
-		// directory where temporary files are created
-		$this->tmpdir = '/tmp/';
+    // your MAIN NS parameters (for SOA)
+    $this->nsname = 'ns0.xname.org';
+    $this->nsaddress = '195.20.105.149';
+    $this->bindig = '/usr/local/bin/dig';
+    $this->binhost = '/usr/local/bin/host';
+    $this->binnamedcheckzone = '/usr/local/sbin/named-checkzone';
+    // directory where temporary files are created
+    $this->tmpdir = '/tmp/';
 
-		// public "ala www.xname.org" or restricted access ? (1 or 0)
-		// if restricted (0), users have to be created manually
-		// mysql> insert into dns_user (login,email,password,valid)
-		// mysql> values ('logintobeset','emailtobeset','passwordtobeset','1')
-		$this->public=1;
-		// activate "whois" functionality on main page
-		$this->whois=1;
-		// activate user groups - a group is made of 1 admin, any read/write, any read
-		$this->usergroups=1;
-		// activate log of user actions - usefull in a group, useless otherwise
-		$this->userlogs=1;
-		// if there are xname-modules on remote servers.
-		$this->multiserver=1;
-		// enable advanced interface 
-		$this->advancedinterface=1;
-		// enable ipv6 interface 
-		$this->ipv6interface=1;
-		// enable txt records
-		$this->txtrecords=1;
-		// enable srv records
-		$this->srvrecords=1;
-		// default number of rows to be printed
-		$this->defaultnbrows=4;
-		// default language - see includes/strings/* for possibilities
-		$this->defaultlanguage="en";
+    // public "ala www.xname.org" or restricted access ? (1 or 0)
+    // if restricted (0), users have to be created manually
+    // mysql> insert into dns_user (login,email,password,valid)
+    // mysql> values ('logintobeset','emailtobeset','passwordtobeset','1')
+    $this->public=1;
+    // activate "whois" functionality on main page
+    $this->whois=1;
+    // activate user groups - a group is made of 1 admin, any read/write, any read
+    $this->usergroups=1;
+    // activate log of user actions - usefull in a group, useless otherwise
+    $this->userlogs=1;
+    // if there are xname-modules on remote servers.
+    $this->multiserver=1;
+    // enable advanced interface 
+    $this->advancedinterface=1;
+    // enable ipv6 interface 
+    $this->ipv6interface=1;
+    // enable txt records
+    $this->txtrecords=1;
+    // enable srv records
+    $this->srvrecords=1;
+    // default number of rows to be printed
+    $this->defaultnbrows=4;
+    // default language - see includes/strings/* for possibilities
+    $this->defaultlanguage="en";
 
-		// blacklist for zones
-                $this->blacklist = "/(127.in-addr.arpa)|(168.192.in-addr.arpa)/";
-		
-		return $this;
-	}
+    // blacklist for zones
+    $this->blacklist = "/(127.in-addr.arpa)|(168.192.in-addr.arpa)/";
+    
+    return $this;
+  }
 }
-
-
 ?>

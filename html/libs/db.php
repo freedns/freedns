@@ -1,22 +1,22 @@
 <?
 
 /*
-	This file is part of XName.org project
-	See	http://www.xname.org/ for details
-	
-	License: GPLv2
-	See LICENSE file, or http://www.gnu.org/copyleft/gpl.html
-	
-	Author(s): Yann Hirou <hirou@xname.org>
+  This file is part of XName.org project
+  See  http://www.xname.org/ for details
+  
+  License: GPLv2
+  See LICENSE file, or http://www.gnu.org/copyleft/gpl.html
+  
+  Author(s): Yann Hirou <hirou@xname.org>
 
 */
 
 
 
 /*
- *	Generic interface for database access
- * 	some code taken from daCode project http://www.dacode.org,
- *	originally from Fabien Seisen <seisen@linuxfr.org>
+ *  Generic interface for database access
+ *   some code taken from daCode project http://www.dacode.org,
+ *  originally from Fabien Seisen <seisen@linuxfr.org>
  */
 
 // uncomment this if not in the php.ini file
@@ -41,8 +41,8 @@ class Db {
    *@return object DB database object
    */
   Function Db() {
-  	global $config;
-	$this->totaltime=0;
+    global $config;
+  $this->totaltime=0;
     if($config->dbpersistent){
       $this->dbh = $this->pconnect($config->dbhost . ":" . $config->dbport, $config->dbuser, $config->dbpass, $config->dbname);
     }else{
@@ -91,26 +91,26 @@ class Db {
    *@return object query handler
    */
   Function query($string,$cache = 0){
-	$string = preg_replace('/[\n\s\t]+?/',' ',$string);
-	$mtime = microtime();
-	$mtime = explode(" ",$mtime);
-	$mtime = $mtime[1] + $mtime[0];
-	$tstart = $mtime;
-	if($cache && $cachecontent[$string]){
-		$this->result = $cachecontent[$string];
-	}else{
-    		$this->result = mysql_query($string, $this->sh);
-	}
-	if($cache){
-		$cachecontent[$string] = $this->result;
-	}
-	$mtime = microtime();
-	$mtime = explode(" ",$mtime);
-	$mtime = $mtime[1] + $mtime[0];
-	$tend = $mtime;
-	$ttot = $tend - $tstart;
-	$this->lastquery = $string;
-	$this->totaltime+=$ttot;
+  $string = preg_replace('/[\n\s\t]+?/',' ',$string);
+  $mtime = microtime();
+  $mtime = explode(" ",$mtime);
+  $mtime = $mtime[1] + $mtime[0];
+  $tstart = $mtime;
+  if($cache && $cachecontent[$string]){
+    $this->result = $cachecontent[$string];
+  }else{
+        $this->result = mysql_query($string, $this->sh);
+  }
+  if($cache){
+    $cachecontent[$string] = $this->result;
+  }
+  $mtime = microtime();
+  $mtime = explode(" ",$mtime);
+  $mtime = $mtime[1] + $mtime[0];
+  $tend = $mtime;
+  $ttot = $tend - $tstart;
+  $this->lastquery = $string;
+  $this->totaltime+=$ttot;
     return $this->result;
   }
   
@@ -127,7 +127,7 @@ class Db {
     }else{
       return 0;
     }
-  }	
+  }  
 
   /**
    * Returns number of affected rows by given query handler
@@ -137,11 +137,11 @@ class Db {
    *@return int number of affected rows
    */
   Function affected_rows($res){
-  	if($res){
-		return mysql_affected_rows($res);
-	}else{
-		return 0;
-	}
+    if($res){
+    return mysql_affected_rows($res);
+  }else{
+    return 0;
+  }
   }
   
   /**
@@ -152,11 +152,11 @@ class Db {
    *@return int number of affected rows
    */
   Function num_rows($res){
-  	if($res){
-		return mysql_num_rows($res);
-	}else{
-		return 0;
-	}
+    if($res){
+    return mysql_num_rows($res);
+  }else{
+    return 0;
+  }
   }
   
   /**
@@ -166,8 +166,8 @@ class Db {
    *@return int 0
    */
   Function free(){
-//	   return mysql_free_result($this->result);
-	return 0;
+//     return mysql_free_result($this->result);
+  return 0;
   }
 
 
@@ -178,18 +178,15 @@ class Db {
    *@return int 1 if error, 0 else
    */
   Function error(){
-  	global $config,$l;
+    global $config,$l;
     if(mysql_errno()){
-      mailer($config->emailfrom,$config->emailto,$config->sitename . 
-	  $l['str_trouble_with_db'],'',mysql_errno() . ": " . mysql_error() . "\n"
-	  . $this->lastquery . "\n");
-	  return 1;
+      mailer($config->emailfrom, $config->emailto,
+        $config->sitename . $l['str_trouble_with_db'], '',
+        mysql_errno() . ": " . mysql_error() . "\n" . $this->lastquery . "\n");
+      return 1;
     }else{
-		return 0;
-	}
+      return 0;
+    }
   }
-  
 }
-
-
 ?>

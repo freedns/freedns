@@ -13,10 +13,10 @@ $dirlist = GetDirList("includes/strings");
 $content = '';
 reset($dirlist);
 while($countrycode = array_shift($dirlist)){
-	$content .= '<a href="' . $_SERVER['PHP_SELF'] . $mylink .
-		'language=' . $countrycode . 
-		'"><img src="images/' . $countrycode . '.png" alt="' . $countrycode . '"></a>
-		';
+  $content .= '<a href="' . $_SERVER['PHP_SELF'] . $mylink .
+    'language=' . $countrycode . 
+    '"><img src="images/' . $countrycode . '.png" alt="' . $countrycode . '"></a>
+    ';
 }
 $content = '<p>'. $content .'</p>';
 print $html->box('languages',$title,$content);

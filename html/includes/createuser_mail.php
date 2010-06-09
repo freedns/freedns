@@ -1,5 +1,5 @@
 <?
-			$mailbody = '
+      $mailbody = '
 ' . $l['str_email_this_is_an_automatic_email'] . '
 
 ' . sprintf($l['str_email_you_have_created_an_account_on_x'],$config->sitename) . '
