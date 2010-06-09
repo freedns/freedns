@@ -296,16 +296,9 @@ class Secondary extends Zone {
 				$content .= $this->error;
 			}else{
 				// flag status='M' to be generated & reloaded
-				$query = "UPDATE dns_zone SET status='M' WHERE 
-				id='" . $this->zoneid . "'";
-				$res = $db->query($query);
-				
-				if($db->error()){
-					$result .= '<p>' . sprintf($html->string_error, 
-									$l['str_trouble_with_db']
-								) . '<br >' . 
-								$l['str_secondary_your_zone_will_not_be_available'] .
-								'</p>';
+				$ret = $this->flagModified($this->zoneid);
+				if(notnull($ret)){
+					$result .= $ret;
 				}else{
 					// retrieve list of ns names
 					$nsxnames = GetListOfServerNames();

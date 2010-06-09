@@ -87,7 +87,7 @@ class Primary extends Zone {
 	 *
 	 *@access public
 	 *@param string $zonename zone name
-	 *@param string $zonetype zone type (must be 'M'aster)
+	 *@param string $zonetype zone type (must be 'P'rimary)
 	 *@param string $user class member user for current user
 	 */
 	Function Primary($zonename,$zonetype,$user){

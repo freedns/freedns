@@ -302,26 +302,26 @@ endif;
 							$res2 = $db->query($query);
 						}
 					}
-          if ($zonetype=='S' && notnull($serverimport)){
-            $query = "INSERT INTO dns_confsecondary
-              (zoneid, masters, xfer) VALUES ('" . $this->zoneid . "', '".
-              mysql_real_escape_string($serverimport) . "', '".
-							mysql_real_escape_string($serverimport) . "')";
+					if ($zonetype=='S' && notnull($serverimport)){
+						$query = sprintf("INSERT INTO dns_confsecondary
+							(zoneid, masters, xfer)
+							VALUES ('%s', '%s', '%s')",
+							$this->zoneid,
+							mysql_real_escape_string($serverimport),
+							mysql_real_escape_string($serverimport));
 						$res2 = $db->query($query);
-            if($db->error()){
-                $this->error .= $l['str_trouble_with_db'];
-                return 0;
-            }
-          }
-          // flag as 'M'odified to be generated & reloaded
-          $query = "UPDATE dns_zone SET 
-              status='M' WHERE id='" . $this->zoneid . "'";
-          $res = $db->query($query);
-          if($db->error()){
-              $this->error .= $l['str_trouble_with_db'];
-              return 0;
-          }
-          return 1;
+						if($db->error()){
+							$this->error .= $l['str_trouble_with_db'];
+							return 0;
+						}
+					}
+					// flag as 'M'odified to be generated & reloaded
+					$ret = $this->flagModified($this->zoneid);
+					if(notnull($ret)){
+							$this->error .= $l['str_trouble_with_db'];
+							return 0;
+					}
+					return 1;
 				} // notnull($this->error)
 			}
 		}else{
@@ -857,16 +857,14 @@ endif;
 	Function flagModified($zoneid){
 		global $db, $l;
 				
-		$query = "UPDATE dns_zone SET 
-					status='M' WHERE id='" . $zoneid . "'";
+		$query = "UPDATE dns_zone SET status='M' WHERE id='" . $zoneid . "'";
 		$res = $db->query($query);
 		if($db->error()){
 			$result = '<p>' .
-			sprintf($html->string_error,
-				$l['str_trouble_with_db']
-			) . '
-			' . $l['str_primary_zone_error_not_available_try_again'] . '</p>';
+			sprintf($html->string_error, $l['str_trouble_with_db']) . '
+				' . $l['str_primary_zone_error_not_available_try_again'] . '</p>';
 		}
+		return $result;
 	}
 	
 }
