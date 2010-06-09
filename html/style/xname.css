@@ -144,13 +144,12 @@ h3, h3.boxheader {
 #login_content { text-align: center; }
 #login_content p { margin-bottom: .5em; }
 
-#legend { }
-#legend_title { }
-#legend_content { text-align: center; }
-
 #yourzones { }
 #yourzones_title { }
 #yourzones_content { text-align: left; margin-left: 1em; }
+
+#yourzones #legend { text-align: center; margin-bottom: 0.5em; }
+#yourzones #legend span { padding: 2px 4px 2px 4px; }
 
 /************ prawa kolumna *****************/
 
