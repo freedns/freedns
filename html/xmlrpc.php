@@ -62,16 +62,21 @@ $updateArecord_doc="Updates a A record from a primary zone.";
 
 Function updateArecord($m) {
 
-  global $xmlrpcerruser, $stateNames;
+	global $xmlrpcerruser, $stateNames;
 	global $db, $dbauth, $user, $config;
+
+	if ($_SERVER["HTTPS"] != "on") {
+		return new xmlrpcresp(0, $xmlrpcerruser, "non-https modifications disabled " .
+			"(also, now you have to change your password)");
+	}
 	$res = "";
 	$modified = 0;
 	$req = php_xmlrpc_decode($m->getParam(0));
 	$db = new Db();
 	if($config->userdbname){
-        $dbauth = new DbAuth();
+		$dbauth = new DbAuth();
 	}else{
-        	$dbauth = $db;
+		$dbauth = $db;
 	}
 
 	$user = new User($req["user"],$req["password"], NULL);
