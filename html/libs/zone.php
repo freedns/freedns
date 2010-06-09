@@ -844,5 +844,30 @@ endif;
     if (!$dbqueries) $this->error .= '<pre>' . $dig . '</pre>';
 		return $dbqueries;
 	}
+
+// *******************************************************	
+//	Function flagModified($zoneid)
+	/**
+	 * flag given zone as 'M'odified to be generated & reloaded
+	 *
+	 *@access private
+	 *@param $zoneid int zone id
+	 *@return string result text
+	 */	
+	Function flagModified($zoneid){
+		global $db, $l;
+				
+		$query = "UPDATE dns_zone SET 
+					status='M' WHERE id='" . $zoneid . "'";
+		$res = $db->query($query);
+		if($db->error()){
+			$result = '<p>' .
+			sprintf($html->string_error,
+				$l['str_trouble_with_db']
+			) . '
+			' . $l['str_primary_zone_error_not_available_try_again'] . '</p>';
+		}
+	}
+	
 }
 ?>
