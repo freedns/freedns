@@ -67,6 +67,7 @@ function notnull($string){
  *@return int 1 if success, 0 if error
  */
 function mailer($from, $to, $subject, $headers, $message){
+  global $config;
   // TODO : verify mail by sending it directly, after 
   // a connexion on MX
   // has to be done using vrfyEmail()
@@ -79,7 +80,7 @@ $headers
 
 $message
 ";
-  if($fd = popen("/usr/local/sbin/sendmail -t","w")){
+  if($fd = popen($config->binsendmail, "w")){
     fwrite($fd, $mailcontent);
     if(pclose($fd)){
       return 0;

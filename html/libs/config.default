@@ -32,6 +32,7 @@ Class Config {
     $this->mainurl = 'http://dev.xname.org/';
     $this->contactemail = 'demo@xname.org'; // used on web pages
     $this->tousersource = 'webserver@xname.org'; // used in to-user emails
+    $this->binsendmail = '/usr/sbin/sendmail -t -i';
     $this->emailsignature = 'XName DEMO team';
     $this->cssurl = "style/xname.css";
     // emailfrom & emailto are used when an error
