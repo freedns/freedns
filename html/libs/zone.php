@@ -658,9 +658,9 @@ endif;
               case "A":
               case "AAAA":
               case "TXT":
+              case "MX":
                 $line[1] = ereg_replace($templatezone."\.\$", $this->zonename.".", $line[1]);
               case "NS":
-              case "MX":
               case "CNAME":
               case "SUBNS":
               case "PTR":
@@ -768,10 +768,11 @@ endif;
               }
               break;
             case "MX":
-              $query = sprintf("INSERT INTO dns_record (zoneid,type,val1,val2,ttl)
-                  VALUES ('%s', 'MX', '%s', '%s', '%s')", $this->zoneid,
-                  mysql_real_escape_string($data[1]),
+              $query = sprintf("INSERT INTO dns_record (zoneid,type,val1,val2,val3,ttl)
+                  VALUES ('%s', 'MX', '%s', '%s', '%s', '%s')", $this->zoneid,
+                  mysql_real_escape_string($shortname),
                   mysql_real_escape_string($data[0]),
+                  mysql_real_escape_string($data[1]),
                   mysql_real_escape_string($record[2]));
               break;
             case "A":

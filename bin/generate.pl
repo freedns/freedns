@@ -111,7 +111,7 @@ sub RetrieveRecords {
 		}
 		$_ = $type;
 		# NS: [ttl] IN NS val1
-		# MX: [ttl] IN MX val2 val1
+		# MX: val1 [ttl] IN MX val2 val3
 		# CNAME: val1 [ttl] IN CNAME val2
 		# SUBNS: val1 [ttl] IN NS val2
 		# AAAA: val1 [ttl] IN AAAA val2
@@ -124,7 +124,7 @@ sub RetrieveRecords {
                        if (/^NS$/)
 				{ "\t$ttl\tIN\tNS\t" . $ref->{'val1'} }
                        elsif (/^MX$/)
-				{ "\t$ttl\tIN\tMX\t" . $ref->{'val2'} . "\t" . $ref->{'val1'} }
+				{ $ref->{'val1'} . "\t$ttl\tIN\tMX\t" . $ref->{'val2'} . "\t" . $ref->{'val3'} }
                        elsif (/^CNAME$/)
 				{ $ref->{'val1'} . "\t$ttl\tIN\tCNAME\t" . $ref->{'val2'} }
                        elsif (/^SUBNS$/)
@@ -359,12 +359,12 @@ if($count){
 			$toprint = $header;
 				
 			$toprint .= RetrieveRecords("NS");
-                        $toprint .= RetrieveRecords("MX");
 
 	# End of zone header, print origin $zone.
 			$toprint .= "\n\n\$ORIGIN $zone.\n";
 
 
+                        $toprint .= RetrieveRecords("MX");
                         $toprint .= RetrieveRecords("A");
                         $toprint .= RetrieveRecords("WWW");
                         $toprint .= RetrieveRecords("AAAA");

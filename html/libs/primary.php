@@ -165,6 +165,8 @@ class Primary extends Zone {
       $this->delegateid = array();
       $this->delegatettl = array();
     }else{
+      $this->mxsrc = array();
+      $this->mxpref = array();
       $this->mx = array();
       $this->mxid = array();
       $this->mxttl = array();
@@ -208,7 +210,7 @@ class Primary extends Zone {
       $this->RetrieveMultiRecords('PTR',$this->ptr,$this->ptrname,$this->nullarray,$this->nullarray,$this->nullarray,$this->ptrid,$this->ptrttl);
       $this->RetrieveMultiRecords('DELEGATE',$this->delegatefromto,$this->delegateuser,$this->nullarray,$this->nullarray,$this->nullarray,$this->delegateid,$this->delegatettl);
     }else{
-      $this->RetrieveRecords('MX',$this->mx,$this->mxid,$this->mxttl);
+      $this->RetrieveMultiRecords('MX',$this->mxsrc,$this->mxpref,$this->mx,$this->nullarray,$this->nullarray,$this->mxid,$this->mxttl);
       $this->RetrieveMultiRecords('A',$this->a,$this->aip,$this->nullarray,$this->nullarray,$this->nullarray,$this->aid,$this->attl);
       $this->RetrieveMultiRecords('A6',$this->a6,$this->a6ip,$this->nullarray,$this->nullarray,$this->nullarray,$this->a6id,$this->a6ttl);
       $this->RetrieveMultiRecords('AAAA',$this->aaaa,$this->aaaaip,$this->nullarray,$this->nullarray,$this->nullarray,$this->aaaaid,$this->aaaattl);
@@ -594,42 +596,58 @@ class Primary extends Zone {
         $result .= '
         <h3 class="boxheader">' . $l['str_primary_mail_exchanger_title'] . '</h3>
           <p>' . 
-          sprintf($l['str_primary_mx_expl_with_sample_x'],
-            $this->zonename) . '<br >' .
+          sprintf($l['str_primary_mx_expl_with_sample_x'], $this->zonename) . '<br>' .
           $l['str_primary_mx_expl_for_pref'] . '
           </p>
-          <table><th>' . $l['str_primary_mx_pref'] .'
-          <th>' . $l['str_primary_name'];
-          if($advanced) { $result .= '<th>TTL'; }
-          $result .= '<th>' . $l['str_delete'] . '
-          ';
+
+          <table>
+          <tr>
+          <th>' . $l['str_primary_name'] .'
+          <th>' . $l['str_primary_mx_pref'] .'
+          <th>' . $l['str_primary_mx_name'] .'
+        ';
+        if($advanced) { $result .= '<th>TTL'; }
+        $result .= '
+          <th>' . $l['str_delete'] . '
+          </tr>
+        ';
   
         $counter=0;
-        $keys = array_keys($this->mx);
-        while($key = array_shift($keys)){      
+        while(isset($this->mx[$counter])){
           $deletecount++;
           $result .= '<tr>
-            <td>' . $this->mx[$key] . '</td>
-            <td>' . $key . '</td>';
+            <td>' . $this->mxsrc[$counter] . '</td>
+            <td>' . $this->mxpref[$counter] . '</td>
+            <td>' . $this->mx[$counter] . '</td>
+          ';
           if($advanced){
             $result .= '
-            <td>' . $this->PrintTTL($this->mxttl[$key]) . '</td>
+            <td>' . $this->PrintTTL($this->mxttl[$counter]) . '</td>
             ';
           }
           $result .= '
               <td><input type="checkbox" name="delete' . $deletecount .
-              '" value="mx(' . $key . '-' . $this->mxid[$key] . ')"></td></tr>
+              '" value="mx(' . $this->mxsrc[$counter] . '/' .
+              $this->mxid[$counter] . '-' . $this->mx[$counter] .')"></td></tr>
           ';
           $counter++;
         }  
       
+        $counter=0;
+        $keys = array_keys($this->mx);
+        while($key = array_shift($keys)){
+          $deletecount++;
+          $counter++;
+        }  
         $mxcounter = 0;
         for($count=1;$count <= $nbrows;$count++){
           $mxcounter++;
           $result .= '
-          <tr><td><input type="text" size="5" maxlength="5"
-               name="pref' . $mxcounter . '"></td>
-              <td><input type="text" name="mx' . $mxcounter . '"></td>';
+          <tr>
+            <td><input type="text" name="mxsrc' . $mxcounter . '"></td>
+            <td><input type="text" size="5" maxlength="5" name="mxpref' . $mxcounter . '"></td>
+            <td><input type="text" name="mx' . $mxcounter . '"></td>
+          ';
           if($advanced){
             $result .= '
               <td><input type="text" name="mxttl' . $mxcounter . '" size="8" value="' . 
@@ -642,7 +660,7 @@ class Primary extends Zone {
         $result .= '
         </table>
         ';
-      
+
         $result .= '
         <h3 class="boxheader">' . $l['str_primary_a_record_title'] . '</h3>
         <p>' .
@@ -1175,9 +1193,10 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
       $delegateuser = retrieveArgs("delegateuser",$VARS);
       $gen = retrieveArgs("gen", $VARS);
     }else{
+      $mxsrc = retrieveArgs("mxsrc", $VARS);
       $mx = retrieveArgs("mx", $VARS);
       $mxttl = retrieveArgs("mxttl",$VARS);
-      $pref = retrieveArgs("pref", $VARS);
+      $mxpref = retrieveArgs("mxpref", $VARS);
 
       $aaaaname = retrieveArgs("aaaaname", $VARS);
       $aaaa = retrieveArgs("aaaa", $VARS);
@@ -1215,7 +1234,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
       $result .= $this->AddDELEGATERecord($delegatefrom,$delegateto,$delegateuser,$delegatettl);
       $result .= $this->AddSUBNSRecord($subns,$subnsa,$subnsttl);
     }else{
-      $result .= $this->AddMXRecord($mx,$pref,$mxttl);
+      $result .= $this->AddMXRecord($mxsrc,$mx,$mxpref,$mxttl);
       if($this->user->ipv6){
         $result .= $this->AddAAAARecord($this->zoneid,$aaaa,$aaaaname,$aaaattl,$modifyptripv6);
       }
@@ -1707,7 +1726,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
             break;
 
           case "mx":
-            preg_match("/^(.*)-(.*)/",$newvalue,$item);
+            preg_match("/^(.*)\/(.*)/",$newvalue,$item);
             $valname=$item[1];
             $valid=$item[2];
             // *     IN    MX    pref    name
@@ -1788,7 +1807,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 
 // *******************************************************
 
-//  Function AddMXRecord($mx,$pref,$ttl)
+//  Function AddMXRecord($mxsrc,$mx,$pref,$ttl)
   /**
    * Add an MX record to the current zone
    *
@@ -1798,7 +1817,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
    *@param int $ttl ttl value for this record
    *@return string text of result (Adding MX Record... Ok)
    */
-  Function AddMXRecord($mx,$pref,$ttl){
+  Function AddMXRecord($mxsrc,$mx,$pref,$ttl){
     global $db, $html,$l;
 
     $result = '';
@@ -1807,7 +1826,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
     while(list($key,$value) = each($mx)){
       // value = name
       if($value != ""){
-        if(!$this->checkMXName($value)){
+        if(!$this->checkMXName($value) || !$this->checkAName($mxsrc[$i])){
           // check if matching A record exists ? NOT OUR JOB
           $result .= ' ' . 
             sprintf($html->string_error, 
@@ -1841,16 +1860,16 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
             // Check if record already exists
             $query = "SELECT count(*) FROM dns_record WHERE 
             zoneid='" . $this->zoneid . "' AND type='MX' 
-            AND val1='" . $value . "'";
+            AND val1='" . $mxsrc[$i] . "' AND val3='" .$value."'";
             $res = $db->query($query);
             $line = $db->fetch_row($res);
             if($line[0] == 0){
               $result .= sprintf($l['str_primary_adding_mx_x'],
               stripslashes($value)) . "...";
               $ttlval = $this->DNSTTL($ttl[$i]);
-              $query = "INSERT INTO dns_record (zoneid, type, val1, val2,ttl) 
+              $query = "INSERT INTO dns_record (zoneid, type, val1, val2, val3, ttl) 
                 VALUES ('" . $this->zoneid . "', 'MX', '" 
-                . $value . "', '" . $pref[$i] . "','" . $ttlval . "')";
+                . $mxsrc[$i] . "', '" . $pref[$i] . "','" .$value. "','" . $ttlval . "')";
               $db->query($query);
               if($db->error()){
                 $result .= ' ' . 
@@ -3379,7 +3398,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
   Function RetrieveMultiRecords($type,&$array1tofill,&$array2tofill,&$array3tofill,&$array4tofill,&$array5tofill,&$idtofill,&$ttltofill){
     global $db,$l;
     $this->error='';
-    $query = "SELECT id,val1, val2, val3, val4, val5, ttl
+    $query = "SELECT id, val1, val2, val3, val4, val5, ttl
       FROM dns_record 
       WHERE zoneid='" . $this->zoneid . "'
       AND type='" . $type . "' ORDER BY val1";
@@ -3442,7 +3461,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
       $this->RetrieveMultiRecords('PTR',$this->ptr,$this->ptrname,$this->nullarray,$this->nullarray,$this->nullarray,$this->ptrid,$this->ptrttl);
       $this->RetrieveMultiRecords('DELEGATE',$this->delegatefromto,$this->delegateuser,$this->nullarray,$this->nullarray,$this->nullarray,$this->delegateid,$this->delegatettl);
     }else{
-      $this->RetrieveRecords('MX',$this->mx,$this->mxid,$this->mxttl);
+      $this->RetrieveMultiRecords('MX',$this->mxsrc,$this->mxpref,$this->mx,$this->nullarray,$this->nullarray,$this->mxid,$this->mxttl);
       $this->RetrieveMultiRecords('A',$this->a,$this->aip,$this->nullarray,$this->nullarray,$this->nullarray,$this->aid,$this->attl);
       $this->RetrieveMultiRecords('A6',$this->a6,$this->a6ip,$this->nullarray,$this->nullarray,$this->nullarray,$this->a6id,$this->a6ttl);
       $this->RetrieveMultiRecords('AAAA',$this->aaaa,$this->aaaaip,$this->nullarray,$this->nullarray,$this->nullarray,$this->aaaaid,$this->aaaattl);
@@ -3469,7 +3488,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
       $this->generateMultiConfig("PTR",$this->ptr,"","","",$this->ptrname,$this->ptrttl,$fd);
     }else{ // end reverse zone
       // retrieve & print MX
-      $this->generateConfig("MX",$this->mx,$this->mxttl,$fd);
+      $this->generateMultiConfig("MX",$this->mxsrc,"","",$this->mxpref,$this->mx,$this->mxttl,$fd);
       // retrieve & print A
       $this->generateMultiConfig("A",$this->a,"","","",$this->aip,$this->attl,$fd);
       // retrieve & print AAAA
