@@ -101,36 +101,31 @@ if($user->authenticated == 0){
       // TODO : NEW ZONE
       $newzone = new Zone($otherzone[0],$otherzone[1],$otherzone[2]);
       $status = $newzone->zonestatus();
-      switch($status) {
-        case 'I':
-          $class='INFORMATION';
-          break;
-        case 'W':
-          $class='WARNING';
-          break;
-        case 'E':
-          $class='ERROR';
-          break;
-        default:
-          $class='UNKNOWN';
+      switch($status[0]) {
+        case 'I': $class='INFORMATION'; break;
+        case 'W': $class='WARNING'; break;
+        case 'E': $class='ERROR'; break;
+        default: $class='UNKNOWN';
       }
+      switch($status[1]) {
+        case 'I': $class2='INFORMATION'; break;
+        case 'W': $class2='WARNING'; break;
+        case 'E': $class2='ERROR'; break;
+        default: $class2='UNKNOWN';
+      }
+      $urlpar = $link . '&amp;zonename=' . $newzone->zonename .
+                        '&amp;zonetype=' . $newzone->zonetype;
       $content .= '<tr>';
-         $content .= '<td
-       class="loghighlight' . $class . '" align="center"><a href="logwindow.php'
-       .$link .'&amp;zonename=' .$newzone->zonename . '&amp;zonetype=' .
-      $newzone->zonetype . '" class="linkcolor"
-      onclick="window.open(\'logwindow.php'
-       .$link .'&amp;zonename=' .$newzone->zonename . '&amp;zonetype=' .
-      $newzone->zonetype .
-    
-'\',\'M\',\'toolbar=no,location=no,directories=no,status=yes,alwaysraised=yes,dependant=yes,resizable=yes,scrollbars=yes,menubar=no,width=640,height=480\');
-return false">'.
-       $status . '</a></td>';
-         $content .= '<td><a href="zones.php'
-      .$link.'&amp;zonename=' . $newzone->zonename . '&amp;zonetype=' .
-      $newzone->zonetype . '" class="linkcolor">' .
-       $newzone->zonename . '</a> (' . $newzone->zonetype . ')</td>';
-          $content .= '</tr>';
+      $content .= '<td align="center"><a href="logwindow.php'. $urlpar .'" class="linkcolor"' .
+        'onclick="window.open(\'logwindow.php'.$urlpar.'\',\'M\',\'toolbar=no,location=no,directories=no,' .
+        'status=yes,alwaysraised=yes,dependant=yes,resizable=yes,scrollbars=yes,' .
+        'menubar=no,width=640,height=480\'); return false">' .
+        '<span class="loghighlight'.$class. '">&nbsp;+</span>'.
+        '<span class="loghighlight'.$class2. '">&nbsp;&nbsp;</span>'.
+        '</a></td>';
+      $content .= '<td><a href="zones.php' . $urlpar . '" class="linkcolor">' .
+          $newzone->zonename . '</a> (' . $newzone->zonetype . ')</td>';
+      $content .= '</tr>';
     }
     $content .= '</table>';
   }else{

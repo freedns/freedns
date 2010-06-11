@@ -484,9 +484,19 @@ endif;
     global $db,$l;
     $this->error="";
     $i=0;
-    $query = "SELECT status FROM 
-    dns_log WHERE zoneid='" . $this->zoneid . "' 
-    GROUP BY status";
+    $query = "SELECT status FROM dns_log 
+      WHERE zoneid='" . $this->zoneid . "' 
+      ORDER BY date DESC LIMIT 1";
+    $res = $db->query($query);
+    if($db->error()){
+      $this->error = $l['str_trouble_with_db'];
+      return 0;
+    }
+    $last = $db->fetch_row($res);
+    $last = $last[0];
+    $query = "SELECT status FROM dns_log 
+      WHERE zoneid='" . $this->zoneid . "' 
+      ORDER BY date DESC";
     $res=$db->query($query);
     while($line=$db->fetch_row($res)){
       if($db->error()){
@@ -495,10 +505,10 @@ endif;
       }else{
         switch($line[0]) {
           case 'E':
-            return 'E';
+            return $last.'E';
             break;
           case 'W':
-            return 'W';
+            return $last.'W';
             break;
           default:
             $i=1;
@@ -506,9 +516,9 @@ endif;
       }
     }
     if($i){
-      return 'I';
+      return $last.'I';
     }else{
-      return 'U';
+      return 'UU';
     }
   }
   
