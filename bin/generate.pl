@@ -441,20 +441,21 @@ if($count){
     ########################################################################
     # Reload all modified zones - not new zones
     ########################################################################
-    $query = "SELECT LOWER(zone) AS zone FROM dns_zone WHERE status='X'";
+    $query = "SELECT LOWER(zone) AS zone, zonetype FROM dns_zone WHERE status='X'";
     my $sth = dbexecute($query,$dbh,LOG);
     $tmp_counter = 0;
     while (my $ref = $sth->fetchrow_hashref()) {
       $tmp_counter++;
       $zone = $ref->{'zone'};
-      if (system("$RNDC_COMMAND reload $zone") == 0)
+      $action = $ref->{'zonetype'} eq "P" ? "reload" : "retransfer";
+      if (system("$RNDC_COMMAND $action $zone") == 0)
       {
         system("$RNDC2_COMMAND retransfer $zone") == 0
           or print LOG logtimestamp() . " " . $LOG_PREFIX .
             " : " . "fns2 retransfer $zone failed: ".($?>>8)."\n";
       } else {
         print LOG logtimestamp() . " " . $LOG_PREFIX .
-          " : " . "fns1 reload $zone failed: ".($?>>8)."\n";
+          " : " . "fns1 $action $zone failed: ".($?>>8)."\n";
       }
     }
     $sth->finish();
