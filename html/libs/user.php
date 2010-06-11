@@ -33,6 +33,7 @@ class User extends Auth {
   var $srvrecords;
   var $nbrows;
   var $isadmin;
+  var $error;
   
   // Instanciation
   // if $login or $idsession, match against DB
