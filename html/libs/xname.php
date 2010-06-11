@@ -731,4 +731,12 @@ function migrationbox($box=0) {
   }
   return "";
 }
+
+function urlpop($url) {
+  return $url . '" class="linkcolor" ' .
+         'onclick="window.open(\'' . $url .
+         '\',\'M\',\'toolbar=no,location=no,directories=no,status=no,' .
+         'alwaysraised=yes,dependant=yes,resizable=yes,menubar=no,' .
+         'scrollbars=yes,width=640,height=480\'); return false';
+}
 ?>

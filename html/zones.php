@@ -67,16 +67,13 @@ if($user->authenticated == 0){
       $urlpar = $link . '&amp;zonename=' . $newzone->zonename .
                         '&amp;zonetype=' . $newzone->zonetype;
       $urlmod = "modify.php" . $urlpar;
-      $urldig = 'logwindow.php' . $urlpar . '" class="linkcolor" ' .
-              'onclick="window.open(\'logwindow.php' . $urlpar .
-              '\',\'M\',\'toolbar=no,location=no,directories=no,status=no,' .
-              'alwaysraised=yes,dependant=yes,resizable=yes,menubar=no,' .
-              'scrollbars=yes,width=640,height=480\'); return false';
+      $urldig = 'digwindow.php' . $urlpar;
+      $urllog = 'logwindow.php' . $urlpar;
 
       $content .= '<tr><td colspan="3">
           <a href="' . $urlmod . '" class="linkcolor">' .
              $newzone->zonename . '</a> (' . $newzone->zonetype . ')</td>' .
-          '<td><a href="' . $urldig . '">' . $l['str_logs'] . '</a></td></tr>';
+          '<td><a href="' . urlpop($urllog) . '">' . $l['str_logs'] . '</a></td></tr>';
 
       // for each retrieve NS & do DigSerial($zone,$server)
       while($nameserver = array_pop($nameservers)){
@@ -85,8 +82,9 @@ if($user->authenticated == 0){
           $serial = sprintf($html->fontred, $l['str_not_available']);
         }
         $content .= "<tr><td></td><td>$nameserver</td><td>$serial</td>";
-        $content .= '<td><a href="' . $urldig . '">' . $l['str_zone_content'] .
-                        '</a></td></tr>';
+        $content .= '<td><a href="' . 
+          urlpop($urldig . '&amp;server=' . $nameserver) .
+          '">' . $l['str_zone_content'] .  '</a></td></tr>';
       } // nameservers
     } // allzones
     $content .= '</table>';
