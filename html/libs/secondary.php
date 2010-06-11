@@ -106,7 +106,7 @@ class Secondary extends Zone {
     $result .= 'checked';
     $notothers = 1;
    }
-   $result .= '>' . $l['str_secondary_allow_tranfer_all'] . '</label>
+   $result .= '>' . $l['str_secondary_allow_transfer_all'] . '</label>
       </td></tr>
       <tr><td>
    <label><input type="radio" name="xfer" value="master" ';
@@ -346,6 +346,7 @@ zone "' . $this->zonename . '" {
  };
 };
 </pre>
+     <li>' . $l['str_secondary_after_modif_set_firewall'] .'
      <li>' . sprintf($l['str_secondary_after_modif_delegate_x_to'],
        $this->zonename) . ': ';
     
