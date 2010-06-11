@@ -91,26 +91,26 @@ class Db {
    *@return object query handler
    */
   Function query($string,$cache = 0){
-  $string = preg_replace('/[\n\s\t]+?/',' ',$string);
-  $mtime = microtime();
-  $mtime = explode(" ",$mtime);
-  $mtime = $mtime[1] + $mtime[0];
-  $tstart = $mtime;
-  if($cache && $cachecontent[$string]){
-    $this->result = $cachecontent[$string];
-  }else{
-        $this->result = mysql_query($string, $this->sh);
-  }
-  if($cache){
-    $cachecontent[$string] = $this->result;
-  }
-  $mtime = microtime();
-  $mtime = explode(" ",$mtime);
-  $mtime = $mtime[1] + $mtime[0];
-  $tend = $mtime;
-  $ttot = $tend - $tstart;
-  $this->lastquery = $string;
-  $this->totaltime+=$ttot;
+    $string = preg_replace('/[\n\s\t]+?/',' ',$string);
+    $mtime = microtime();
+    $mtime = explode(" ",$mtime);
+    $mtime = $mtime[1] + $mtime[0];
+    $tstart = $mtime;
+    if($cache && $this->cachecontent[$string]){
+      $this->result = $this->cachecontent[$string];
+    }else{
+          $this->result = mysql_query($string, $this->sh);
+    }
+    if($cache){
+      $this->cachecontent[$string] = $this->result;
+    }
+    $mtime = microtime();
+    $mtime = explode(" ",$mtime);
+    $mtime = $mtime[1] + $mtime[0];
+    $tend = $mtime;
+    $ttot = $tend - $tstart;
+    $this->lastquery = $string;
+    $this->totaltime+=$ttot;
     return $this->result;
   }
   
