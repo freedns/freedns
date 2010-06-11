@@ -111,7 +111,7 @@ if($user->authenticated == 0){
         case 'I': $class2='INFORMATION'; break;
         case 'W': $class2='WARNING'; break;
         case 'E': $class2='ERROR'; break;
-        default: $class2='UNKNOWN';
+        default: $class2='UNKNOWN2';
       }
       $urlpar = $link . '&amp;zonename=' . $newzone->zonename .
                         '&amp;zonetype=' . $newzone->zonetype;

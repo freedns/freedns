@@ -305,7 +305,8 @@ dt span { font-weight: normal; }
 .loghighlightINFORMATION { font-size: 12px; background-color: #0f0; }
 .loghighlightWARNING { font-size: 12px; background-color: #ff0; }
 .loghighlightERROR { font-size: 12px; background-color: #f00; }
-.loghighlightUNKNOWN { font-size: 12px; background-color: #fff; border: 1px solid #ccc; }
+.loghighlightUNKNOWN { font-size: 12px; background-color: #fff; border: 1px solid #ccc; border-right: none;}
+.loghighlightUNKNOWN2 { font-size: 12px; background-color: #fff; border: 1px solid #ccc; border-left: none;}
 
 .red, .warning, .error { color: #f00; }
 
