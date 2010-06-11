@@ -40,11 +40,12 @@ if($user->authenticated == 0){
 
   if(!notnull($user->error)){
     $content ='<table id="listzonestable">
-    <tr><td class="boxheader">' . $l['str_zone'] . '</td>
+    <tr>
+    <td style="width:30%" class="boxheader">' . $l['str_zone'] . '</td>
     <td class="boxheader">' . $l['str_name_server'] . '</td>
     <td class="boxheader">' . $l['str_serial'] . '</td>
     <td class="boxheader">' . $l['str_view'] . '</td>
-    <td class="boxheader">' . $l['str_status'] . '</td></tr>';
+    </tr>';
 
     // retrieve & generate our name servers list
     $ourservernames = GetListOfServerNames();
@@ -53,105 +54,45 @@ if($user->authenticated == 0){
       array_push($ourserverlist, $servername . ".");
     }
 
-
     while($otherzone= array_pop($allzones)){
       $newzone = new Zone($otherzone[0],$otherzone[1],$otherzone[2]);
-      $status = $newzone->zonestatus();
-      switch($status) {
-        case 'I':
-          $class='INFORMATION';
-          break;
-        case 'W':
-          $class='WARNING';
-          break;
-        case 'E':
-          $class='ERROR';
-          break;
-        default:
-          $class='UNKNOWN';
-      }
-      $content .= '<tr><td colspan="3"><a href="modify.php'
-      .$link.'&amp;zonename=' . $newzone->zonename . '&amp;zonetype=' .
-      $newzone->zonetype . '" class="linkcolor">' .
-       $newzone->zonename . '</a> (' . $newzone->zonetype . ')</td>
-       <td><a href="logwindow.php' 
-       .$link.'&amp;zonename=' . $newzone->zonename . '&amp;zonetype=' .
-      $newzone->zonetype . '" class="linkcolor" onclick="window.open(\'logwindow.php'
-       .$link .'&amp;zonename=' .$newzone->zonename . '&amp;zonetype=' .
-      $newzone->zonetype .
-    
-'\',\'M\',\'toolbar=no,location=no,directories=no,status=no,alwaysraised=yes,dependant=yes,resizable=yes,menubar=no,scrollbars=yes,width=640,height=480\');
-return false">' . $l['str_logs'] . '</a></td>
-      <td
-       class="loghighlight' . $class . '" align="center"><a href="logwindow.php'
-       .$link .'&amp;zonename=' .$newzone->zonename . '&amp;zonetype=' .
-      $newzone->zonetype . '" class="linkcolor" onclick="window.open(\'logwindow.php'
-       .$link .'&amp;zonename=' .$newzone->zonename . '&amp;zonetype=' .
-      $newzone->zonetype .
-    
-'\',\'Logs\',\'toolbar=no,location=no,directories=no,status=yes,alwaysraised=yes,dependant=yes,resizable=yes,scrollbars=yes,menubar=no,width=640,height=480\');
-return false">'.
-       $status . '</a></td></tr>';
-      // for each retrieve NS & do DigSerial($zone,$server)
       if($newzone->zonetype=='P'){
-        $primary = new
-      
-Primary($newzone->zonename,$newzone->zonetype,$user->userid);
-        $keys = array_keys($primary->ns);
-        while($nameserver = array_shift($keys)){
-          $serial = DigSerial($nameserver,$primary->zonename);
-          if($serial == $l['str_not_available']){
-            $serial = sprintf($html->fontred,
-                $l['str_not_available']
-                );
-          }
-          $content .= '
-          <tr><td width="20">&nbsp;</td><td>' . $nameserver .
-          '</td><td>' . $serial . '</td><td>
-          <a href="digwindow.php'
-       .$link .'&amp;zonename=' .$newzone->zonename . '&amp;zonetype=' .
-      $newzone->zonetype . '&amp;server=' . $nameserver . '" class="linkcolor" onclick="window.open(\'digwindow.php'
-       .$link .'&amp;zonename=' .$newzone->zonename . '&amp;zonetype=' .
-      $newzone->zonetype . '&amp;server=' . $nameserver . 
-    
-'\',\'M\',\'toolbar=no,location=no,directories=no,status=no,alwaysraised=yes,dependant=yes,menubar=no,resizable=yes,scrollbars=yes,width=640,height=480\');
-return false">' . $l['str_zone_content'] . '</a></td></tr>';
-        }
+        $primary = new Primary($newzone->zonename,$newzone->zonetype,$user->userid);
+        $nameservers = array_keys($primary->ns);
       }else{
-        // secondary NS
-        $secondary = new
-      
-Secondary($newzone->zonename,$newzone->zonetype,$user->userid);
+        $secondary = new Secondary($newzone->zonename,$newzone->zonetype,$user->userid);
         $masters = split(';',$secondary->masters);
-        // add our NS server to secondary NS servers 
-        $masters = array_merge($masters,$ourserverlist);
-        while($nameserver = array_pop($masters)){
-          $serial = DigSerial($nameserver,$secondary->zonename);
-          if($serial == 'not available'){
-            $serial = sprintf($html->fontred,
-                $l['str_not_available']
-                );
-          }
-          $content .= '
-          <tr><td width="20">&nbsp;</td><td>' . $nameserver .
-          '</td><td>' . $serial . '</td><td>
-          <a href="digwindow.php'
-       .$link .'&amp;zonename=' .$newzone->zonename . '&amp;zonetype=' .
-      $newzone->zonetype . '&amp;server=' . $nameserver . '" class="linkcolor" onclick="window.open(\'digwindow.php'
-       .$link .'&amp;zonename=' .$newzone->zonename . '&amp;zonetype=' .
-      $newzone->zonetype . '&amp;server=' . $nameserver . 
-    
-'\',\'M\',\'toolbar=no,location=no,directories=no,status=no,alwaysraised=yes,dependant=yes,menubar=no,resizable=yes,scrollbars=yes,width=640,height=480\');
-return false">' . $l['str_zone_content'] . '</a></td></tr>';
-          
-        }
-        
+        $nameservers = array_merge($masters,$ourserverlist);
       }
-    }
+      $urlpar = $link . '&amp;zonename=' . $newzone->zonename .
+                        '&amp;zonetype=' . $newzone->zonetype;
+      $urlmod = "modify.php" . $urlpar;
+      $urldig = 'logwindow.php' . $urlpar . '" class="linkcolor" ' .
+              'onclick="window.open(\'logwindow.php' . $urlpar .
+              '\',\'M\',\'toolbar=no,location=no,directories=no,status=no,' .
+              'alwaysraised=yes,dependant=yes,resizable=yes,menubar=no,' .
+              'scrollbars=yes,width=640,height=480\'); return false';
+
+      $content .= '<tr><td colspan="3">
+          <a href="' . $urlmod . '" class="linkcolor">' .
+             $newzone->zonename . '</a> (' . $newzone->zonetype . ')</td>' .
+          '<td><a href="' . $urldig . '">' . $l['str_logs'] . '</a></td></tr>';
+
+      // for each retrieve NS & do DigSerial($zone,$server)
+      while($nameserver = array_pop($nameservers)){
+        $serial = DigSerial($nameserver,$newzone->zonename);
+        if($serial == $l['str_not_available']){
+          $serial = sprintf($html->fontred, $l['str_not_available']);
+        }
+        $content .= "<tr><td></td><td>$nameserver</td><td>$serial</td>";
+        $content .= '<td><a href="' . $urldig . '">' . $l['str_zone_content'] .
+                        '</a></td></tr>';
+      } // nameservers
+    } // allzones
     $content .= '</table>';
   }else{
     $content = $user->error;
-  }  
+  }
 }
 
 
