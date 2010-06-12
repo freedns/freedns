@@ -2136,14 +2136,14 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
             }else{
               // Check if record already exists
               $query = "SELECT count(*) FROM dns_record WHERE 
-              zoneid='" . $this->zoneid . "' AND type='AAAA'
+              zoneid='" . $zoneid . "' AND type='AAAA' 
               AND val1='" . $value . "'";
               $res = $db->query($query);
               $line = $db->fetch_row($res);
               if($line[0] == 0){
                 // check if CNAME record not already exists
                 $query = "SELECT count(*) FROM dns_record WHERE 
-                zoneid='" . $this->zoneid . "' AND type='CNAME'
+                zoneid='" . $zoneid . "' AND type='CNAME' 
                 AND val1='" . $value . "'";
                 $res = $db->query($query);
                 $line = $db->fetch_row($res);
@@ -2152,7 +2152,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                   stripslashes($value)) . "...";
                   $ttlval = $this->DNSTTL($ttl[$i]);
                   $query = "INSERT INTO dns_record (zoneid, type, val1, val2,ttl) 
-                  VALUES ('" . $this->zoneid . "',
+                  VALUES ('" . $zoneid . "', 
                   'AAAA', '" . $value . "', '" . $aaaa[$i] . "','" . $ttlval . "')";
                   $db->query($query);
                   if($db->error()){
