@@ -383,6 +383,7 @@ class Primary extends Zone {
       ';
 
       if($this->reversezone){
+        $v6 = preg_match("/\.ip6\.(arpa|int)$/", $this->zonename);
         $result .= '
         <h3 class="boxheader">' . $l['str_primary_ptr_title'] . '</h3>
         <p>
@@ -393,7 +394,7 @@ class Primary extends Zone {
         <table>
         <tr><td class="left">' . 
         sprintf($l['str_primary_ptr_record_modify_a_x'],
-        $config->sitename) . '</td><td><input type=checkbox';
+        $v6?"AAAA":"A", $config->sitename) . '</td><td><input type=checkbox';
         if ($advanced) $result .= ' checked';
         $result .= '
         name="modifya"></td></tr>
