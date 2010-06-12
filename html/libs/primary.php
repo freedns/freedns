@@ -2329,15 +2329,33 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                                   1)
                                 )
                               );
+                      $ipreg="[^0-9]";
+                      $v6 = preg_match("/\.ip6\.(arpa|int)$/", $this->zonename);
+                      if ($v6) {
+                        $newval = "";
+                        $iplistv = split('\.', $value);
+                        while(NULL!=($ipitem = array_pop($iplistv))){
+                          $newval .= "." . $ipitem;
+                        }
+                        $value = substr($newval,1);
+                        $ipreg="[^0-9a-f]";
+                      }
                       $newip = "";
-                      $count = 0; // we have to count in case of zub-zones aa.bb.cc.dd-ee
-                      while($ipitem = array_pop($iplist)){
+                      $count = 0;
+                      while(NULL!=($ipitem = array_pop($iplist))){
                         $count++;
-                        if($count == 4) break;
-                        if(ereg('[^0-9]', $ipitem)) break;
+                        if(eregi($ipreg, $ipitem)) break;
                         $newip .= "." . $ipitem;
                       }
                       $newip = substr($newip,1) . "." . $value;
+                      if ($v6) {
+                        // for v6 get rid of all the dots and 
+                        // group by four digits, colon separated
+                        $newip = preg_replace("/\./", "", $newip);
+                        $h="([0-9a-f]{4})";
+                        $hreg = "/^$h$h$h$h$h$h$h$h$/i";
+                        $newip = preg_replace($hreg, "$1:$2:$3:$4:$5:$6:$7:$8", $newip);
+                      }
                       $result .= sprintf($l['str_primary_looking_for_zone_x'],$newzone). "...";
                       if($this->Exists($newzone,'P')){
                         $alluserzones = $this->user->listallzones();
@@ -2356,8 +2374,15 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                           $res = $db->query($query);
                           $line = $db->fetch_row($res);
                           $newzoneid=$line[0];
-                          $result .= " " . $this->AddARecord($newzoneid,array($newip),array($newa),
-                            array($l['str_primary_default']),NULL);
+                          $result .= " ";
+                          if ($v6) 
+                            $result .= $this->AddAAAARecord($newzoneid,
+                              array($newip), array($newa),
+                              array($l['str_primary_default']), NULL);
+                          else
+                            $result .= $this->AddARecord($newzoneid,
+                              array($newip), array($newa),
+                              array($l['str_primary_default']), NULL);
                           if(!$this->error){
                             $result .= " " . $this->flagModified($newzoneid);
                             $this->updateSerial($newzoneid);
