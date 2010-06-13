@@ -393,11 +393,8 @@ class Primary extends Zone {
         <br >' . $l['str_primary_ptr_ipv6_note'] . '<p>
         <table>
         <tr><td class="left">' . 
-        sprintf($l['str_primary_ptr_record_modify_a_x'],
-        $v6?"AAAA":"A", $config->sitename) . '</td><td><input type=checkbox';
-        if ($advanced) $result .= ' checked';
-        $result .= '
-        name="modifya"></td></tr>
+          sprintf($l['str_primary_ptr_record_modify_a_x'], $v6?"AAAA":"A", $config->sitename) . '</td>
+        <td><input type=checkbox name="modifya"></td></tr>
         </table>
         <table>
         <tr><th>' . sprintf($l['str_primary_ptr_ip_under_x'],
@@ -672,11 +669,8 @@ class Primary extends Zone {
         </p>
         <table>
         <tr><td class="left">' . 
-        sprintf($l['str_primary_a_record_modify_ptr_x'],
-        $config->sitename) . '</td><td><input type=checkbox';
-        if ($advanced) $result .= ' checked';
-        $result .= '
-        name="modifyptr"></td></tr>
+          sprintf($l['str_primary_a_record_modify_ptr_x'], $config->sitename) . '</td>
+        <td><input type=checkbox name="modifyptr"></td></tr>
         </table>
         <table>
         <th>' . $l['str_primary_name'] . '<th>IP';
