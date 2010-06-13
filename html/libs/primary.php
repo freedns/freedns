@@ -3494,7 +3494,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
     {
       $this->error = sprintf($l['str_can_not_open_x_for_writing'],
                 $this->tempZoneFile());
-      return -1;
+      return 0;
     }
     $this->generateSOA($this->defaultttl,$config->nsname,$this->zonename,
               $this->user->Retrievemail(), $this->serial,
