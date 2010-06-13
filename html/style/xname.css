@@ -300,7 +300,7 @@ dt span { font-weight: normal; }
 .loghighlight { background-color: #ccc; }
 .loglowlightINFORMATION { background-color: #afa; }
 .loglowlightWARNING { background-color: #ffa; }
-.loglowlightERROR { font-size: 12px; background-color: #faa; }
+.loglowlightERROR { font-size: 12px; background-color: #f66; }
 .loglowlightUNKNOWN { font-size: 12px; background-color: #fff; }
 .loghighlightINFORMATION { font-size: 12px; background-color: #0f0; }
 .loghighlightWARNING { font-size: 12px; background-color: #ff0; }

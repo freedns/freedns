@@ -102,15 +102,15 @@ if($user->authenticated == 0){
       $newzone = new Zone($otherzone[0],$otherzone[1],$otherzone[2]);
       $status = $newzone->zonestatus();
       switch($status[0]) {
-        case 'I': $class='INFORMATION'; break;
-        case 'W': $class='WARNING'; break;
-        case 'E': $class='ERROR'; break;
-        default: $class='UNKNOWN';
+        case 'I': $class='loghighlightINFORMATION'; break;
+        case 'W': $class='loghighlightWARNING'; break;
+        case 'E': $class='loghighlightERROR'; break;
+        default: $class='loghighlightUNKNOWN';
       }
       switch($status[1]) {
-        case 'I': $class2='INFORMATION'; break;
-        case 'W': $class2='WARNING'; break;
-        case 'E': $class2='ERROR'; break;
+        case 'I': $class2='loghighlightINFORMATION'; break;
+        case 'W': $class2='loghighlightWARNING'; break;
+        case 'E': $class2='loglowlightERROR'; if ($status[0]=='E') $class2="loghighlightERROR"; break;
         default: $class2='UNKNOWN2';
       }
       $urlpar = $link . '&amp;zonename=' . $newzone->zonename .
@@ -120,8 +120,8 @@ if($user->authenticated == 0){
         'onclick="window.open(\'logwindow.php'.$urlpar.'\',\'M\',\'toolbar=no,location=no,directories=no,' .
         'status=yes,alwaysraised=yes,dependant=yes,resizable=yes,scrollbars=yes,' .
         'menubar=no,width=640,height=480\'); return false">' .
-        '<span class="loghighlight'.$class. '">&nbsp;+</span>'.
-        '<span class="loghighlight'.$class2. '">&nbsp;&nbsp;</span>'.
+        '<span class="'.$class. '">&nbsp;@</span>'.
+        '<span class="'.$class2. '">&nbsp;&nbsp;</span>'.
         '</a></td>';
       $content .= '<td><a href="zones.php' . $urlpar . '" class="linkcolor">' .
           $newzone->zonename . '</a> (' . $newzone->zonetype . ')</td>';

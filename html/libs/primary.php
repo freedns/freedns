@@ -735,14 +735,15 @@ class Primary extends Zone {
           ' . $l['str_primary_ipv6_record_expl_zone_and_round_robin'] . '
           </p>
           <table>
+          <tr><td class="left">' .
+          sprintf($l['str_primary_ipv6_record_modify_reverse_x'], $config->sitename) .
+          '</td><td><input type=checkbox name="modifyptripv6" disabled></td></tr>
+          </table>
+          <table>
           <th>'. $l['str_primary_name'] . '<th>IPv6';
           if ($advanced) { $result .= '<th>TTL'; }
           $result .= '<th>' . $l['str_delete'] . '
-          <!-- <tr><td colspan="4">' .
-          sprintf($l['str_primary_ipv6_record_modify_reverse_x'],
-          $config->sitename) . ' ? <input type=checkbox
-          name="modifyptripv6"></td></tr>
-          -->';
+          ';
   
           $counter=0;
           while(isset($this->aaaa[$counter])){
@@ -1252,9 +1253,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
       // check for errors
       // - generate zone file in /tmp/zonename
       if(!$this->generateConfigFile()){
-        $result .= sprintf($html->string_error,
-              $this->error
-            ) . '<br >';
+        $result .= sprintf($html->string_error, $this->error) . '<br>';
       }else{
 
         // - do named-checkzone $zonename /tmp/zonename and return result
@@ -2125,7 +2124,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
             if(! $this->checkAAAAValue($aaaa[$i]) ){
               $result .= sprintf($html->string_error, 
                   sprintf($l['str_primary_x_ip_has_to_be_ipv6'],
-                    stripslashes($value))
+                    stripslashes($value . "/" .$aaaa[$i]))
                   ) . "<br >\n";
               $this->error = $l['str_primary_data_error'];
             }else{
@@ -3178,8 +3177,9 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
         $res = $db->query($query);
         $line = $db->fetch_row($res);
         $newzoneid=$line[0];
-        $result .= " " . $this->AddPTRRecord($newzoneid,array($firstip),array($value .
-            "." . $this->zonename . "."),array($l['str_primary_default']),NULL);
+        $result .= " " . $this->AddPTRRecord($newzoneid,array($firstip),
+          array($value . "." . $this->zonename . "."),
+          array($l['str_primary_default']),NULL);
         if(!$this->error){
           $result .= " " . $this->flagModified($newzoneid);
           $this->updateSerial($newzoneid);
