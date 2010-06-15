@@ -131,6 +131,12 @@ include 'includes/strings/' . $lang . '/strings.php';
 // reinitialize with definitive right language
 $html->initialize();
 
+if((isset($_REQUEST['logout']) && $_REQUEST['logout']) || (isset($logout) && $logout)){
+  $user->logout($idsession);
+  Header("Location: " . $_SERVER['SCRIPT_URI'] . "?language=" . $lang);
+}
+
+
 print $html->header($l[$page_title]);
 
 if($config->usergroups){
@@ -145,11 +151,6 @@ if($config->usergroups){
   
 if(!notnull($idsession)){
   $idsession=$user->idsession;
-}
-
-if((isset($_REQUEST['logout']) && $_REQUEST['logout']) || (isset($logout) &&
-$logout)){
-  $user->logout($idsession);
 }
 
 if(notnull($idsession)){
