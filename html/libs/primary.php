@@ -1571,7 +1571,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
     
     $query = "DELETE FROM dns_record 
       WHERE zoneid='" . $this->zoneid . "'
-      AND type='A' AND val1='" . $name . "'";
+      AND type='A' AND val1='" . mysql_real_escape_string($name) . "'";
             $result .= sprintf($l['str_primary_deleting_a_x'],
             stripslashes($newvalue)) . "...";
     $res = $db->query($query);
