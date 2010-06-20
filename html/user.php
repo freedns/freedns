@@ -205,7 +205,7 @@ if($user->authenticated == 0){
             include('includes/user_sendmail.php');
             
             // insert ID in DB
-            if(!$user->storeIDEmail($user->userid,mysql_real_escape_string($email),$randomid)){
+            if(!$user->storeIDEmail($user->userid,$email,$randomid)){
               $content .= $user->error;
             }else{
         

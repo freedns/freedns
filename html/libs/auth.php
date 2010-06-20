@@ -628,8 +628,8 @@ class Auth {
       $config->userdbwaitingflduserid,
       $config->userdbwaitingfldemail,
       $config->userdbwaitingfldid,
-      $userid,
-      $email,
+      mysql_real_escape_string($userid),
+      mysql_real_escape_string($email),
       $id);
     $res = $dbauth->query($query);
     if($dbauth->error()){
