@@ -145,9 +145,9 @@ class Auth {
           $config->userdbfldid,
           $config->userdbtable,
           $config->userdbfldlogin,
-          $login,
+          mysql_real_escape_string($login),
           $config->userdbfldpassword,
-          $password);
+          mysql_real_escape_string($password));
         $res = $dbauth->query($query);
         $line = $dbauth->fetch_row($res);
         if($dbauth->error()){
