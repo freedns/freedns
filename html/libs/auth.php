@@ -687,7 +687,7 @@ class Auth {
       "UPDATE %s SET %s='%s',%s='%s' WHERE %s='%s'",
       $config->userdbtable,
       $config->userdbfldemail,
-      $email,
+      mysql_real_escape_string($email),
       $config->userdbfldvalid,
       $config->userdbfldvalidvalue,
       $config->userdbfldid,
