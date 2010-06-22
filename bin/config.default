@@ -73,6 +73,7 @@ $NAMED_ALLOW_QUERY = "";    # if not empty, allow-query { $NAMED_ALLOW_QUERY; };
 ####################################
 $EMAIL_SMTP = "127.0.0.1"; # IP of your mail server
 $EMAIL_ADMIN = "your\@email.address";
+$EMAIL_SOA = "your\@email.address";
 $EMAIL_FROM = "YOUR SERVICE NAME <your\@email.address>";
 $EMAIL_SUBJECT_PREFIX = "[Whatever you want]";
 $EMAIL_SIGNATURE = "

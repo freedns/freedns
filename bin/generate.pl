@@ -309,7 +309,7 @@ if($count){
       ($zonef = $zone) =~ s,/,\\,g;
       $zoneid = $ref->{'zoneid'};
       # Retrieve MAIL
-      $query = sprintf("SELECT %s as email FROM %s WHERE %s='%s'",
+      $query = sprintf("SELECT IF(LOCATE('emailsoa=1', options), %s, 'NULL') AS email FROM %s WHERE %s='%s'",
           $DB_AUTH_FLD_EMAIL,
           $DB_AUTH_TABLE,
           $DB_AUTH_FLD_ID,
@@ -318,6 +318,11 @@ if($count){
       my $sthauth = dbexecute($query,$dbhauth,LOG);
       my $refauth = $sthauth->fetchrow_hashref();
       $email = $refauth->{'email'};
+      if ($email eq "NULL") {
+        ($zonemail = $zone) =~ s/\./=/g;
+        $email = $EMAIL_SOA;
+        $email =~ s/\@/+$zonemail\@/;
+      }
       $email =~ s/\@/\./;
       # Retrieve Serial
       $serial = $ref->{'serial'};
