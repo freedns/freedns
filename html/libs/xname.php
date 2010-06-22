@@ -387,7 +387,7 @@ function checkPrimary($string){
  */
 function checkEmail($string){
   $result = 1;
-  if(!ereg("^[^.]+@.+\\..+$", $string)) $result = 0;
+  if(!ereg("^[^@]+@.+\\..+$", $string)) $result = 0;
   return $result;
 }
 
