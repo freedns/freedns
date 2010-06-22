@@ -39,6 +39,8 @@ Class Config {
     // occurs, to warn administrator
     $this->emailfrom = 'webserver@xname.org';
     $this->emailto = 'demo@xname.org';
+    // email to put in SOA
+    $this->soamail = 'hostmaster@xname.org';
     $this->dbpersistent = 1;
     // host & port needed for chrooted web server
     // without mysql unix socket access
