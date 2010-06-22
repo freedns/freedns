@@ -78,6 +78,7 @@ $l["str_email_not_sent"] = "wygląda na to, że Twoje konto nie ma poprawnego ad
 $l["str_email_password_recovery_for_account_on_x"] = "W serwisie %s ktoś (mam nadzieję, że Ty) zażyczył uzyskania tymczasowego hasła.";
 $l["str_email_please_follow_this_link"] = "Proszę wejść na poniższy odnośnik ";
 $l["str_email_regards"] = "pozdrawiamy,";
+$l["str_email_soa"] = "Email publikowany w SOA";
 $l["str_email_successfully_sent_explanation1"] = "Wysłano Ci list w celu weryfikacji poprawności adresu email. Wejdź na stronę wskazywaną przez URL zawarty w tym liście.";
 $l["str_email_successfully_sent_explanation2"] = "Dopiero potem możesz się zalogować na swoje konto.";
 $l["str_email_this_email_is_sent_to_validate_email_x"] = "Ten list został wysłany w celu weryfikacji Twojego adresu email, %s.";

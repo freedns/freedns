@@ -1,6 +1,9 @@
 <?
 $content = '
 <dl>
+   <dt>Poprawki na prośbę [2010-06-22]</dt>
+   <dd>Pozwoliłem na wildcard A, a także zmieniłem, żeby wasz adres email nie pojawiał się (po wygenerowaniu strefy) w SOA &mdash; z czego wynika, że już można używać kropek w adresach email (można to sobie wyłączyć w opcjach).
+   </dd>
    <dt>Po trzech tygodniach [2010-06-15]</dt>
    <dd>Krótkie podsumowanie: do tej pory zmigrowało ok. 42% domen, acz tylko 28% z tego ma zrobioną delegację na FreeDNS::42, stare dnsy (niedługo wyłączają!) ma ciągle jeszcze 36% ze zmigrowanych stref, zaś 36% w ogóle nie ma delegacji. <!-- Z drugiej strony, z jeszcze niezmigrowanych aż 70% nie jest zarejestrowanych w starym systemie, więc może to po prostu stare domeny i w ten sposób zostaną naturalnie oczyszczone. --></dd>
    <dd>Krótki przegląd zmian<!-- (podziękowania dla poszczególnych osób będą w oddzielnej notce) -->: poprawiłem mnóstwo błędów w kodzie, automatyczne tworzenie rekordów AAAA ze strefy odwrotnej, robienie MX dla hosta, przetwarzanie logów, kod html i css, UTF-8, tłumaczenia, zakładanie stref, pokazywanie logów i stref na subkontach, pliterki w mailach, mechanizm zmiany adresu mail <!-- (konto już nie jest blokowane do potwierdzenia) -->, ułatwienie do tworzenia wielu rekordów w strefie odwrotnej, nowy typ przekierowania www, walidacja wielu pól, strefy odwrotne dla sieci mniejszych niż /24... <!-- i wiele innych poprawek jest w drodze. --> Piszcie, jeśli czegoś wam brakuje, póki jeszcze mam melodię na dłubanie w tym kodzie. :)</dd>

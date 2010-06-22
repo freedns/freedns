@@ -3497,7 +3497,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
       return 0;
     }
     $this->generateSOA($this->defaultttl,$config->nsname,$this->zonename,
-              $this->serial,
+              $this->user,$this->serial,
               $this->refresh,$this->retry,$this->expiry,$this->minimum,$fd);
               
     // retrieve & print NS
@@ -3531,7 +3531,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 
 
 // *******************************************************  
-//  Function generateSOA($tttl,$nsname,$zonename,
+//  Function generateSOA($tttl,$nsname,$zonename,$user
 //            $serial,$refresh,$retry,$expiry,$minimum,$fd="")
   /**
    * Generate SOA config in a file or as return content
@@ -3539,14 +3539,18 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
    *@access private
    *@return int 1 if in a file, string content if no file given
    */
-  Function generateSOA($tttl,$nsname,$zonename,
+  Function generateSOA($tttl,$nsname,$zonename,$user,
             $serial,$refresh,$retry,$expiry,$minimum,$fd=""){
     global $l, $config;
     
     $content  = "\n\$TTL " . $tttl . " ; " . $l['str_primary_default_ttl'] ;
 
-    $uh = split("@", $config->soamail);
-    $mail = $uh[0] . "+" . ereg_replace("\.", "=", $zonename) . "." . $uh[1];
+    if ($user->emailsoa) {
+      $mail = ereg_replace("@",".",$user->Retrievemail()) . ".";
+    } else {
+      $uh = split("@", $config->soamail);
+      $mail = $uh[0] . "+" . ereg_replace("\.", "=", $zonename) . "." . $uh[1];
+    }
     $zonename = $zonename . ".";
     $nsname = $nsname . ".";
     $content .= sprintf("\n%-18s \tIN %-5s %s %s", $zonename, "SOA", $nsname, $mail);

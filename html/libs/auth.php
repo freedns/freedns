@@ -670,7 +670,7 @@ class Auth {
       return 0;
     }
     $userid = $line[0];
-        $email = $line[1];
+    $email = $line[1];
     
     $query = sprintf(
       "DELETE FROM %s WHERE %s='%s'",
@@ -682,14 +682,39 @@ class Auth {
       $this->error=$l['str_trouble_with_db'];
       return 0;
     }
+    // if user changed email to one containing dot, we cannot
+    // generate soa properly, switch off the option.
+    $userpart = split('@', $email);
+    if (strpos($userpart[0], '.') !== FALSE) {
+      $query = sprintf("SELECT %s FROM %s WHERE %s='%s'",
+        $config->userdbfldoptions,
+        $config->userdbtable,
+        $config->userdbfldid,
+        $userid);
+      $res = $dbauth->query($query);
+      $line = $dbauth->fetch_row($res);
+      $options = $line[0];
+      $emailsoa = 0;
+      if(preg_match("/emailsoa=([^;]*);/i",$options,$match)){
+        $emailsoa=$match[1];
+      }
+      if (notnull($emailsoa)) {
+        $options = ereg_replace('emailsoa=1', 'emailsoa=0', $options);
+        $options = "'" . $options . "'";
+      }
+    } else {
+      $options = $config->userdbfldoptions;
+    }
     // update email & set dns_user.valid to 1
     $query = sprintf(
-      "UPDATE %s SET %s='%s',%s='%s' WHERE %s='%s'",
+      "UPDATE %s SET %s='%s',%s='%s',%s=%s WHERE %s='%s'",
       $config->userdbtable,
       $config->userdbfldemail,
       mysql_real_escape_string($email),
       $config->userdbfldvalid,
       $config->userdbfldvalidvalue,
+      $config->userdbfldoptions,
+      $options,
       $config->userdbfldid,
       $userid);
     $res = $dbauth->query($query);

@@ -50,8 +50,21 @@ if($user->authenticated == 0){
         sprintf($l['str_waiting_to_confirm_x'], $emailtoconfirm)
         ) . '</td></tr>';
       }
+      $usermail = $user->Retrievemail();
       $content .=  '<tr><td class="left">' . $l['str_your_valid_email'] . ':</td><td><input type=text name="email" value="' . 
-      $user->Retrievemail() . '"></td></tr>
+      $usermail . '"></td></tr>
+      ';
+      $content .= '<tr><td class="left">' . $l['str_email_soa'] . ':</td>
+      <td><input type=checkbox name="emailsoa"';
+      $userpartmail = split('@', $usermail);
+      if (strpos($userpartmail[0], '.') !== FALSE) {
+        $content .= ' disabled';
+      } else {
+        if($user->emailsoa){
+          $content .= ' checked';
+        }
+      }
+      $content .='></td></tr>
       ';
     }
     $content .= '<tr><td colspan="2" class="left">' . 
@@ -258,6 +271,12 @@ if($user->authenticated == 0){
       }
     }else{ // end txtrecords set
       $user->txtrecords=0;
+    }
+    if((isset($_REQUEST) && $_REQUEST['emailsoa']) ||
+      (!isset($_REQUEST) && $emailsoa)){
+      $user->emailsoa = 1;
+    }else{ 
+      $user->emailsoa = 0;
     }
 
     if($config->srvrecords){
