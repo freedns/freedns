@@ -3795,22 +3795,24 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
  *@return int 1 if valid, 0 else
  */
   function checkAName($string){
-          $string = strtolower($string);
-          // only specified char - dot not allowed (not RFC but dummy user prevention)
+    $string = strtolower($string);
+    // only specified char - dot not allowed (not RFC but dummy user prevention)
     // except if zone name itself
     if($string == $this->zonename.'.'){
       $result = 1;
+    }elseif($string == '*') {
+        $result = 1;
     }else{
-            if(strcmp($string,"@") && (strspn($string, ".0123456789abcdefghijklmnopqrstuvwxyz-") !=
-              strlen($string))){
-                    $result = 0;
-          }else if ($string[0]=='.'||$string[strlen($string)-1]=='.'||count(explode('.',$string,3))>2){
-                    $result = 0;
-            }else{
-                    $result = 1;
-            }
+      if(strcmp($string,"@") && (strspn($string, ".0123456789abcdefghijklmnopqrstuvwxyz-") !=
+        strlen($string))){
+        $result = 0;
+      }else if ($string[0]=='.'||$string[strlen($string)-1]=='.'||count(explode('.',$string,3))>2){
+        $result = 0;
+      }else{
+        $result = 1;
+      }
     }
-          return $result;
+    return $result;
   }
   // function checkAValue($string)
   /**
