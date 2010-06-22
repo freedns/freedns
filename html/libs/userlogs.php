@@ -180,6 +180,7 @@ class Userlogs {
   Function deleteLog($logid){
     global $db,$l,$user;
     $this->error="";
+    # TODO: fix problem with deleting logs of sub-accounts (use groupid)
     $query = "DELETE FROM dns_userlog
         WHERE id='" . mysql_real_escape_string($logid) . "'
         AND userid='" . $user->userid ."'";
