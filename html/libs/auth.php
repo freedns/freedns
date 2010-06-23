@@ -700,8 +700,8 @@ class Auth {
       }
       if (notnull($emailsoa)) {
         $options = ereg_replace('emailsoa=1', 'emailsoa=0', $options);
-        $options = "'" . $options . "'";
       }
+      $options = "'" . $options . "'";
     } else {
       $options = $config->userdbfldoptions;
     }
