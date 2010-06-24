@@ -300,36 +300,25 @@ function checkDomain($string){
  */
 function checkZone($string){
   $string = strtolower($string);
-  // only specified char
-  if((strspn($string, "0123456789abcdefghijklmnopqrstuvwxyz-./") !=
-  strlen($string)) || (strpos('0'.$string,".") == FALSE)||
-  (strpos('0'.$string,".") == 1) || !preg_match("/[a-z]$/i",$string)){
-    $result = 0;
-  }else{
-    $result = 1;
-  }
-  return $result;
+  // only specified chars
+  if (preg_match("/[^a-z0-9\.\/-]/i", $string))
+    return 0;
+  // at least one dot
+  if (strpos($string, ".") === FALSE)
+    return 0;
+  // beginning dot or / or -
+  if (preg_match("/^[\/\.-]/", $string))
+    return 0;
+  // ending char
+  if (!preg_match("/[a-z]$/i", $string))
+    return 0;
+  // two consecutive dots
+  if (strpos($string, "..") !== FALSE)
+    return 0;
+
+  return 1;
 }
 
-// function checkZoneWithDot($string)
-/**
- * Check if zone name has only valid char, without dot as 1st char
- * Zone name must have only [a-z] char at the end AND ".".
- *@param string $string zone name to be checked
- *@return int 1 if valid, 0 else
- */
-function checkZoneWithDot($string){
-  $string = strtolower($string);
-  // only specified char
-  if((strspn($string, "0123456789abcdefghijklmnopqrstuvwxyz-.") !=
-  strlen($string)) || (strpos('0'.$string,".") == FALSE)||
-  (strpos('0'.$string,".") == 1) || !preg_match("/[a-z]\.$/i",$string)){
-    $result = 0;
-  }else{
-    $result = 1;
-  }
-  return $result;
-}
 
 // function checkName($string)
 /**
