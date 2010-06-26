@@ -135,8 +135,8 @@ if(-e($SYSLOG_FILE)){
         if($content =~ /$LOG_PATTERN_FILE/){
           $zonename = $2;
         }else{  
-          print LOG logtimestamp() . " " . $LOG_PREFIX . " : " . 
-            $str_log_not_matching{$SITE_DEFAULT_LANGUAGE} . " : $content\n";
+          #print LOG logtimestamp() . " " . $LOG_PREFIX . " : " . 
+          #  $str_log_not_matching{$SITE_DEFAULT_LANGUAGE} . " : $content\n";
         }
       }
     
