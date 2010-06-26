@@ -570,6 +570,6 @@ if($count){
 
 # Disconnect from the database.
 $dbh->disconnect();
-print LOG logtimestamp() . " " . $LOG_PREFIX . " : DEBUG : stop : count=". 
-  $count ." (" . tv_interval ($t1) . ")\n";
+#print LOG logtimestamp() . " " . $LOG_PREFIX . " : DEBUG : stop : count=". 
+#  $count ." (" . tv_interval ($t1) . ")\n";
 close LOG;
