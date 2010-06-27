@@ -387,10 +387,10 @@ class Primary extends Zone {
         $result .= '
         <h3 class="boxheader">' . $l['str_primary_ptr_title'] . '</h3>
         <p>
-        <p>' . $l['str_primary_ptr_expl'] . '<br >
-        ' . $l['str_primary_ptr_sample'] . ': <br >
+        <p>' . $l['str_primary_ptr_expl'] . '<br>
+        ' . $l['str_primary_ptr_sample'] . ': <br>
         <tt>' . $l['str_primary_ptr_sample_content'] . '</tt>
-        <br >' . $l['str_primary_ptr_ipv6_note'] . '<p>
+        <br>' . $l['str_primary_ptr_ipv6_note'] . '<p>
         <table>
         <tr><td class="left">' . 
           sprintf($l['str_primary_ptr_record_modify_a_x'], $v6?"AAAA":"A", $config->sitename) . '</td>
@@ -525,15 +525,15 @@ class Primary extends Zone {
         <p>
         ' . sprintf($l['str_primary_reverse_sub_zones_delegation_x'],
             $config->sitename) . '
-        <br >
+        <br>
         ' . sprintf($l['str_primary_reverse_sub_zones_delegation_expl_x_x'],
-            $this->zonename, $config->sitename) . '<br >
+            $this->zonename, $config->sitename) . '<br>
         ' . $l['str_primary_reverse_sub_zones_delegation_how'] . '
         </p>
         <table>
         <tr><th>' . $l['str_primary_reverse_sub_zone_range'] . '</th>
             <th>' . sprintf($l['str_primary_reverse_sub_zone_delegated_to_user_x'],
-            "...") .'</th>
+            "... ") .'</th>
             <th>TTL</th>
             <th>' . $l['str_delete'] .'</th>
         </tr>
@@ -664,7 +664,7 @@ class Primary extends Zone {
         <p>' .
         sprintf($l['str_primary_a_record_what_you_want_before_x_x_x'],
           $this->zonename, $this->zonename,
-          $this->zonename) . '<br >
+          $this->zonename) . '<br>
         ' . $l['str_primary_a_record_expl'] . '
         </p>
         <table>
@@ -731,7 +731,7 @@ class Primary extends Zone {
           <p>' . 
           sprintf($l['str_primary_ipv6_record_expl_before_x_x_x'],
             $this->zonename,$this->zonename,
-            $this->zonename) . '<br >
+            $this->zonename) . '<br>
           ' . $l['str_primary_ipv6_record_expl_zone_and_round_robin'] . '
           </p>
           <table>
@@ -1245,7 +1245,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
     if($this->UpdateSOA($xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum) == 0){
       $result .= sprintf($html->string_error, 
             $this->error
-          ) . '<br >';
+          ) . '<br>';
     }else{
       $result .= sprintf($l['str_primary_new_serial_x'],
         $this->serial) . "<br>";
@@ -1326,7 +1326,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
     global  $html,$config,$l;
 
     $result = sprintf($l['str_primary_deleting_a_x'],
-          stripslashes($name) . "/" . stripslashes($ip)) . "...";
+          stripslashes($name) . "/" . stripslashes($ip)) . "... ";
   
     if(notnull($reverse)){
       // look for reverse
@@ -1335,7 +1335,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 
       // if reverse IP is managed by current user, update PTR
       // else check if reverse IP delegation exists (ie as CNAME)
-      $result .= $l['str_primary_looking_for_reverse'] . "...";
+      $result .= $l['str_primary_looking_for_reverse'] . "... ";
         // construct reverse zone
       $ipsplit = split('\.',stripslashes($ip));
       $reversezone="";
@@ -1359,7 +1359,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
         if($ismanaged){
           // modification allowed because same owner
           // looking for zoneid
-          $result .= " " . $l['str_primary_zone_managed_by_you'];
+          $result .= $l['str_primary_zone_managed_by_you'];
           $query = "SELECT id FROM dns_zone 
             WHERE zone='" . $reversezone . "' AND zonetype='P'";
           $res = $db->query($query);
@@ -1379,14 +1379,13 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
           if($db->error()){
             $this->error=$l['str_trouble_with_db'];
           }else{
-            $result .= " " . $this->flagModified($newzoneid);
+            $result .= $this->flagModified($newzoneid);
             $this->updateSerial($newzoneid);
           }
         }else{
           // zone exists, but not managed by current user.
           // check for subzone managed by current user
-          $result .= " " . 
-            $l['str_primary_main_zone_not_managed_by_you'] . "...";
+          $result .= $l['str_primary_main_zone_not_managed_by_you'] . "... ";
           $query = "SELECT zone,id FROM dns_zone WHERE
             userid='" . $this->user->userid . "'
             AND zone like '%." . $reversezone . "'";
@@ -1421,20 +1420,19 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
             if($db->error()){
               $this->error=$l['str_trouble_with_db'];
             }else{
-              $result .= " " . $this->flagModified($newzoneid);
+              $result .= $this->flagModified($newzoneid);
               $this->updateSerial($newzoneid);
             }
           }else{
             // no zone found
-            $result .= " " . 
-              $l['str_primary_reverse_exists_but_ip_not_manageable'] . "<br >";
+            $result .= $l['str_primary_reverse_exists_but_ip_not_manageable'] . "<br>";
           }
                       
         }
       }else{
         $result .=
           sprintf($l['str_primary_not_managed_by_x'],
-            $config->sitename) . "<br >";
+            $config->sitename) . "<br>";
       }
     } // end if updatereverse
     if($id){
@@ -1451,9 +1449,9 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
       $this->error=$l['str_trouble_with_db'];
       $result .= sprintf($html->string_error,
             $l['str_trouble_with_db']
-          ) . '<br >';
+          ) . '<br>';
     }else{
-      $result .= $l['str_primary_deleting_ok'] . "<br >\n";
+      $result .= $l['str_primary_deleting_ok'] . "<br>\n";
     }
     return $result;
   }
@@ -1465,7 +1463,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
     global  $html,$config,$l;
 
     $result = sprintf($l['str_primary_deleting_ptr_x'],
-          stripslashes($ip) . "/" . stripslashes($name)) . "...";
+          stripslashes($ip) . "/" . stripslashes($name)) . "... ";
   
     if(notnull($reverse)){
     // if "normal" zone is managed by current user, update A 
@@ -1497,7 +1495,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
         }
       }
       $newip = substr($newip,1) . "." . $ip;
-      $result .= sprintf($l['str_primary_looking_for_zone_x'],$newzone). "...";
+      $result .= sprintf($l['str_primary_looking_for_zone_x'],$newzone). "... ";
       if($this->Exists($newzone,'P')){
         $alluserzones = $this->user->listallzones();
         $ismanaged=0;
@@ -1509,7 +1507,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
         if($ismanaged){
           // modification allowed because same owner
           // looking for zoneid
-          $result .= " " . $l['str_primary_zone_managed_by_you'];
+          $result .= $l['str_primary_zone_managed_by_you'];
           $query = "SELECT id FROM dns_zone 
             WHERE zone='" . $newzone . "' AND zonetype='P'";
           $res = $db->query($query);
@@ -1523,18 +1521,17 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
           if($db->error()){
             $this->error=$l['str_trouble_with_db'];
           }else{
-            $result .= " " . $this->flagModified($newzoneid);
+            $result .= $this->flagModified($newzoneid);
             $this->updateSerial($newzoneid);
           }
         }else{
           // zone exists, but not managed by current user.
-          $result .= " " . 
-          $l['str_primary_main_zone_not_managed_by_you'];
+          $result .= $l['str_primary_main_zone_not_managed_by_you'];
         }
       }else{
         $result .=
           sprintf($l['str_primary_not_managed_by_x'],
-            $config->sitename) . "<br >";
+            $config->sitename) . "<br>";
       }
     }    
 
@@ -1546,9 +1543,9 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
       $this->error=$l['str_trouble_with_db'];
       $result .= sprintf($html->string_error,
             $l['str_trouble_with_db']
-          ) . '<br >';
+          ) . '<br>';
     }else{
-      $result .= $l['str_primary_deleting_ok'] . "<br >\n";
+      $result .= $l['str_primary_deleting_ok'] . "<br>\n";
     }
     return $result;
   }
@@ -1573,15 +1570,15 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
       WHERE zoneid='" . $this->zoneid . "'
       AND type='A' AND val1='" . mysql_real_escape_string($name) . "'";
             $result .= sprintf($l['str_primary_deleting_a_x'],
-            stripslashes($newvalue)) . "...";
+            stripslashes($newvalue)) . "... ";
     $res = $db->query($query);
     if($db->error()){
       $this->error=$l['str_trouble_with_db'];
       $result .= sprintf($html->string_error,
             $l['str_trouble_with_db']
-          ) . '<br >';
+          ) . '<br>';
     }else{
-      $result .= $l['str_primary_deleting_ok'] . "<br >\n";
+      $result .= $l['str_primary_deleting_ok'] . "<br>\n";
     }
     return $result;
   }
@@ -1596,7 +1593,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
    *
    *@access public
    *@param array $delete list of items cname(alias), a(name), ns(name), etc..
-   *@return string text of result (Deleting XXX record... Ok<br >)
+   *@return string text of result (Deleting XXX record... Ok<br>)
    */
   Function Delete($delete,$updatereverse,$updatea){
     global $db;
@@ -1625,7 +1622,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
             WHERE zoneid='" . $this->zoneid . "'
             AND type='WWW' AND id='" . $valid . "'";
             $result .= sprintf($l['str_primary_deleting_www_x'],
-            stripslashes($valname)) . "...";
+            stripslashes($valname)) . "... ";
             break;
 
           case "srv":
@@ -1636,7 +1633,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
             WHERE zoneid='" . $this->zoneid . "'
             AND type='SRV' AND id='" . $valid . "'";
             $result .= sprintf($l['str_primary_deleting_srv_x'],
-            stripslashes($valname)) . "...";
+            stripslashes($valname)) . "... ";
             break;
 
           case "cname":
@@ -1648,7 +1645,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                 WHERE zoneid='" . $this->zoneid . "'
                 AND type='CNAME' AND id='" . $valid . "'";
             $result .= sprintf($l['str_primary_deleting_cname_x'],
-            stripslashes($valname)) . "...";
+            stripslashes($valname)) . "... ";
             break;
           
            
@@ -1678,7 +1675,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                 WHERE zoneid='" . $this->zoneid . "'
                 AND type='AAAA' AND id='" . $val2 . "'";
             $result .= sprintf($l['str_primary_deleting_aaaa_x'],
-            stripslashes($val1)) . "...";
+            stripslashes($val1)) . "... ";
             break;
 
           case "txt":
@@ -1690,7 +1687,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                 WHERE zoneid='" . $this->zoneid . "'
                 AND type='TXT' AND id='" . $val2 . "' ";
             $result .= sprintf($l['str_primary_deleting_txt_x'],
-            stripslashes($val1)) . "...";
+            stripslashes($val1)) . "... ";
             break;
 
           
@@ -1716,7 +1713,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
               WHERE zoneid='" . $this->zoneid . "'
               AND type='NS' AND id='" . $valid . "'";
             $result .= sprintf($l['str_primary_deleting_ns_x'],
-            stripslashes($valname)) . "...";
+            stripslashes($valname)) . "... ";
             break;
 
           case "mx":
@@ -1728,7 +1725,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
             WHERE zoneid='" . $this->zoneid . "'
             AND type='MX' AND id='" . $valid . "'";
             $result .= sprintf($l['str_primary_deleting_mx_x'],
-            stripslashes($valname)) . "...";
+            stripslashes($valname)) . "... ";
             break;
           case "subns":
             // newzone  IN    NS    ns.name
@@ -1743,7 +1740,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
             WHERE zoneid='" . $this->zoneid . "'
             AND type='SUBNS' AND id='" . $valid . "'";
             $result .= sprintf($l['str_primary_deleting_sub_zone_x'],
-            stripslashes($valname)) . "...";
+            stripslashes($valname)) . "... ";
             break;
           case "delegate":
             // $newvalue: XX-YY
@@ -1789,9 +1786,9 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
           $this->error=$l['str_trouble_with_db'];
           $result .= sprintf($html->string_error,
                 $l['str_trouble_with_db'] 
-              ) . '<br >';
+              ) . '<br>';
         }else{
-          $result .= $l['str_primary_deleting_ok'] . "<br >\n";
+          $result .= $l['str_primary_deleting_ok'] . "<br>\n";
         }
       }
     }
@@ -1826,7 +1823,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
             sprintf($html->string_error, 
               sprintf($l['str_primary_bad_mx_name_x'],
                 stripslashes($value))
-            ) . "<br >\n";
+            ) . "<br>\n";
           $this->error = $l['str_primary_data_error'];
         }else{
           // if checkName, add zone.
@@ -1844,7 +1841,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
               sprintf($html->string_error, 
                 sprintf($l['str_primary_preference_for_mx_x_has_to_be_int'],
                   stripslashes($value)) 
-              ) . '<br >';
+              ) . '<br>';
             $this->error = $l['str_primary_data_error'];
           }else{
             if($pref[$i] == ""){
@@ -1859,7 +1856,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
             $line = $db->fetch_row($res);
             if($line[0] == 0){
               $result .= sprintf($l['str_primary_adding_mx_x'],
-              stripslashes($value)) . "...";
+              stripslashes($value)) . "... ";
               $ttlval = $this->DNSTTL($ttl[$i]);
               $query = "INSERT INTO dns_record (zoneid, type, val1, val2, val3, ttl) 
                 VALUES ('" . $this->zoneid . "', 'MX', '" 
@@ -1869,15 +1866,15 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                 $result .= ' ' . 
                   sprintf($html->string_error, 
                     $l['str_trouble_with_db']
-                  ) . '<br >';
+                  ) . '<br>';
                 $this->error = $l['str_trouble_with_db'];
               }else{
-                $result .= $l['str_primary_ok'] . "<br >\n";
+                $result .= $l['str_primary_ok'] . "<br>\n";
               }
             }else{ // record already exists
               $result .= 
                 sprintf($l['str_primary_warning_mx_x_exists_not_overwritten'],
-                  stripslashes($value)) ."<br >\n";
+                  stripslashes($value)) ."<br>\n";
             }
           }
         }
@@ -1913,7 +1910,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
           $result .= sprintf($html->string_error, 
               sprintf($l['str_primary_bad_ns_x'],
                 stripslashes($value))
-              ) . '<br >';
+              ) . '<br>';
           $this->error = $l['str_primary_data_error'];
         }else{
           // if no trailing ".", add one
@@ -1929,7 +1926,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
           $line = $db->fetch_row($res);
           if($line[0] == 0){
             $result .= sprintf($l['str_primary_adding_ns_x'],
-            stripslashes($value)) . "...";
+            stripslashes($value)) . "... ";
             $ttlval = $this->DNSTTL($ttl[$i]);
             $query = "INSERT INTO dns_record (zoneid, type, val1,ttl) 
               VALUES ('" . $this->zoneid . "', 'NS', '" 
@@ -1938,15 +1935,15 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
             if($db->error()){
               $result .= sprintf($html->string_error,
                   $l['str_trouble_with_db']) .
-                '<br >';
+                '<br>';
               $this->error = $l['str_trouble_with_db'];
             }else{
-              $result .= $l['str_primary_ok'] . "<br >\n";
+              $result .= $l['str_primary_ok'] . "<br>\n";
             }
           }else{
             $result .= 
               sprintf($l['str_primary_warning_ns_x_exists_not_overwritten'],
-                  stripslashes($value)) . "<br >\n";
+                  stripslashes($value)) . "<br>\n";
           }
         }
       }
@@ -1981,7 +1978,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
           $result .= sprintf($html->string_error,
               sprintf($l['str_primary_bad_a_x'], 
                 stripslashes($value))
-              ) . "<br >\n";
+              ) . "<br>\n";
           $this->error = $l['str_primary_data_error'];
         }else{
           // a[$i] has to be an ip address
@@ -1989,14 +1986,14 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
             $result .= sprintf($html->string_error, 
                  sprintf($l['str_primary_no_ip_for'],
                   stripslashes($value))
-                ) . "<br >\n";
+                ) . "<br>\n";
             $this->error = $l['str_primary_data_error'];
           }else{
             if(!$this->checkAValue($a[$i])){
               $result .= sprintf($html->string_error, 
                   sprintf($l['str_primary_x_ip_has_to_be_ip'],
                   stripslashes($value))
-                  ) . "<br >\n";
+                  ) . "<br>\n";
               $this->error = $l['str_primary_data_error'];
             }else{
               // Check if record already exists
@@ -2014,7 +2011,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                 $line = $db->fetch_row($res);
                 if($line[0] == 0){
                   $result .= sprintf($l['str_primary_adding_a_x'],
-                  stripslashes($value)) . "...";
+                  stripslashes($value)) . "... ";
                   $ttlval = $this->DNSTTL($ttl[$i]);
                   $query = "INSERT INTO dns_record (zoneid, type, val1, val2,ttl) 
                   VALUES ('" . $zoneid . "', 
@@ -2024,10 +2021,10 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                     $result .= 
                     sprintf($html->string_error,
                       $l['str_trouble_with_db']
-                    ) . "<br >\n";
+                    ) . "<br>\n";
                     $this->error = $l['str_trouble_with_db'];
                   }else{
-                    $result .= $l['str_primary_ok'] . "<br >\n";
+                    $result .= $l['str_primary_ok'] . "<br>\n";
                     
                     if($updatereverse){                  
                       $result .= $this->UpdateReversePTR($a[$i],$value,'A');
@@ -2036,7 +2033,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                 }else{ // end check CNAME
                   $result .= 
                     sprintf($l['str_primary_warning_cname_x_exists_not_overwritten'],
-                    stripslashes($value)) . "<br >\n";
+                    stripslashes($value)) . "<br>\n";
                 }
               }else{ // end check A
                 
@@ -2050,7 +2047,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                   $result .= sprintf($l['str_primary_warning_a_x_exists_with_diff_value'],
                           stripslashes($value)) . ' ';
                   $result .= sprintf($l['str_primary_adding_a_x'],
-                  stripslashes($value)) . "...";
+                  stripslashes($value)) . "... ";
                   $ttlval = $this->DNSTTL($ttl[$i]);
                   $query = "INSERT INTO dns_record (zoneid, type, val1, val2,ttl) 
                   VALUES ('" . $zoneid . "', 
@@ -2060,10 +2057,10 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                   if($db->error()){
                     $result .= sprintf($html->string_error,
                         $l['str_trouble_with_db']
-                      ) . "<br >\n";
+                      ) . "<br>\n";
                     $this->error = $l['str_trouble_with_db'];
                   }else{
-                    $result .= $l['str_primary_ok'] . "<br >\n";                  
+                    $result .= $l['str_primary_ok'] . "<br>\n";                  
                     if($updatereverse){  
                       $result .= $this->UpdateReversePTR($a[$i],$value,'A');
                     } // end updatereverse
@@ -2071,7 +2068,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 
                 }else{
                   $result .= sprintf($l['str_primary_a_x_with_same_ip'],
-                           stripslashes($value)). '<br >';
+                           stripslashes($value)). '<br>';
                 }
               }
             }
@@ -2110,7 +2107,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
           $result .= sprintf($html->string_error,
               sprintf($l['str_primary_aaaa_bad_aaaa_x'],
                 stripslashes($value))
-              ) . "<br >\n";
+              ) . "<br>\n";
           $this->error = $l['str_primary_data_error'];
         }else{
           // a[$i] has to be an ipv6 address
@@ -2118,14 +2115,14 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
             $result .= sprintf($html->string_error,
                 sprintf($l['str_primary_no_ipv6_for_x'],
                   stripslashes($value)) 
-                ) . "<br >\n";
+                ) . "<br>\n";
             $this->error = $l['str_primary_data_error'];
           }else{
             if(! $this->checkAAAAValue($aaaa[$i]) ){
               $result .= sprintf($html->string_error, 
                   sprintf($l['str_primary_x_ip_has_to_be_ipv6'],
                     stripslashes($value . "/" .$aaaa[$i]))
-                  ) . "<br >\n";
+                  ) . "<br>\n";
               $this->error = $l['str_primary_data_error'];
             }else{
               // Check if record already exists
@@ -2143,7 +2140,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                 $line = $db->fetch_row($res);
                 if($line[0] == 0){
                   $result .= sprintf($l['str_primary_adding_aaaa_x'], 
-                  stripslashes($value)) . "...";
+                  stripslashes($value)) . "... ";
                   $ttlval = $this->DNSTTL($ttl[$i]);
                   $query = "INSERT INTO dns_record (zoneid, type, val1, val2,ttl) 
                   VALUES ('" . $zoneid . "', 
@@ -2152,10 +2149,10 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                   if($db->error()){
                     $result .= sprintf($html->string_error,
                         $l['str_trouble_with_db']
-                        ) . "<br >\n";
+                        ) . "<br>\n";
                     $this->error = $l['str_trouble_with_db'];
                   }else{
-                    $result .= " " . $l['str_primary_ok'] . "<br >\n";
+                    $result .= $l['str_primary_ok'] . "<br>\n";
 
                     if($updatereverse){
                       $result .= $this->UpdateReversePTR($aaaa[$i],$value,'AAAA');
@@ -2163,7 +2160,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                   } // end "primary OK"  
                 }else{ // end check CNAME
                   $result .= sprintf($l['str_primary_warning_cname_x_exists_not_overwritten'],
-                  stripslashes($value)) . "<br >\n";
+                  stripslashes($value)) . "<br>\n";
                 }
               }else{ // end check AAAA
                 
@@ -2178,7 +2175,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                     sprintf($l['str_primary_warning_aaaa_x_exists_with_diff_value'],
                         stripslashes($value)) . ' ';
                   $result .= sprintf($l['str_primary_adding_aaaa_x'],
-                          stripslashes($value)) . "...";
+                          stripslashes($value)) . "... ";
                   $ttlval = $this->DNSTTL($ttl[$i]);
                   $query = "INSERT INTO dns_record (zoneid, type, val1, val2,ttl) 
                   VALUES ('" . $this->zoneid . "', 
@@ -2188,10 +2185,10 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                   if($db->error()){
                     $result .= sprintf($html->string_error,
                           $l['str_trouble_with_db']
-                        ) . "<br >\n";
+                        ) . "<br>\n";
                     $this->error = $l['str_trouble_with_db'];
                   }else{
-                    $result .= $l['str_primary_ok'] . "<br >\n";
+                    $result .= $l['str_primary_ok'] . "<br>\n";
                     if($updatereverse){
                       $result .= $this->UpdateReversePTR($aaaa[$i],$value,'AAAA');
                     } // end updatereverse
@@ -2199,7 +2196,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 
                 }else{
                   $result .= sprintf($l['str_primary_aaaa_x_with_same_ip'],
-                          stripslashes($value)) . '<br >';
+                          stripslashes($value)) . '<br>';
                 }
               }
             }
@@ -2252,24 +2249,24 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
           $result .= sprintf($html->string_error,
               sprintf($l['str_primary_bad_ptr_x'],
                 stripslashes($value))
-              ) . "<br >\n";
+              ) . "<br>\n";
           $this->error = $l['str_primary_data_error'];
         }else{
           if($ptrname[$i] == ""){
             $result .= sprintf($html->string_error,
                 sprintf($l['str_primary_no_name_for_x'],
                   stripslashes($value)) 
-                ) . "<br >\n";
+                ) . "<br>\n";
             $this->error = "Data error";
           }else{
             if (ereg('\.$', $value)) {
-              $result .= sprintf($l['str_primary_x_name_ends_with_dot'], stripslashes($value)) . "<br >\n";
+              $result .= sprintf($l['str_primary_x_name_ends_with_dot'], stripslashes($value)) . "<br>\n";
             }
             if(! $this->checkPTRValue($ptrname[$i]) ){
               $result .= sprintf($html->string_error, 
                   sprintf($l['str_primary_x_name_has_to_be_fully_qualified_x'],  
                     stripslashes($value),$ptrname[$i])
-                  ) . "<br >\n";
+                  ) . "<br>\n";
               $this->error = $l['str_primary_data_error'];
             }else{
               // Check if record already exists
@@ -2287,7 +2284,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                 $line = $db->fetch_row($res);
                 if($line[0] == 0){
                   $result .= sprintf($l['str_primary_adding_ptr_x'],
-                  stripslashes($value)) . "...";
+                  stripslashes($value)) . "... ";
                   $ttlval = $this->DNSTTL($ttl[$i]);
                   $query = "INSERT INTO dns_record (zoneid, type, val1, val2,ttl) 
                   VALUES ('" . $zoneid . "', 
@@ -2296,10 +2293,10 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                   if($db->error()){
                     $result .= sprintf($html->string_error, 
                         $l['str_trouble_with_db']
-                        ) . "<br >\n";
+                        ) . "<br>\n";
                     $this->error = $l['str_trouble_with_db'];
                   }else{
-                    $result .= $l['str_primary_ok'] . "<br >\n";
+                    $result .= $l['str_primary_ok'] . "<br>\n";
                     
                     // update associated A record
                     if($updatereverse){
@@ -2350,7 +2347,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                         $hreg = "/^$h$h$h$h$h$h$h$h$/i";
                         $newip = preg_replace($hreg, "$1:$2:$3:$4:$5:$6:$7:$8", $newip);
                       }
-                      $result .= sprintf($l['str_primary_looking_for_zone_x'],$newzone). "...";
+                      $result .= sprintf($l['str_primary_looking_for_zone_x'],$newzone). "... ";
                       if($this->Exists($newzone,'P')){
                         $alluserzones = $this->user->listallzones();
                         $ismanaged=0;
@@ -2362,13 +2359,12 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                         if($ismanaged){
                           // modification allowed because same owner
                           // looking for zoneid
-                          $result .= " " . $l['str_primary_zone_managed_by_you'];
+                          $result .= $l['str_primary_zone_managed_by_you'];
                           $query = "SELECT id FROM dns_zone 
                             WHERE zone='" . $newzone . "' AND zonetype='P'";
                           $res = $db->query($query);
                           $line = $db->fetch_row($res);
                           $newzoneid=$line[0];
-                          $result .= " ";
                           if ($v6) 
                             $result .= $this->AddAAAARecord($newzoneid,
                               array($newip), array($newa),
@@ -2378,24 +2374,23 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                               array($newip), array($newa),
                               array($l['str_primary_default']), NULL);
                           if(!$this->error){
-                            $result .= " " . $this->flagModified($newzoneid);
+                            $result .= $this->flagModified($newzoneid);
                             $this->updateSerial($newzoneid);
                           }
                         }else{
                           // zone exists, but not managed by current user.
-                          $result .= " " . 
-                          $l['str_primary_main_zone_not_managed_by_you'];
+                          $result .= $l['str_primary_main_zone_not_managed_by_you'];
                         }
                       }else{
                         $result .=
                           sprintf($l['str_primary_not_managed_by_x'],
-                            $config->sitename) . "<br >";
+                            $config->sitename) . "<br>";
                        }
                     } // end update reverse
                   } // update OK 
                 }else{ // end check CNAME
                   $result .= sprintf($l['str_primary_warning_cname_x_exists_not_overwritten'],
-                  stripslashes($value)) . "<br >\n";
+                  stripslashes($value)) . "<br>\n";
                 }
               }else{ // end check A
                 
@@ -2409,7 +2404,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                   $result .= sprintf($l['str_primary_warning_ptr_x_exists_with_diff_value'],
                         stripslashes($value)) . ' ';
                   $result .=  sprintf($l['str_primary_adding_ptr_x'],
-                  stripslashes($value)) . "...";
+                  stripslashes($value)) . "... ";
                   $ttlval = $this->DNSTTL($ttl[$i]);
                   $query = "INSERT INTO dns_record (zoneid, type, val1, val2,ttl) 
                   VALUES ('" . $zoneid . "', 
@@ -2418,10 +2413,10 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                   $db->query($query);
                   if($db->error()){
                     $result .= sprintf($html->string_error, 
-                    $l['str_trouble_with_db']) . "<br >\n";
+                    $l['str_trouble_with_db']) . "<br>\n";
                     $this->error = $l['str_trouble_with_db'];
                   }else{
-                    $result .= $l['str_primary_ok'] . "<br >\n";
+                    $result .= $l['str_primary_ok'] . "<br>\n";
                     // update associated A record
                     if($updatereverse){                  
                       // if "normal" zone is managed by current user, update A 
@@ -2453,7 +2448,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                         $newip .= "." . $ipitem;
                       }
                       $newip = substr($newip,1) . "." . $value;
-                      $result .= sprintf($l['str_primary_looking_for_zone_x'],$newzone). "...";
+                      $result .= sprintf($l['str_primary_looking_for_zone_x'],$newzone). "... ";
                       if($this->Exists($newzone,'P')){
                         $alluserzones = $this->user->listallzones();
                         $ismanaged=0;
@@ -2465,27 +2460,26 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                         if($ismanaged){
                           // modification allowed because same owner
                           // looking for zoneid
-                          $result .= " " . $l['str_primary_zone_managed_by_you'];
+                          $result .= $l['str_primary_zone_managed_by_you'];
                           $query = "SELECT id FROM dns_zone 
                             WHERE zone='" . $newzone . "' AND zonetype='P'";
                           $res = $db->query($query);
                           $line = $db->fetch_row($res);
                           $newzoneid=$line[0];
-                          $result .= " " . $this->AddARecord($newzoneid,array($newip),array($newa),
+                          $result .= $this->AddARecord($newzoneid,array($newip),array($newa),
                             array($l['str_primary_default']),NULL);
                           if(!$this->error){
-                            $result .= " " . $this->flagModified($newzoneid);
+                            $result .= $this->flagModified($newzoneid);
                             $this->updateSerial($newzoneid);
                           }
                         }else{
                           // zone exists, but not managed by current user.
-                          $result .= " " . 
-                          $l['str_primary_main_zone_not_managed_by_you'];
+                          $result .= $l['str_primary_main_zone_not_managed_by_you'];
                         }
                       }else{
                         $result .=
                           sprintf($l['str_primary_not_managed_by_x'],
-                            $config->sitename) . "<br >";
+                            $config->sitename) . "<br>";
                        }
                     } // end update reverse
                     
@@ -2493,7 +2487,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 
                 }else{
                   $result .= sprintf($l['str_primary_warning_ptr_x_already_exists_not_overwritten'],
-                          stripslashes($value)) . '<br >';
+                          stripslashes($value)) . '<br>';
                 }
               }
             }
@@ -2534,7 +2528,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
           $result .= sprintf($html->string_error,
               sprintf($l['str_primary_bad_cname_x'],
                 stripslashes($value))
-              ) . "<br >\n";
+              ) . "<br>\n";
           $this->error = $l['str_primary_data_error'];
         }else{
           if($cnamea[$i] ==""){
@@ -2559,7 +2553,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
               $line = $db->fetch_row($res);
               if($line[0] == 0){
                 $result .= sprintf($l['str_primary_adding_cname_x'],
-                stripslashes($value)) . "...";
+                stripslashes($value)) . "... ";
                 $ttlval = $this->DNSTTL($ttl[$i]);
                 $query = "INSERT INTO dns_record (zoneid, type, val1, val2,ttl) 
                 VALUES ('" . $this->zoneid . "', 'CNAME', '"
@@ -2569,18 +2563,18 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                 if($db->error()){
                   $result .= sprintf($html->string_error,
                       $l['str_trouble_with_db']
-                    ) . '<br >';
+                    ) . '<br>';
                   $this->error = $l['str_trouble_with_db'];
                 }else{
-                  $result .= $l['str_primary_ok'] . "<br >\n";  
+                  $result .= $l['str_primary_ok'] . "<br>\n";  
                 }
               }else{ // A record present
                 $result .= sprintf($l['str_primary_warning_a_x_exists_not_overwritten'],
-                stripslashes($value)) . "<br >\n";
+                stripslashes($value)) . "<br>\n";
               }              
             }else{
               $result .= sprintf($l['str_primary_warning_cname_x_exists_not_overwritten'],
-                      stripslashes($value)) . "<br >\n";
+                      stripslashes($value)) . "<br>\n";
             }
           }
         }
@@ -2616,14 +2610,14 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
           $result .= sprintf($html->string_error,
               sprintf($l['str_primary_bad_txt_x'],
               stripslashes($value))
-            ) . "<br >\n";
+            ) . "<br>\n";
           $this->error = $l['str_primary_data_error'];
         }else{
           if($txtstring[$i] ==""){
             $result .= sprintf($html->string_error,
                 sprintf($l['str_primary_no_record_x'],
                 stripslashes($value))
-              ) . "<br >\n";
+              ) . "<br>\n";
             $this->error = 1;
           }else{
             // Check if CNAME record already exists
@@ -2634,7 +2628,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
             $line = $db->fetch_row($res);
             if($line[0] == 0){
               $result .= sprintf($l['str_primary_adding_txt_x'],
-              stripslashes($value)) . "...";
+              stripslashes($value)) . "... ";
               // suppress all quotes, and add new ones
               $newstring = preg_replace("/\"/","",stripslashes($txtstring[$i]));
               $newstring = preg_replace("/'/","''",$newstring);
@@ -2649,14 +2643,14 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
               if($db->error()){
                 $result .= sprintf($html->string_error,
                     $l['str_trouble_with_db'] 
-                   ) . '<br >';
+                   ) . '<br>';
                 $this->error = $l['str_trouble_with_db'];
               }else{
-                $result .= $l['str_primary_ok'] . "<br >\n";  
+                $result .= $l['str_primary_ok'] . "<br>\n";  
               }
             }else{
               $result .= sprintf($l['str_primary_warning_cname_x_exists_not_overwritten'],
-                      stripslashes($value)) . "<br >\n";
+                      stripslashes($value)) . "<br>\n";
             }
           }
         }
@@ -2779,21 +2773,21 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
           $result .= sprintf($html->string_error,
               sprintf($l['str_bad_zone_name_x'],
               ' ' . stripslashes($value))
-            ) . "<br >\n";
+            ) . "<br>\n";
           $this->error = $l['str_primary_data_error'];
         }else{
           if($subnsa[$i] ==""){
             $result .= sprintf($html->string_error,
                 sprintf($l['str_primary_no_ns_x'], 
                 stripslashes($value))
-              ) . "<br >\n";
+              ) . "<br>\n";
             $this->error = 1;
           }else{
             if( ! $this->checkSUBNSValue($subnsa[$i]) ){
               $result .= sprintf($html->string_error,
                 sprintf($l['str_primary_bad_ns_x'],
                                                            stripslashes($subnsa[$i]))
-              ) . "<br >\n";
+              ) . "<br>\n";
               $this->error = 1;
             }
           }
@@ -2801,7 +2795,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
             // Check if record already exists
             // if yes, no problem - multiple different NS possible
             $result .= sprintf($l['str_primary_adding_zone_ns_x'],
-            stripslashes($value)) . "...";
+            stripslashes($value)) . "... ";
             $query = "SELECT count(*) FROM dns_record 
             WHERE zoneid='" . $this->zoneid . "' AND type='SUBNS' 
             AND val1='" . $value . "' AND val2='" . $subnsa[$i] . "'";
@@ -2810,7 +2804,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
             if($db->error()){
               $result .= sprintf($html->string_error,
                     $l['str_trouble_with_db'] 
-                ) . '<br >';
+                ) . '<br>';
               $this->error = $l['str_trouble_with_db'];
             }else{
               if($line[0]==0){
@@ -2823,14 +2817,14 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                 if($db->error()){
                   $result .= sprintf($html->string_error,
                       $l['str_trouble_with_db']
-                    ) . '<br >';
+                    ) . '<br>';
                   $this->error = $l['str_trouble_with_db'];
                 }else{
-                  $result .= $l['str_primary_ok'] . "<br >\n";  
+                  $result .= $l['str_primary_ok'] . "<br>\n";  
                 }
               }else{
                 $result .=sprintf($l['str_primary_warning_ns_x_exists_not_overwritten'],
-                      stripslashes($value)) . "<br >\n";
+                      stripslashes($value)) . "<br>\n";
               }
             }
           }
@@ -2863,19 +2857,19 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
     while(list($key,$value) = each($delegatefrom)){
       if(notnull($value)){
         $result .= sprintf($l['str_primary_adding_delegate_x'],
-        stripslashes($value),$delegateto[$i]) . "...";
+        stripslashes($value),$delegateto[$i]) . "... ";
         if(!ereg('^[0-9]+$',$value)){
           $result .= sprintf($html->string_error,
               sprintf($l['str_primary_bad_lower_limit_x'],
               stripslashes($value))
-            ) . "<br >\n";
+            ) . "<br>\n";
           $this->error = $l['str_primary_data_error'];
         }else{
           if(!ereg('^[0-9]+$',$delegateto[$i])||$delegateto[$i]>255){
             $result .= sprintf($html->string_error,
                 sprintf($l['str_primary_bad_upper_limit_x'],
                 stripslashes($delegateto[$i]))
-              ) . "<br >\n";
+              ) . "<br>\n";
             $this->error = $l['str_primary_data_error'];
           }else{
             // check if lower if below upper
@@ -2883,13 +2877,13 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
               $result .= sprintf($html->string_error,
                   sprintf($l['str_primary_bad_limits_x_x'],
                   stripslashes($value),stripslashes($delegateto[$i])) 
-                ) . "<br >\n";
+                ) . "<br>\n";
               $this->error = $l['str_primary_data_error'];    
             }else{
               if(!notnull($delegateuser[$i])){
                 $result .= sprintf($html->string_error, 
                     $l['str_primary_no_user_for_delegation'] 
-                  ) . '<br >';
+                  ) . '<br>';
                 $this->error = $l['str_primary_data_error'];
               }else{
                 // check if user is in DB or not
@@ -2897,14 +2891,14 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                 if($this->user->error){
                   $result .= sprintf($html->string_error,
                       $this->user->error
-                    ) . '<br >';
+                    ) . '<br>';
                   $this->error = $this->user->error;
                 }else{
                   if(!$newuserid){
                     $result .= sprintf($html->string_error, 
                       sprintf($l['str_primary_delegate_user_x_doesnot_exist'],
                       stripslashes($delegateuser[$i]))
-                      ) . '<br >';
+                      ) . '<br>';
                     $this->error = $l['str_primary_data_error'];
                   }else{ // user exists
                     // check if items inside this range are already registered or not
@@ -2914,7 +2908,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                     if($db->error()){
                       $result .= sprintf($html->string_error,
                           $l['str_trouble_with_db']
-                        ) . '<br >';
+                        ) . '<br>';
                       $this->error = $l['str_trouble_with_db'];
                     }else{
                       while($line = $db->fetch_row($res)){
@@ -2927,7 +2921,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                               sprintf($l['str_primary_delegate_bad_limits_x_x_overlaps_existing_x_x'],
                               stripslashes($value),stripslashes($delegateto[$i]), 
                               $from,$to)
-                            ) . "<br >\n";
+                            ) . "<br>\n";
                           $this->error = $l['str_primary_data_error'];
                         }
                       }
@@ -2942,7 +2936,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                         if($db->error()){
                           $result .= sprintf($html->string_error,
                               $l['str_trouble_with_db']
-                            ) . '<br >';
+                            ) . '<br>';
                           $this->error = $l['str_trouble_with_db'];
                         }else{
                           // create zone, affect it to delegateuser
@@ -2995,12 +2989,12 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                               if($db->error()){
                                 $result .= sprintf($html->string_error, 
                                   $l['str_trouble_with_db'] 
-                                  ) . '<br >';
+                                  ) . '<br>';
                                 $this->error = $l['str_trouble_with_db'];
                               }
                             } // end for each CNAME
                             if(!$this->error){
-                              $result .= $l['str_primary_ok'] . "<br >\n";
+                              $result .= $l['str_primary_ok'] . "<br>\n";
                             }
                           }
                         }
@@ -3044,14 +3038,14 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
           $result .= sprintf($html->string_error,
             sprintf($l['str_primary_bad_srvname_x'],
             stripslashes($value))
-            ) . "<br >\n";
+            ) . "<br>\n";
           $this->error = $l['str_primary_data_error'];
         }else{
           if($srvvalue[$i] == ""){
             $result .= sprintf($html->string_error,
             sprintf($l['str_primary_no_record_x'],
               stripslashes($value))
-              ) . "<br >\n";
+              ) . "<br>\n";
             $this->error = 1;
           }else{
             if(!$this->checkSRVPriority($srvpriority[$i])){
@@ -3059,7 +3053,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
               sprintf($html->string_error,
                 sprintf($l['str_primary_priority_for_srv_x_has_to_be_int'],
                   stripslashes($value))
-                  ) . '<br >';
+                  ) . '<br>';
               $this->error = $l['str_primary_data_error'];
             }else{
               if($srvpriority[$i] == ""){
@@ -3070,7 +3064,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                 sprintf($html->string_error,
                   sprintf($l['str_primary_weight_for_srv_x_has_to_be_int'],
                   stripslashes($value))
-                  ) . '<br >';
+                  ) . '<br>';
                 $this->error = $l['str_primary_data_error'];
               }else{
                 if($srvweight[$i] == ""){
@@ -3084,7 +3078,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                 $line = $db->fetch_row($res);
                 if($line[0] == 0){
                   $result .= sprintf($l['str_primary_adding_srv_x'],
-                    stripslashes($value)) . "...";
+                    stripslashes($value)) . "... ";
                   $ttlval = $this->DNSTTL($ttl[$i]);
                   $query = "INSERT INTO dns_record (zoneid, type, val1, val2, val3,val4,val5,ttl)
                     VALUES ('" . $this->zoneid . "', 'SRV', '"
@@ -3096,15 +3090,15 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                     $result .= ' ' .
                       sprintf($html->string_error,
                         $l['str_trouble_with_db']
-                        ) . '<br >';
+                        ) . '<br>';
                     $this->error = $l['str_trouble_with_db'];
                   }else{
-                    $result .= $l['str_primary_ok'] . "<br >\n";
+                    $result .= $l['str_primary_ok'] . "<br>\n";
                   }
                 }else{ // record already exists
                   $result .=
                   sprintf($l['str_primary_warning_srv_x_exists_not_overwritten'],
-                    stripslashes($value)) ."<br >\n";
+                    stripslashes($value)) ."<br>\n";
                 }
               }
             }
@@ -3131,7 +3125,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 
     // if reverse IP is managed by current user, update PTR
     // else check if reverse IP delegation exists (ie as CNAME)
-    $result .= $l['str_primary_looking_for_reverse'] . "...";
+    $result .= $l['str_primary_looking_for_reverse'] . "... ";
     // construct reverse zone
     if(!strcmp($type,"A")){
       $ipsplit = split('\.',$a);
@@ -3174,24 +3168,23 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
       if($ismanaged){
         // modification allowed because same owner
         // looking for zoneid
-        $result .= " " . $l['str_primary_zone_managed_by_you'];
+        $result .= $l['str_primary_zone_managed_by_you'];
         $query = "SELECT id FROM dns_zone 
           WHERE zone='" . $reversezone . "' AND zonetype='P'";
         $res = $db->query($query);
         $line = $db->fetch_row($res);
         $newzoneid=$line[0];
-        $result .= " " . $this->AddPTRRecord($newzoneid,array($firstip),
+        $result .= $this->AddPTRRecord($newzoneid,array($firstip),
           array($value . "." . $this->zonename . "."),
           array($l['str_primary_default']),NULL);
         if(!$this->error){
-          $result .= " " . $this->flagModified($newzoneid);
+          $result .= $this->flagModified($newzoneid);
           $this->updateSerial($newzoneid);
         }
       }else{
         // zone exists, but not managed by current user.
         // check for subzone managed by current user
-        $result .= " " .
-        $l['str_primary_main_zone_not_managed_by_you'] . "...";
+        $result .= $l['str_primary_main_zone_not_managed_by_you'] . "... ";
         $query = "SELECT zone,id FROM dns_zone WHERE
             userid='" . $this->user->userid . "'
             AND zone like '%." . $reversezone . "'";
@@ -3212,21 +3205,20 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
           }
         }
         if($newzoneid){
-          $result .= " " . $this->AddPTRRecord($newzoneid,array($firstip),array($value .
+          $result .= $this->AddPTRRecord($newzoneid,array($firstip),array($value .
               "." . $this->zonename . "."),array($l['str_primary_default']),NULL);
           if(!$this->error){
-            $result .= " " . $this->flagModified($newzoneid);
+            $result .= $this->flagModified($newzoneid);
             $this->updateSerial($newzoneid);
           }
         }else{
           // no zone found
-          $result .= " " .
-              $l['str_primary_reverse_exists_but_ip_not_manageable'] . "<br >";
+          $result .= $l['str_primary_reverse_exists_but_ip_not_manageable'] . "<br>";
         }
       }
     }else{
       $result .= sprintf($l['str_primary_not_managed_by_x'],
-          $config->sitename) . "<br >";
+          $config->sitename) . "<br>";
     }
     return $result;
   }
