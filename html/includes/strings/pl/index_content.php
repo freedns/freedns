@@ -1,6 +1,8 @@
 <?
 $content = '
 <dl>
+   <dt>Ataki [2010-06-26]</dt>
+   <dd>Przepraszam za problemy z dostępem do interfejsu, jakiś idiota atakuje (DDoS) serwer. Myślimy, co z tym zrobić.</dd>
    <dt>Poprawki na prośbę [2010-06-22]</dt>
    <dd>Pozwoliłem na wildcard A, a także zmieniłem, żeby wasz adres email nie pojawiał się (po wygenerowaniu strefy) w SOA &mdash; z czego wynika, że już można używać kropek w adresach email (można to sobie wyłączyć w opcjach).
    </dd>
