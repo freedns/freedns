@@ -1051,7 +1051,7 @@ class Primary extends Zone {
           $result .= '<tr>
               <td>' . $this->www[$counter] . '</td>
               <td>' . $this->wwwa[$counter] . '</td>
-              <td>' . ($this->wwwr[$counter]=='R' ? $l['str_primary_www_redirect'] : ($this->wwwr[$counter]=='r' ? $l['str_primary_www_redirect_301'] : $l['str_primary_www_frame'])) . '</td>
+              <td>' . $this->FrameRedirect($this->wwwr[$counter]) . '</td>
               ';
           if($advanced){
             $result .= '
@@ -1074,9 +1074,9 @@ class Primary extends Zone {
             <td><input type="text" name="wwwa' . $wwwcounter . '"></td>
             <td>
               <nobr><label><input type="radio" name="wwwr' . $wwwcounter . '" value="r">' .
-              $l['str_primary_www_redirect_301'] . '</label></nobr>
+              $l['str_primary_www_redirect_301'] . '</label></nobr><br>
               <nobr><label><input type="radio" name="wwwr' . $wwwcounter . '" value="R">' .
-              $l['str_primary_www_redirect'] . '</label></nobr>
+              $l['str_primary_www_redirect'] . '</label></nobr><br>
               <nobr><label><input type="radio" name="wwwr' . $wwwcounter . '" value="F">' .
               $l['str_primary_www_frame'] . '</label></nobr>
             </td>';
@@ -2666,6 +2666,20 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
     return $result;
   }
 
+  function FrameRedirect($x) {
+    global $l;
+    switch($x) {
+      case "R":
+        return $l['str_primary_www_redirect'];
+      case "r":
+        return $l['str_primary_www_redirect_301'];
+      case "F":
+        return $l['str_primary_www_frame'];
+      default:
+        return "";
+    }
+  }
+
 // *******************************************************
 
 //  Function AddWWWRecord($www,$wwwstring,$wwwtype,$ttl)
@@ -2681,56 +2695,42 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
   Function AddWWWRecord($www,$wwwstring,$wwwr,$ttl){
     global $db, $html,$l,$config;
         
-        // for each WWW, add WWW entry
+    // for each WWW, add WWW entry
     $i = 0;
     $result = "";
     while(list($key,$value) = each($www)){
-      if($value != ""){  
+      if($value != ""){
         if(!$this->checkWWWName($value)){
-        $result .= "VALUE: $value";
-          $result .= sprintf($html->string_error,
-              sprintf($l['str_primary_bad_www_x'],
-              stripslashes($value))
-            ) . "<br >\n";
-          $this->error = $l['str_primary_data_error'];
+          $this->error = sprintf($l['str_primary_bad_www_x'], htmlspecialchars($value));
+        } elseif ($this->FrameRedirect($wwwr[$i]) == ""){
+          $this->error = $l['str_primary_www_no_type'];
         }else{
-          if($wwwstring[$i] ==""){
-            $result .= sprintf($html->string_error,
-                sprintf($l['str_primary_no_record_x'],
-                stripslashes($value))
-              ) . "<br >\n";
-            $this->error = $l['str_primary_data_error'];
-          }else if (!$this->checkWWWValue($wwwstring[$i])){
-            $result .= sprintf($html->string_error,
-                sprintf($l['str_primary_bad_www_value_x'],
-                stripslashes($wwwstring[$i]))
-              ) . "<br >\n";
-            $this->error = 1;
+          if($wwwstring[$i] == ""){
+            $this->error = sprintf($l['str_primary_no_record_x'], htmlspecialchars($value));
           }else{
+            if (!$this->checkWWWValue($wwwstring[$i])){
+              $wwwstring[$i] = "http://" . $wwwstring[$i];
+            }
             // Check if record already exists
             $query = "SELECT count(*) FROM dns_record WHERE 
-            zoneid='" . $this->zoneid . "'
-            AND val1='" . $value . "' AND type IN ('CNAME','A','WWW')";
+              zoneid='" . $this->zoneid . "'
+              AND val1='" . mysql_real_escape_string($value) . "' 
+              AND type IN ('CNAME','A','WWW')";
             $res = $db->query($query);
             $line = $db->fetch_row($res);
             if($line[0] == 0){
               $result .= sprintf($l['str_primary_adding_www_x_x'],
-              ($wwwr[$i]=='R'?$l['str_primary_www_redirect']:($wwwr[$i]=='r'?$l['str_primary_www_redirect_301'] : $l['str_primary_www_frame'])),
-              stripslashes($value)) . "...";
-              // suppress all quotes, and add new ones
-              $newstring = mysql_escape_string($wwwstring[$i]);
-/*              $newstring = preg_replace("/\"/","",stripslashes($wwwstring[$i]));
-              $newstring = preg_replace("/'/","''",$newstring);
-              // suppress all remaining "\"
-              $newstring = preg_replace("/\\\/","",$newstring); */
+                $this->FrameRedirect($wwwr[$i]),
+                htmlspecialchars($value));
+              $result .= "... ";
               $ttlval = $this->DNSTTL($ttl[$i]);
-              $query = "INSERT INTO dns_record (zoneid, type, val1, val2, val3, val4, ttl) 
-              VALUES ('" . $this->zoneid . "', 'WWW', '"
-              . $value . "', '" . $newstring . "',
-              '" . $config->webserverip . "',
-              '" . ($wwwr[$i]=="R"?'R':($wwwr[$i]=='r'?'r':'F')) . "',
-              '" . $ttlval . "')
-              ";
+              $query = sprintf("INSERT INTO dns_record " .
+                "(zoneid, type, val1, val2, val3, val4, ttl) " .
+                "VALUES ('%s', 'WWW', '%s', '%s', '%s', '%s', '%s')",
+                $this->zoneid,
+                mysql_real_escape_string($value),
+                mysql_real_escape_string($wwwstring[$i]),
+                $config->webserverip, $wwwr[$i], $ttlval);
               $db->query($query);
               if($db->error()){
                 $result .= sprintf($html->string_error,
@@ -2738,11 +2738,14 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                    ) . '<br>';
                 $this->error = $l['str_trouble_with_db'];
               }else{
-                $result .= $l['str_primary_ok'] . "<br>\n";  
+                $result .= $l['str_primary_ok'];  
+                $result .= "<br>\n";
               }
             }else{
-              $result .= sprintf($l['str_primary_warning_www_x_exists_not_overwritten'],
-                      stripslashes($value)) . "<br>\n";
+              $result .= sprintf(
+                $l['str_primary_warning_www_x_exists_not_overwritten'],
+                htmlspecialchars($value));
+              $result .= "<br>\n";
             }
           }
         }
