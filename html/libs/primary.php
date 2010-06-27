@@ -3,10 +3,10 @@
 /*
   This file is part of XName.org project
   See  http://www.xname.org/ for details
-  
+
   License: GPLv2
   See LICENSE file, or http://www.gnu.org/copyleft/gpl.html
-  
+
   Author(s): Yann Hirou <hirou@xname.org>
 
 */
@@ -80,7 +80,7 @@ class Primary extends Zone {
 
   var $reversezone;
   var $ipv6;
-    
+
   // instanciation
   /**
    * Class constructor & data retrieval (use of Retrieve[Multi]Record)
@@ -118,7 +118,7 @@ class Primary extends Zone {
     if($line[2]){
       $this->retry = $line[2];
     }else{
-      $this->retry = 3600; 
+      $this->retry = 3600;
     }
     if($line[3]){
       $this->expiry = $line[3];
@@ -135,7 +135,7 @@ class Primary extends Zone {
     }else{
       $this->defaultttl = 86400;
     }
-    
+
     $this->xfer = $line[6];
     $this->user=$user;
     if(ereg('.arpa$',$zonename) || ereg('.ip6.int$',$zonename)){
@@ -200,12 +200,12 @@ class Primary extends Zone {
     $this->wwwr = array();
     $this->wwwid = array();
       $this->nullarray = array();
-    }    
+    }
     // fill in with records
     $this->RetrieveRecords('NS',$this->ns,$this->nsid,$this->nsttl);
     $this->RetrieveMultiRecords('SUBNS',$this->subns,$this->subnsa,$this->nullarray,$this->nullarray,$this->nullaray,$this->subnsid,$this->subnsttl);
     $this->RetrieveRecords('CNAME',$this->cname,$this->cnameid,$this->cnamettl);
-    
+
     if($this->reversezone){
       $this->RetrieveMultiRecords('PTR',$this->ptr,$this->ptrname,$this->nullarray,$this->nullarray,$this->nullarray,$this->ptrid,$this->ptrttl);
       $this->RetrieveMultiRecords('DELEGATE',$this->delegatefromto,$this->delegateuser,$this->nullarray,$this->nullarray,$this->nullarray,$this->delegateid,$this->delegatettl);
@@ -222,7 +222,7 @@ class Primary extends Zone {
 
 
 // *******************************************************
-  
+
   //  Function printModifyForm($params)
   /**
    * returns a pre-filled form to modify primary records
@@ -233,7 +233,7 @@ class Primary extends Zone {
    */
   Function printModifyForm($params){
     global $config,$lang;
-    global  $l;
+    global $l;
     global $hiddenfields;
 
     list($advanced,$ipv6,$nbrows) = $params;
@@ -242,225 +242,219 @@ class Primary extends Zone {
     }
     $this->error="";
     $result = '';
-      $deletecount = 0;
-      // TODO use zoneid instead of zonename & zonetype
-      $result .= '<form method="POST">
-       ' . $hiddenfields . '
-       <input type="hidden" name="zonename"
-       value="' . $this->zonename . '">
-       <input type="hidden" name="zonetype"
-       value="' . $this->zonetype . '">
-       
+    $deletecount = 0;
+    // TODO use zoneid instead of zonename & zonetype
+    $result .= '<form method="POST">
+      ' . $hiddenfields . '
+      <input type="hidden" name="zonename" value="' . $this->zonename . '">
+      <input type="hidden" name="zonetype" value="' . $this->zonetype . '">
       <input type="hidden" name="modified" value="1">
-      ';
-      // if advanced, say it to modified - in case
-      // of temporary use of advanced interface, not in
-      // user prefs.
-      if($advanced){ 
-        $result .= '<input type="hidden" name="advanced" value="1">
-        ';
-      }
-      
-      
-      if($advanced){
-        // print global params ($TTL)
-        $result .= '
-        <h3 class="boxheader">' . $l['str_primary_global_params'] . '</h3>
-        <p>' . $l['str_primary_ttl_explanation'] . '</p>
-        <table class="globalparams">
-        <tr><td class="left">' . $l['str_primary_default_ttl'] . '</td>
-        <td><input type="text" name="defaultttl" value="' . 
-        $this->defaultttl . '"></td></tr>
-        </table>
-        ';
-        // print SOA params
-        $result .= '
-        <h3 class="boxheader">' . $l['str_primary_soa_params'] . '</h3>
-        <p>' . $l['str_primary_refresh_interval_expl'] . '</p>
-        <table class="globalparams">
-        <tr><td class="left">' . $l['str_primary_refresh_period'] . '</td>
-        <td><input type="text" name="soarefresh" value="' .
-        $this->refresh . '"></td></tr>
-        </table>
-        <p>' . $l['str_primary_retry_interval_expl'] . '</p>
-        <table class="globalparams">
-        <tr><td class="left">' . $l['str_primary_retry_interval'] . '
-        </td><td><input type="text"  name="soaretry" value="' .
-        $this->retry . '"></td></tr>
-        </table>
-        <p>' . $l['str_primary_expire_time_expl'] . '</p>
-        <table class="globalparams">
-        <tr><td class="left">' . 
-        $l['str_primary_expire_time'] . '</td><td><input type="text"
-        name="soaexpire" value="' .
-        $this->expiry . '"></td></tr>
-        </table>
-        <p>' . $l['str_primary_negative_caching_expl'] . '</p>
-        <table class="globalparams">
-        <tr><td class="left">' . $l['str_primary_negative_caching'] . '</td>
-        <td><input type="text" name="soaminimum" value="' .
-        $this->minimum . '"></td></tr>
-        </table>
-        ';
-      }
-    
-      // retrieve NS names
-      $nsxnames = GetListOfServerNames();
-      $nsxnamesmandatory = GetListOfServerNames(1);
-      if (count($this->ns) == 0)
-        $nsxnamesoptional = array_diff($nsxnames, $nsxnamesmandatory);
+    ';
+    // if advanced, say it to modified - in case
+    // of temporary use of advanced interface, not in
+    // user prefs.
+    if($advanced){
+      $result .= '<input type="hidden" name="advanced" value="1">';
+    }
 
+    if($advanced){
+      // print global params ($TTL)
       $result .= '
+      <h3 class="boxheader">' . $l['str_primary_global_params'] . '</h3>
+      <p>' . $l['str_primary_ttl_explanation'] . '</p>
+      <table class="globalparams">
+      <tr><td class="left">' . $l['str_primary_default_ttl'] . '</td>
+      <td><input type="text" name="defaultttl" value="' .
+      $this->defaultttl . '"></td></tr>
+      </table>
+      ';
+      // print SOA params
+      $result .= '
+      <h3 class="boxheader">' . $l['str_primary_soa_params'] . '</h3>
+      <p>' . $l['str_primary_refresh_interval_expl'] . '</p>
+      <table class="globalparams">
+      <tr><td class="left">' . $l['str_primary_refresh_period'] . '</td>
+      <td><input type="text" name="soarefresh" value="' .
+      $this->refresh . '"></td></tr>
+      </table>
+      <p>' . $l['str_primary_retry_interval_expl'] . '</p>
+      <table class="globalparams">
+      <tr><td class="left">' . $l['str_primary_retry_interval'] . '
+      </td><td><input type="text"  name="soaretry" value="' .
+      $this->retry . '"></td></tr>
+      </table>
+      <p>' . $l['str_primary_expire_time_expl'] . '</p>
+      <table class="globalparams">
+      <tr><td class="left">' .
+      $l['str_primary_expire_time'] . '</td><td><input type="text"
+      name="soaexpire" value="' .
+      $this->expiry . '"></td></tr>
+      </table>
+      <p>' . $l['str_primary_negative_caching_expl'] . '</p>
+      <table class="globalparams">
+      <tr><td class="left">' . $l['str_primary_negative_caching'] . '</td>
+      <td><input type="text" name="soaminimum" value="' .
+      $this->minimum . '"></td></tr>
+      </table>
+      ';
+    }
+
+    // retrieve NS names
+    $nsxnames = GetListOfServerNames();
+    $nsxnamesmandatory = GetListOfServerNames(1);
+    $nsxnamesoptional = array();
+    if (count($this->ns) == 0)
+      $nsxnamesoptional = array_diff($nsxnames, $nsxnamesmandatory);
+
+    $result .= '
       <h3 class="boxheader">' . $l['str_primary_name_server_title'] . '</h3>
-        <p>' .
-        sprintf($l['str_primary_name_server_expl_with_sample_x'],
-          $nsxnames[0]) .'</p>
-        <table><tr><th>' .
-        $l['str_primary_name'] . '</th>';
-        if($advanced) { $result .= '<th>TTL</th>'; }
-        $result .= '<th>' . $l['str_delete'] . '</th></tr>
-        ';
-      
-      $usednsxnames = array();
-      $keys = array_keys($this->ns);
-      while($key = array_shift($keys)){
-        $result .= '<tr>
-        <td>' . $key . '</td>
-        ';
-        if($advanced){
-          $result .= '
-          <td>' . $this->PrintTTL($this->nsttl[$key]) . '</td>';
-        }
-        $result .= '<td>';
-        // if ns is mandatory, never delete it
-        $keytocompare = substr($key,0,-1);
-        if(!in_array($keytocompare,$nsxnamesmandatory)){
-          $deletecount++;
-          $result .= '<input type="checkbox" name="delete' .
-           $deletecount .
-          '" value="ns(' . $key . '-' . $this->nsid[$key] . ')">';
-        }else{
-          array_push($usednsxnames, $keytocompare);
-        }
-        $result .= "</td></tr>\n";
-      }
-      // compare $usednsxnames and $nsxnamesmandatory. If differences, add missing ones.
-      $missingns = array_diff($nsxnamesmandatory,$usednsxnames);
-      $nscounter=0;
-      while($missingnsname = array_pop($missingns)){
-        $nscounter++;
+      <p>' . sprintf($l['str_primary_name_server_expl_with_sample_x'], $nsxnames[0]) .'</p>
+      <table><tr><th>' .
+      $l['str_primary_name'] . '</th>';
+      if($advanced) { $result .= '<th>TTL</th>'; }
+      $result .= '<th>' . $l['str_delete'] . '</th></tr>
+    ';
+
+    $usednsxnames = array();
+    $keys = array_keys($this->ns);
+    while($key = array_shift($keys)){
+      $result .= '<tr>
+      <td>' . $key . '</td>
+      ';
+      if($advanced){
         $result .= '
+        <td>' . $this->PrintTTL($this->nsttl[$key]) . '</td>';
+      }
+      $result .= '<td>';
+      // if ns is mandatory, never delete it
+      $keytocompare = substr($key,0,-1);
+      if(!in_array($keytocompare,$nsxnamesmandatory)){
+        $deletecount++;
+        $result .= '<input type="checkbox" name="delete' .
+         $deletecount .
+        '" value="ns(' . $key . '-' . $this->nsid[$key] . ')">';
+      }else{
+        array_push($usednsxnames, $keytocompare);
+      }
+      $result .= "</td></tr>\n";
+    }
+    // compare $usednsxnames and $nsxnamesmandatory. If differences, add missing ones.
+    $missingns = array_diff($nsxnamesmandatory,$usednsxnames);
+    $nscounter=0;
+    while($missingnsname = array_pop($missingns)){
+      $nscounter++;
+      $result .= '
+      <tr>
+      <td><input type="hidden" name="ns' . $nscounter .'" value="'
+      . $missingnsname . '.">' . $missingnsname . '.</td>
+      ';
+      if($advanced){
+        $result .= '
+        <td><input type="text" name="nsttl' . $nscounter .
+        '" size="8" value="' . $l['str_primary_default'] . '"></td>';
+      }
+      $result .= '<td></td></tr>
+      ';
+    }
+    $nscounter++;
+    for($count=1;$count <= $nbrows;$count++){
+      $result .= '
         <tr>
-        <td><input type="hidden" name="ns' . $nscounter .'" value="' 
-        . $missingnsname . '.">' . $missingnsname . '.</td>
-        ';
-        if($advanced){
-          $result .= '
-          <td><input type="text" name="nsttl' . $nscounter . 
-          '" size="8" value="' . $l['str_primary_default'] . '"></td>';
-        }
-        $result .= '<td></td></tr>
+        <td><input type="text" name="ns' . $nscounter . '" value="' .
+        $nsxnamesoptional[$count] . '"></td>';
+      if($advanced){
+        $result .= '
+        <td><input type="text" name="nsttl' . $nscounter .
+        '" size="8" value="' . $l['str_primary_default'] . '"></td>
         ';
       }
       $nscounter++;
-      for($count=1;$count <= $nbrows;$count++){
-        $result .= '
-          <tr>
-          <td><input type="text" name="ns' . $nscounter . '" value="' .
-          $nsxnamesoptional[$count] . '"></td>';
+      $result .= '</tr>';
+    }
+
+    $result .= '
+    </table>
+    ';
+
+    if($this->reversezone){
+      $v6 = preg_match("/\.ip6\.(arpa|int)$/", $this->zonename);
+      $result .= '
+      <h3 class="boxheader">' . $l['str_primary_ptr_title'] . '</h3>
+      <p>
+      <p>' . $l['str_primary_ptr_expl'] . '<br>
+      ' . $l['str_primary_ptr_sample'] . ': <br>
+      <tt>' . $l['str_primary_ptr_sample_content'] . '</tt>
+      <br>' . $l['str_primary_ptr_ipv6_note'] . '<p>
+      <table>
+      <tr><td class="left">' .
+        sprintf($l['str_primary_ptr_record_modify_a_x'], $v6?"AAAA":"A", $config->sitename) . '</td>
+      <td><input type=checkbox name="modifya"></td></tr>
+      </table>
+      <table>
+      <tr><th>' . sprintf($l['str_primary_ptr_ip_under_x'],
+        $this->zonename) .'</th><th>'.$l['str_primary_name'].'</th>';
+      if($advanced) { $result .= '<th>TTL</th>'; }
+      $result .= '<th>' . $l['str_delete'] . '
+                                ';
+
+      $counter=0;
+      while(isset($this->ptr[$counter])){
+        $deletecount++;
+        // if advanced, print TTL fields
+        $result .= '<tr>
+            <td>' . $this->ptr[$counter] . '</td>
+            <td>' . $this->ptrname[$counter] . '</td>';
         if($advanced){
           $result .= '
-          <td><input type="text" name="nsttl' . $nscounter . 
-          '" size="8" value="' . $l['str_primary_default'] . '"></td>
+          <td>' . $this->PrintTTL($this->ptrttl[$counter]) . '</td>
           ';
         }
-        $nscounter++;
-        $result .= '</tr>';
+        $result .= '
+            <td><input type="checkbox" name="delete' . $deletecount .
+            '" value="ptr(' . $this->ptr[$counter] . '/' .
+            $this->ptrid[$counter] . '-' . $this->ptrname[$counter] . ')"></td>
+            </tr>
+        ';
+        $counter ++;
       }
 
-      $result .= '
-      </table>
-      ';
+      $counter=0;
+      $keys = array_keys($this->ptr);
+      while($key = array_shift($keys)){
+        $deletecount++;
+        $counter++;
+      }
 
-      if($this->reversezone){
-        $v6 = preg_match("/\.ip6\.(arpa|int)$/", $this->zonename);
+      $ptrcounter = 0;
+      for($count=1;$count <= $nbrows;$count++){
+        $ptrcounter++;
         $result .= '
-        <h3 class="boxheader">' . $l['str_primary_ptr_title'] . '</h3>
-        <p>
-        <p>' . $l['str_primary_ptr_expl'] . '<br>
-        ' . $l['str_primary_ptr_sample'] . ': <br>
-        <tt>' . $l['str_primary_ptr_sample_content'] . '</tt>
-        <br>' . $l['str_primary_ptr_ipv6_note'] . '<p>
-        <table>
-        <tr><td class="left">' . 
-          sprintf($l['str_primary_ptr_record_modify_a_x'], $v6?"AAAA":"A", $config->sitename) . '</td>
-        <td><input type=checkbox name="modifya"></td></tr>
-        </table>
-        <table>
-        <tr><th>' . sprintf($l['str_primary_ptr_ip_under_x'],
-          $this->zonename) .'</th><th>'.$l['str_primary_name'].'</th>';
-        if($advanced) { $result .= '<th>TTL</th>'; }
-        $result .= '<th>' . $l['str_delete'] . '
-                                  ';
-
-        $counter=0;
-        while(isset($this->ptr[$counter])){
-          $deletecount++;
-          // if advanced, print TTL fields
-          $result .= '<tr>
-              <td>' . $this->ptr[$counter] . '</td>
-              <td>' . $this->ptrname[$counter] . '</td>';
-          if($advanced){
-            $result .= '
-            <td>' . $this->PrintTTL($this->ptrttl[$counter]) . '</td>
-            ';
-          }
-          $result .= '
-              <td><input type="checkbox" name="delete' . $deletecount .
-              '" value="ptr(' . $this->ptr[$counter] . '/' .
-              $this->ptrid[$counter] . '-' . $this->ptrname[$counter] . ')"></td>
-              </tr>
-          ';
-          $counter ++;
-        }  
-
-        $counter=0;
-        $keys = array_keys($this->ptr);
-        while($key = array_shift($keys)){
-          $deletecount++;
-          $counter++;
-        }  
-      
-        $ptrcounter = 0;
-        for($count=1;$count <= $nbrows;$count++){
-          $ptrcounter++;      
-          $result .= '
-            <tr>
-              <td>
-              <input type="text" name="ptr' . $ptrcounter . '"></td>
-              <td><input type="text" name="ptrname' . $ptrcounter . '"></td>';
-          if($advanced){
-            $result .= '
-            <td><input type="text" name="ptrttl' . $ptrcounter . '" size="8" value="' . 
-              $l['str_primary_default'] . '"></td>
-            ';
-          }
-          $result .= '<td></td></tr>';
-        }
-        
-        if ($advanced) {
-        $result .='
-          </td></tr></table>
-          ' . $l['str_primary_ptr_generate']. '
-          <table>
           <tr>
-          <td>$GENERATE
-          <input type="text" name="gen1">-<input type="text" name="gen2"> 
-          PTR <input type="text" name="gen3">
-          </td></tr>
-          </table>
-        ';
+            <td>
+            <input type="text" name="ptr' . $ptrcounter . '"></td>
+            <td><input type="text" name="ptrname' . $ptrcounter . '"></td>';
+        if($advanced){
+          $result .= '
+          <td><input type="text" name="ptrttl' . $ptrcounter . '" size="8" value="' .
+            $l['str_primary_default'] . '"></td>
+          ';
         }
+        $result .= '<td></td></tr>';
+      }
+
+      if ($advanced) {
+      $result .='
+        </td></tr></table>
+        ' . $l['str_primary_ptr_generate']. '
+        <table>
+        <tr>
+        <td>$GENERATE
+        <input type="text" name="gen1">-<input type="text" name="gen2">
+        PTR <input type="text" name="gen3">
+        </td></tr>
+        </table>
+      ';
+      }
 
     if(!ereg('in-addr.arpa$',$this->zonename)) {
         $result .='
@@ -491,13 +485,13 @@ class Primary extends Zone {
             <td>' . $this->PrintTTL($this->subnsttl[$counter]) . '</td>
             ';
           }
-          $result .= '<td><input type="checkbox" name="delete' . $deletecount . 
-              '" value="subns(' . $this->subns[$counter] . '/' . 
+          $result .= '<td><input type="checkbox" name="delete' . $deletecount .
+              '" value="subns(' . $this->subns[$counter] . '/' .
               $this->subnsid[$counter] . ')"></td></tr>
           ';
           $counter ++;
-        }  
-      
+        }
+
         $subnscounter = 0;
         for($count=1;$count <= $nbrows;$count++){
           $subnscounter++;
@@ -517,7 +511,7 @@ class Primary extends Zone {
         </table>
         ';
 
-        
+
          }else{
         $result .='
         <p>
@@ -548,36 +542,36 @@ class Primary extends Zone {
                 ' . $l['str_primary_reverse_sub_zone_range_to'] . '
                 ' . $to . '</td>
                 <td>'.  $this->delegateuser[$counter] .
-              '</td> 
+              '</td>
               ';
           if($advanced){
             $result .= '
             <td>' . $this->PrintTTL($this->delegatettl[$counter]) . '</td>
             ';
           }
-          $result .= '<td><input type="checkbox" name="delete' . $deletecount . 
+          $result .= '<td><input type="checkbox" name="delete' . $deletecount .
               '" value="delegate(' .
-              $this->delegatefromto[$counter] . ')"></td> 
+              $this->delegatefromto[$counter] . ')"></td>
               </tr>
           ';
           $counter ++;
-        }  
-      
+        }
+
         $subnscounter = 0;
         for($count=1;$count <= $nbrows;$count++){
           $subnscounter++;
           $result .= '
-            <tr><td>' . $l['str_primary_reverse_sub_zone_range_from'] . 
-              '&nbsp;<input type="text" size="3" 
+            <tr><td>' . $l['str_primary_reverse_sub_zone_range_from'] .
+              '&nbsp;<input type="text" size="3"
               name="delegatefrom' . $subnscounter . '">
-              ' . $l['str_primary_reverse_sub_zone_range_to'] . 
+              ' . $l['str_primary_reverse_sub_zone_range_to'] .
               '&nbsp;<input type="text" name="delegateto' . $subnscounter . '" size="3">
                 </td><td>
                 &nbsp;<input type="text" name="delegateuser' .
                 $subnscounter . '" size="10"></td>';
           if($advanced){
             $result .= '
-            <td><input type="text" name="delegatettl' . $subnscounter . '" size="8" value="' . 
+            <td><input type="text" name="delegatettl' . $subnscounter . '" size="8" value="' .
               $l['str_primary_default'] . '"></td>
             ';
           }
@@ -593,7 +587,7 @@ class Primary extends Zone {
         // MX
         $result .= '
         <h3 class="boxheader">' . $l['str_primary_mail_exchanger_title'] . '</h3>
-          <p>' . 
+          <p>' .
           sprintf($l['str_primary_mx_expl_with_sample_x'], $this->zonename) . '<br>' .
           $l['str_primary_mx_expl_for_pref'] . '
           </p>
@@ -609,7 +603,7 @@ class Primary extends Zone {
           <th>' . $l['str_delete'] . '
           </tr>
         ';
-  
+
         $counter=0;
         while(isset($this->mx[$counter])){
           $deletecount++;
@@ -629,14 +623,14 @@ class Primary extends Zone {
               $this->mxid[$counter] . '-' . $this->mx[$counter] .')"></td></tr>
           ';
           $counter++;
-        }  
-      
+        }
+
         $counter=0;
         $keys = array_keys($this->mx);
         while($key = array_shift($keys)){
           $deletecount++;
           $counter++;
-        }  
+        }
         $mxcounter = 0;
         for($count=1;$count <= $nbrows;$count++){
           $mxcounter++;
@@ -648,13 +642,13 @@ class Primary extends Zone {
           ';
           if($advanced){
             $result .= '
-              <td><input type="text" name="mxttl' . $mxcounter . '" size="8" value="' . 
+              <td><input type="text" name="mxttl' . $mxcounter . '" size="8" value="' .
               $l['str_primary_default'] . '"></td>
             ';
           }
           $result .= '<td>&nbsp;</td></tr>';
         }
-        
+
         $result .= '
         </table>
         ';
@@ -668,7 +662,7 @@ class Primary extends Zone {
         ' . $l['str_primary_a_record_expl'] . '
         </p>
         <table>
-        <tr><td class="left">' . 
+        <tr><td class="left">' .
           sprintf($l['str_primary_a_record_modify_ptr_x'], $config->sitename) . '</td>
         <td><input type=checkbox name="modifyptr"></td></tr>
         </table>
@@ -677,7 +671,7 @@ class Primary extends Zone {
         if($advanced) { $result .= '<th>TTL'; }
         $result .= '<th>' . $l['str_delete'] . '
         ';
-  
+
         $counter=0;
         while(isset($this->a[$counter])){
           $deletecount++;
@@ -695,14 +689,14 @@ class Primary extends Zone {
               $this->aid[$counter] . '-' . $this->aip[$counter] . ')"></td></tr>
           ';
           $counter ++;
-        }  
+        }
 
         $counter=0;
         $keys = array_keys($this->a);
         while($key = array_shift($keys)){
           $deletecount++;
           $counter++;
-        }  
+        }
         $acounter = 0;
         for($count=1;$count <= $nbrows;$count++){
           $acounter++;
@@ -712,23 +706,23 @@ class Primary extends Zone {
               . '"></td>
               <td><input type="text" name="a' . $acounter . '"></td>';
           if($advanced){
-            $result .= '<td><input type="text" name="attl' . $acounter . '" size="8" value="' . 
+            $result .= '<td><input type="text" name="attl' . $acounter . '" size="8" value="' .
               $l['str_primary_default'] . '"></td>
             ';
           }
-        
+
           $result .= '<td>&nbsp;</td></tr>';
         }
 
         $result .= '
         </table>
         ';
-  
+
         if($this->user->ipv6){
           $result .= '
-          <h3 class="boxheader">' . $l['str_primary_ipv6_record_title'] . 
+          <h3 class="boxheader">' . $l['str_primary_ipv6_record_title'] .
           '</h3>
-          <p>' . 
+          <p>' .
           sprintf($l['str_primary_ipv6_record_expl_before_x_x_x'],
             $this->zonename,$this->zonename,
             $this->zonename) . '<br>
@@ -744,7 +738,7 @@ class Primary extends Zone {
           if ($advanced) { $result .= '<th>TTL'; }
           $result .= '<th>' . $l['str_delete'] . '
           ';
-  
+
           $counter=0;
           while(isset($this->aaaa[$counter])){
             $deletecount++;
@@ -762,19 +756,19 @@ class Primary extends Zone {
                 $this->aaaaid[$counter] . ')"></td></tr>
             ';
             $counter ++;
-          }  
+          }
 
           $counter=0;
           $keys = array_keys($this->aaaa);
           while($key = array_shift($keys)){
             $deletecount++;
             $counter++;
-          }  
+          }
           $aaaacounter = 0;
           for($count=1;$count <= $nbrows;$count++){
             $aaaacounter++;
             $result .= '
-            <tr><td><input type="text" name="aaaaname' . 
+            <tr><td><input type="text" name="aaaaname' .
                 $aaaacounter
                 . '"></td>
                 <td><input type="text" name="aaaa' . $aaaacounter . '"></td>';
@@ -783,17 +777,17 @@ class Primary extends Zone {
               <td><input type="text" name="aaaattl' . $aaaacounter . '" size="8" value="' . $l['str_primary_default'] . '"></td>
               ';
             }
-        
+
             $result .= '<td></td></tr>';
           }
 
           $result .= '
           </table>
           ';
-        } // end IPv6  
-  
-        
-        
+        } // end IPv6
+
+
+
         $result .= '
         <h3 class="boxheader">' . $l['str_primary_cname_title'] . '</h3>
         <p>' . $l['str_primary_cname_expl'] . '
@@ -818,11 +812,11 @@ class Primary extends Zone {
             ';
           }
           $result .= '
-              <td><input type="checkbox" name="delete' . $deletecount . 
+              <td><input type="checkbox" name="delete' . $deletecount .
               '" value="cname(' . $key . '-' . $this->cnameid[$key] . ')"></td></tr>
           ';
-        }  
-      
+        }
+
 
         $cnamecounter = 0;
         for($count=1;$count <= $nbrows;$count++){
@@ -831,12 +825,12 @@ class Primary extends Zone {
             <tr>
             <td><input
              type="text" name="cname' . $cnamecounter . '"></td>
-              <td><input 
+              <td><input
               type="text" name="cnamea' . $cnamecounter . '">
             </td>';
           if($advanced){
             $result .= '
-            <td><input type="text" name="cnamettl' . $cnamecounter . '" 
+            <td><input type="text" name="cnamettl' . $cnamecounter . '"
             size="8" value="' . $l['str_primary_default'] . '"></td>
             ';
           }
@@ -846,15 +840,15 @@ class Primary extends Zone {
         $result .= '
         </table>
         ';
-        
+
         // END CNAME
 
         // BEGIN TXT
         if($this->user->txtrecords){
           $result .= '
-          <h3 class="boxheader">' . $l['str_primary_txt_record_title'] . 
+          <h3 class="boxheader">' . $l['str_primary_txt_record_title'] .
           '</h3>
-          <p>' . 
+          <p>' .
           sprintf($l['str_primary_txt_record_expl_x_x_x'],
             $this->zonename,$this->zonename,
             $this->zonename) . '
@@ -863,7 +857,7 @@ class Primary extends Zone {
           <th>'. $l['str_primary_name'] . '<th>TXT';
           if ($advanced) { $result .= '<th>TTL'; }
           $result .= '<th>' . $l['str_delete'] ;
-  
+
           $counter=0;
           while(isset($this->txt[$counter])){
             $deletecount++;
@@ -881,19 +875,19 @@ class Primary extends Zone {
                 $this->txtid[$counter] . ')"></td></tr>
             ';
             $counter ++;
-          }  
+          }
 
           $counter=0;
           $keys = array_keys($this->txt);
           while($key = array_shift($keys)){
             $deletecount++;
             $counter++;
-          }  
+          }
           $txtcounter = 0;
           for($count=1;$count <= $nbrows;$count++){
             $txtcounter++;
             $result .= '
-            <tr><td><input type="text" name="txt' . 
+            <tr><td><input type="text" name="txt' .
                 $txtcounter
                 . '"></td>
                 <td><input type="text" name="txtstring' . $txtcounter . '"></td>';
@@ -902,14 +896,14 @@ class Primary extends Zone {
               <td><input type="text" name="txtttl' . $txtcounter . '" size="8" value="' . $l['str_primary_default'] . '"></td>
               ';
             }
-        
+
             $result .= '<td></td></tr>';
           }
 
           $result .= '
           </table>
           ';
-        } 
+        }
         // END TXT
 
 
@@ -919,209 +913,205 @@ class Primary extends Zone {
           <h3 class="boxheader">' . $l['str_primary_srv_record_title'] .
           '</h3>
           <p>' .
-          sprintf($l['str_primary_srv_record_expl']) 
+          sprintf($l['str_primary_srv_record_expl'])
           . '
           </p>
           <table>
-          <th>'. $l['str_primary_name'] . 
-   '<th>'. $l['str_primary_srv_priority'] .
-   '<th>'. $l['str_primary_srv_weight'] .
-   '<th>'. $l['str_primary_srv_port'] .
-   '<th>SRV';
-          if ($advanced) { $result .= '<th>TTL'; }
-          $result .= '<th>' . $l['str_delete'] ;
+          <th>'. $l['str_primary_name'] .
+          '<th>'. $l['str_primary_srv_priority'] .
+          '<th>'. $l['str_primary_srv_weight'] .
+          '<th>'. $l['str_primary_srv_port'] .
+          '<th>SRV';
+        if ($advanced) { $result .= '<th>TTL'; }
+        $result .= '<th>' . $l['str_delete'] ;
 
-          $counter=0;
-          while(isset($this->srvname[$counter])){
-            $deletecount++;
-            // if advanced, print TTL fields
-            $result .= '<tr>
-            <td>' . $this->srvname[$counter] . '</td>
-            <td>' . $this->srvpriority[$counter] . '</td>
-            <td>' . $this->srvweight[$counter] . '</td>
-            <td>' . $this->srvport[$counter] . '</td>
-            <td>' . $this->srvvalue[$counter] . '</td>';
-            if($advanced){
-              $result .= '<td>' . $this->PrintTTL($this->srvttl[$counter]) . '</td>
-              ';
-            }
-            $result .= '
-            <td><input type="checkbox" name="delete' . $deletecount .
-            '" value="srv(' . $this->srvname[$counter] . '-' .
-            $this->srvid[$counter] . ')"></td></tr>
+        $counter=0;
+        while(isset($this->srvname[$counter])){
+          $deletecount++;
+          // if advanced, print TTL fields
+          $result .= '<tr>
+          <td>' . $this->srvname[$counter] . '</td>
+          <td>' . $this->srvpriority[$counter] . '</td>
+          <td>' . $this->srvweight[$counter] . '</td>
+          <td>' . $this->srvport[$counter] . '</td>
+          <td>' . $this->srvvalue[$counter] . '</td>';
+          if($advanced){
+            $result .= '<td>' . $this->PrintTTL($this->srvttl[$counter]) . '</td>
             ';
-            $counter ++;
           }
+          $result .= '
+          <td><input type="checkbox" name="delete' . $deletecount .
+          '" value="srv(' . $this->srvname[$counter] . '-' .
+          $this->srvid[$counter] . ')"></td></tr>
+          ';
+          $counter ++;
+        }
 
-          $srvcounter = 0;
-          for($count=1;$count <= $nbrows;$count++){
-            $srvcounter++;
-            $result .= '
-            <tr><td><input type="text" name="srvname' . 
-                $srvcounter
-                . '"></td>
+        $srvcounter = 0;
+        for($count=1;$count <= $nbrows;$count++){
+          $srvcounter++;
+          $result .= '
+            <tr><td><input type="text" name="srvname' . $srvcounter . '"></td>
             <td><input type="text" size="3" name="srvpriority' . $srvcounter . '"></td>
             <td><input type="text" size="3" name="srvweight' . $srvcounter . '"></td>
             <td><input type="text" size="5" name="srvport' . $srvcounter . '"></td>
             <td><input type="text" name="srvvalue' . $srvcounter . '"></td>';
-            if($advanced){
-              $result .= '
-              <td><input type="text" name="srvttl' . $srvcounter . '" size="8" value="' . $l['str_primary_default'] . '"></td>
-              ';
-            }
-            $result .= '<td></td></tr>';
+          if($advanced){
+            $result .= '
+            <td><input type="text" name="srvttl' . $srvcounter .
+            '" size="8" value="' . $l['str_primary_default'] . '"></td>';
           }
-          $result .= '
-          </table>
-          ';
+          $result .= '<td></td></tr>';
         }
-        // END SRV
+        $result .= '
+        </table>
+        ';
+      }
+      // END SRV
 
-        // BEGIN SUBNS
-        
-        $result .='
-      <h3 class="boxheader">' . $l['str_primary_sub_zones_title'] . '</h3>
+      // BEGIN SUBNS
+
+      $result .='
+        <h3 class="boxheader">' . $l['str_primary_sub_zones_title'] . '</h3>
         <p>
-        ' . sprintf($l['str_primary_sub_zones_expl_on_x_x'],$config->sitename,
+        ' . sprintf(
+          $l['str_primary_sub_zones_expl_on_x_x'],
+          $config->sitename,
           $this->zonename) . '
         </p>
         <table>
         <th>' . $l['str_primary_sub_zones_zone'] .'<th>NS';
-        if($advanced) { $result .= '<th>TTL'; }
-        $result .= '<th>' . $l['str_delete'] . '
-        ';
+      if($advanced) { $result .= '<th>TTL'; }
+      $result .= '<th>' . $l['str_delete'] . '
+      ';
 
-        $counter=0;
-        while(isset($this->subns[$counter])){
-          $deletecount++;
-          $result .= '<tr>
-              <td>' . $this->subns[$counter] . '</td>
-              <td>' . $this->subnsa[$counter] . '</td>
-              ';
-          if($advanced){
-            $result .= '
-            <td>' . $this->PrintTTL($this->subnsttl[$counter]) . '</td>
+      $counter=0;
+      while(isset($this->subns[$counter])){
+        $deletecount++;
+        $result .= '<tr>
+            <td>' . $this->subns[$counter] . '</td>
+            <td>' . $this->subnsa[$counter] . '</td>
             ';
-          }
-          $result .= '<td><input type="checkbox" name="delete' . $deletecount . 
-              '" value="subns(' . $this->subns[$counter] . '/' . 
-              $this->subnsid[$counter] . ')"></td></tr>
-          ';
-          $counter ++;
-        }  
-      
-        $subnscounter = 0;
-        for($count=1;$count <= $nbrows;$count++){
-          $subnscounter++;
+        if($advanced){
           $result .= '
-            <tr><td><input
-             type="text" name="subns' . $subnscounter . '"></td>
-              <td><input type="text" name="subnsa' . $subnscounter . '">
-                </td>';
-          if($advanced){
-            $result .= '
-            <td><input type="text" name="subnsttl' . $subnscounter . '" size="8" value="' . $l['str_primary_default'] . '"></td>
-            ';
-          }
-        }
-
-        $result .= '
-        </table>
-        ';
-
-        // BEGIN WWW
-        
-        $result .='
-        <h3 class="boxheader">' . $l['str_primary_www_zones_title'] . '</h3>
-        <p>
-        ' . sprintf($l['str_primary_www_zones_expl_on_x_x'],$config->sitename,
-          $this->zonename) . '
-        </p>
-        <table>
-        <th>' . $l['str_primary_www_zones_zone'] .'
-        <th>' . $l['str_primary_www_address'] . '
-        <th>' . $l['str_primary_www_zones_type'];
-        if($advanced) { $result .= '<th>TTL'; }
-        $result .= '<th>' . $l['str_delete'] . '
-        ';
-
-        $counter=0;
-        while(isset($this->www[$counter])){
-          $deletecount++;
-          $result .= '<tr>
-              <td>' . $this->www[$counter] . '</td>
-              <td>' . $this->wwwa[$counter] . '</td>
-              <td>' . $this->FrameRedirect($this->wwwr[$counter]) . '</td>
-              ';
-          if($advanced){
-            $result .= '
-            <td>' . $this->PrintTTL($this->wwwttl[$counter]) . '</td>
-            ';
-          }
-          $result .= '<td><input type="checkbox" name="delete' . $deletecount . 
-              '" value="www(' . $this->www[$counter] . '-' . 
-              $this->wwwid[$counter] . ')"></td></tr>
+          <td>' . $this->PrintTTL($this->subnsttl[$counter]) . '</td>
           ';
-          $counter ++;
-        }  
-      
-        $wwwcounter = 0;
-        for($count=1;$count <= $nbrows;$count++){
-          $wwwcounter++;
-          $result .= '
-            <tr>
-            <td><input type="text" name="www' . $wwwcounter . '"></td>
-            <td><input type="text" name="wwwa' . $wwwcounter . '"></td>
-            <td>
-              <nobr><label><input type="radio" name="wwwr' . $wwwcounter . '" value="r">' .
-              $l['str_primary_www_redirect_301'] . '</label></nobr><br>
-              <nobr><label><input type="radio" name="wwwr' . $wwwcounter . '" value="R">' .
-              $l['str_primary_www_redirect'] . '</label></nobr><br>
-              <nobr><label><input type="radio" name="wwwr' . $wwwcounter . '" value="F">' .
-              $l['str_primary_www_frame'] . '</label></nobr>
-            </td>';
-          if($advanced){
-            $result .= '
-            <td>
-              <input type="text" name="wwwttl' . $wwwcounter . '" size="8" value="' .
-              $l['str_primary_default'] . '">
-            </td>
-            ';
-          }
-          $result .= '</tr>';
         }
-        $result .= '</table>';
-
-      } // end not reverse zone
-      
-
-
-      $result .= '
-      <h3 class="boxheader">' . $l['str_primary_allow_transfer_title'] . '</h3>
-        <p>' . $l['str_primary_allow_transfer_expl'] . '</p>
-        <table>
-        <tr><td>
-        ' . $l['str_primary_allow_transfer_ip_allowed'] . '
-        <input id="xferip" type="text" name="xferip" value="';
-        if($this->xfer=="any"){
-          $result .= '';
-        }else{
-          $result .= $this->xfer;
-        }
-        $result .= '"></td></tr>
-        </table>
-
-';
-
-      // generate count$ vars to fill in httpvars array
-      // so retrieveArgs will parse everything, including high numbered delete$
-
-      for($fakecounter=0;$fakecounter < $deletecount;$fakecounter++){
-        $result .= '<input type="hidden" name="count' . $fakecounter . '" value="1" >
-          ';
+        $result .= '<td><input type="checkbox" name="delete' . $deletecount .
+            '" value="subns(' . $this->subns[$counter] . '/' .
+            $this->subnsid[$counter] . ')"></td></tr>
+        ';
+        $counter ++;
       }
 
-$result .= '
+      $subnscounter = 0;
+      for($count=1;$count <= $nbrows;$count++){
+        $subnscounter++;
+        $result .= '
+          <tr><td><input
+           type="text" name="subns' . $subnscounter . '"></td>
+            <td><input type="text" name="subnsa' . $subnscounter . '">
+              </td>';
+        if($advanced){
+          $result .= '
+          <td><input type="text" name="subnsttl' . $subnscounter . '" size="8" value="' . $l['str_primary_default'] . '"></td>
+          ';
+        }
+      }
+
+      $result .= '
+      </table>
+      ';
+
+      // BEGIN WWW
+
+      $result .='
+      <h3 class="boxheader">' . $l['str_primary_www_zones_title'] . '</h3>
+      <p>
+      ' . sprintf($l['str_primary_www_zones_expl_on_x_x'],$config->sitename,
+        $this->zonename) . '
+      </p>
+      <table>
+      <th>' . $l['str_primary_www_zones_zone'] .'
+      <th>' . $l['str_primary_www_address'] . '
+      <th>' . $l['str_primary_www_zones_type'];
+      if($advanced) { $result .= '<th>TTL'; }
+      $result .= '<th>' . $l['str_delete'] . '
+      ';
+
+      $counter=0;
+      while(isset($this->www[$counter])){
+        $deletecount++;
+        $result .= '<tr>
+            <td>' . $this->www[$counter] . '</td>
+            <td>' . $this->wwwa[$counter] . '</td>
+            <td>' . $this->FrameRedirect($this->wwwr[$counter]) . '</td>
+            ';
+        if($advanced){
+          $result .= '
+          <td>' . $this->PrintTTL($this->wwwttl[$counter]) . '</td>
+          ';
+        }
+        $result .= '<td><input type="checkbox" name="delete' . $deletecount .
+            '" value="www(' . $this->www[$counter] . '-' .
+            $this->wwwid[$counter] . ')"></td></tr>
+        ';
+        $counter ++;
+      }
+
+      $wwwcounter = 0;
+      for($count=1;$count <= $nbrows;$count++){
+        $wwwcounter++;
+        $result .= '
+          <tr>
+          <td><input type="text" name="www' . $wwwcounter . '"></td>
+          <td><input type="text" name="wwwa' . $wwwcounter . '"></td>
+          <td>
+            <nobr><label><input type="radio" name="wwwr' . $wwwcounter . '" value="r">' .
+            $l['str_primary_www_redirect_301'] . '</label></nobr><br>
+            <nobr><label><input type="radio" name="wwwr' . $wwwcounter . '" value="R">' .
+            $l['str_primary_www_redirect'] . '</label></nobr><br>
+            <nobr><label><input type="radio" name="wwwr' . $wwwcounter . '" value="F">' .
+            $l['str_primary_www_frame'] . '</label></nobr>
+          </td>';
+        if($advanced){
+          $result .= '
+          <td>
+            <input type="text" name="wwwttl' . $wwwcounter . '" size="8" value="' .
+            $l['str_primary_default'] . '">
+          </td>
+          ';
+        }
+        $result .= '</tr>';
+      }
+      $result .= '</table>';
+
+    } // end not reverse zone
+
+    $result .= '
+    <h3 class="boxheader">' . $l['str_primary_allow_transfer_title'] . '</h3>
+      <p>' . $l['str_primary_allow_transfer_expl'] . '</p>
+      <table>
+      <tr><td>
+      ' . $l['str_primary_allow_transfer_ip_allowed'] . '
+      <input id="xferip" type="text" name="xferip" value="';
+      if($this->xfer=="any"){
+        $result .= '';
+      }else{
+        $result .= $this->xfer;
+      }
+      $result .= '"></td></tr>
+      </table>
+    ';
+
+    // generate count$ vars to fill in httpvars array
+    // so retrieveArgs will parse everything, including high numbered delete$
+
+    for($fakecounter=0;$fakecounter < $deletecount;$fakecounter++){
+      $result .= '<input type="hidden" name="count' . $fakecounter . '" value="1">';
+    }
+
+    $result .= '
       <input type="hidden" name="valid" value="1">
       <table id="submit"><tr><td>
       <input type="submit" value="' . $l['str_primary_generate_zone_button'] . '">
@@ -1129,17 +1119,17 @@ $result .= '
       </td></tr></table>
       </form>
     ';
-    
+
     return $result;
   }
 
   Function VerifyAllTTL($httpvars) {
-   global $user, $l;
-   if ($user->userid != 1) {
-     return 1;
-   }
+    global $user, $l;
+    if ($user->userid != 1) {
+      return 1;
+    }
 
-    // parse all http vars 
+    // parse all http vars
     while (list($key, $val) = each($httpvars)) {
       if (ereg("[a-z]+ttl[0-9]+", $key)) {
          if ($val != $l['str_primary_default']) {
@@ -1150,11 +1140,11 @@ $result .= '
     return !notnull($this->error);
   }
 
-// *******************************************************  
+// *******************************************************
 //  Function PrintModified($params)
   /**
    * Process params from primarymodifyform() form:
-   * for each record type execute addTYPERecord, execute updateSOA 
+   * for each record type execute addTYPERecord, execute updateSOA
    * and outputs result & config file
    *
    *@access public
@@ -1164,10 +1154,10 @@ $result .= '
   Function printModified($params){
     global $db;
     global $config;
-    global  $html,$l;
-  
-list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
-                $modifyptr,$modifyptripv6,$modifya)=$params;
+    global $html,$l;
+
+    list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
+      $modifyptr,$modifyptripv6,$modifya) = $params;
     $this->error="";
     $result = '';
 
@@ -1182,7 +1172,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
     if($this->reversezone){
       $ptr = retrieveArgs("ptr", $VARS);
       $ptrname = retrieveArgs("ptrname", $VARS);
-      $ptrttl = retrieveArgs("ptrttl", $VARS);      
+      $ptrttl = retrieveArgs("ptrttl", $VARS);
       $delegatefrom = retrieveArgs("delegatefrom", $VARS);
       $delegateto = retrieveArgs("delegateto", $VARS);
       $delegatettl = retrieveArgs("delegatettl",$VARS);
@@ -1217,7 +1207,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
     $cname = retrieveArgs("cname", $VARS);
     $cnamea = retrieveArgs("cnamea", $VARS);
     $cnamettl = retrieveArgs("cnamettl",$VARS);
-    
+
     $txt = retrieveArgs("txt", $VARS);
     $txtstring = retrieveArgs("txtstring", $VARS);
     $txtttl = retrieveArgs("txtttl",$VARS);
@@ -1241,15 +1231,12 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
     }
     $result .= $this->AddCNAMERecord($cname,$cnamea,$cnamettl);
     $result .= $this->AddTXTRecord($txt,$txtstring,$txtttl);
-    
+
     if($this->UpdateSOA($xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum) == 0){
-      $result .= sprintf($html->string_error, 
-            $this->error
-          ) . '<br>';
+      $result .= sprintf($html->string_error, $this->error) . '<br>';
     }else{
-      $result .= sprintf($l['str_primary_new_serial_x'],
-        $this->serial) . "<br>";
-    
+      $result .= sprintf($l['str_primary_new_serial_x'], $this->serial) . "<br>";
+
       // check for errors
       // - generate zone file in /tmp/zonename
       if(!$this->generateConfigFile()){
@@ -1261,10 +1248,9 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
           $this->tempZoneFile();
         $check = shell_exec(escapeshellcmd($checker));
         // if ok
-         if(preg_match("/OK/", $check)){
-        // if($check == "OK\n"){
+        if(preg_match("/OK/", $check)){
           $result .= $l['str_primary_internal_tests_ok'] . '<br>
-          ' . $l['str_primary_generated_config'] . ': 
+          ' . $l['str_primary_generated_config'] . ':
           <p align="center">
           <pre>
           ';
@@ -1272,7 +1258,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
           $fd = fopen($this->tempZoneFile(),"r");
           if ($fd == 0)
           {
-            $result .= sprintf($html->string_error, 
+            $result .= sprintf($html->string_error,
                   sprintf($l['str_can_not_open_x_for_reading'],
                       $this->tempZoneFile())
                 );
@@ -1285,10 +1271,10 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
           unlink($this->tempZoneFile());
           $result .= $this->flagModified($this->zoneid);
         }else{
-          $result .= $l['str_primary_zone_error_warning'] . ': 
+          $result .= $l['str_primary_zone_error_warning'] . ':
           <br>
           <pre>' . $check . '</pre>
-          ' . 
+          ' .
           sprintf($l['str_primary_error_if_engine_error_x_contact_admin_x'],
             '<a  href="mailto:' . $config->contactemail . '">',
             '</a>') . '
@@ -1301,7 +1287,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
           $fd = fopen($this->tempZoneFile(),"r");
           if ($fd == 0)
           {
-            $result .= sprintf($html->string_error, 
+            $result .= sprintf($html->string_error,
                   sprintf($l['str_can_not_open_x_for_reading'],
                       $this->tempZoneFile())
                 );
@@ -1313,21 +1299,21 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
           </p>&nbsp;";
         }
       }
-    }  
+    }
     return $result;
   }
-  
 
 
 
-// *******************************************************  
+
+// *******************************************************
   Function DeleteARecord($name,$id,$ip,$reverse){
     global $db;
-    global  $html,$config,$l;
+    global $html,$config,$l;
 
-    $result = sprintf($l['str_primary_deleting_a_x'],
-          stripslashes($name) . "/" . stripslashes($ip)) . "... ";
-  
+    $result = sprintf(
+      $l['str_primary_deleting_a_x'],
+      stripslashes($name) . "/" . stripslashes($ip)) . "... ";
     if(notnull($reverse)){
       // look for reverse
       // check if managed by user
@@ -1360,7 +1346,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
           // modification allowed because same owner
           // looking for zoneid
           $result .= $l['str_primary_zone_managed_by_you'];
-          $query = "SELECT id FROM dns_zone 
+          $query = "SELECT id FROM dns_zone
             WHERE zone='" . $reversezone . "' AND zonetype='P'";
           $res = $db->query($query);
           $line = $db->fetch_row($res);
@@ -1370,11 +1356,11 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
           }else{
             $valtodelete = $name;
           }
-          $query = "DELETE FROM dns_record 
+          $query = "DELETE FROM dns_record
             WHERE zoneid='" . $newzoneid . "'
-            AND type='PTR' AND val1='" . $firstip . "' 
+            AND type='PTR' AND val1='" . $firstip . "'
             AND val2='" . $valtodelete . "'";
-  
+
           $res = $db->query($query);
           if($db->error()){
             $this->error=$l['str_trouble_with_db'];
@@ -1411,11 +1397,11 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
             }else{
               $valtodelete = $name;
             }
-            $query = "DELETE FROM dns_record 
+            $query = "DELETE FROM dns_record
               WHERE zoneid='" . $newzoneid . "'
-              AND type='PTR' AND val1='" . $firstip . "' 
+              AND type='PTR' AND val1='" . $firstip . "'
               AND val2='" . $valtodelete . "'";
-    
+
             $res = $db->query($query);
             if($db->error()){
               $this->error=$l['str_trouble_with_db'];
@@ -1427,7 +1413,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
             // no zone found
             $result .= $l['str_primary_reverse_exists_but_ip_not_manageable'] . "<br>";
           }
-                      
+
         }
       }else{
         $result .=
@@ -1436,7 +1422,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
       }
     } // end if updatereverse
     if($id){
-      $query = "DELETE FROM dns_record 
+      $query = "DELETE FROM dns_record
         WHERE zoneid='" . $this->zoneid . "'
         AND type='A' AND id='" . $id . "'";
     }else{
@@ -1447,26 +1433,23 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
     $res = $db->query($query);
     if($db->error()){
       $this->error=$l['str_trouble_with_db'];
-      $result .= sprintf($html->string_error,
-            $l['str_trouble_with_db']
-          ) . '<br>';
     }else{
       $result .= $l['str_primary_deleting_ok'] . "<br>\n";
     }
     return $result;
   }
-  
 
-// *******************************************************  
+
+// *******************************************************
   Function DeletePTRRecord($ip,$id,$name,$reverse){
     global $db;
-    global  $html,$config,$l;
+    global $html,$config,$l;
 
     $result = sprintf($l['str_primary_deleting_ptr_x'],
-          stripslashes($ip) . "/" . stripslashes($name)) . "... ";
-  
+      stripslashes($ip) . "/" . stripslashes($name)) . "... ";
+
     if(notnull($reverse)){
-    // if "normal" zone is managed by current user, update A 
+    // if "normal" zone is managed by current user, update A
     // remove all before first dot, and last char.
       $newzone = substr(substr(strstr(stripslashes($name),'.'),1),0,-1);
       $newa = substr(stripslashes($name),0,strlen(stripslashes($name)) - strlen($newzone) -2);
@@ -1508,14 +1491,14 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
           // modification allowed because same owner
           // looking for zoneid
           $result .= $l['str_primary_zone_managed_by_you'];
-          $query = "SELECT id FROM dns_zone 
+          $query = "SELECT id FROM dns_zone
             WHERE zone='" . $newzone . "' AND zonetype='P'";
           $res = $db->query($query);
           $line = $db->fetch_row($res);
           $newzoneid=$line[0];
-          $query = "DELETE FROM dns_record 
+          $query = "DELETE FROM dns_record
             WHERE zoneid='" . $newzoneid . "'
-            AND type='A' AND val1='" . $newa . "' 
+            AND type='A' AND val1='" . $newa . "'
             AND val2='" . $newip . "'";
           $res = $db->query($query);
           if($db->error()){
@@ -1533,17 +1516,14 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
           sprintf($l['str_primary_not_managed_by_x'],
             $config->sitename) . "<br>";
       }
-    }    
+    }
 
-    $query = "DELETE FROM dns_record 
+    $query = "DELETE FROM dns_record
       WHERE zoneid='" . $this->zoneid . "'
       AND type='PTR' AND id='" . $id . "'";
     $res = $db->query($query);
     if($db->error()){
       $this->error=$l['str_trouble_with_db'];
-      $result .= sprintf($html->string_error,
-            $l['str_trouble_with_db']
-          ) . '<br>';
     }else{
       $result .= $l['str_primary_deleting_ok'] . "<br>\n";
     }
@@ -1551,7 +1531,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
   }
 
 // *******************************************************
-  
+
   //  Function DeleteMultipleARecords()
   /**
    * Delete all the A records for a given name in current zone
@@ -1565,18 +1545,16 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
   Function DeleteMultipleARecords($name){
 
     global $db,$html,$l;
-    
-    $query = "DELETE FROM dns_record 
+
+    $query = "DELETE FROM dns_record
       WHERE zoneid='" . $this->zoneid . "'
       AND type='A' AND val1='" . mysql_real_escape_string($name) . "'";
-            $result .= sprintf($l['str_primary_deleting_a_x'],
-            stripslashes($newvalue)) . "... ";
+    $result .= sprintf(
+      $l['str_primary_deleting_a_x'],
+      stripslashes($newvalue)) . "... ";
     $res = $db->query($query);
     if($db->error()){
       $this->error=$l['str_trouble_with_db'];
-      $result .= sprintf($html->string_error,
-            $l['str_trouble_with_db']
-          ) . '<br>';
     }else{
       $result .= $l['str_primary_deleting_ok'] . "<br>\n";
     }
@@ -1584,8 +1562,8 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
   }
 
 
-    
-// *******************************************************  
+
+// *******************************************************
 
 //  Function Delete($delete)
   /**
@@ -1597,10 +1575,10 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
    */
   Function Delete($delete,$updatereverse,$updatea){
     global $db;
-    global  $html,$l;
-        
+    global $html,$l;
+
     $result = '';
-    
+
     // for each delete entry, delete item cname(alias), a(name), ns(name),
     // mx(name)
 
@@ -1608,8 +1586,8 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
     while(list($key,$value) = each($delete)){
       if($value != ""){
         $newvalue = preg_replace("/^.*\(([^\)]+)\)/","\\1", $value);
-        
-        // name of item to be deleted: 
+
+        // name of item to be deleted:
         preg_match("/^(.*)\(/",$value,$item);
         $item = $item[1];
 
@@ -1619,10 +1597,10 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
             $valname=$item[1];
             $valid=$item[2];
             $query = "DELETE FROM dns_record
-            WHERE zoneid='" . $this->zoneid . "'
-            AND type='WWW' AND id='" . $valid . "'";
+              WHERE zoneid='" . $this->zoneid . "'
+              AND type='WWW' AND id='" . $valid . "'";
             $result .= sprintf($l['str_primary_deleting_www_x'],
-            stripslashes($valname)) . "... ";
+              stripslashes($valname)) . "... ";
             break;
 
           case "srv":
@@ -1630,10 +1608,10 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
             $valname=$item[1];
             $valid=$item[2];
             $query = "DELETE FROM dns_record
-            WHERE zoneid='" . $this->zoneid . "'
-            AND type='SRV' AND id='" . $valid . "'";
+              WHERE zoneid='" . $this->zoneid . "'
+              AND type='SRV' AND id='" . $valid . "'";
             $result .= sprintf($l['str_primary_deleting_srv_x'],
-            stripslashes($valname)) . "... ";
+              stripslashes($valname)) . "... ";
             break;
 
           case "cname":
@@ -1641,14 +1619,13 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
             $valname=$item[1];
             $valid=$item[2];
             // www    IN    CNAME    toto.
-            $query = "DELETE FROM dns_record 
-                WHERE zoneid='" . $this->zoneid . "'
-                AND type='CNAME' AND id='" . $valid . "'";
+            $query = "DELETE FROM dns_record
+              WHERE zoneid='" . $this->zoneid . "'
+              AND type='CNAME' AND id='" . $valid . "'";
             $result .= sprintf($l['str_primary_deleting_cname_x'],
-            stripslashes($valname)) . "... ";
+              stripslashes($valname)) . "... ";
             break;
-          
-           
+
           case "a":
             // www    IN    A      IP
             preg_match("/^(.*)\/(.*)/",$newvalue,$item);
@@ -1665,17 +1642,16 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
             $query = "";
             break;
 
-
           case "aaaa":
             // www    IN    AAAA      IPv6
             preg_match("/^(.*)\/(.*)/",$newvalue,$item);
             $val1 = $item[1];
             $val2 = $item[2];
-            $query = "DELETE FROM dns_record 
-                WHERE zoneid='" . $this->zoneid . "'
-                AND type='AAAA' AND id='" . $val2 . "'";
+            $query = "DELETE FROM dns_record
+              WHERE zoneid='" . $this->zoneid . "'
+              AND type='AAAA' AND id='" . $val2 . "'";
             $result .= sprintf($l['str_primary_deleting_aaaa_x'],
-            stripslashes($val1)) . "... ";
+              stripslashes($val1)) . "... ";
             break;
 
           case "txt":
@@ -1683,15 +1659,13 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
             preg_match("/^(.*)\/(.*)/",$newvalue,$item);
             $val1 = $item[1];
             $val2 = $item[2];
-            $query = "DELETE FROM dns_record 
-                WHERE zoneid='" . $this->zoneid . "'
-                AND type='TXT' AND id='" . $val2 . "' ";
+            $query = "DELETE FROM dns_record
+              WHERE zoneid='" . $this->zoneid . "'
+              AND type='TXT' AND id='" . $val2 . "' ";
             $result .= sprintf($l['str_primary_deleting_txt_x'],
-            stripslashes($val1)) . "... ";
+              stripslashes($val1)) . "... ";
             break;
 
-          
-          
           case "ptr":
             // ip    IN    PTR      name
             preg_match("/^(.*)\/(.*)/",$newvalue,$item);
@@ -1703,17 +1677,17 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
             $result .= $this->DeletePTRRecord($val1,$valid,$valname,$updatea);
             $query = "";
             break;
-            
+
           case "ns":
             preg_match("/^(.*)-(.*)/",$newvalue,$item);
             $valname=$item[1];
             $valid=$item[2];
             //     IN    NS    name
-            $query = "DELETE FROM dns_record 
+            $query = "DELETE FROM dns_record
               WHERE zoneid='" . $this->zoneid . "'
               AND type='NS' AND id='" . $valid . "'";
             $result .= sprintf($l['str_primary_deleting_ns_x'],
-            stripslashes($valname)) . "... ";
+              stripslashes($valname)) . "... ";
             break;
 
           case "mx":
@@ -1721,12 +1695,13 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
             $valname=$item[1];
             $valid=$item[2];
             // *     IN    MX    pref    name
-            $query = "DELETE FROM dns_record 
-            WHERE zoneid='" . $this->zoneid . "'
-            AND type='MX' AND id='" . $valid . "'";
+            $query = "DELETE FROM dns_record
+              WHERE zoneid='" . $this->zoneid . "'
+              AND type='MX' AND id='" . $valid . "'";
             $result .= sprintf($l['str_primary_deleting_mx_x'],
-            stripslashes($valname)) . "... ";
+              stripslashes($valname)) . "... ";
             break;
+
           case "subns":
             // newzone  IN    NS    ns.name
             preg_match("/^(.*)\/(.*)/",$newvalue,$item);
@@ -1735,19 +1710,19 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
             preg_match("/^(.*)-(.*)/",$val2,$itembis);
             $valname=$item[1];
             $valid=$item[2];
-            
             $query = "DELETE FROM dns_record
-            WHERE zoneid='" . $this->zoneid . "'
-            AND type='SUBNS' AND id='" . $valid . "'";
+              WHERE zoneid='" . $this->zoneid . "'
+              AND type='SUBNS' AND id='" . $valid . "'";
             $result .= sprintf($l['str_primary_deleting_sub_zone_x'],
-            stripslashes($valname)) . "... ";
+              stripslashes($valname)) . "... ";
             break;
+
           case "delegate":
             // $newvalue: XX-YY
             list($from,$to) = split('-',$newvalue);
             // remove CNAMEs
             for($cnamecounter=$from;$cnamecounter<= $to; $cnamecounter++){
-              $query = "DELETE FROM dns_record 
+              $query = "DELETE FROM dns_record
                 WHERE zoneid='" . $this->zoneid . "'
                 AND type='CNAME' AND val1='" . $cnamecounter . "'";
               $res = $db->query($query);
@@ -1755,38 +1730,35 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                 $this->error=$l['str_trouble_with_db'];
               }
             }
-            
+
             // remove NS
             $query = "DELETE FROM dns_record WHERE zoneid='" . $this->zoneid . "'
-                AND type='SUBNS' AND val1='" . $newvalue . "'";
+              AND type='SUBNS' AND val1='" . $newvalue . "'";
             $res = $db->query($query);
             if($db->error()){
               $this->error=$l['str_trouble_with_db'];
             }
-            
+
             // delete zone
             // use zoneDelete()
-            $query = "SELECT userid FROM dns_zone WHERE zone='" 
+            $query = "SELECT userid FROM dns_zone WHERE zone='"
                 . $newvalue . "." . $this->zonename . "' AND zonetype='P'";
             $res = $db->query($query);
             $line=$db->fetch_row($res);
             $zonetodelete = new Zone($newvalue . "." . $this->zonename, 'P','',$line[0]);
             $zonetodelete->zoneDelete();
-            
+
             // delete DELEGATE record
             $query = "DELETE FROM dns_record
-                  WHERE zoneid='" . $this->zoneid . "'
-                  AND type='DELEGATE' AND val1='" . $newvalue . "'";
+              WHERE zoneid='" . $this->zoneid . "'
+              AND type='DELEGATE' AND val1='" . $newvalue . "'";
             break;
         }
       }
       if(notnull($query)){
         $res = $db->query($query);
         if($db->error()){
-          $this->error=$l['str_trouble_with_db'];
-          $result .= sprintf($html->string_error,
-                $l['str_trouble_with_db'] 
-              ) . '<br>';
+          $this->error = $l['str_trouble_with_db'];
         }else{
           $result .= $l['str_primary_deleting_ok'] . "<br>\n";
         }
@@ -1803,7 +1775,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
    * Add an MX record to the current zone
    *
    *@access private
-   *@param string $mx name of MX 
+   *@param string $mx name of MX
    *@param int $pref preference value for this MX
    *@param int $ttl ttl value for this record
    *@return string text of result (Adding MX Record... Ok)
@@ -1819,60 +1791,50 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
       if($value != ""){
         if(!$this->checkMXName($value) || !$this->checkAName($mxsrc[$i])){
           // check if matching A record exists ? NOT OUR JOB
-          $result .= ' ' . 
-            sprintf($html->string_error, 
-              sprintf($l['str_primary_bad_mx_name_x'],
-                stripslashes($value))
-            ) . "<br>\n";
-          $this->error = $l['str_primary_data_error'];
+          $this->error = sprintf(
+            $l['str_primary_bad_mx_name_x'],
+            stripslashes($value));
         }else{
           // if checkName, add zone.
           if(checkName($value)){
             $value .= "." . $this->zonename;
           }
-          // if no trailing ".", add one. 
+          // if no trailing ".", add one.
           if(strrpos($value, ".") != strlen($value) -1){
             $value .= ".";
           }
-        
+
           // pref[$i] has to be an integer
           if(!$this->checkMXPref($pref[$i])){
-            $result .= ' ' . 
-              sprintf($html->string_error, 
-                sprintf($l['str_primary_preference_for_mx_x_has_to_be_int'],
-                  stripslashes($value)) 
-              ) . '<br>';
-            $this->error = $l['str_primary_data_error'];
+            $this->error = sprintf(
+              $l['str_primary_preference_for_mx_x_has_to_be_int'],
+              stripslashes($value));
           }else{
             if($pref[$i] == ""){
               $pref[$i] = 0;
             }
-  
+
             // Check if record already exists
-            $query = "SELECT count(*) FROM dns_record WHERE 
-            zoneid='" . $this->zoneid . "' AND type='MX' 
+            $query = "SELECT count(*) FROM dns_record WHERE
+            zoneid='" . $this->zoneid . "' AND type='MX'
             AND val1='" . $mxsrc[$i] . "' AND val3='" .$value."'";
             $res = $db->query($query);
             $line = $db->fetch_row($res);
             if($line[0] == 0){
               $result .= sprintf($l['str_primary_adding_mx_x'],
-              stripslashes($value)) . "... ";
+                stripslashes($value)) . "... ";
               $ttlval = $this->DNSTTL($ttl[$i]);
-              $query = "INSERT INTO dns_record (zoneid, type, val1, val2, val3, ttl) 
-                VALUES ('" . $this->zoneid . "', 'MX', '" 
+              $query = "INSERT INTO dns_record (zoneid, type, val1, val2, val3, ttl)
+                VALUES ('" . $this->zoneid . "', 'MX', '"
                 . $mxsrc[$i] . "', '" . $pref[$i] . "','" .$value. "','" . $ttlval . "')";
               $db->query($query);
               if($db->error()){
-                $result .= ' ' . 
-                  sprintf($html->string_error, 
-                    $l['str_trouble_with_db']
-                  ) . '<br>';
                 $this->error = $l['str_trouble_with_db'];
               }else{
                 $result .= $l['str_primary_ok'] . "<br>\n";
               }
             }else{ // record already exists
-              $result .= 
+              $result .=
                 sprintf($l['str_primary_warning_mx_x_exists_not_overwritten'],
                   stripslashes($value)) ."<br>\n";
             }
@@ -1907,41 +1869,36 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
       // value = name
       if($value != ""){
         if(!$this->checkNSName($value)){
-          $result .= sprintf($html->string_error, 
-              sprintf($l['str_primary_bad_ns_x'],
-                stripslashes($value))
-              ) . '<br>';
-          $this->error = $l['str_primary_data_error'];
+          $this->error = sprintf(
+            $l['str_primary_bad_ns_x'],
+            stripslashes($value));
         }else{
           // if no trailing ".", add one
           if(strrpos($value, ".") != strlen($value) -1){
             $value .= ".";
           }
-          
+
           // Check if record already exists
-          $query = "SELECT count(*) FROM dns_record WHERE 
-          zoneid='" . $this->zoneid . 
-          "' AND type='NS' AND val1='" . $value . "'";
+          $query = "SELECT count(*) FROM dns_record WHERE
+            zoneid='" . $this->zoneid .
+            "' AND type='NS' AND val1='" . $value . "'";
           $res = $db->query($query);
           $line = $db->fetch_row($res);
           if($line[0] == 0){
             $result .= sprintf($l['str_primary_adding_ns_x'],
-            stripslashes($value)) . "... ";
+              stripslashes($value)) . "... ";
             $ttlval = $this->DNSTTL($ttl[$i]);
-            $query = "INSERT INTO dns_record (zoneid, type, val1,ttl) 
-              VALUES ('" . $this->zoneid . "', 'NS', '" 
+            $query = "INSERT INTO dns_record (zoneid, type, val1,ttl)
+              VALUES ('" . $this->zoneid . "', 'NS', '"
               . $value . "','" . $ttlval . "')";
             $db->query($query);
             if($db->error()){
-              $result .= sprintf($html->string_error,
-                  $l['str_trouble_with_db']) .
-                '<br>';
               $this->error = $l['str_trouble_with_db'];
             }else{
               $result .= $l['str_primary_ok'] . "<br>\n";
             }
           }else{
-            $result .= 
+            $result .=
               sprintf($l['str_primary_warning_ns_x_exists_not_overwritten'],
                   stripslashes($value)) . "<br>\n";
           }
@@ -1975,93 +1932,79 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
     while(list($key,$value) = each($aname)){
       if($value != ""){
         if(! $this->checkAName($value) ){
-          $result .= sprintf($html->string_error,
-              sprintf($l['str_primary_bad_a_x'], 
-                stripslashes($value))
-              ) . "<br>\n";
-          $this->error = $l['str_primary_data_error'];
+          $this->error = sprintf(
+            $l['str_primary_bad_a_x'],
+            stripslashes($value));
         }else{
           // a[$i] has to be an ip address
           if($a[$i] == ""){
-            $result .= sprintf($html->string_error, 
-                 sprintf($l['str_primary_no_ip_for'],
-                  stripslashes($value))
-                ) . "<br>\n";
-            $this->error = $l['str_primary_data_error'];
+            $this->error = sprintf(
+              $l['str_primary_no_ip_for'],
+              stripslashes($value));
           }else{
             if(!$this->checkAValue($a[$i])){
-              $result .= sprintf($html->string_error, 
-                  sprintf($l['str_primary_x_ip_has_to_be_ip'],
-                  stripslashes($value))
-                  ) . "<br>\n";
-              $this->error = $l['str_primary_data_error'];
+              $this->error = sprintf(
+                $l['str_primary_x_ip_has_to_be_ip'],
+                stripslashes($value));
             }else{
               // Check if record already exists
-              $query = "SELECT count(*) FROM dns_record WHERE 
-              zoneid='" . $zoneid . "' AND type='A' 
-              AND val1='" . $value . "'";
+              $query = "SELECT count(*) FROM dns_record WHERE
+                zoneid='" . $zoneid . "' AND type='A'
+                AND val1='" . $value . "'";
               $res = $db->query($query);
               $line = $db->fetch_row($res);
               if($line[0] == 0){
                 // check if CNAME record not already exists
-                $query = "SELECT count(*) FROM dns_record WHERE 
-                zoneid='" . $zoneid . "' AND type='CNAME' 
-                AND val1='" . $value . "'";
+                $query = "SELECT count(*) FROM dns_record WHERE
+                  zoneid='" . $zoneid . "' AND type='CNAME'
+                  AND val1='" . $value . "'";
                 $res = $db->query($query);
                 $line = $db->fetch_row($res);
                 if($line[0] == 0){
                   $result .= sprintf($l['str_primary_adding_a_x'],
-                  stripslashes($value)) . "... ";
+                    stripslashes($value)) . "... ";
                   $ttlval = $this->DNSTTL($ttl[$i]);
-                  $query = "INSERT INTO dns_record (zoneid, type, val1, val2,ttl) 
-                  VALUES ('" . $zoneid . "', 
-                  'A', '" . $value . "', '" . $a[$i] . "','" . $ttlval . "')";
+                  $query = "INSERT INTO dns_record (zoneid, type, val1, val2,ttl)
+                    VALUES ('" . $zoneid . "',
+                    'A', '" . $value . "', '" . $a[$i] . "','" . $ttlval . "')";
                   $db->query($query);
                   if($db->error()){
-                    $result .= 
-                    sprintf($html->string_error,
-                      $l['str_trouble_with_db']
-                    ) . "<br>\n";
                     $this->error = $l['str_trouble_with_db'];
                   }else{
                     $result .= $l['str_primary_ok'] . "<br>\n";
-                    
-                    if($updatereverse){                  
+
+                    if($updatereverse){
                       $result .= $this->UpdateReversePTR($a[$i],$value,'A');
                     } // end if updatereverse
-                  } // end "primary OK"  
+                  } // end "primary OK"
                 }else{ // end check CNAME
-                  $result .= 
+                  $result .=
                     sprintf($l['str_primary_warning_cname_x_exists_not_overwritten'],
                     stripslashes($value)) . "<br>\n";
                 }
               }else{ // end check A
-                
+
                 // check if already same IP or not. If yes, do not
-                // change anything 
+                // change anything
                 // if no, warn & assume it is round robin.
                 $query .= " AND val2='" . $a[$i] . "'";
                 $res = $db->query($query);
                 $line = $db->fetch_row($res);
                 if($line[0] == 0){
                   $result .= sprintf($l['str_primary_warning_a_x_exists_with_diff_value'],
-                          stripslashes($value)) . ' ';
+                    stripslashes($value)) . ' ';
                   $result .= sprintf($l['str_primary_adding_a_x'],
-                  stripslashes($value)) . "... ";
+                    stripslashes($value)) . "... ";
                   $ttlval = $this->DNSTTL($ttl[$i]);
-                  $query = "INSERT INTO dns_record (zoneid, type, val1, val2,ttl) 
-                  VALUES ('" . $zoneid . "', 
-                  'A', '" . $value . "', '" . $a[$i] . "','" . $ttlval . "')
-                  ";
+                  $query = "INSERT INTO dns_record (zoneid, type, val1, val2,ttl)
+                    VALUES ('" . $zoneid . "',
+                    'A', '" . $value . "', '" . $a[$i] . "','" . $ttlval . "')";
                   $db->query($query);
                   if($db->error()){
-                    $result .= sprintf($html->string_error,
-                        $l['str_trouble_with_db']
-                      ) . "<br>\n";
                     $this->error = $l['str_trouble_with_db'];
                   }else{
-                    $result .= $l['str_primary_ok'] . "<br>\n";                  
-                    if($updatereverse){  
+                    $result .= $l['str_primary_ok'] . "<br>\n";
+                    if($updatereverse){
                       $result .= $this->UpdateReversePTR($a[$i],$value,'A');
                     } // end updatereverse
                   } // end primary ok
@@ -2079,7 +2022,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
     }
     return $result;
   }
-  
+
 
 
 // *******************************************************
@@ -2104,99 +2047,87 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
     while(list($key,$value) = each($aaaaname)){
       if($value != ""){
         if(! $this->checkAAAAName($value) ){
-          $result .= sprintf($html->string_error,
-              sprintf($l['str_primary_aaaa_bad_aaaa_x'],
-                stripslashes($value))
-              ) . "<br>\n";
-          $this->error = $l['str_primary_data_error'];
+          $this->error = sprintf(
+            $l['str_primary_aaaa_bad_aaaa_x'],
+            stripslashes($value));
         }else{
           // a[$i] has to be an ipv6 address
           if($aaaa[$i] == ""){
-            $result .= sprintf($html->string_error,
-                sprintf($l['str_primary_no_ipv6_for_x'],
-                  stripslashes($value)) 
-                ) . "<br>\n";
-            $this->error = $l['str_primary_data_error'];
+            $this->error = sprintf(
+              $l['str_primary_no_ipv6_for_x'],
+              stripslashes($value));
           }else{
             if(! $this->checkAAAAValue($aaaa[$i]) ){
-              $result .= sprintf($html->string_error, 
-                  sprintf($l['str_primary_x_ip_has_to_be_ipv6'],
-                    stripslashes($value . "/" .$aaaa[$i]))
-                  ) . "<br>\n";
-              $this->error = $l['str_primary_data_error'];
+              $this->error = sprintf(
+                $l['str_primary_x_ip_has_to_be_ipv6'],
+                stripslashes($value . "/" .$aaaa[$i]));
             }else{
               // Check if record already exists
-              $query = "SELECT count(*) FROM dns_record WHERE 
-              zoneid='" . $zoneid . "' AND type='AAAA' 
-              AND val1='" . $value . "'";
+              $query = "SELECT count(*) FROM dns_record WHERE
+                zoneid='" . $zoneid . "' AND type='AAAA'
+                AND val1='" . $value . "'";
               $res = $db->query($query);
               $line = $db->fetch_row($res);
               if($line[0] == 0){
                 // check if CNAME record not already exists
-                $query = "SELECT count(*) FROM dns_record WHERE 
-                zoneid='" . $zoneid . "' AND type='CNAME' 
-                AND val1='" . $value . "'";
+                $query = "SELECT count(*) FROM dns_record WHERE
+                  zoneid='" . $zoneid . "' AND type='CNAME'
+                  AND val1='" . $value . "'";
                 $res = $db->query($query);
                 $line = $db->fetch_row($res);
                 if($line[0] == 0){
-                  $result .= sprintf($l['str_primary_adding_aaaa_x'], 
-                  stripslashes($value)) . "... ";
+                  $result .= sprintf($l['str_primary_adding_aaaa_x'],
+                    stripslashes($value)) . "... ";
                   $ttlval = $this->DNSTTL($ttl[$i]);
-                  $query = "INSERT INTO dns_record (zoneid, type, val1, val2,ttl) 
-                  VALUES ('" . $zoneid . "', 
-                  'AAAA', '" . $value . "', '" . $aaaa[$i] . "','" . $ttlval . "')";
+                  $query = "INSERT INTO dns_record (zoneid, type, val1, val2,ttl)
+                    VALUES ('" . $zoneid . "',
+                    'AAAA', '" . $value . "', '" . $aaaa[$i] . "','" . $ttlval . "')";
                   $db->query($query);
                   if($db->error()){
-                    $result .= sprintf($html->string_error,
-                        $l['str_trouble_with_db']
-                        ) . "<br>\n";
                     $this->error = $l['str_trouble_with_db'];
                   }else{
                     $result .= $l['str_primary_ok'] . "<br>\n";
-
                     if($updatereverse){
                       $result .= $this->UpdateReversePTR($aaaa[$i],$value,'AAAA');
                     } // end if updatereverse
-                  } // end "primary OK"  
+                  } // end "primary OK"
                 }else{ // end check CNAME
-                  $result .= sprintf($l['str_primary_warning_cname_x_exists_not_overwritten'],
-                  stripslashes($value)) . "<br>\n";
+                  $result .= sprintf(
+                    $l['str_primary_warning_cname_x_exists_not_overwritten'],
+                    stripslashes($value)) . "<br>\n";
                 }
               }else{ // end check AAAA
-                
+
                 // check if already same IP or not. If yes, do not
-                // change anything 
+                // change anything
                 // if no, warn & assume it is round robin.
                 $query .= " AND val2='" . $aaaa[$i] . "'";
                 $res = $db->query($query);
                 $line = $db->fetch_row($res);
                 if($line[0] == 0){
-                  $result .=
-                    sprintf($l['str_primary_warning_aaaa_x_exists_with_diff_value'],
-                        stripslashes($value)) . ' ';
-                  $result .= sprintf($l['str_primary_adding_aaaa_x'],
-                          stripslashes($value)) . "... ";
+                  $result .= sprintf(
+                    $l['str_primary_warning_aaaa_x_exists_with_diff_value'],
+                    stripslashes($value)) . ' ';
+                  $result .= sprintf(
+                    $l['str_primary_adding_aaaa_x'],
+                    stripslashes($value)) . "... ";
                   $ttlval = $this->DNSTTL($ttl[$i]);
-                  $query = "INSERT INTO dns_record (zoneid, type, val1, val2,ttl) 
-                  VALUES ('" . $this->zoneid . "', 
-                  'AAAA', '" . $value . "', '" . $aaaa[$i] . "','" . $ttlval . "')
-                  ";
+                  $query = "INSERT INTO dns_record (zoneid, type, val1, val2,ttl)
+                    VALUES ('" . $this->zoneid . "',
+                    'AAAA', '" . $value . "', '" . $aaaa[$i] . "','" . $ttlval . "')";
                   $db->query($query);
                   if($db->error()){
-                    $result .= sprintf($html->string_error,
-                          $l['str_trouble_with_db']
-                        ) . "<br>\n";
                     $this->error = $l['str_trouble_with_db'];
                   }else{
                     $result .= $l['str_primary_ok'] . "<br>\n";
                     if($updatereverse){
                       $result .= $this->UpdateReversePTR($aaaa[$i],$value,'AAAA');
                     } // end updatereverse
-                  }  
+                  }
 
                 }else{
                   $result .= sprintf($l['str_primary_aaaa_x_with_same_ip'],
-                          stripslashes($value)) . '<br>';
+                    stripslashes($value)) . '<br>';
                 }
               }
             }
@@ -2239,68 +2170,60 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
    */
   Function AddPTRRecord($zoneid,$ptr,$ptrname,$ttl,$updatereverse){
     global $db, $html,$l,$config;
-        
+
     $result = '';
     // for each PTR, add PTR entry
     $i = 0;
     while(list($key,$value) = each($ptr)){
       if($value != ""){
         if(! $this->checkPTRName($value) ){
-          $result .= sprintf($html->string_error,
-              sprintf($l['str_primary_bad_ptr_x'],
-                stripslashes($value))
-              ) . "<br>\n";
-          $this->error = $l['str_primary_data_error'];
+          $this->error = sprintf(
+            $l['str_primary_bad_ptr_x'],
+            stripslashes($value));
         }else{
           if($ptrname[$i] == ""){
-            $result .= sprintf($html->string_error,
-                sprintf($l['str_primary_no_name_for_x'],
-                  stripslashes($value)) 
-                ) . "<br>\n";
-            $this->error = "Data error";
+            $this->error = sprintf(
+              $l['str_primary_no_name_for_x'],
+              stripslashes($value));
           }else{
             if (ereg('\.$', $value)) {
-              $result .= sprintf($l['str_primary_x_name_ends_with_dot'], stripslashes($value)) . "<br>\n";
+              $result .= sprintf(
+                $l['str_primary_x_name_ends_with_dot'],
+                stripslashes($value)) . "<br>\n";
             }
             if(! $this->checkPTRValue($ptrname[$i]) ){
-              $result .= sprintf($html->string_error, 
-                  sprintf($l['str_primary_x_name_has_to_be_fully_qualified_x'],  
-                    stripslashes($value),$ptrname[$i])
-                  ) . "<br>\n";
-              $this->error = $l['str_primary_data_error'];
+              $this->error = sprintf(
+                $l['str_primary_x_name_has_to_be_fully_qualified_x'],
+                stripslashes($value),$ptrname[$i]);
             }else{
               // Check if record already exists
-              $query = "SELECT count(*) FROM dns_record WHERE 
-              zoneid='" . $zoneid . "' AND type='PTR' 
-              AND val1='" . $value . "'";
+              $query = "SELECT count(*) FROM dns_record WHERE
+                zoneid='" . $zoneid . "' AND type='PTR'
+                AND val1='" . $value . "'";
               $res = $db->query($query);
               $line = $db->fetch_row($res);
               if($line[0] == 0){
                 // check if CNAME record not already exists
-                $query = "SELECT count(*) FROM dns_record WHERE 
-                zoneid='" . $zoneid . "' AND type='CNAME' 
-                AND val1='" . $value . "'";
+                $query = "SELECT count(*) FROM dns_record WHERE
+                  zoneid='" . $zoneid . "' AND type='CNAME'
+                  AND val1='" . $value . "'";
                 $res = $db->query($query);
                 $line = $db->fetch_row($res);
                 if($line[0] == 0){
                   $result .= sprintf($l['str_primary_adding_ptr_x'],
-                  stripslashes($value)) . "... ";
+                    stripslashes($value)) . "... ";
                   $ttlval = $this->DNSTTL($ttl[$i]);
-                  $query = "INSERT INTO dns_record (zoneid, type, val1, val2,ttl) 
-                  VALUES ('" . $zoneid . "', 
-                  'PTR', '" . $value . "', '" . $ptrname[$i] . "','" . $ttlval . "')";
+                  $query = "INSERT INTO dns_record (zoneid, type, val1, val2,ttl)
+                    VALUES ('" . $zoneid . "',
+                    'PTR', '" . $value . "', '" . $ptrname[$i] . "','" . $ttlval . "')";
                   $db->query($query);
                   if($db->error()){
-                    $result .= sprintf($html->string_error, 
-                        $l['str_trouble_with_db']
-                        ) . "<br>\n";
                     $this->error = $l['str_trouble_with_db'];
                   }else{
                     $result .= $l['str_primary_ok'] . "<br>\n";
-                    
                     // update associated A record
                     if($updatereverse){
-                      // if "normal" zone is managed by current user, update A 
+                      // if "normal" zone is managed by current user, update A
                       // remove all before first dot, and last char.
                       $newzone = substr(substr(strstr($ptrname[$i],'.'),1),0,-1);
                       $newa = substr($ptrname[$i],0,strlen($ptrname[$i]) - strlen($newzone) -2);
@@ -2340,7 +2263,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                       }
                       $newip = substr($newip,1) . "." . $value;
                       if ($v6) {
-                        // for v6 get rid of all the dots and 
+                        // for v6 get rid of all the dots and
                         // group by four digits, colon separated
                         $newip = preg_replace("/\./", "", $newip);
                         $h="([0-9a-f]{4})";
@@ -2360,12 +2283,12 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                           // modification allowed because same owner
                           // looking for zoneid
                           $result .= $l['str_primary_zone_managed_by_you'];
-                          $query = "SELECT id FROM dns_zone 
+                          $query = "SELECT id FROM dns_zone
                             WHERE zone='" . $newzone . "' AND zonetype='P'";
                           $res = $db->query($query);
                           $line = $db->fetch_row($res);
                           $newzoneid=$line[0];
-                          if ($v6) 
+                          if ($v6)
                             $result .= $this->AddAAAARecord($newzoneid,
                               array($newip), array($newa),
                               array($l['str_primary_default']), NULL);
@@ -2382,44 +2305,44 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                           $result .= $l['str_primary_main_zone_not_managed_by_you'];
                         }
                       }else{
-                        $result .=
-                          sprintf($l['str_primary_not_managed_by_x'],
-                            $config->sitename) . "<br>";
+                        $result .= sprintf(
+                          $l['str_primary_not_managed_by_x'],
+                          $config->sitename) . "<br>";
                        }
                     } // end update reverse
-                  } // update OK 
+                  } // update OK
                 }else{ // end check CNAME
-                  $result .= sprintf($l['str_primary_warning_cname_x_exists_not_overwritten'],
-                  stripslashes($value)) . "<br>\n";
+                  $result .= sprintf(
+                    $l['str_primary_warning_cname_x_exists_not_overwritten'],
+                    stripslashes($value)) . "<br>\n";
                 }
               }else{ // end check A
-                
+
                 // check if already same name or not. If yes, do not
-                // change anything 
+                // change anything
                 // if no, warn & assume it is round robin.
                 $query .= " AND val2='" . $ptrname[$i] . "'";
                 $res = $db->query($query);
                 $line = $db->fetch_row($res);
                 if($line[0] == 0){
-                  $result .= sprintf($l['str_primary_warning_ptr_x_exists_with_diff_value'],
-                        stripslashes($value)) . ' ';
-                  $result .=  sprintf($l['str_primary_adding_ptr_x'],
-                  stripslashes($value)) . "... ";
+                  $result .= sprintf(
+                    $l['str_primary_warning_ptr_x_exists_with_diff_value'],
+                    stripslashes($value)) . ' ';
+                  $result .=  sprintf(
+                    $l['str_primary_adding_ptr_x'],
+                    stripslashes($value)) . "... ";
                   $ttlval = $this->DNSTTL($ttl[$i]);
-                  $query = "INSERT INTO dns_record (zoneid, type, val1, val2,ttl) 
-                  VALUES ('" . $zoneid . "', 
-                  'PTR', '" . $value . "', '" . $ptrname[$i] . "','" . $ttlval . "')
-                  ";
+                  $query = "INSERT INTO dns_record (zoneid, type, val1, val2,ttl)
+                    VALUES ('" . $zoneid . "',
+                    'PTR', '" . $value . "', '" . $ptrname[$i] . "','" . $ttlval . "')";
                   $db->query($query);
                   if($db->error()){
-                    $result .= sprintf($html->string_error, 
-                    $l['str_trouble_with_db']) . "<br>\n";
                     $this->error = $l['str_trouble_with_db'];
                   }else{
                     $result .= $l['str_primary_ok'] . "<br>\n";
                     // update associated A record
-                    if($updatereverse){                  
-                      // if "normal" zone is managed by current user, update A 
+                    if($updatereverse){
+                      // if "normal" zone is managed by current user, update A
                       // remove all before first dot, and last char.
                       $newzone = substr(substr(strstr($ptrname[$i],'.'),1),0,-1);
                       $newa = substr($ptrname[$i],0,strlen($ptrname[$i]) - strlen($newzone) -2);
@@ -2461,7 +2384,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                           // modification allowed because same owner
                           // looking for zoneid
                           $result .= $l['str_primary_zone_managed_by_you'];
-                          $query = "SELECT id FROM dns_zone 
+                          $query = "SELECT id FROM dns_zone
                             WHERE zone='" . $newzone . "' AND zonetype='P'";
                           $res = $db->query($query);
                           $line = $db->fetch_row($res);
@@ -2477,17 +2400,18 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                           $result .= $l['str_primary_main_zone_not_managed_by_you'];
                         }
                       }else{
-                        $result .=
-                          sprintf($l['str_primary_not_managed_by_x'],
-                            $config->sitename) . "<br>";
+                        $result .= sprintf(
+                          $l['str_primary_not_managed_by_x'],
+                          $config->sitename) . "<br>";
                        }
                     } // end update reverse
-                    
-                  }  
+
+                  }
 
                 }else{
-                  $result .= sprintf($l['str_primary_warning_ptr_x_already_exists_not_overwritten'],
-                          stripslashes($value)) . '<br>';
+                  $result .= sprintf(
+                    $l['str_primary_warning_ptr_x_already_exists_not_overwritten'],
+                    stripslashes($value)) . '<br>';
                 }
               }
             }
@@ -2501,9 +2425,9 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 
 
 
-  
-  
-    
+
+
+
 // *******************************************************
 
 //  Function AddCNAMERecord($cname,$cnamea,$ttl)
@@ -2518,63 +2442,58 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
    */
   Function AddCNAMERecord($cname,$cnamea,$ttl){
     global $db, $html,$l;
-        
+
         // for each CNAME, add CNAME entry
     $i = 0;
     $result = "";
     while(list($key,$value) = each($cname)){
-      if($value != ""){  
+      if($value != ""){
         if(! $this->checkCNAMEName($value) || !$this->checkCNAMEValue($cnamea[$i]) ){
-          $result .= sprintf($html->string_error,
-              sprintf($l['str_primary_bad_cname_x'],
-                stripslashes($value))
-              ) . "<br>\n";
-          $this->error = $l['str_primary_data_error'];
+          $this->error = sprintf(
+            $l['str_primary_bad_cname_x'],
+            stripslashes($value));
         }else{
           if($cnamea[$i] ==""){
-            $result .= sprintf($html->string_error,
-                sprintf($l['str_primary_no_record_x'],
-                  stripslashes($value))
-                ) . "<BR >\n";
-            $this->error = 1;
+            $this->error = sprintf(
+              $l['str_primary_no_record_x'],
+              stripslashes($value));
           }else{
             // Check if record already exists
-            $query = "SELECT count(*) FROM dns_record WHERE 
-            zoneid='" . $this->zoneid . "' AND type='CNAME' 
-            AND val1='" . $value . "'";
+            $query = "SELECT count(*) FROM dns_record WHERE
+              zoneid='" . $this->zoneid . "' AND type='CNAME'
+              AND val1='" . $value . "'";
             $res = $db->query($query);
             $line = $db->fetch_row($res);
             if($line[0] == 0){
               // check if A record don't already exist
-              $query = "SELECT count(*) FROM dns_record WHERE 
-              zoneid='" . $this->zoneid . "' AND type='A' 
-              AND val1='" . $value . "'";
+              $query = "SELECT count(*) FROM dns_record WHERE
+                zoneid='" . $this->zoneid . "' AND type='A'
+                AND val1='" . $value . "'";
               $res = $db->query($query);
               $line = $db->fetch_row($res);
               if($line[0] == 0){
-                $result .= sprintf($l['str_primary_adding_cname_x'],
-                stripslashes($value)) . "... ";
+                $result .= sprintf(
+                  $l['str_primary_adding_cname_x'],
+                  stripslashes($value)) . "... ";
                 $ttlval = $this->DNSTTL($ttl[$i]);
-                $query = "INSERT INTO dns_record (zoneid, type, val1, val2,ttl) 
-                VALUES ('" . $this->zoneid . "', 'CNAME', '"
-                 . $value . "', '" . $cnamea[$i] . "','" . $ttlval . "')
-                ";
+                $query = "INSERT INTO dns_record (zoneid, type, val1, val2,ttl)
+                  VALUES ('" . $this->zoneid . "', 'CNAME', '"
+                   . $value . "', '" . $cnamea[$i] . "','" . $ttlval . "')";
                 $db->query($query);
                 if($db->error()){
-                  $result .= sprintf($html->string_error,
-                      $l['str_trouble_with_db']
-                    ) . '<br>';
                   $this->error = $l['str_trouble_with_db'];
                 }else{
-                  $result .= $l['str_primary_ok'] . "<br>\n";  
+                  $result .= $l['str_primary_ok'] . "<br>\n";
                 }
               }else{ // A record present
-                $result .= sprintf($l['str_primary_warning_a_x_exists_not_overwritten'],
-                stripslashes($value)) . "<br>\n";
-              }              
+                $result .= sprintf(
+                  $l['str_primary_warning_a_x_exists_not_overwritten'],
+                  stripslashes($value)) . "<br>\n";
+              }
             }else{
-              $result .= sprintf($l['str_primary_warning_cname_x_exists_not_overwritten'],
-                      stripslashes($value)) . "<br>\n";
+              $result .= sprintf(
+                $l['str_primary_warning_cname_x_exists_not_overwritten'],
+                stripslashes($value)) . "<br>\n";
             }
           }
         }
@@ -2584,7 +2503,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
     return $result;
   }
 
-    
+
 // *******************************************************
 
 //  Function AddTXTRecord($txt,$txtstring,$ttl)
@@ -2599,58 +2518,51 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
    */
   Function AddTXTRecord($txt,$txtstring,$ttl){
     global $db, $html,$l;
-        
-        // for each TXT, add TXT entry
+
+    // for each TXT, add TXT entry
     $i = 0;
     $result = "";
     while(list($key,$value) = each($txt)){
-      if($value != ""){  
+      if($value != ""){
         if(!$this->checkTXTName($value)){
-        $result .= "VALUE: $value";
-          $result .= sprintf($html->string_error,
-              sprintf($l['str_primary_bad_txt_x'],
-              stripslashes($value))
-            ) . "<br>\n";
-          $this->error = $l['str_primary_data_error'];
+          $this->error = sprintf(
+            $l['str_primary_bad_txt_x'],
+            stripslashes($value));
         }else{
           if($txtstring[$i] ==""){
-            $result .= sprintf($html->string_error,
-                sprintf($l['str_primary_no_record_x'],
-                stripslashes($value))
-              ) . "<br>\n";
-            $this->error = 1;
+            $this->error = sprintf(
+              $l['str_primary_no_record_x'],
+              stripslashes($value));
           }else{
             // Check if CNAME record already exists
-            $query = "SELECT count(*) FROM dns_record WHERE 
-            zoneid='" . $this->zoneid . "' AND type='CNAME' 
-            AND val1='" . $value . "'";
+            $query = "SELECT count(*) FROM dns_record WHERE
+              zoneid='" . $this->zoneid . "' AND type='CNAME'
+              AND val1='" . $value . "'";
             $res = $db->query($query);
             $line = $db->fetch_row($res);
             if($line[0] == 0){
-              $result .= sprintf($l['str_primary_adding_txt_x'],
-              stripslashes($value)) . "... ";
+              $result .= sprintf(
+                $l['str_primary_adding_txt_x'],
+                stripslashes($value)) . "... ";
               // suppress all quotes, and add new ones
               $newstring = preg_replace("/\"/","",stripslashes($txtstring[$i]));
               $newstring = preg_replace("/'/","''",$newstring);
               // suppress all remaining "\"
               $newstring = preg_replace("/\\\/","",$newstring);
               $ttlval = $this->DNSTTL($ttl[$i]);
-              $query = "INSERT INTO dns_record (zoneid, type, val1, val2,ttl) 
-              VALUES ('" . $this->zoneid . "', 'TXT', '"
-               . $value . "', '\"" . $newstring . "\"','" . $ttlval . "')
-              ";
+              $query = "INSERT INTO dns_record (zoneid, type, val1, val2,ttl)
+                VALUES ('" . $this->zoneid . "', 'TXT', '"
+                 . $value . "', '\"" . $newstring . "\"','" . $ttlval . "')";
               $db->query($query);
               if($db->error()){
-                $result .= sprintf($html->string_error,
-                    $l['str_trouble_with_db'] 
-                   ) . '<br>';
                 $this->error = $l['str_trouble_with_db'];
               }else{
-                $result .= $l['str_primary_ok'] . "<br>\n";  
+                $result .= $l['str_primary_ok'] . "<br>\n";
               }
             }else{
-              $result .= sprintf($l['str_primary_warning_cname_x_exists_not_overwritten'],
-                      stripslashes($value)) . "<br>\n";
+              $result .= sprintf(
+                $l['str_primary_warning_cname_x_exists_not_overwritten'],
+                stripslashes($value)) . "<br>\n";
             }
           }
         }
@@ -2688,27 +2600,31 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
    */
   Function AddWWWRecord($www,$wwwstring,$wwwr,$ttl){
     global $db, $html,$l,$config;
-        
+
     // for each WWW, add WWW entry
     $i = 0;
     $result = "";
     while(list($key,$value) = each($www)){
       if($value != ""){
         if(!$this->checkWWWName($value)){
-          $this->error = sprintf($l['str_primary_bad_www_x'], htmlspecialchars($value));
+          $this->error = sprintf(
+            $l['str_primary_bad_www_x'],
+            htmlspecialchars($value));
         } elseif ($this->FrameRedirect($wwwr[$i]) == ""){
           $this->error = $l['str_primary_www_no_type'];
         }else{
           if($wwwstring[$i] == ""){
-            $this->error = sprintf($l['str_primary_no_record_x'], htmlspecialchars($value));
+            $this->error = sprintf(
+              $l['str_primary_no_record_x'],
+              htmlspecialchars($value));
           }else{
             if (!$this->checkWWWValue($wwwstring[$i])){
               $wwwstring[$i] = "http://" . $wwwstring[$i];
             }
             // Check if record already exists
-            $query = "SELECT count(*) FROM dns_record WHERE 
+            $query = "SELECT count(*) FROM dns_record WHERE
               zoneid='" . $this->zoneid . "'
-              AND val1='" . mysql_real_escape_string($value) . "' 
+              AND val1='" . mysql_real_escape_string($value) . "'
               AND type IN ('CNAME','A','WWW')";
             $res = $db->query($query);
             $line = $db->fetch_row($res);
@@ -2727,12 +2643,9 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                 $config->webserverip, $wwwr[$i], $ttlval);
               $db->query($query);
               if($db->error()){
-                $result .= sprintf($html->string_error,
-                    $l['str_trouble_with_db'] 
-                   ) . '<br>';
                 $this->error = $l['str_trouble_with_db'];
               }else{
-                $result .= $l['str_primary_ok'];  
+                $result .= $l['str_primary_ok'];
                 $result .= "<br>\n";
               }
             }else{
@@ -2768,59 +2681,47 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
     $i = 0;
     $result = "";
     while(list($key,$value) = each($subns)){
-      if($value != ""){  
+      if($value != ""){
         if(!$this->checkSUBNSName($value)){
-          $result .= sprintf($html->string_error,
-              sprintf($l['str_bad_zone_name_x'],
-              ' ' . stripslashes($value))
-            ) . "<br>\n";
-          $this->error = $l['str_primary_data_error'];
+          $this->error = sprintf(
+            $l['str_bad_zone_name_x'],
+            stripslashes($value));
         }else{
           if($subnsa[$i] ==""){
-            $result .= sprintf($html->string_error,
-                sprintf($l['str_primary_no_ns_x'], 
-                stripslashes($value))
-              ) . "<br>\n";
-            $this->error = 1;
+            $this->error = sprintf(
+              $l['str_primary_no_ns_x'],
+              stripslashes($value));
           }else{
             if( ! $this->checkSUBNSValue($subnsa[$i]) ){
-              $result .= sprintf($html->string_error,
-                sprintf($l['str_primary_bad_ns_x'],
-                                                           stripslashes($subnsa[$i]))
-              ) . "<br>\n";
-              $this->error = 1;
+              $this->error = sprintf(
+                $l['str_primary_bad_ns_x'],
+                stripslashes($subnsa[$i]));
             }
           }
           if(!$this->error){
             // Check if record already exists
             // if yes, no problem - multiple different NS possible
             $result .= sprintf($l['str_primary_adding_zone_ns_x'],
-            stripslashes($value)) . "... ";
-            $query = "SELECT count(*) FROM dns_record 
-            WHERE zoneid='" . $this->zoneid . "' AND type='SUBNS' 
+              stripslashes($value)) . "... ";
+            $query = "SELECT count(*) FROM dns_record
+            WHERE zoneid='" . $this->zoneid . "' AND type='SUBNS'
             AND val1='" . $value . "' AND val2='" . $subnsa[$i] . "'";
             $res=$db->query($query);
             $line = $db->fetch_row($res);
             if($db->error()){
-              $result .= sprintf($html->string_error,
-                    $l['str_trouble_with_db'] 
-                ) . '<br>';
               $this->error = $l['str_trouble_with_db'];
             }else{
               if($line[0]==0){
                 $ttlval=$this->DNSTTL($ttl[$i]);
-                $query = "INSERT INTO dns_record (zoneid, type, val1, val2,ttl) 
+                $query = "INSERT INTO dns_record (zoneid, type, val1, val2,ttl)
                 VALUES ('" . $this->zoneid . "', 'SUBNS', '"
                  . $value . "', '" . $subnsa[$i] . "','" . $ttlval . "')
                 ";
                 $db->query($query);
                 if($db->error()){
-                  $result .= sprintf($html->string_error,
-                      $l['str_trouble_with_db']
-                    ) . '<br>';
                   $this->error = $l['str_trouble_with_db'];
                 }else{
-                  $result .= $l['str_primary_ok'] . "<br>\n";  
+                  $result .= $l['str_primary_ok'] . "<br>\n";
                 }
               }else{
                 $result .=sprintf($l['str_primary_warning_ns_x_exists_not_overwritten'],
@@ -2856,96 +2757,73 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
     $result = "";
     while(list($key,$value) = each($delegatefrom)){
       if(notnull($value)){
-        $result .= sprintf($l['str_primary_adding_delegate_x'],
-        stripslashes($value),$delegateto[$i]) . "... ";
+        $result .= sprintf(
+          $l['str_primary_adding_delegate_x'],
+          stripslashes($value),$delegateto[$i]) . "... ";
         if(!ereg('^[0-9]+$',$value)){
-          $result .= sprintf($html->string_error,
-              sprintf($l['str_primary_bad_lower_limit_x'],
-              stripslashes($value))
-            ) . "<br>\n";
-          $this->error = $l['str_primary_data_error'];
+          $this->error = sprintf(
+            $l['str_primary_bad_lower_limit_x'],
+            stripslashes($value));
         }else{
           if(!ereg('^[0-9]+$',$delegateto[$i])||$delegateto[$i]>255){
-            $result .= sprintf($html->string_error,
-                sprintf($l['str_primary_bad_upper_limit_x'],
-                stripslashes($delegateto[$i]))
-              ) . "<br>\n";
-            $this->error = $l['str_primary_data_error'];
+            $this->error = sprintf(
+              $l['str_primary_bad_upper_limit_x'],
+              stripslashes($delegateto[$i]));
           }else{
             // check if lower if below upper
             if(!($value <= $delegateto[$i])){
-              $result .= sprintf($html->string_error,
-                  sprintf($l['str_primary_bad_limits_x_x'],
-                  stripslashes($value),stripslashes($delegateto[$i])) 
-                ) . "<br>\n";
-              $this->error = $l['str_primary_data_error'];    
+              $this->error = sprintf(
+                $l['str_primary_bad_limits_x_x'],
+                stripslashes($value),
+                stripslashes($delegateto[$i]));
             }else{
               if(!notnull($delegateuser[$i])){
-                $result .= sprintf($html->string_error, 
-                    $l['str_primary_no_user_for_delegation'] 
-                  ) . '<br>';
-                $this->error = $l['str_primary_data_error'];
+                $this->error = $l['str_primary_no_user_for_delegation'];
               }else{
                 // check if user is in DB or not
                 $newuserid=$this->user->RetrieveId(addslashes($delegateuser[$i]));
                 if($this->user->error){
-                  $result .= sprintf($html->string_error,
-                      $this->user->error
-                    ) . '<br>';
                   $this->error = $this->user->error;
                 }else{
                   if(!$newuserid){
-                    $result .= sprintf($html->string_error, 
-                      sprintf($l['str_primary_delegate_user_x_doesnot_exist'],
-                      stripslashes($delegateuser[$i]))
-                      ) . '<br>';
-                    $this->error = $l['str_primary_data_error'];
+                    $this->error = sprintf(
+                      $l['str_primary_delegate_user_x_doesnot_exist'],
+                      stripslashes($delegateuser[$i]));
                   }else{ // user exists
                     // check if items inside this range are already registered or not
                     $query = "SELECT val1 FROM dns_record WHERE zoneid='" .
                       $this->zoneid . "' AND type='DELEGATE'";
                     $res=$db->query($query);
                     if($db->error()){
-                      $result .= sprintf($html->string_error,
-                          $l['str_trouble_with_db']
-                        ) . '<br>';
                       $this->error = $l['str_trouble_with_db'];
                     }else{
                       while($line = $db->fetch_row($res)){
                         list($from,$to)=split('-',$line[0]);
-                        if(
-                        (($from <= $value) && ($to >= $value)) ||
-                        (($from >= $value) && ($from <= $delegateto[$i]))
-                        ){
-                          $result .= sprintf($html->string_error,
-                              sprintf($l['str_primary_delegate_bad_limits_x_x_overlaps_existing_x_x'],
-                              stripslashes($value),stripslashes($delegateto[$i]), 
-                              $from,$to)
-                            ) . "<br>\n";
-                          $this->error = $l['str_primary_data_error'];
+                        if((($from <= $value) && ($to >= $value)) ||
+                          (($from >= $value) && ($from <= $delegateto[$i]))){
+                          $this->error = sprintf(
+                            $l['str_primary_delegate_bad_limits_x_x_overlaps_existing_x_x'],
+                            stripslashes($value),stripslashes($delegateto[$i]),
+                            $from, $to);
                         }
                       }
                       if(!$this->error){
                         $ttlval = $this->DNSTTL($ttl[$i]);
-                        $query = "INSERT INTO dns_record (zoneid, type, val1, val2,ttl) 
-                        VALUES ('" . $this->zoneid . "', 'DELEGATE', '"
-                         . $value . "-" . $delegateto[$i] . "','" .
-                         stripslashes($delegateuser[$i]) . "','" . $ttlval . "')
-                        ";
+                        $query = "INSERT INTO dns_record (zoneid, type, val1, val2,ttl)
+                          VALUES ('" . $this->zoneid . "', 'DELEGATE', '"
+                           . $value . "-" . $delegateto[$i] . "','" .
+                           stripslashes($delegateuser[$i]) . "','" . $ttlval . "')";
                         $db->query($query);
                         if($db->error()){
-                          $result .= sprintf($html->string_error,
-                              $l['str_trouble_with_db']
-                            ) . '<br>';
                           $this->error = $l['str_trouble_with_db'];
                         }else{
                           // create zone, affect it to delegateuser
                           // Can NOT use standard create way because
                           // of EXIST check. BUG: can not insert userlog
-                          $query = "INSERT INTO dns_zone 
-                                (zone,zonetype,userid)
-                          VALUES ('".$value . "-" . $delegateto[$i] . "." . 
-                           $this->zonename."','P','".$newuserid."')";
+                          $query = "INSERT INTO dns_zone
+                            (zone,zonetype,userid)
+                            VALUES ('".$value . "-" . $delegateto[$i] . "." .
+                            $this->zonename."','P','".$newuserid."')";
                           $res = $db->query($query);
                           if($db->error()){
                             $this->error = $l['str_trouble_with_db'];
@@ -2968,28 +2846,25 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                             }
 
                             // create CNAME records
-                            $newzone = new Zone($value . "-" . $delegateto[$i] . "." . 
+                            $newzone = new Zone($value . "-" . $delegateto[$i] . "." .
                                $this->zonename, 'P','',$newuserid);
-                            $newzone->retrieveID($value . "-" . $delegateto[$i] . "." . 
+                            $newzone->retrieveID($value . "-" . $delegateto[$i] . "." .
                                $this->zonename,'P');
-                            
+
                             for($cnamecounter=$value;
                                 $cnamecounter <= $delegateto[$i];
                                 $cnamecounter++){
-                              $query = "INSERT INTO dns_record 
-                                    (zoneid, type, val1, val2,ttl) 
-                                    VALUES 
-                                    ('" . $this->zoneid . "', 
+                              $query = "INSERT INTO dns_record
+                                    (zoneid, type, val1, val2,ttl)
+                                    VALUES
+                                    ('" . $this->zoneid . "',
                                     'CNAME', '" . $cnamecounter . "',
-                                    '" . $cnamecounter . "." . $value . "-" . $delegateto[$i] . "." . 
+                                    '" . $cnamecounter . "." . $value . "-" . $delegateto[$i] . "." .
                                      $this->zonename . ".',
                                     '" . $ttlval . "')
                                     ";
                               $db->query($query);
                               if($db->error()){
-                                $result .= sprintf($html->string_error, 
-                                  $l['str_trouble_with_db'] 
-                                  ) . '<br>';
                                 $this->error = $l['str_trouble_with_db'];
                               }
                             } // end for each CNAME
@@ -3002,7 +2877,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                     } // else db error
                   } // user exists
                 } // no db error
-              } // delegateuser not null                
+              } // delegateuser not null
             } // $from < $to
           } // bad upper limit
         } // bad lower limit
@@ -3028,44 +2903,36 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
    */
   Function AddSRVRecord($srvname,$srvpriority,$srvweight,$srvport,$srvvalue,$ttl){
     global $db,$html,$l;
-    
+
     // for each SRV, add SRV entry
     $i = 0;
     $result = "";
     while(list($key,$value) = each($srvname)){
       if($value != ""){
-        if(!$this->checkSRVName($value) || !$this->checkSRVPort($srvport[$i]) || !$this->checkSRVValue($srvvalue[$i])){
-          $result .= sprintf($html->string_error,
-            sprintf($l['str_primary_bad_srvname_x'],
-            stripslashes($value))
-            ) . "<br>\n";
-          $this->error = $l['str_primary_data_error'];
+        if(!$this->checkSRVName($value) 
+          || !$this->checkSRVPort($srvport[$i]) 
+          || !$this->checkSRVValue($srvvalue[$i])){
+          $this->error = sprintf(
+            $l['str_primary_bad_srvname_x'],
+            stripslashes($value));
         }else{
           if($srvvalue[$i] == ""){
-            $result .= sprintf($html->string_error,
-            sprintf($l['str_primary_no_record_x'],
-              stripslashes($value))
-              ) . "<br>\n";
-            $this->error = 1;
+            $this->error = sprintf(
+              $l['str_primary_no_record_x'],
+              stripslashes($value));
           }else{
             if(!$this->checkSRVPriority($srvpriority[$i])){
-              $result .= ' ' .
-              sprintf($html->string_error,
-                sprintf($l['str_primary_priority_for_srv_x_has_to_be_int'],
-                  stripslashes($value))
-                  ) . '<br>';
-              $this->error = $l['str_primary_data_error'];
+              $this->error = sprintf(
+                $l['str_primary_priority_for_srv_x_has_to_be_int'],
+                stripslashes($value));
             }else{
               if($srvpriority[$i] == ""){
                 $srvpriority[$i] = 0;
               }
               if(!$this->checkSRVWeight($srvweight[$i])){
-                $result .= ' ' .
-                sprintf($html->string_error,
-                  sprintf($l['str_primary_weight_for_srv_x_has_to_be_int'],
-                  stripslashes($value))
-                  ) . '<br>';
-                $this->error = $l['str_primary_data_error'];
+                $this->error = sprintf(
+                  $l['str_primary_weight_for_srv_x_has_to_be_int'],
+                  stripslashes($value));
               }else{
                 if($srvweight[$i] == ""){
                   $srvweight[$i] = 0;
@@ -3082,15 +2949,11 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
                   $ttlval = $this->DNSTTL($ttl[$i]);
                   $query = "INSERT INTO dns_record (zoneid, type, val1, val2, val3,val4,val5,ttl)
                     VALUES ('" . $this->zoneid . "', 'SRV', '"
-                    . $value . "', '" . $srvpriority[$i] . "','" . 
-                    $srvweight[$i] . "','" . $srvport[$i] . "','" . 
+                    . $value . "', '" . $srvpriority[$i] . "','" .
+                    $srvweight[$i] . "','" . $srvport[$i] . "','" .
                     $srvvalue[$i] . "','" . $ttlval . "')";
                   $db->query($query);
                   if($db->error()){
-                    $result .= ' ' .
-                      sprintf($html->string_error,
-                        $l['str_trouble_with_db']
-                        ) . '<br>';
                     $this->error = $l['str_trouble_with_db'];
                   }else{
                     $result .= $l['str_primary_ok'] . "<br>\n";
@@ -3169,7 +3032,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
         // modification allowed because same owner
         // looking for zoneid
         $result .= $l['str_primary_zone_managed_by_you'];
-        $query = "SELECT id FROM dns_zone 
+        $query = "SELECT id FROM dns_zone
           WHERE zone='" . $reversezone . "' AND zonetype='P'";
         $res = $db->query($query);
         $line = $db->fetch_row($res);
@@ -3232,7 +3095,10 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
     } else {
       $nval = intval($val);
       if (0!=strcmp($nval, $val) || $nval <= 0) {
-        $this->error .= sprintf($l['str_primary_x_parameter_x_has_to_be_int'], $soattl, $val);
+        $this->error .= sprintf(
+          $l['str_primary_x_parameter_x_has_to_be_int'],
+          $soattl,
+          $val);
         return;
       }
       $val = $nval;
@@ -3273,41 +3139,41 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
     }else{
       $xferip='any';
     }
-  
+
     if (notnull($this->error)) {
       return 0;
     }
-    
-  
+
+
       // dns_confprimary
       // upgrade serial
-      
+
       $this->serial = getSerial($this->serial);
 
       if($this->creation==0){
         $query = "UPDATE dns_confprimary SET serial='" . $this->serial . "',
-        xfer='" . $xferip . "', refresh='" . $soarefresh . "',
-        retry='" . $soaretry . "', expiry='" . $soaexpire . "',
-        minimum='" . $soaminimum . "', defaultttl='" . $defaultttl . "'
-        WHERE zoneid='" . $this->zoneid . "'";
+          xfer='" . $xferip . "', refresh='" . $soarefresh . "',
+          retry='" . $soaretry . "', expiry='" . $soaexpire . "',
+          minimum='" . $soaminimum . "', defaultttl='" . $defaultttl . "'
+          WHERE zoneid='" . $this->zoneid . "'";
       }else{
         $query = "SELECT count(*) FROM dns_confprimary WHERE zoneid='" . $this->zoneid . "'";
-                          $res = $db->query($query);
-                          if($db->error()){
-                                  $this->error=$l['str_trouble_with_db'];
-                                  return 0;
-                          }
+        $res = $db->query($query);
+        if($db->error()){
+          $this->error = $l['str_trouble_with_db'];
+          return 0;
+        }
         $line = $db->fetch_row($res);
         if($line[0] != 0){
-                                  $this->error=$l['str_zone_already_exists'] . "ICI";
-                                  return 0;
-        } 
- 
+          $this->error = $l['str_zone_already_exists'];
+          return 0;
+        }
+
         $query = "INSERT INTO dns_confprimary (zoneid,serial,xfer,refresh,
-            retry,expiry,minimum,defaultttl)
-        VALUES ('" . $this->zoneid . "','" . $this->serial . "','" . $xferip . "'
-        ,'" . $soarefresh . "','" . $soaretry . "','" . $soaexpire . "','" .
-        $soaminimum . "','" . $defaultttl . "')";
+          retry,expiry,minimum,defaultttl)
+          VALUES ('" . $this->zoneid . "','" . $this->serial . "','" . $xferip . "'
+          ,'" . $soarefresh . "','" . $soaretry . "','" . $soaexpire . "','" .
+          $soaminimum . "','" . $defaultttl . "')";
       }
       $res = $db->query($query);
       if($db->error()){
@@ -3324,11 +3190,11 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 
 
 // *******************************************************
-  
+
   //  Function getArecords()
   /**
    * Get all the A records with a given name in current zone
-   * 
+   *
    *
    *@access public
    *@params Address of the array to fill (&$arecs) and name of the A records ($name)
@@ -3338,8 +3204,8 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
   Function getArecords(&$arecs, $name) {
     global $db,$l;
     $this->error='';
-    $query = "SELECT val2 
-      FROM dns_record 
+    $query = "SELECT val2
+      FROM dns_record
       WHERE zoneid='" . $this->zoneid . "'
       AND type='A' AND val1='" . $name . "'";
     $res =  $db->query($query);
@@ -3358,7 +3224,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 
 
 
-// *******************************************************  
+// *******************************************************
 //  Function RetrieveRecords($type,&$arraytofill,&$arrayofid,&$ttltofill)
   /**
    * Fill in given array with all records of type $type for current zone
@@ -3366,7 +3232,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
    *@access private
    *@param string $type type of record to be retrieved
    *@param array &$arraytofill reference of array to be filled with records
-   *@param array &$arrayofid reference of array to be filled with ids of records 
+   *@param array &$arrayofid reference of array to be filled with ids of records
    *@param array &$ttltofill reference of array to be filled with ttl
    *@return int 1 if success, 0 if error
    */
@@ -3374,7 +3240,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
     global $db,$l;
     $this->error='';
     $query = "SELECT id, val1, val2, ttl
-      FROM dns_record 
+      FROM dns_record
       WHERE zoneid='" . $this->zoneid . "'
       AND type='" . $type . "' ORDER BY val1";
     $res =  $db->query($query);
@@ -3392,10 +3258,10 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
     return 1;
   }
 
-// *******************************************************  
+// *******************************************************
 //  Function RetrieveMultiRecords($type,&$array1,&$array2,&$array3,&$array4,&$array5,&$idtofill,&$ttltofill)
   /**
-   * Same as RetrieveRecords, but used when a type of record might 
+   * Same as RetrieveRecords, but used when a type of record might
    * have multiple similar entries (A for round robin, NS, etc...)
    * Results are stored in two separate arrays
    *
@@ -3414,7 +3280,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
     global $db,$l;
     $this->error='';
     $query = "SELECT id, val1, val2, val3, val4, val5, ttl
-      FROM dns_record 
+      FROM dns_record
       WHERE zoneid='" . $this->zoneid . "'
       AND type='" . $type . "' ORDER BY val1";
     $res =  $db->query($query);
@@ -3442,7 +3308,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
     }
   }
 
-// *******************************************************  
+// *******************************************************
 //  Function TempZoneFile()
   /**
    * Generate the file name (with whole path)
@@ -3456,7 +3322,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
     return ("{$config->tmpdir}$tmpzone.{$this->zonetype}");
   }
 
-// *******************************************************  
+// *******************************************************
 //  Function generateConfigFile()
   /**
    * Generate a temporary config file in $this->tempZoneFile()
@@ -3487,17 +3353,18 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
     $fd = fopen($this->tempZoneFile(),"w");
     if ($fd == 0)
     {
-      $this->error = sprintf($l['str_can_not_open_x_for_writing'],
-                $this->tempZoneFile());
+      $this->error = sprintf(
+        $l['str_can_not_open_x_for_writing'],
+        $this->tempZoneFile());
       return 0;
     }
     $this->generateSOA($this->defaultttl,$config->nsname,$this->zonename,
               $this->user,$this->serial,
               $this->refresh,$this->retry,$this->expiry,$this->minimum,$fd);
-              
+
     // retrieve & print NS
     $this->generateConfig("NS",$this->ns,$this->nsttl,$fd);
-        
+
     if($this->reversezone){
       // retrieve & print PTR
       $this->generateMultiConfig("PTR",$this->ptr,"","","",$this->ptrname,$this->ptrttl,$fd);
@@ -3511,7 +3378,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
       // retrieve & print SRV
       $this->generateMultiConfig("SRV",$this->srvname,$this->srvpriority,$this->srvweight,$this->srvport,$this->srvvalue,$this->srvttl,$fd);
     } // end not reverse zone
-    
+
     $this->generateConfig("CNAME",$this->cname,$this->cnamettl,$fd);
     $this->generateMultiConfig("TXT",$this->txt,"","","",$this->txtdata,$this->txtttl,$fd);
 
@@ -3525,7 +3392,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
   }
 
 
-// *******************************************************  
+// *******************************************************
 //  Function generateSOA($tttl,$nsname,$zonename,$user
 //            $serial,$refresh,$retry,$expiry,$minimum,$fd="")
   /**
@@ -3537,7 +3404,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
   Function generateSOA($tttl,$nsname,$zonename,$user,
             $serial,$refresh,$retry,$expiry,$minimum,$fd=""){
     global $l, $config;
-    
+
     $content  = "\n\$TTL " . $tttl . " ; " . $l['str_primary_default_ttl'] ;
 
     if ($user->emailsoa) {
@@ -3568,7 +3435,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
   }
 
 
-// *******************************************************  
+// *******************************************************
 //  Function generateMultiConfig($type,$item1,$item2,$ttl,$fd = "")
   /**
    * Generate config in a file or as return content
@@ -3607,7 +3474,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
   }
 
 
-// *******************************************************  
+// *******************************************************
 //  Function generateConfig($type,$item1,$ttl,$fd = "")
   /**
    * Generate config in a file or as return content
@@ -3619,7 +3486,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
     // retrieve & print $type
     $counter = 0;
     $content = "";
-    
+
     $keys = array_keys($item1);
     switch($type){
       case "NS":
@@ -3634,7 +3501,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
             "", ($ttl[$key] != "-1" ? $ttl[$key] : ""), $type, $item1[$key], $key);
         }
         break;
-      default:  
+      default:
         while($key = array_shift($keys)){
           $content .= sprintf("\n%-18s %s\tIN %-5s %s",
             $key, ($ttl[$key] != "-1" ? $ttl[$key] : ""), $type, $item1[$key]);
@@ -3651,10 +3518,10 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
   }
 
 
-// *******************************************************  
+// *******************************************************
 //  Function PrintTTL($ttl)
   /**
-   * return TTL 
+   * return TTL
    *
    *@access private
    *@return string ttl localized value
@@ -3665,14 +3532,14 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
     return ($ttl=="-1"||$ttl=="default"?$l['str_primary_default']:$ttl);
   }
 
-// *******************************************************  
+// *******************************************************
 //  Function DNSTTL($ttl)
   /**
-   * return TTL 
+   * return TTL
    *
    *@access private
    *@return string ttl value for DB insertion
-   */  
+   */
   Function DNSTTL($ttl){
     global $l;
     if(!notnull($ttl)){
@@ -3682,11 +3549,11 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
         $ttlval = "-1";
       else
         $ttlval = mysql_real_escape_string($ttl);
-    }              
+    }
     return $ttlval;
   }
-  
-// *******************************************************  
+
+// *******************************************************
 //  Function updateSerial($zoneid)
   /**
    * update zone serial
@@ -3694,11 +3561,11 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
    *@access private
    *@param $zoneid int zone id
    *@return int 0 if error, 1 if success
-   */  
+   */
   Function updateSerial($zoneid){
     global $db, $l;
     $result ="";
-  
+
     // retrieve zone serial
     $query = "SELECT serial FROM dns_confprimary WHERE zoneid='" . $zoneid . "'";
     $res = $db->query($query);
@@ -3707,10 +3574,10 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
       return 0;
     }
     $line = $db->fetch_row($res);
-    
+
     $serial = getSerial($line[0]);
     $query = "UPDATE dns_confprimary SET serial='" . $serial . "'
-        WHERE zoneid='" . $zoneid . "'";
+      WHERE zoneid='" . $zoneid . "'";
     $res = $db->query($query);
     if($db->error()){
       $this->error=$l['str_trouble_with_db'];
@@ -3722,9 +3589,9 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 
 // *******************************************************
 // *             All check functions                     *
-// *******************************************************  
+// *******************************************************
 
-// *******************************************************  
+// *******************************************************
   // function checkMXName($string)
   /**
    * Check if MX name has only valid char
@@ -3761,7 +3628,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
     return $result;
   }
 
-// *******************************************************  
+// *******************************************************
   // function checkNSName($string)
   /**
    * Check if NS Name has only valid char
@@ -3786,7 +3653,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
   // not used - useful only with SUBNS
 
 
-// *******************************************************  
+// *******************************************************
 // function checkAName($string)
 /**
  * Check if A name has only valid char
@@ -3826,7 +3693,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
   }
 
 
-// *******************************************************  
+// *******************************************************
   // function checkPTRName($string)
   /**
    * Check if PTR name has only valid char
@@ -3881,7 +3748,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
   }
 
 
-// *******************************************************  
+// *******************************************************
 // function checkCNAMEName($string)
         /**
          * Check if CNAME name is valid
@@ -3895,9 +3762,9 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
     if ($string[0] == '*' && $string[1] == '.' && $string[2] != '*') { $string=substr($string,2); $numdots--;}
     $abc = "0123456789abcdefghijklmnopqrstuvwxyz-.";
 
-          // only specified char without a dot as first char - * allowed 
+          // only specified char without a dot as first char - * allowed
           if(strcmp($string,"*") && (strspn($string, $abc) !=
-            strlen($string)) || (strpos('0'.$string, ".") == 1) 
+            strlen($string)) || (strpos('0'.$string, ".") == 1)
     ){
                   $result = 0;
           }else if(count(explode('.',$string,3))>$numdots){
@@ -3918,7 +3785,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
   // function checkCNAMEValue($string)
   /**
    * Check if CNAME value is valid
-   * 
+   *
    *@param string $string value to be checked
    *@return int 1 if valid, 0 else
    */
@@ -3938,7 +3805,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
     }
     return $result;
   }
-// *******************************************************  
+// *******************************************************
 // function checkTXTName($string)
         // function checkTXTName($string)
         /**
@@ -3969,7 +3836,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
 // function checkTXTValue($string)
 // not used - everything is allowed
 
-// *******************************************************  
+// *******************************************************
 // function checkWWWName($string)
         // function checkWWWName($string)
         /**
@@ -3996,13 +3863,13 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
       return 1;
     return 0;
   }
-// *******************************************************  
+// *******************************************************
 // function checkA6Name($string)
 // function checkA6Value($string)
 
 // A6 not used
 
-// *******************************************************  
+// *******************************************************
 // function checkAAAAName($string)
   /**
    * Check if AAAA name has only valid char
@@ -4043,10 +3910,10 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
     }else{
       $result = 1;
     }
-    return $result;  
-  }  
+    return $result;
+  }
 
-// *******************************************************  
+// *******************************************************
 // function checkSUBNSName($string)
         /**
          * Check if SUBNS name is valid
@@ -4076,7 +3943,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
          */
         function checkSUBNSValue($string){
                 $string = strtolower($string);
-          // only specified char 
+          // only specified char
           if((strspn($string, "0123456789abcdefghijklmnopqrstuvwxyz-.") !=
           strlen($string)) || (strpos('0'.$string,".") == 1)){
                   $result = 0;
@@ -4085,14 +3952,14 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
           }
     return $result;
   }
-// *******************************************************  
+// *******************************************************
 // function checkDELEGATEName($string)
 // function checkDELEGATEValue($string)
 // not used - nothing to do with DNS
 
-// *******************************************************  
+// *******************************************************
 
-// *******************************************************  
+// *******************************************************
 // function checkSRVName($string)
         /**
          * Check if SRV name is valid
@@ -4103,7 +3970,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
   function checkSRVName($string){
     $string = strtolower($string);
 
-          // only specified char without a dot as first char - * allowed 
+          // only specified char without a dot as first char - * allowed
           if(strcmp($string,"*") && (strspn($string, "0123456789abcdefghijklmnopqrstuvwxyz-._*") !=
             strlen($string)) || (strpos('0'.$string,".") == 1)
     ){
@@ -4119,7 +3986,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
     return $result;
   }
 
-// *******************************************************  
+// *******************************************************
 // function checkSRVPriority($string)
         /**
          * Check if SRV Priority is valid
@@ -4136,23 +4003,23 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
           }
   }
 
-// *******************************************************  
+// *******************************************************
 // function checkSRVWeight($string)
-        /**
-         * Check if SRV Weight is valid
-         *
-         *@param string $string name to be checked
-         *@return int 1 if valid, 0 else
-         */
+  /**
+   * Check if SRV Weight is valid
+   *
+   *@param string $string name to be checked
+   *@return int 1 if valid, 0 else
+   */
   function checkSRVWeight($string){
-          if(preg_match("/[^\d]/", $string)){
-                  return 0;
-          }else{
-                  return 1;
-          }
+    if(preg_match("/[^\d]/", $string)){
+      return 0;
+    }else{
+      return 1;
+    }
   }
 
-// *******************************************************  
+// *******************************************************
 // function checkSRVPort($string)
         /**
          * Check if SRV Port is valid
@@ -4161,19 +4028,18 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
          *@return int 1 if valid, 0 else
          */
   function checkSRVPort($string){
-
-          if(preg_match("/[^\d]/", $string)){
-                  return 0;
-          }else{
-                  return 1;
-          }
+    if(preg_match("/[^\d]/", $string)){
+      return 0;
+    }else{
+      return 1;
+    }
   }
 
 // function checkSRVValue($string)
   // function checkSRVValue($string)
   /**
    * Check if SRV value is valid
-   * 
+   *
    *@param string $string value to be checked
    *@return int 1 if valid, 0 else
    */
@@ -4185,7 +4051,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
     }else{
       // only specified char without a dot as first char
       if( (strspn($string, "0123456789abcdefghijklmnopqrstuvwxyz-.") !=
-                        strlen($string)) || (strpos('0'.$string,".") == 1) ){
+        strlen($string)) || (strpos('0'.$string,".") == 1) ){
         $result = 0;
       }else{
         $result = 1;
@@ -4193,7 +4059,7 @@ list($VARS,$xferip,$defaultttl,$soarefresh,$soaretry,$soaexpire,$soaminimum,
     }
     return $result;
   }
-// *******************************************************  
+// *******************************************************
 
 }
 ?>
