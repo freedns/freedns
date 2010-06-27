@@ -2544,15 +2544,13 @@ class Primary extends Zone {
               $result .= sprintf(
                 $l['str_primary_adding_txt_x'],
                 stripslashes($value)) . "... ";
-              // suppress all quotes, and add new ones
-              $newstring = preg_replace("/\"/","",stripslashes($txtstring[$i]));
-              $newstring = preg_replace("/'/","''",$newstring);
-              // suppress all remaining "\"
-              $newstring = preg_replace("/\\\/","",$newstring);
+              $newstring = preg_replace("/\"/","'",$txtstring[$i]);
+              $newstring = '"' . $newstring . '"';
               $ttlval = $this->DNSTTL($ttl[$i]);
               $query = "INSERT INTO dns_record (zoneid, type, val1, val2,ttl)
                 VALUES ('" . $this->zoneid . "', 'TXT', '"
-                 . $value . "', '\"" . $newstring . "\"','" . $ttlval . "')";
+                . mysql_real_escape_string($value) . "', '" 
+                . mysql_real_escape_string($newstring) . "','" . $ttlval . "')";
               $db->query($query);
               if($db->error()){
                 $this->error = $l['str_trouble_with_db'];
