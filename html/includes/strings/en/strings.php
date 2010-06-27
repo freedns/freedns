@@ -369,6 +369,7 @@ $l["str_primary_warning_www_x_exists_not_overwritten"] = "Warning: record %s alr
 $l["str_primary_weight_for_srv_x_has_to_be_int"] = "The weight for SRV %s has to be an integer.";
 $l["str_primary_www_address"] = "Target URL";
 $l["str_primary_www_frame"] = "frame";
+$l["str_primary_www_no_type"] = "missing WWW record type";
 $l["str_primary_www_redirect"] = "temp redirect";
 $l["str_primary_www_redirect_301"] = "perm redirect";
 $l["str_primary_www_zones_expl_on_x_x"] = "Frame in short is &quot;hidden&quot; true URL (in browser address bar you can see only <i>Name</i> (w/ domain), but content comes from <i>Target URL</i>). Redirect WWW is simply browser redirection to true URL (in browser address bar you can see <i>Target URL</i>).<br>";

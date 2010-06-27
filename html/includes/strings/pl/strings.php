@@ -370,6 +370,7 @@ $l["str_primary_warning_www_x_exists_not_overwritten"] = "Uwaga: rekord %s już 
 $l["str_primary_weight_for_srv_x_has_to_be_int"] = "Waga dla rekordu SRV musi być liczbą całkowitą.";
 $l["str_primary_www_address"] = "Adres WWW";
 $l["str_primary_www_frame"] = "ramka";
+$l["str_primary_www_no_type"] = "nie wybrano typu rekordu WWW";
 $l["str_primary_www_redirect"] = "przekierowanie czasowe";
 $l["str_primary_www_redirect_301"] = "przekierowanie stałe";
 $l["str_primary_www_zones_expl_on_x_x"] = "<p>Ramki i przekierowania to połączenie serwera DNS i serwera WWW.Serwer DNS ustawia odpowiedni rekord <i>Nazwa</i> w domenie, a serwer WWW, jak ktoś się połączy, serwuje odpowiednią (patrz niżej) stronę z <i>Adres WWW</i>.</p><p>Ramka WWW to, tak w uproszczeniu, &quot;ukryty&quot; prawdziwy URL, tj. w pasku adresu przeglądarki widać tylko <i>Nazwa</i> (z&nbsp;domeną), a&nbsp;zawartość jest z&nbsp;<i>Adres WWW</i>.<br>Przekierowanie WWW to przekierowanie przeglądarki WWW na prawdziwy URL, tj. w pasku adresu przeglądarki widać po prostu <i>Adres WWW</i>. 'Przekierowanie stałe' (kod 301) polecane jest przy ostatecznym przekierowaniu (np. na nowy, zmieniony adres), a 'przekierowanie czasowe' (kod 302) przy tymczasowym.</p><p>Reguły nazewnictwa są takie same, jak dla rekordów A, gdyż automatycznie tworzony jest rekord A wskazujący na adres serwera WWW, który obsługuje to przekierowanie.</p>";
