@@ -50,11 +50,6 @@ if(file_exists('includes/strings/' . $lang . '/index_content.php')){
 
 print migrationbox(1);
 
-if ($content_test) {
-print $html->box('testy','Testy nowego systemu...' ,$content_test);
-}
-
-
 print $html->box('mainbox',$title,$content);
 
 // ********************************************************
