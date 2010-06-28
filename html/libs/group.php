@@ -294,7 +294,7 @@ class Group {
 
     $query = "SELECT zone, zonetype, id FROM dns_zone WHERE ";
     if ($template)
-      $query .= "(userid='" . $this->groupid ."' OR zone='google.template')";
+      $query .= "(userid='" . $this->groupid ."' OR zone=' Google Apps template')";
     else
       $query .= "userid='" . $this->groupid ."'";
     if (notnull($zone)) $query .= " AND zone='".mysql_real_escape_string($zone)."'";

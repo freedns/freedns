@@ -232,7 +232,7 @@ class Zone {
         // modified for current zone
         if ($template && $template != $l['str_none']) {
           // only if template is owned by group !
-          if($template!="google.template" && $userid != $this->getUserIdByZone($template)){
+          if($template!=" Google Apps template" && $userid != $this->getUserIdByZone($template)){
             $this->error.= $l['str_while_configuring_from_template'];
           }else{
             if(!$this->fillinWithTemplate($template, $zonetype)){

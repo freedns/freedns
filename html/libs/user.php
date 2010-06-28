@@ -360,7 +360,7 @@ class User extends Auth {
 
     $query = "SELECT zone, zonetype, id FROM dns_zone WHERE ";
     if ($template)
-      $query .= "(userid='" . $this->userid . "' OR zone='google.template')";
+      $query .= "(userid='" . $this->userid . "' OR zone=' Google Apps template')";
     else
       $query .= "userid='" . $this->userid . "'";
     if (notnull($zone)) $query .= " AND zone='".mysql_real_escape_string($zone)."'";
