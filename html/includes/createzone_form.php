@@ -53,7 +53,7 @@ $form .='
 $form .= '
   <tr>
   <td></td>
-  <td colspan="2">' . sprintf($l['str_import_server_x'], $config->webserverip) . '</td>
+  <td colspan="2">' . sprintf($l['str_import_server_x'], $config->nsaddress) . '</td>
   </tr>
   <tr>
   <td></td>
@@ -72,7 +72,7 @@ $form .= '
 $form .= '
   <tr>
     <td></td>
-    <td colspan="2">' . sprintf($l['str_authoritative_server_x'], $config->webserverip) . '</td>
+    <td colspan="2">' . sprintf($l['str_authoritative_server_x'], $config->nsaddress) . '</td>
   </tr>
   <tr>
     <td></td>
