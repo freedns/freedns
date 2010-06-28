@@ -852,7 +852,8 @@ endif;
 
     $query = "UPDATE dns_record SET ttl='-1' WHERE ttl='86400' AND zoneid='".$this->zoneid."';";
     $db->query($query);
-    if (!$dbqueries) $this->error .= '<pre>' . $dig . '</pre>';
+    if (!$dbqueries)
+      $this->error .= '<pre>' . $dig . '</pre>';
     return $dbqueries;
   }
 
@@ -870,10 +871,13 @@ endif;
         
     $query = "UPDATE dns_zone SET status='M' WHERE id='" . $zoneid . "'";
     $res = $db->query($query);
+    $result = "";
     if($db->error()){
-      $result = '<p>' .
-      sprintf($html->string_error, $l['str_trouble_with_db']) . '
-        ' . $l['str_primary_zone_error_not_available_try_again'] . '</p>';
+      $result = '<p>' 
+        . sprintf($html->string_error, $l['str_trouble_with_db'])
+        . ' '
+        . $l['str_primary_zone_error_not_available_try_again'] 
+        . '</p>';
     }
     return $result;
   }
