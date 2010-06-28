@@ -348,7 +348,7 @@ class User extends Auth {
    *@access public
    *@return array array of all zones/zonestypes owned by user or 0 if error
    */  
-  Function listallzones($zone=""){
+  Function listallzones($zone="", $template=0){
     global $db,$l;
     global $user;
     // warning: be sure to validate user before using this function
@@ -358,8 +358,11 @@ class User extends Auth {
       return "";
     }
 
-    $query = "SELECT zone, zonetype, id FROM dns_zone
-    WHERE userid='" . $this->userid . "'";
+    $query = "SELECT zone, zonetype, id FROM dns_zone WHERE ";
+    if ($template)
+      $query .= "(userid='" . $this->userid . "' OR zone='google.template')";
+    else
+      $query .= "userid='" . $this->userid . "'";
     if (notnull($zone)) $query .= " AND zone='".mysql_real_escape_string($zone)."'";
     $query .= " AND status!='D' ORDER BY zone DESC";
     $res = $db->query($query);

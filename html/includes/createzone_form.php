@@ -1,9 +1,9 @@
 <?
 if($config->usergroups){
-  $allzones = $group->listallzones();
+  $allzones = $group->listallzones("", 1);
   $user->error = $group->error;      
 }else{
-  $allzones = $user->listallzones();
+  $allzones = $user->listallzones("", 1);
 }
 
 $checksec="";
