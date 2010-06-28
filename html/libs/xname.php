@@ -504,7 +504,7 @@ function retrieveArgs($name, $httpvars){
   for($i=1; $i <= $nbmax; $i++){
     if(isset($httpvars[$name . $i])){
       $value = $httpvars[$name . $i];
-      $value=addslashes($value);
+      $value=$value;
       array_push($result, $value);
     }
   }
