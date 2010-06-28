@@ -1,13 +1,15 @@
 <?
 $content = '
 <dl>
+   <dt>Google Apps [2010-06-28]</dt>
+   <dd>Utworzyłem globalny wzorzec domeny o&nbsp;nazwie "Google Apps template". Zawiera wszystkie potrzebne rekordy MX do poczty oraz SRV dla Jabbera. Łatwiej skasować nieużywane rekordy, niż tworzyć te wszystkie wpisy od zera &mdash; wiem, bo sam parę razy robiłem! :)</dd>
    <dt>Ataki [2010-06-26]</dt>
    <dd>Przepraszam za problemy z dostępem do interfejsu, jakiś idiota atakuje (DDoS) serwer. Myślimy, co z tym zrobić.</dd>
    <dt>Poprawki na prośbę [2010-06-22]</dt>
    <dd>Pozwoliłem na wildcard A, a także zmieniłem, żeby wasz adres email nie pojawiał się (po wygenerowaniu strefy) w SOA &mdash; z czego wynika, że już można używać kropek w adresach email (można to sobie wyłączyć w opcjach).
    </dd>
    <dt>Po trzech tygodniach [2010-06-15]</dt>
-   <dd>Krótkie podsumowanie: do tej pory zmigrowało ok. 42% domen, acz tylko 28% z tego ma zrobioną delegację na FreeDNS::42, stare dnsy (niedługo wyłączają!) ma ciągle jeszcze 36% ze zmigrowanych stref, zaś 36% w ogóle nie ma delegacji. <!-- Z drugiej strony, z jeszcze niezmigrowanych aż 70% nie jest zarejestrowanych w starym systemie, więc może to po prostu stare domeny i w ten sposób zostaną naturalnie oczyszczone. --></dd>
+<!--   <dd>Krótkie podsumowanie: do tej pory zmigrowało ok. 42% domen, acz tylko 28% z tego ma zrobioną delegację na FreeDNS::42, stare dnsy (niedługo wyłączają!) ma ciągle jeszcze 36% ze zmigrowanych stref, zaś 36% w ogóle nie ma delegacji. < ! -- Z drugiej strony, z jeszcze niezmigrowanych aż 70% nie jest zarejestrowanych w starym systemie, więc może to po prostu stare domeny i w ten sposób zostaną naturalnie oczyszczone. - - ></dd> -->
    <dd>Krótki przegląd zmian<!-- (podziękowania dla poszczególnych osób będą w oddzielnej notce) -->: poprawiłem mnóstwo błędów w kodzie, automatyczne tworzenie rekordów AAAA ze strefy odwrotnej, robienie MX dla hosta, przetwarzanie logów, kod html i css, UTF-8, tłumaczenia, zakładanie stref, pokazywanie logów i stref na subkontach, pliterki w mailach, mechanizm zmiany adresu mail <!-- (konto już nie jest blokowane do potwierdzenia) -->, ułatwienie do tworzenia wielu rekordów w strefie odwrotnej, nowy typ przekierowania www, walidacja wielu pól, strefy odwrotne dla sieci mniejszych niż /24... <!-- i wiele innych poprawek jest w drodze. --> Piszcie, jeśli czegoś wam brakuje, póki jeszcze mam melodię na dłubanie w tym kodzie. :)</dd>
   <dd>Krótkie odpowiedzi na często zadawane pytania: dziękuję za oferty pomocy (także tej pieniężnej i materialnej)<!-- , na szczęście sponsorzy pomogli -->; serwis pozostanie darmowy<!-- (poza tym pobieranie opłat od osób prywatnych w Polsce to jakiś koszmar podatkowy) -->; nie, nie dogadałem się, zawartość stref powstała z backupu<!-- oraz przekonwertowana z drugiego serwera DNS, nad którym ciągle mam kontrolę -->; niestety, nie mam jak czytać (i z tego, co wiem, nikt nie czyta) poczty z adresu freedns na starym systemie... no ale przede wszystkim dziękuję za mnóstwo głosów poparcia!</dd>
    <dt>Nowy start [2010-05-23]</dt>
