@@ -3598,16 +3598,15 @@ class Primary extends Zone {
    *@return int 1 if valid, 0 else
    */
   function checkMXName($string){
-          $string = strtolower($string);
-          // only valid char, without dot as 1st char (no dot allowed)
-          if((strspn($string, "0123456789abcdefghijklmnopqrstuvwxyz-.") !=
-                  strlen($string)) || (strpos('0'.$string,".") == 1)
-          ){
-                  $result = 0;
-          }else{
-                  $result = 1;
-          }
-          return $result;
+    $string = strtolower($string);
+    // only valid char, without dot as 1st char (no dot allowed)
+    if((strspn($string, "0123456789abcdefghijklmnopqrstuvwxyz-.") !=
+      strlen($string)) || (strpos('0'.$string,".") == 1)){
+      $result = 0;
+    }else{
+      $result = 1;
+    }
+    return $result;
   }
 
   // function checkMXPref($string)
@@ -3635,16 +3634,16 @@ class Primary extends Zone {
    *@return int 1 if valid, 0 else
    */
   function checkNSName($string){
-          $string = strtolower($string);
-          // only valid char, without dot as 1st char and at least one dot
-          if((strspn($string, "0123456789abcdefghijklmnopqrstuvwxyz-.") !=
-          strlen($string)) || (strpos('0'.$string,".") == FALSE)||
-          (strpos('0'.$string,".") == 1)){
-                  $result = 0;
-          }else{
-                  $result = 1;
-          }
-          return $result;
+    $string = strtolower($string);
+    // only valid char, without dot as 1st char and at least one dot
+    if((strspn($string, "0123456789abcdefghijklmnopqrstuvwxyz-.") !=
+      strlen($string)) || (strpos('0'.$string,".") == FALSE)||
+      (strpos('0'.$string,".") == 1)){
+      $result = 0;
+    }else{
+      $result = 1;
+    }
+    return $result;
   }
 
   // function checkNSValue($string)
@@ -3653,32 +3652,33 @@ class Primary extends Zone {
 
 // *******************************************************
 // function checkAName($string)
-/**
- * Check if A name has only valid char
- *
- *@param string $string name to be checked
- *@return int 1 if valid, 0 else
- */
+  /**
+   * Check if A name has only valid char
+   *
+   *@param string $string name to be checked
+   *@return int 1 if valid, 0 else
+   */
   function checkAName($string){
     $string = strtolower($string);
-    // only specified char - dot not allowed (not RFC but dummy user prevention)
     // except if zone name itself
-    if($string == $this->zonename.'.'){
-      $result = 1;
-    }elseif($string == '*') {
-        $result = 1;
-    }else{
-      if(strcmp($string,"@") && (strspn($string, ".0123456789abcdefghijklmnopqrstuvwxyz-") !=
-        strlen($string))){
-        $result = 0;
-      }else if ($string[0]=='.'||$string[strlen($string)-1]=='.'||count(explode('.',$string,3))>2){
-        $result = 0;
-      }else{
-        $result = 1;
-      }
-    }
-    return $result;
+    if($string == $this->zonename.'.')
+      return 1;
+    if($string == '*')
+      return 1;
+    if($string == "@")
+      return 1;
+    if(strspn($string, ".0123456789abcdefghijklmnopqrstuvwxyz-") != strlen($string)))
+      return 0;
+    if ($string[0] == '.')
+      return 0;
+    if ($string[strlen($string)-1] == '.')
+      return 0;
+    if (count(explode('.',$string,3))>2)
+      return 0;
+
+    return 1;
   }
+
   // function checkAValue($string)
   /**
    * Check if A value has only valid char
@@ -3687,7 +3687,7 @@ class Primary extends Zone {
    *@return int 1 if valid, 0 else
    */
   function checkAValue($string){
-          return checkIP($string);
+    return checkIP($string);
   }
 
 
@@ -3705,19 +3705,19 @@ class Primary extends Zone {
       $result = 1;
     }else{
       if(!$this->user->ipv6){
-              // no IPv6
-              if( ereg("[a-zA-Z]",$string) || ($string > 254) ){
-                      $result = 0;
-              }else{
-                      $result = 1;
-              }
+        // no IPv6
+        if( ereg("[a-zA-Z]",$string) || ($string > 254) ){
+          $result = 0;
+        }else{
+          $result = 1;
+        }
       }else{
         // ipv6
         if(!checkIPv6($string)){
-                      $result = 0;
-              }else{
-                      $result = 1;
-              }
+          $result = 0;
+        }else{
+          $result = 1;
+        }
       }
     }
     return $result;
@@ -3732,44 +3732,46 @@ class Primary extends Zone {
    */
   function checkPTRValue($string){
     // no distinction between IPv4 and IPv6
-
     $string = strtolower($string);
-            // only specified char
-          if((strspn($string, "0123456789abcdefghijklmnopqrstuvwxyz-.") !=
-         strlen($string)) || (strpos('0'.$string,".") == FALSE)||
-         (strpos('0'.$string,".") == 1) || !preg_match("/[a-z]\.$/i",$string)){
-                  $result = 0;
+    // only specified char
+    if((strspn($string, "0123456789abcdefghijklmnopqrstuvwxyz-.") != strlen($string)) 
+      || (strpos('0'.$string,".") == FALSE)
+      || (strpos('0'.$string,".") == 1) 
+      || !preg_match("/[a-z]\.$/i",$string)){
+      $result = 0;
     }else{
       $result = 1;
-          }
-          return $result;
+    }
+    return $result;
   }
 
 
 // *******************************************************
 // function checkCNAMEName($string)
-        /**
-         * Check if CNAME name is valid
-         *
-         *@param string $string name to be checked
-         *@return int 1 if valid, 0 else
-         */
+  /**
+   * Check if CNAME name is valid
+   *
+   *@param string $string name to be checked
+   *@return int 1 if valid, 0 else
+   */
   function checkCNAMEName($string){
     $string = strtolower($string);
     $numdots = 2;
-    if ($string[0] == '*' && $string[1] == '.' && $string[2] != '*') { $string=substr($string,2); $numdots--;}
+    if ($string[0] == '*' && $string[1] == '.' && $string[2] != '*') {
+      $string=substr($string,2);
+      $numdots--;
+    }
     $abc = "0123456789abcdefghijklmnopqrstuvwxyz-.";
 
-          // only specified char without a dot as first char - * allowed
-          if(strcmp($string,"*") && (strspn($string, $abc) !=
-            strlen($string)) || (strpos('0'.$string, ".") == 1)
-    ){
-                  $result = 0;
-          }else if(count(explode('.',$string,3))>$numdots){
-                  $result = 0;
-          }else{
-                  $result = 1;
-          }
+    // only specified char without a dot as first char - * allowed
+    if(strcmp($string,"*") && (strspn($string, $abc) !=
+      strlen($string)) || (strpos('0'.$string, ".") == 1)){
+      $result = 0;
+    }else if(count(explode('.',$string,3))>$numdots){
+      $result = 0;
+    }else{
+      $result = 1;
+    }
 
     if( checkIP($string) ){
       $result = 0;
@@ -3780,7 +3782,6 @@ class Primary extends Zone {
 
 
 // function checkCNAMEValue($string)
-  // function checkCNAMEValue($string)
   /**
    * Check if CNAME value is valid
    *
@@ -3805,30 +3806,26 @@ class Primary extends Zone {
   }
 // *******************************************************
 // function checkTXTName($string)
-        // function checkTXTName($string)
-        /**
-         * Check if TXT name is valid
-         *
-         *@param string $string name to be checked
-         *@return int 1 if valid, 0 else
-         */
-   function checkTXTName($string){
-          $string = strtolower($string);
-          // only specified char
+  /**
+   * Check if TXT name is valid
+   *
+   *@param string $string name to be checked
+   *@return int 1 if valid, 0 else
+   */
+  function checkTXTName($string){
+    $string = strtolower($string);
+    // only specified char
     // "_" only as first char
-          if (!strcmp($string, "@") || !strcmp($string, "*"))
-            return 1;
-          if((strspn($string, "0123456789abcdefghijklmnopqrstuvwxyz-._") != strlen($string))
-                  || ((strpos($string,"_") !== FALSE) && !(
-                       strpos($string,"_") == 0
-                       || $string[strpos($string,"_")-1] == '.')
-                     )
-                  ){
-                  $result = 0;
-          }else{
-                  $result = 1;
-          }
-          return $result;
+    if (!strcmp($string, "@") || !strcmp($string, "*"))
+      return 1;
+    if((strspn($string, "0123456789abcdefghijklmnopqrstuvwxyz-._") != strlen($string))
+      || ((strpos($string,"_") !== FALSE) 
+      && !(strpos($string,"_") == 0 || $string[strpos($string,"_")-1] == '.'))){
+      $result = 0;
+    }else{
+      $result = 1;
+    }
+    return $result;
   }
 
 // function checkTXTValue($string)
@@ -3836,24 +3833,23 @@ class Primary extends Zone {
 
 // *******************************************************
 // function checkWWWName($string)
-        // function checkWWWName($string)
-        /**
-         * Check if WWW name is valid
-         *
-         *@param string $string name to be checked
-         *@return int 1 if valid, 0 else
-         */
-   function checkWWWName($string){
-          $string = strtolower($string);
-          // only specified char
-          // "_" only as first char
-          if(strcmp($string,"@") && strspn($string, "0123456789abcdefghijklmnopqrstuvwxyz-.")!=strlen($string))
-          {
-                  $result = 0;
-          }else{
-                  $result = 1;
-          }
-          return $result;
+  /**
+   * Check if WWW name is valid
+   *
+   *@param string $string name to be checked
+   *@return int 1 if valid, 0 else
+   */
+  function checkWWWName($string){
+    $string = strtolower($string);
+    // only specified char
+    // "_" only as first char
+    if(strcmp($string,"@") 
+      && strspn($string, "0123456789abcdefghijklmnopqrstuvwxyz-.")!=strlen($string)){
+      $result = 0;
+    }else{
+      $result = 1;
+    }
+    return $result;
   }
   function checkWWWValue($string) {
     $string = strtolower($string);
@@ -3875,34 +3871,36 @@ class Primary extends Zone {
    *@param string $string name to be checked
    *@return int 1 if valid, 0 else
    */
-        function checkAAAAName($string){
-          $string = strtolower($string);
-          // only specified char - dot not allowed (not RFC but dummy user prevention)
+  function checkAAAAName($string){
+    $string = strtolower($string);
+    // only specified char - dot not allowed (not RFC but dummy user prevention)
     // except if zone name itself
     if($string == $this->zonename.'.'){
       $result = 1;
     }else{
-            if(strcmp($string,"@") && (strspn($string, ".0123456789abcdefghijklmnopqrstuvwxyz-") !=
-              strlen($string))){
-                    $result = 0;
-          }else if ($string[0]=='.'||$string[strlen($string)-1]=='.'||count(explode('.',$string,3))>2){
-                    $result = 0;
-            }else{
-                    $result = 1;
-            }
+      if(strcmp($string,"@") 
+        && (strspn($string, ".0123456789abcdefghijklmnopqrstuvwxyz-") != strlen($string))){
+        $result = 0;
+      }else if ($string[0]=='.'
+        ||$string[strlen($string)-1]=='.'
+        ||count(explode('.',$string,3))>2){
+        $result = 0;
+      }else{
+        $result = 1;
+      }
     }
-          return $result;
-        }
+    return $result;
+  }
 
 // function checkAAAAValue($string)
-        /**
-         * Check if AAAA value is valid
-         *
-         *@param string $string value to be checked
-         *@return int 1 if valid, 0 else
-         */
-        function checkAAAAValue($string){
-                $string = strtolower($string);
+  /**
+   * Check if AAAA value is valid
+   *
+   *@param string $string value to be checked
+   *@return int 1 if valid, 0 else
+   */
+  function checkAAAAValue($string){
+    $string = strtolower($string);
     if(! checkIPv6($string) ){
       $result = 0;
     }else{
@@ -3913,41 +3911,41 @@ class Primary extends Zone {
 
 // *******************************************************
 // function checkSUBNSName($string)
-        /**
-         * Check if SUBNS name is valid
-         *
-         *@param string $string name to be checked
-         *@return int 1 if valid, 0 else
-         */
-        function checkSUBNSName($string){
+  /**
+   * Check if SUBNS name is valid
+   *
+   *@param string $string name to be checked
+   *@return int 1 if valid, 0 else
+   */
+  function checkSUBNSName($string){
     $string = strtolower($string);
-      $allowed = "0123456789abcdefghijklmnopqrstuvwxyz-";
-      if (ereg('\.ip6\.arpa$', $this->zonename)) $allowed .= ".";
+    $allowed = "0123456789abcdefghijklmnopqrstuvwxyz-";
+    if (ereg('\.ip6\.arpa$', $this->zonename)) $allowed .= ".";
     // only specified char
-          if(strspn($string, $allowed) != strlen($string)){
-                  $result = 0;
-          }else{
-                  $result = 1;
-          }
-          return $result;
+    if(strspn($string, $allowed) != strlen($string)){
+      $result = 0;
+    }else{
+      $result = 1;
+    }
+    return $result;
   }
 
 // function checkSUBNSValue($string)
-        /**
-         * Check if SUBNS value is valid
-         *
-         *@param string $string value to be checked
-         *@return int 1 if valid, 0 else
-         */
-        function checkSUBNSValue($string){
-                $string = strtolower($string);
-          // only specified char
-          if((strspn($string, "0123456789abcdefghijklmnopqrstuvwxyz-.") !=
-          strlen($string)) || (strpos('0'.$string,".") == 1)){
-                  $result = 0;
-          }else{
-                  $result = 1;
-          }
+  /**
+   * Check if SUBNS value is valid
+   *
+   *@param string $string value to be checked
+   *@return int 1 if valid, 0 else
+   */
+  function checkSUBNSValue($string){
+    $string = strtolower($string);
+    // only specified char
+    if((strspn($string, "0123456789abcdefghijklmnopqrstuvwxyz-.") != strlen($string))
+      || (strpos('0'.$string,".") == 1)){
+      $result = 0;
+    }else{
+      $result = 1;
+    }
     return $result;
   }
 // *******************************************************
@@ -3959,23 +3957,23 @@ class Primary extends Zone {
 
 // *******************************************************
 // function checkSRVName($string)
-        /**
-         * Check if SRV name is valid
-         *
-         *@param string $string name to be checked
-         *@return int 1 if valid, 0 else
-         */
+  /**
+   * Check if SRV name is valid
+   *
+   *@param string $string name to be checked
+   *@return int 1 if valid, 0 else
+   */
   function checkSRVName($string){
     $string = strtolower($string);
 
-          // only specified char without a dot as first char - * allowed
-          if(strcmp($string,"*") && (strspn($string, "0123456789abcdefghijklmnopqrstuvwxyz-._*") !=
-            strlen($string)) || (strpos('0'.$string,".") == 1)
-    ){
-                  $result = 0;
-          }else{
-                  $result = 1;
-          }
+    // only specified char without a dot as first char - * allowed
+    if(strcmp($string,"*")
+      && (strspn($string, "0123456789abcdefghijklmnopqrstuvwxyz-._*") != strlen($string))
+      || (strpos('0'.$string,".") == 1)){
+      $result = 0;
+    }else{
+      $result = 1;
+    }
 
     if( checkIP($string) ){
       $result = 0;
@@ -3986,19 +3984,18 @@ class Primary extends Zone {
 
 // *******************************************************
 // function checkSRVPriority($string)
-        /**
-         * Check if SRV Priority is valid
-         *
-         *@param string $string name to be checked
-         *@return int 1 if valid, 0 else
-         */
+  /**
+   * Check if SRV Priority is valid
+   *
+   *@param string $string name to be checked
+   *@return int 1 if valid, 0 else
+   */
   function checkSRVPriority($string){
-
-          if(preg_match("/[^\d]/", $string)){
-                  return 0;
-          }else{
-                  return 1;
-          }
+    if(preg_match("/[^\d]/", $string)){
+      return 0;
+    }else{
+      return 1;
+    }
   }
 
 // *******************************************************
@@ -4019,12 +4016,12 @@ class Primary extends Zone {
 
 // *******************************************************
 // function checkSRVPort($string)
-        /**
-         * Check if SRV Port is valid
-         *
-         *@param string $string name to be checked
-         *@return int 1 if valid, 0 else
-         */
+  /**
+   * Check if SRV Port is valid
+   *
+   *@param string $string name to be checked
+   *@return int 1 if valid, 0 else
+   */
   function checkSRVPort($string){
     if(preg_match("/[^\d]/", $string)){
       return 0;
