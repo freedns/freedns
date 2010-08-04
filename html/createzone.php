@@ -146,7 +146,9 @@ endif;
                 $toprint = $l['str_zones_linked_exist_and_not_manageable']  . 
                 '<br> ';
               }
+              if (count($list) < 10) {
               $toprint .= implode("<br>",$list) .'<br>'; 
+              }
               $content .= sprintf($html->string_error,
                   $toprint) . '<br>'; 
               $localerror = 1;
