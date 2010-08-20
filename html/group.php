@@ -290,15 +290,21 @@ if($config->usergroups){
           // ****************************************
             $newuser=new User('','','');
           
-            $group->GroupUserCreate($newuser,$loginnew,
-            $passwordnew,'',$user->userid, $grouprightsnew);
-            if($group->error){
-              $content .= sprintf($html->string_error,
-                    $group->error); 
+            if ($newuser->Exists($loginnew))
+            {
+              $content.=sprintf($html->string_error,
+                $l['str_login_already_exists']);
             }else{
-              // user successfully created
-              $content .= $l['str_new_user_has_been_successfully_created'];
-            } // zone created successfully
+              $group->GroupUserCreate($newuser,$loginnew,
+                $passwordnew,'',$user->userid, $grouprightsnew);
+              if($group->error){
+                $content .= sprintf($html->string_error,
+                      $group->error); 
+              }else{
+                // user successfully created
+                $content .= $l['str_new_user_has_been_successfully_created'];
+              } // zone created successfully
+            }
   
           }else{ // error, print form again
             $content .='
