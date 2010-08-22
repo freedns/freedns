@@ -1,21 +1,26 @@
 <?
 $content = '
 <dl>
-   <dt>Koniec migracji blisko! [2010-07-26]</dt>
-   <dd>Już niedługo proces migracji zostanie zakończony. Oznacza to, że wszyscy użytkownicy, którzy do tej pory nie zmigrowali (ponad 12 tys.), zostaną skasowani wraz z ich domenami (ponad 23 tys.)!</dd>
+   <dt>Koniec migracji [2010-08-22]</dt>
+   <dd>Skasowałem wszystkich użytkowników, którzy do tej pory jeszcze nie zmigrowali. Oczywiście razem z ich (nieużywanymi, ale blokującymi zakładanie) strefami.</dd>
+<!--
+   <dt>Koniec migracji wyznaczony! [2010-08-14]</dt>
+   <dd>Proces migracji zostanie zakończony po trzech miesiącach od startu serwisu, tj. 22 sierpnia 2010. Tego dnia zostaną skasowani wszyscy użytkownicy, którzy do tej pory nie zmigrowali (ponad 12 tys.) oraz ich domeny (ponad 23 tys.)</dd>
+   <dd>Zmigrowało 31% użytkowników ze strefami, przenosząc 60% domen podstawowych i 48% domen zapasowych. Nie oznacza to, niestety, że wszyscy poprzenosili delegacje na nowy serwer, ale już nic z tym nie zrobię. Jeśli ktoś ma ciągle delegację na stare serwery, to znaczy, że po prostu nie korzysta z domeny.</dd>
+-->
+<!--
    <dt>Dla przychodzących ze starego systemu [2010-07-06]</dt>
    <dd>Bardzo proszę uważnie czytać informacje! <b>NIE ZAKŁADAJCIE</b> nowego użytkownika, wasz stary już tu jest z waszymi strefami. Zalogujcie się na starego i migrujcie!</dd>
-<!--
    <dt>A więc koniec starego systemu [2010-07-01]</dt>
    <dd>Stary system już nie pozwala się logować. DNS-y jeszcze odpowiadają, ale pewnie za chwilę też wyłączą. Kto jeszcze nie zmigrował tutaj ani nie przeniósł gdzie indziej (prawie 7 tysięcy domen!) za chwilę się bardzo zdziwi, jak mu przestanie działać.</dd>
    <dt>Google Apps [2010-06-28]</dt>
    <dd>Utworzyłem globalny wzorzec domeny o&nbsp;nazwie "Google Apps template". Zawiera wszystkie potrzebne rekordy MX do poczty oraz SRV dla Jabbera. Łatwiej skasować nieużywane rekordy, niż tworzyć te wszystkie wpisy od zera &mdash; wiem, bo sam parę razy robiłem! :)</dd>
    <dt>Ataki [2010-06-26]</dt>
    <dd>Przepraszam za problemy z dostępem do interfejsu, jakiś idiota atakuje (DDoS) serwer. Myślimy, co z tym zrobić.</dd>
--->
    <dt>Poprawki na prośbę [2010-06-22]</dt>
    <dd>Pozwoliłem na wildcard A, a także zmieniłem, żeby wasz adres email nie pojawiał się (po wygenerowaniu strefy) w SOA &mdash; z czego wynika, że już można używać kropek w adresach email (można to sobie wyłączyć w opcjach).
    </dd>
+-->
 ';
 /*
    <dt>Po trzech tygodniach [2010-06-15]</dt>
@@ -24,8 +29,11 @@ $content = '
   <dd>Krótkie odpowiedzi na często zadawane pytania: dziękuję za oferty pomocy (także tej pieniężnej i materialnej)<!-- , na szczęście sponsorzy pomogli -->; serwis pozostanie darmowy<!-- (poza tym pobieranie opłat od osób prywatnych w Polsce to jakiś koszmar podatkowy) -->; nie, nie dogadałem się, zawartość stref powstała z backupu<!-- oraz przekonwertowana z drugiego serwera DNS, nad którym ciągle mam kontrolę -->; niestety, nie mam jak czytać (i z tego, co wiem, nikt nie czyta) poczty z adresu freedns na starym systemie... no ale przede wszystkim dziękuję za mnóstwo głosów poparcia!</dd>
 */
 $content .= '
+<!--
    <dt>Nowy start [2010-05-23]</dt>
    <dd>Ruszamy! Logujecie się <strong>korzystając z loginu i hasła ze starego systemu</strong>, klikacie przycisk "Migruj", czekacie, aż zacznie działać, zmieniacie u rejestratorów domen wpisy dotyczące serwerów nazw, tj. na: fns1.42.pl&nbsp;(79.98.145.34) oraz fns2.42.pl&nbsp;(195.80.237.194), czekacie, aż się zmiany rozpropagują i&nbsp;wtedy możecie skasować strefy i&nbsp;konto ze starego systemu.</dd><dd>Powodzenia!</dd>
+-->
+<!--
 <dd>Czasu nie jest tak dużo: pod koniec czerwca stary system ma zostać wyłączony i jeśli nie przeniesiecie gdzieś (zapraszam tu, rzecz jasna) waszych stref, to przestaną działać.</dd>
 
    <dt>Polskie znaki w nazwach domen [2009-12-31]</dt>
@@ -39,6 +47,7 @@ $content .= '
    Tłumacz IDN jest m.in. na stronie <a href="http://www.dns.pl/cgi-bin/idntranslator.pl">NASK</a>.
    </dd>
 
+-->
    <dt>Eksperyment: rekord WWW [2007-05-27]</dt>
    <dd>Dodałem eksperymentalnie nowy rekord: WWW. To nie jest rekord DNS, tylko
      skrót myślowy na ramkę lub przekierowanie WWW. Działa to w następujący

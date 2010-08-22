@@ -1,5 +1,5 @@
 <?
-      $content .= $l['str_create_migrated'] . '
+      $content .= '
 <form action="' . $PHP_SELF . '" method="post">
       <table id="createusertable">
       <tr><td align="right">

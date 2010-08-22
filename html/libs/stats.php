@@ -16,10 +16,10 @@
  *
  *@return int number of zones or N/A in case of error
  */
-function countSecondary($migrated=1){
+function countSecondary(){
   global $db;
   $query = "SELECT count(*) FROM dns_zone z,dns_user u " .
-    "WHERE z.zonetype='S' AND z.userid=u.id AND u.migrated=$migrated";
+    "WHERE z.zonetype='S' AND z.userid=u.id";
   $res = $db->query($query);
   $line = $db->fetch_row($res);
   if($db->error()){
@@ -36,10 +36,10 @@ function countSecondary($migrated=1){
  *
  *@return int number of zones or N/A in case of error
  */
-function countPrimary($migrated=1){
+function countPrimary(){
   global $db;
   $query = "SELECT count(*) FROM dns_zone z,dns_user u " .
-    "WHERE z.zonetype='P' AND z.userid=u.id AND u.migrated=$migrated";
+    "WHERE z.zonetype='P' AND z.userid=u.id";
   $res = $db->query($query);
   $line = $db->fetch_row($res);
   if($db->error()){
@@ -55,9 +55,9 @@ function countPrimary($migrated=1){
  *
  *@return int number of users or N/A in case of error
  */
-function countUsers($migrated=1){
+function countUsers(){
   global $dbauth,$config;
-  $query = sprintf("SELECT count(*) FROM %s WHERE migrated=$migrated", $config->userdbtable);
+  $query = sprintf("SELECT count(*) FROM %s", $config->userdbtable);
   $res = $dbauth->query($query);
   $line = $dbauth->fetch_row($res);
   if($dbauth->error()){
@@ -73,12 +73,12 @@ function countUsers($migrated=1){
  *
  *@return int number of users or N/A in case of error
  */
-function countProdUsers($migrated=1){
+function countProdUsers(){
   global $dbauth,$config;
   $query = sprintf("SELECT count(*) FROM %s u, dns_zone z
-    WHERE z.userid=u.%s AND u.migrated='%s' group by z.userid",
+    WHERE z.userid=u.%s GROUP BY z.userid",
     $config->userdbtable,
-    $config->userdbfldid, $migrated);
+    $config->userdbfldid);
   $res = $dbauth->query($query);
   $count = $dbauth->num_rows($res);
   if($dbauth->error()){

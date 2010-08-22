@@ -189,7 +189,7 @@ if($count){
     ##############
 
     $query = "SELECT c.zoneid, c.xfer,LOWER(z.zone) AS zone FROM 
-      dns_confprimary c, dns_zone z, dns_user u where c.zoneid=z.id and u.id=z.userid and u.migrated=1";
+      dns_confprimary c, dns_zone z, dns_user u where c.zoneid=z.id and u.id=z.userid";
 
     my $sth = dbexecute($query,$dbh,LOG);
     while (my $ref = $sth->fetchrow_hashref()) {
@@ -232,7 +232,7 @@ if($count){
 
     $query = "SELECT LOWER(z.zone) AS zone, c.masters, c.xfer
       FROM dns_confsecondary c, dns_zone z, dns_user u 
-      WHERE c.zoneid=z.id AND u.id=z.userid AND u.migrated=1";
+      WHERE c.zoneid=z.id AND u.id=z.userid";
 
     $sth = dbexecute($query,$dbh,LOG);
     while (my $ref = $sth->fetchrow_hashref()) {

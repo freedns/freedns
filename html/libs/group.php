@@ -286,11 +286,6 @@ class Group {
     global $user;
     // warning: be sure to validate user before using this function
     $this->error="";
-    if ($user->authenticated >= 2) {
-      $this->error=migrationbox();
-      return "";
-    }
-
 
     $query = "SELECT zone, zonetype, id FROM dns_zone WHERE ";
     if ($template)

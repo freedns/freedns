@@ -48,8 +48,6 @@ if(file_exists('includes/strings/' . $lang . '/index_content.php')){
 //          END OF CONTENT
 // *************************************
 
-print migrationbox(1);
-
 print $html->box('mainbox',$title,$content);
 
 // ********************************************************
