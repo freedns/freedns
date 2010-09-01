@@ -441,10 +441,11 @@ class Primary extends Zone {
         }
         $result .= '<td></td></tr>';
       }
+      $result .='
+        </table>';
 
       if ($advanced) {
       $result .='
-        </td></tr></table>
         ' . $l['str_primary_ptr_generate']. '
         <table>
         <tr>
@@ -465,9 +466,9 @@ class Primary extends Zone {
           $this->zonename) . '
         </p>
         <table>
-        <th>' . $l['str_primary_sub_zones_zone'] .'<th>NS';
+        <tr><th>' . $l['str_primary_sub_zones_zone'] .'<th>NS';
         if($advanced) { $result .= '<th>TTL'; }
-        $result .= '<th>' . $l['str_delete'] . '
+        $result .= '<th>' . $l['str_delete'] . '</tr>
         ';
 
         $counter=0;
