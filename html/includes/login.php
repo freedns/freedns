@@ -15,7 +15,7 @@ if($user->authenticated == 0){
       '<br>';
   }
    $content .= '<form method="post" action="' .
-       ereg_replace("^http:", "https:", $config->mainurl) . 'index.php">' .
+       $config->mainurl . 'index.php">' .
   $l['str_login'] . ': <br><div align="center"><input
   type="text" name="login" ></div><br>
   ' . $l['str_password'] . ': <br><div align="center"><input type="password" name="password"
@@ -33,7 +33,7 @@ if($user->authenticated == 0){
     // print pref box
   
   $content = '<div><p>' . sprintf($l['str_you_are_logged_in_as_x'], $user->login) . '</p>
-  <p><a href="'.       ereg_replace("^http:", "https:", $config->mainurl) . 'user.php' . $link . '" class="linkcolor">' . 
+  <p><a href="'.       $config->mainurl . 'user.php' . $link . '" class="linkcolor">' . 
     $l['str_change_your_preferences'] . '</a></p>
   ';
   if($config->usergroups){

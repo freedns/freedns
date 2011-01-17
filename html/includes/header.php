@@ -10,6 +10,11 @@ require "libs/xname.php";
 
 $config = new Config();
 
+if (strlen($_SERVER['SCRIPT_URI'])>0 && substr($_SERVER['SCRIPT_URI'], 0, 5) != "https") {
+  Header("Location: " . $config->mainurl);
+  exit;
+}
+
 // protect variables for db usage
 if(isset($_REQUEST)){
   if(isset($_REQUEST['idsession'])){
