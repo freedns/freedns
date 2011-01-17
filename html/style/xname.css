@@ -345,4 +345,21 @@ table#legendtable { width: 40%; }
    text-align: center;
 }
 
+#thanks { }
+#thanks_title { }
+#thanks_content { }
+
+dl#thanks { }
+dl#thanks dt {
+    font-weight: normal;
+    margin: 0; padding: 0;
+    text-align: center;
+}
+dl#thanks dd {
+    font-weight: bold;
+    font-size: 140%;
+    margin: .1em 0 2em 0; padding: 0;
+    text-align: center;
+}
+
 tr:hover { background-color: #efefef; }
