@@ -3773,7 +3773,7 @@ class Primary extends Zone {
    */
   function checkCNAMEName($string){
     $string = strtolower($string);
-    $numdots = 2;
+    $numdots = 3;
     if ($string[0] == '*' && $string[1] == '.' && $string[2] != '*') {
       $string=substr($string,2);
       $numdots--;
@@ -3860,7 +3860,7 @@ class Primary extends Zone {
     $string = strtolower($string);
     // only specified char
     // "_" only as first char
-    if(strcmp($string,"@") 
+    if(strcmp($string,"@") && strcmp($string,"*")
       && strspn($string, "0123456789abcdefghijklmnopqrstuvwxyz-.")!=strlen($string)){
       $result = 0;
     }else{
