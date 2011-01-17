@@ -48,6 +48,13 @@ if(file_exists('includes/strings/' . $lang . '/index_content.php')){
 //          END OF CONTENT
 // *************************************
 
+$what = @$_GET["what"];
+switch($what) {
+  case "archive":
+  case "thanks":
+  case "migration":
+    $content = ${$what . "_content"}; 
+}
 print $html->box('mainbox',$title,$content);
 
 // ********************************************************
