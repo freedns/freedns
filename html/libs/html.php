@@ -85,7 +85,7 @@ Class Html{
   *@return string HTML code
   */
  function subheader($link){
-  global $lang,$config;
+  global $lang,$config,$user;
   global $l;
   $result = '<!-- header -->
 
@@ -101,6 +101,9 @@ Class Html{
   </div>
 
   <div id="linkline">
+  ';
+  if ($user->login != "") {
+  $result .= '
   <a href="zones.php'.$link.'" class="linkcolor">' .
   $l['str_html_view_zones'] . '</a> |
   <a href="createzone.php'.$link.'" class="linkcolor">' .
@@ -109,8 +112,13 @@ Class Html{
   $l['str_html_modify_zone'] . '</a> |
   <a href="deletezone.php'.$link.'" class="linkcolor">' .
   $l['str_html_delete_zone'] . '</a> |
+  ';
+  }
+  $result .= '
   <a href="' . $config->mainurl . $link. '" class="linkcolor">' .
   $l['str_html_go_on_xname'] . '</a> |
+  <a href="' . $config->mainurl . $link. '&what=archive" class="linkcolor">' .
+  $l['str_html_archive'] . '</a> |
   <a href="' . $config->mainurl . $link. '&logout=1" class="linkcolor">' .
   $l['str_logout'] . '</a>  
   </div>
