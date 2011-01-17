@@ -220,4 +220,22 @@ function showAbZones($number){
   return $result;
 }
 
+// function countRecords()
+/**
+ * Count number of records
+ *
+ *@return int number of records or N/A in case of error
+ */
+function countRecords(){
+  global $dbauth,$config;
+  $query = sprintf("SELECT count(*) FROM dns_record");
+  $res = $dbauth->query($query);
+  $line = $dbauth->fetch_row($res);
+  if($dbauth->error()){
+    return "N/A";
+  }else{
+    return $line[0];
+  }
+}
+
 ?>
