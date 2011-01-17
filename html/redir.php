@@ -23,6 +23,7 @@ WHERE type='WWW'
        OR (zone='$hostn.$siten' AND val1='$hostn.$siten.')
        OR (concat(val1,'.',zone)='$site') 
        OR (val1='@' AND zone='$hostn.$siten')
+       OR (val1='*' AND zone='$siten')
       )";
 $res = $db->query($query);
 $line = $db->fetch_row($res);
