@@ -108,6 +108,10 @@ if(!notnull($idsession) && $user->authenticated){
     . ereg_replace("^/","", $_SERVER[PHP_SELF])
     . "?idsession=" . $user->idsession);
 }
+if(!$user->authenticated && $idsession){
+  header("Location: " . $config->mainurl
+    . ereg_replace("^/","", $_SERVER[PHP_SELF]));
+}
 
 // overwrite default strings
 if ($deflangused){
