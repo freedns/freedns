@@ -1,5 +1,19 @@
 <?
 $content = '
+  <dt>Wasze adresy mailowe [2011-04-03]</dt>
+  <dd>Bardzo proszę, żebyście pilnowali aktualności waszych adresów mailowych.
+  Za każdym razem, gdy zmieniacie coś w strefie, serwis wysyła wam potwierdzenie,
+  a zwrotki niedziałących maili dostaję ja.
+  Zwrotki zaczęły być na tyle zauważalne, że niedługo serwis po otrzymaniu kilku zwrotek 
+  będzie blokować możliwość zmiany stref na koncie do poprawienia adresu email.
+  </dd>
+
+  <dt>FreeDNS po IPv6 [2011-02-27]</dt>
+  <dd>Utworzyłem fns2-v6.42.pl o adresie 2a02:2978::a503:4209:2</dd>
+  <dd>Proszę testować, odpytywać po v6 i zgłaszać uwagi.</dd>
+  <dd>Jak wszystko będzie w porządku, to stosowna opcja prawdopodobnie pojawi się 
+      w&nbsp;interfejsie. Piszę prawdopodobnie, bo obsługa IPv6 wymaga poprawienia
+      kilku części kodu, na co mogę nie mieć czasu.</dd>
   <dt>Dynamiczny DNS</dt>
   <dd>
         Do dynamicznego aktualizowania rekordów używany jest XML RPC.
@@ -27,7 +41,7 @@ $content = '
   Oferujemy Ci podstawowy <b>oraz</b> zapasowy serwer nazw, automatyczne aktualizacje
   co kwadrans, rekordy SRV, TXT i obsługę IPv6 (ustaw sobie w opcjach użytkownika),
   system przekierowań/ramek (pseudo rekord WWW).
-  <br >
+  <br>
   Wszystkie strefy obsługiwane jako podstawowe lub zapasowe na
   głównym serwerze &mdash; fns1.42.pl (79.98.145.34) &mdash; są automatycznie
   replikowane na nasz drugi serwer, fns2.42.pl (195.80.237.194). 
@@ -128,6 +142,8 @@ Centrum Informatyczne SGH
 ';
 $archive_content = '
 <dl>
+  <dt>Archiwum [2011-01-17]</dt>
+  <dd>Dodałem archiwum starych wiadomości i (dawno zaległą) stronę z podziękowaniami.</dd>
    <dt>Google Apps [2010-06-28]</dt>
    <dd>Utworzyłem globalny wzorzec domeny o&nbsp;nazwie "Google Apps template". Zawiera wszystkie potrzebne rekordy MX do poczty oraz SRV dla Jabbera. Łatwiej skasować nieużywane rekordy, niż tworzyć te wszystkie wpisy od zera &mdash; wiem, bo sam parę razy robiłem! :)</dd>
    <dt>Ataki [2010-06-26]</dt>
@@ -223,7 +239,7 @@ $archive_content = '
    </dd>
   <dt>Problemy z fns2 [2006-08-08]</dt>
   <dd>
-    Mamy problem z fns2, a administrator pojechał na urlop. :(<br >
+    Mamy problem z fns2, a administrator pojechał na urlop. :(<br>
     Bardzo wszystkich przepraszam za kłopot.
   </dd>
         <dt>Dynamiczne aktualizowanie rekordów [2005-08-30]</dt>

@@ -1346,7 +1346,7 @@ class Primary extends Zone {
         if($ismanaged){
           // modification allowed because same owner
           // looking for zoneid
-          $result .= $l['str_primary_zone_managed_by_you'];
+          $result .= $l['str_primary_zone_managed_by_you'] . " ";
           $query = "SELECT id FROM dns_zone
             WHERE zone='" . $reversezone . "' AND zonetype='P'";
           $res = $db->query($query);
@@ -1491,7 +1491,7 @@ class Primary extends Zone {
         if($ismanaged){
           // modification allowed because same owner
           // looking for zoneid
-          $result .= $l['str_primary_zone_managed_by_you'];
+          $result .= $l['str_primary_zone_managed_by_you'] . " ";
           $query = "SELECT id FROM dns_zone
             WHERE zone='" . $newzone . "' AND zonetype='P'";
           $res = $db->query($query);
@@ -2287,7 +2287,7 @@ class Primary extends Zone {
                         if($ismanaged){
                           // modification allowed because same owner
                           // looking for zoneid
-                          $result .= $l['str_primary_zone_managed_by_you'];
+                          $result .= $l['str_primary_zone_managed_by_you'] . " ";
                           $query = "SELECT id FROM dns_zone
                             WHERE zone='" . $newzone . "' AND zonetype='P'";
                           $res = $db->query($query);
