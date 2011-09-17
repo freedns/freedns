@@ -1,5 +1,11 @@
 <?
 $content = '
+  <dt>FreeDNS po IPv6 [2011-06-06]</dt>
+  <dd>W piątą rocznicę zamknięcia 6BONE fns2.42.pl dostaje na stałe natywny adres IPv6
+  2a02:2978::a503:4209:2</dd>
+  <dd>Pozostałe po testach nazwy fns2-v6 i fns2-v4v6 zostaną niedługo usunięte z DNS,
+  chyba że ktoś zgłosi mi wystarczająco ważny powód dla ich zostawienia.</dd>
+  
   <dt>Wasze adresy mailowe [2011-04-03]</dt>
   <dd>Bardzo proszę, żebyście pilnowali aktualności waszych adresów mailowych.
   Za każdym razem, gdy zmieniacie coś w strefie, serwis wysyła wam potwierdzenie,
@@ -8,12 +14,6 @@ $content = '
   będzie blokować możliwość zmiany stref na koncie do poprawienia adresu email.
   </dd>
 
-  <dt>FreeDNS po IPv6 [2011-02-27]</dt>
-  <dd>Utworzyłem fns2-v6.42.pl o adresie 2a02:2978::a503:4209:2</dd>
-  <dd>Proszę testować, odpytywać po v6 i zgłaszać uwagi.</dd>
-  <dd>Jak wszystko będzie w porządku, to stosowna opcja prawdopodobnie pojawi się 
-      w&nbsp;interfejsie. Piszę prawdopodobnie, bo obsługa IPv6 wymaga poprawienia
-      kilku części kodu, na co mogę nie mieć czasu.</dd>
   <dt>Dynamiczny DNS</dt>
   <dd>
         Do dynamicznego aktualizowania rekordów używany jest XML RPC.
@@ -142,6 +142,20 @@ Centrum Informatyczne SGH
 ';
 $archive_content = '
 <dl>
+  <dt>FreeDNS po IPv6 [2011-04-27]</dt>
+  <dd>Dodatkowo utworzyłem fns2-v4v6.42.pl dla kolejnych testów.</dd>
+  <dd>Jeśli nie będzie żadnych problemów, to fns2.42.pl dostanie adres IPv6 
+  prawdopodobnie dwa dni przed <a href="http://isoc.org/wp/worldipv6day/">światowym dniem IPv6</a> 
+  (fns2-v6 i fns2-v4v6 zostaną usunięte jakiś czas później).</dd>
+  <dd>(Dwa dni wcześniej, bo uważam, że piąta rocznica zamknięcia 6bone byłaby lepszą datą na
+  światowy dzień IPv6.)
+  
+  <dt>FreeDNS po IPv6 [2011-02-27]</dt>
+  <dd>Utworzyłem fns2-v6.42.pl o adresie 2a02:2978::a503:4209:2</dd>
+  <dd>Proszę testować, odpytywać po v6 i zgłaszać uwagi.</dd>
+  <dd>Jak wszystko będzie w porządku, to stosowna opcja prawdopodobnie pojawi się 
+      w&nbsp;interfejsie. Piszę prawdopodobnie, bo obsługa IPv6 wymaga poprawienia
+      kilku części kodu, na co mogę nie mieć czasu.</dd>
   <dt>Archiwum [2011-01-17]</dt>
   <dd>Dodałem archiwum starych wiadomości i (dawno zaległą) stronę z podziękowaniami.</dd>
    <dt>Google Apps [2010-06-28]</dt>
