@@ -120,7 +120,7 @@ sub RetrieveRecords {
     # A: val1 [ttl] IN A val2
     # PTR: val1 [ttl] IN PTR val2
     # SRV: val1 [ttl] IN SRV val2 val3 val4 val5
-    # WWW: val1 [ttl] IN A $SITE_WWW_IP
+    # WWW: val1 [ttl] IN A val3 (was: $SITE_WWW_IP)
     $ret .= do {
       if (/^NS$/)
         { "\t$ttl\tIN\tNS\t" . $ref->{'val1'} }
@@ -135,7 +135,7 @@ sub RetrieveRecords {
       elsif (/^A$/)
         { $ref->{'val1'} . "\t$ttl\tIN\tA\t" . $ref->{'val2'} }
       elsif (/^WWW$/)
-        { $ref->{'val1'} . "\t$ttl\tIN\tA\t" . $SITE_WWW_IP }
+        { $ref->{'val1'} . "\t$ttl\tIN\tA\t" . $ref->{'val3'} }
       elsif (/^TXT$/)
         { $ref->{'val1'} . "\t$ttl\tIN\tTXT\t" . $ref->{'val2'} }
       elsif (/^PTR$/)
