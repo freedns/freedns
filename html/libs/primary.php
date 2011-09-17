@@ -3690,7 +3690,7 @@ class Primary extends Zone {
       return 0;
     if ($string[strlen($string)-1] == '.')
       return 0;
-    if (count(explode('.',$string,3))>2)
+    if (count(explode('.',$string,4))>3)
       return 0;
 
     return 1;
@@ -3723,7 +3723,7 @@ class Primary extends Zone {
     }else{
       if(!$this->user->ipv6){
         // no IPv6
-        if( ereg("[a-zA-Z]",$string) || ($string > 254) ){
+        if( ereg("[a-zA-Z]",$string) || ($string > 255) ){
           $result = 0;
         }else{
           $result = 1;
@@ -3889,6 +3889,8 @@ class Primary extends Zone {
    *@return int 1 if valid, 0 else
    */
   function checkAAAAName($string){
+    return $this->checkAName($string);
+
     $string = strtolower($string);
     // only specified char - dot not allowed (not RFC but dummy user prevention)
     // except if zone name itself
