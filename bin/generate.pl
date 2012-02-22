@@ -121,6 +121,13 @@ sub RetrieveRecords {
     # PTR: val1 [ttl] IN PTR val2
     # SRV: val1 [ttl] IN SRV val2 val3 val4 val5
     # WWW: val1 [ttl] IN A val3 (was: $SITE_WWW_IP)
+
+    # single label can have at most 255 length so we need to split
+    # big TXT records to pieces
+    if ($type eq "TXT") {
+      $txtval = $ref->{'val2'};
+      $txtval = join(' ', map { '"'.$_.'"' } unpack('(A255)*', $txtval) ) unless $txtval =~ /"/;
+    }
     $ret .= do {
       if (/^NS$/)
         { "\t$ttl\tIN\tNS\t" . $ref->{'val1'} }
@@ -137,7 +144,7 @@ sub RetrieveRecords {
       elsif (/^WWW$/)
         { $ref->{'val1'} . "\t$ttl\tIN\tA\t" . $ref->{'val3'} }
       elsif (/^TXT$/)
-        { $ref->{'val1'} . "\t$ttl\tIN\tTXT\t" . $ref->{'val2'} }
+        { $ref->{'val1'} . "\t$ttl\tIN\tTXT\t" . $txtval }
       elsif (/^PTR$/)
         { $ref->{'val1'} . "\t$ttl\tIN\tPTR\t" . $ref->{'val2'} }
       elsif (/^SRV$/)
