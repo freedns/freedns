@@ -112,6 +112,20 @@ Function updateArecord($m) {
   }
   $currentzone = new Primary($zone->zonename, $zone->zonetype, $user);
   if (notnull($req["oldaddress"])) {
+    # first check if the new address is the same we already have
+    # and skip changes if so
+    $currentzone->getArecords($addarr, mysql_real_escape_string($req["name"]));
+    if (count($addarr) == 1 && in_array($req["newaddress"], $addarr)) {
+      $ttl = notnull(intval($req["ttl"])) ? intval($req["ttl"]) : "-1";
+      $ret = array(
+          "zone" => $req["zone"],
+          "serial" => $currentzone->serial,
+          "name" => $req["name"],
+          "addresses" => $addarr,
+          "ttl" => $ttl
+      );
+      return new xmlrpcresp(php_xmlrpc_encode($ret));
+    }
     $modified = 1;
     if ($req["oldaddress"] == "*") {
       $currentzone->DeleteMultipleARecords($req["name"]);
