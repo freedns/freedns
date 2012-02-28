@@ -362,4 +362,7 @@ dl#thanks dd {
     text-align: center;
 }
 
-tr:hover { background-color: #efefef; }
+tr:hover { background-color: #eecccc; }
+
+::-moz-selection { background: #FC9A0F; color: #fff; text-shadow: none; }
+::selection { background: #FC9A0F; color: #fff; text-shadow: none; }
