@@ -327,9 +327,8 @@ if($count){
       my $refauth = $sthauth->fetchrow_hashref();
       $email = $refauth->{'email'};
       if ($email eq "NULL") {
-        ($zonemail = $zone) =~ s/\./=/g;
         $email = $EMAIL_SOA;
-        $email =~ s/\@/+$zonemail\@/;
+        $email =~ s/\@/+$zoneid\@/;
       }
       $email =~ s/\@/\./;
       # Retrieve Serial
