@@ -2551,8 +2551,7 @@ class Primary extends Zone {
               $result .= sprintf(
                 $l['str_primary_adding_txt_x'],
                 htmlspecialchars($value)) . "... ";
-              $newstring = preg_replace("/\"/","'",$txtstring[$i]);
-              $newstring = '"' . $newstring . '"';
+              $newstring = $txtstring[$i];
               $ttlval = $this->DNSTTL($ttl[$i]);
               $query = "INSERT INTO dns_record (zoneid, type, val1, val2,ttl)
                 VALUES ('" . $this->zoneid . "', 'TXT', '"
@@ -3472,6 +3471,16 @@ class Primary extends Zone {
         $rest .= $item4[$counter] . " ";
       if (isset($item5[$counter]))
         $rest .= $item5[$counter] . " ";
+      if ($type=="TXT") {
+        $rest = trim($rest);
+        if (!preg_match('/"/', $rest)) {
+          $restarr = str_split($rest, 255);
+          $rest = ""; 
+          foreach ($restarr as $v) {
+            $rest .= "\"$v\" ";
+          }
+        }
+      }
 
       $content .= sprintf("\n%-18s %s\tIN %-5s %s",
         $item1[$counter], (@$ttl[$counter] != "-1" ? @$ttl[$counter] : ""),
