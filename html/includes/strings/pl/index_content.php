@@ -1,5 +1,26 @@
 <?
 $content = '
+  <dt>Poprawa obsługi dynamicznych stref [2012-02-28]</dt>
+  <dd>Przy korzystaniu ze skryptu do dynamicznej aktualizacji rekordu A
+  strefa nie zostanie przeładowane, jeśli nowy adres będzie taki, 
+  jaki już jest zapisany w serwisie.</dd>
+  <dd>Innymi słowy: maile o przeładowaniu strefy będziecie dostawać tylko wtedy, 
+  gdy faktycznie się zmieni adres IP. :-)</dd>
+
+  <dt>Zmiana sposobu generowania adresu email w SOA [2012-02-22]</dt>
+  <dd>Od teraz, jeśli w opcjach nie zaznaczycie opcji pokazywania swojego adresu email,
+  w SOA będzie freedns-admin+numerek.42.pl – wcześniej zamiast numerka była przetworzona
+  nazwa strefy, co powodowało problemy przy długich nazwach (zwłaszcza odwrotnych dla IPv6).</dd>
+
+  <dt>Poprawa obsługi długich TXT [2012-02-06]</dt>
+  <dd>Poprawiłem obsługę rekordów TXT dłuższych niż 255 znaków, system automatycznie dzieli je na odpowiedniej długości segmenty, co pozwala na poprawne używanie DKIM i im podobnych.</dd>
+  <dd>Można dzielić na segmenty samemu przy użyciu cudzysłowów, system wtedy nie będzie ingerował w zawartość TXT – a jeśli się pomylicie, to przy sprawdzaniu dostaniecie komunikat <i>ran out of space</i></dd>
+  
+  <dt>Rekord glue IPv6 dla fns2 [2011-10-05]</dt>
+  <dd>NASK uprzejmie dodał rekord glue IPv6 dla fns2.42.pl (dziękuję!),
+  co oznacza, że można mieć czyste IPv6
+  i poprawnie rozwiązywać nazwy domen hostowanych na FreeDNS::42</dd>
+
   <dt>FreeDNS po IPv6 [2011-06-06]</dt>
   <dd>W piątą rocznicę zamknięcia 6BONE fns2.42.pl dostaje na stałe natywny adres IPv6
   2a02:2978::a503:4209:2</dd>
