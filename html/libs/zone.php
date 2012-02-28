@@ -675,6 +675,8 @@ endif;
               case "SUBNS":
               case "PTR":
               case "SRV":
+                $line[1] = ereg_replace("\.".$templatezone."\.\$", "", $line[1]);
+                $line[1] = ereg_replace("^".$this->zonename."\.\$", "@", $line[1]);
                 break;
             } // end switch
             $query = sprintf("INSERT INTO dns_record
