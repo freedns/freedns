@@ -827,7 +827,9 @@ endif;
                   mysql_real_escape_string($record[2]));
               break;
             case "TXT":
-              $txt = mysql_real_escape_string(preg_replace("/^\"(.*)\"$/", "\"$1\"", $record[4]));
+              $txt = $record[4];
+              $txt = str_replace('" "', '', $txt);
+              $txt = trim($txt, '"');
               $query = sprintf("INSERT INTO dns_record (zoneid,type,val1,val2,ttl)
                   VALUES ('%s', 'TXT', '%s', '%s', '%s')", $this->zoneid,
                   mysql_real_escape_string($shortname),
