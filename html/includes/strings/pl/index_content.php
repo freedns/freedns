@@ -7,26 +7,6 @@ $content = '
   <dd>Innymi słowy: maile o przeładowaniu strefy będziecie dostawać tylko wtedy, 
   gdy faktycznie się zmieni adres IP. :-)</dd>
 
-  <dt>Zmiana sposobu generowania adresu email w SOA [2012-02-22]</dt>
-  <dd>Od teraz, jeśli w opcjach nie zaznaczycie opcji pokazywania swojego adresu email,
-  w SOA będzie freedns-admin+numerek.42.pl – wcześniej zamiast numerka była przetworzona
-  nazwa strefy, co powodowało problemy przy długich nazwach (zwłaszcza odwrotnych dla IPv6).</dd>
-
-  <dt>Poprawa obsługi długich TXT [2012-02-06]</dt>
-  <dd>Poprawiłem obsługę rekordów TXT dłuższych niż 255 znaków, system automatycznie dzieli je na odpowiedniej długości segmenty, co pozwala na poprawne używanie DKIM i im podobnych.</dd>
-  <dd>Można dzielić na segmenty samemu przy użyciu cudzysłowów, system wtedy nie będzie ingerował w zawartość TXT – a jeśli się pomylicie, to przy sprawdzaniu dostaniecie komunikat <i>ran out of space</i></dd>
-  
-  <dt>Rekord glue IPv6 dla fns2 [2011-10-05]</dt>
-  <dd>NASK uprzejmie dodał rekord glue IPv6 dla fns2.42.pl (dziękuję!),
-  co oznacza, że można mieć czyste IPv6
-  i poprawnie rozwiązywać nazwy domen hostowanych na FreeDNS::42</dd>
-
-  <dt>FreeDNS po IPv6 [2011-06-06]</dt>
-  <dd>W piątą rocznicę zamknięcia 6BONE fns2.42.pl dostaje na stałe natywny adres IPv6
-  2a02:2978::a503:4209:2</dd>
-  <dd>Pozostałe po testach nazwy fns2-v6 i fns2-v4v6 zostaną niedługo usunięte z DNS,
-  chyba że ktoś zgłosi mi wystarczająco ważny powód dla ich zostawienia.</dd>
-  
   <dt>Wasze adresy mailowe [2011-04-03]</dt>
   <dd>Bardzo proszę, żebyście pilnowali aktualności waszych adresów mailowych.
   Za każdym razem, gdy zmieniacie coś w strefie, serwis wysyła wam potwierdzenie,
@@ -55,17 +35,17 @@ $content = '
   </dd>
   <dt>Idea</dt>
   <dd>
-  Darmowy serwis utrzymywania DNS przeznaczony jest dla osób, które nie
-  chcą tracić czasu ani pieniędzy u providerów (którzy w dodatku
+  Darmowy serwis utrzymywania DNS przeznaczony jest dla samodzielnych osób,
+  które nie chcą tracić czasu ani pieniędzy u providerów (którzy w dodatku
   czasem nie są zbyt żwawi, jeśli chodzi o zmiany w DNS).</dd>
   <dd>
-  Oferujemy Ci podstawowy <b>oraz</b> zapasowy serwer nazw, automatyczne aktualizacje
+  Oferujemy podstawowy <b>oraz</b> zapasowy serwer nazw, automatyczne aktualizacje
   co kwadrans, rekordy SRV, TXT i obsługę IPv6 (ustaw sobie w opcjach użytkownika),
   system przekierowań/ramek (pseudo rekord WWW).
   <br>
   Wszystkie strefy obsługiwane jako podstawowe lub zapasowe na
   głównym serwerze &mdash; fns1.42.pl (79.98.145.34) &mdash; są automatycznie
-  replikowane na nasz drugi serwer, fns2.42.pl (195.80.237.194). 
+  replikowane na nasz drugi serwer, fns2.42.pl (195.80.237.194 i 2a02:2978::a503:4209:2). 
   </dd>
 
   <dd>Jeżeli rejestrujący domenę (np. NASK) wymaga podania danych osobowych
@@ -75,14 +55,15 @@ $content = '
   <dd>
   Wszystkie konfiguracje muszą zostać przeprowadzone przy użyciu
   tego interfejsu WWW.</dd>
+
   <dt>Skontaktuj się ze mną</dt>
   <dd>
-  Jeśli masz jakieś pytania, napisz do mnie email na adres
+  Jeśli masz jakieś problemy, napisz do mnie email na adres
   <a href="mailto:freedns na 42 kropka pl" class="linkcolor">
   freedns na 42 pl</a>. Czekaj cierpliwie &mdash; to darmowy serwis i na
   pytania odpowiadam w wolnym czasie.
   </dd>
-   </dl>
+  </dl>
 ';
 
 $migration_content = '
@@ -163,6 +144,35 @@ Centrum Informatyczne SGH
 ';
 $archive_content = '
 <dl>
+  <dt>Ataki DDoS [2012-04-06]</dt>
+  <dd>Od wczoraj serwer fns1 jest pod ciężkim atakiem DDoS, mogą występować
+  problemy z działaniem, na pewno chwilowo (przez założone tymczasowe filtry
+  ratujące resztę sieci) nie działają transfery z waszych masterów 
+  (gdy fns1 jest zapasowym).</dd>
+  <dd>Odpukać fns2 działa bez przerw.</dd>
+  <dd>Niestety, niewiele mogę z tym zrobić. :(</dd>
+
+  <dt>Zmiana sposobu generowania adresu email w SOA [2012-02-22]</dt>
+  <dd>Od teraz, jeśli w opcjach nie zaznaczycie opcji pokazywania swojego adresu email,
+  w SOA będzie freedns-admin+numerek.42.pl – wcześniej zamiast numerka była przetworzona
+  nazwa strefy, co powodowało problemy przy długich nazwach (zwłaszcza odwrotnych dla IPv6).</dd>
+
+  <dt>Poprawa obsługi długich TXT [2012-02-06]</dt>
+  <dd>Poprawiłem obsługę rekordów TXT dłuższych niż 255 znaków, system automatycznie dzieli je na odpowiedniej długości segmenty, co pozwala na poprawne używanie DKIM i im podobnych.</dd>
+  <dd>Można dzielić na segmenty samemu przy użyciu cudzysłowów, system wtedy nie będzie ingerował w zawartość TXT – a jeśli się pomylicie, to przy sprawdzaniu dostaniecie komunikat <i>ran out of space</i></dd>
+  
+  <dt>Rekord glue IPv6 dla fns2 [2011-10-05]</dt>
+  <dd>NASK uprzejmie dodał rekord glue IPv6 dla fns2.42.pl (dziękuję!),
+  co oznacza, że można mieć czyste IPv6
+  i poprawnie rozwiązywać nazwy domen hostowanych na FreeDNS::42</dd>
+
+  <dt>FreeDNS po IPv6 [2011-06-06]</dt>
+  <dd>W piątą rocznicę zamknięcia 6BONE fns2.42.pl dostaje na stałe natywny adres IPv6
+  2a02:2978::a503:4209:2</dd>
+  <dd>Pozostałe po testach nazwy fns2-v6 i fns2-v4v6 zostaną niedługo usunięte z DNS,
+  chyba że ktoś zgłosi mi wystarczająco ważny powód dla ich zostawienia.</dd>
+  <dd>Aktualizacja: fns2-v6 zostaje, a fns2-v4v6 usunąłem.</dd>
+  
   <dt>FreeDNS po IPv6 [2011-04-27]</dt>
   <dd>Dodatkowo utworzyłem fns2-v4v6.42.pl dla kolejnych testów.</dd>
   <dd>Jeśli nie będzie żadnych problemów, to fns2.42.pl dostanie adres IPv6 
