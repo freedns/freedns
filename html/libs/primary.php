@@ -243,6 +243,18 @@ class Primary extends Zone {
     $this->error="";
     $result = '';
     $deletecount = 0;
+    $result .= '
+<script type="text/javascript">
+function v(t) {
+ n = t.value;
+ if (n.substr(-1) === ".") return true;
+ zonename = document.forms[0]["zonename"].value;
+ if (n.match("^" + zonename + "$") == zonename) 
+   alert("' . $l['str_js_dotvalidate1'] . ' " + n + "." + zonename + "\n' . $l['str_js_dotvalidate2'] . '");
+ return n;
+}
+</script>';
+
     // TODO use zoneid instead of zonename & zonetype
     $result .= '<form method="POST">
       ' . $hiddenfields . '
@@ -360,7 +372,7 @@ class Primary extends Zone {
     for($count=1;$count <= $nbrows;$count++){
       $result .= '
         <tr>
-        <td><input type="text" name="ns' . $nscounter . '" value="' .
+        <td><input type="text" onchange="v(this)" name="ns' . $nscounter . '" value="' .
         $nsxnamesoptional[$count] . '"></td>';
       if($advanced){
         $result .= '
@@ -637,9 +649,9 @@ class Primary extends Zone {
           $mxcounter++;
           $result .= '
           <tr>
-            <td><input type="text" name="mxsrc' . $mxcounter . '"></td>
+            <td><input type="text" onchange="v(this)" name="mxsrc' . $mxcounter . '"></td>
             <td><input type="text" size="5" maxlength="5" name="mxpref' . $mxcounter . '"></td>
-            <td><input type="text" name="mx' . $mxcounter . '"></td>
+            <td><input type="text" onchange="v(this)" name="mx' . $mxcounter . '"></td>
           ';
           if($advanced){
             $result .= '
@@ -703,7 +715,7 @@ class Primary extends Zone {
           $acounter++;
           $result .= '
           <tr>
-              <td><input type="text" name="aname' . $acounter
+              <td><input type="text" onchange="v(this)" name="aname' . $acounter
               . '"></td>
               <td><input type="text" name="a' . $acounter . '"></td>';
           if($advanced){
@@ -769,7 +781,7 @@ class Primary extends Zone {
           for($count=1;$count <= $nbrows;$count++){
             $aaaacounter++;
             $result .= '
-            <tr><td><input type="text" name="aaaaname' .
+            <tr><td><input type="text" onchange="v(this)" name="aaaaname' .
                 $aaaacounter
                 . '"></td>
                 <td><input type="text" name="aaaa' . $aaaacounter . '"></td>';
@@ -825,9 +837,9 @@ class Primary extends Zone {
           $result .= '
             <tr>
             <td><input
-             type="text" name="cname' . $cnamecounter . '"></td>
+             type="text" onchange="v(this)" name="cname' . $cnamecounter . '"></td>
               <td><input
-              type="text" name="cnamea' . $cnamecounter . '">
+              type="text" onchange="v(this)" name="cnamea' . $cnamecounter . '">
             </td>';
           if($advanced){
             $result .= '
@@ -888,7 +900,7 @@ class Primary extends Zone {
           for($count=1;$count <= $nbrows;$count++){
             $txtcounter++;
             $result .= '
-            <tr><td><input type="text" name="txt' .
+            <tr><td><input type="text" onchange="v(this)" name="txt' .
                 $txtcounter
                 . '"></td>
                 <td><input type="text" name="txtstring' . $txtcounter . '"></td>';
@@ -952,7 +964,7 @@ class Primary extends Zone {
         for($count=1;$count <= $nbrows;$count++){
           $srvcounter++;
           $result .= '
-            <tr><td><input type="text" name="srvname' . $srvcounter . '"></td>
+            <tr><td><input type="text" onchange="v(this)" name="srvname' . $srvcounter . '"></td>
             <td><input type="text" size="3" name="srvpriority' . $srvcounter . '"></td>
             <td><input type="text" size="3" name="srvweight' . $srvcounter . '"></td>
             <td><input type="text" size="5" name="srvport' . $srvcounter . '"></td>
@@ -1011,7 +1023,7 @@ class Primary extends Zone {
         $result .= '
           <tr><td><input
            type="text" name="subns' . $subnscounter . '"></td>
-            <td><input type="text" name="subnsa' . $subnscounter . '">
+            <td><input type="text" onchange="v(this)" name="subnsa' . $subnscounter . '">
               </td>';
         if($advanced){
           $result .= '
@@ -1065,7 +1077,7 @@ class Primary extends Zone {
         $wwwcounter++;
         $result .= '
           <tr>
-          <td><input type="text" name="www' . $wwwcounter . '"></td>
+          <td><input type="text" onchange="v(this)" name="www' . $wwwcounter . '"></td>
           <td><input type="text" name="wwwa' . $wwwcounter . '"></td>
           <td>
             <nobr><label><input type="radio" name="wwwr' . $wwwcounter . '" value="r">' .
