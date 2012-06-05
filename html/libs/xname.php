@@ -394,6 +394,7 @@ function vrfyEmail($string){
   $host = substr(strstr($string,'@'),1);
   if (strtolower($host)=="nowmymail.com") return $l['str_no_valid_mx_record'];
   if (strtolower($host)=="meltmail.com") return $l['str_no_valid_mx_record'];
+  if (strtolower($host)=="mailinator.com") return $l['str_no_valid_mx_record'];
   if(!getmxrr($host, $mxhosts) && !checkdnsrr($host, "A")){
     // no valid MX record
     return $l['str_no_valid_mx_record'];
