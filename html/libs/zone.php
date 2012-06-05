@@ -871,9 +871,24 @@ endif;
    *@return string result text
    */  
   Function flagModified($zoneid){
+    return $this->flagZoneStatus($zoneid, 'M');
+  }
+
+  Function flagErroneous($content=""){
+    global $db;
+    if (notnull($content)) {
+      $query = sprintf("INSERT INTO dns_log (zoneid,content,status,serverid) " .
+                       "VALUES ('%s', '%s', 'E', '1')",
+                       $this->zoneid, mysql_real_escape_string($content));
+      $res = $db->query($query);
+    }
+    return $this->flagZoneStatus($this->zoneid, 'E');
+  }
+
+  Function flagZoneStatus($zoneid, $status='M'){
     global $db, $l;
         
-    $query = "UPDATE dns_zone SET status='M' WHERE id='" . $zoneid . "'";
+    $query = "UPDATE dns_zone SET status='$status' WHERE id='$zoneid'";
     $res = $db->query($query);
     $result = "";
     if($db->error()){

@@ -1253,6 +1253,7 @@ function v(t) {
       // check for errors
       // - generate zone file in /tmp/zonename
       if(!$this->generateConfigFile()){
+        $this->flagErroneous($this->error);
         $result .= sprintf($html->string_error, $this->error) . '<br>';
       }else{
 
@@ -1284,6 +1285,7 @@ function v(t) {
           unlink($this->tempZoneFile());
           $result .= $this->flagModified($this->zoneid);
         }else{
+          $this->flagErroneous($check);
           $result .= $l['str_primary_zone_error_warning'] . ':
           <br>
           <pre>' . $check . '</pre>
