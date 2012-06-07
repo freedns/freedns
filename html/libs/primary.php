@@ -1117,13 +1117,6 @@ function v(t) {
       </table>
     ';
 
-    // generate count$ vars to fill in httpvars array
-    // so retrieveArgs will parse everything, including high numbered delete$
-
-    for($fakecounter=0;$fakecounter < $deletecount;$fakecounter++){
-      $result .= '<input type="hidden" name="count' . $fakecounter . '" value="1">';
-    }
-
     $result .= '
       <input type="hidden" name="valid" value="1">
       <table id="submit"><tr><td>

@@ -500,17 +500,11 @@ function zoneDig($server,$zone){
  */
 function retrieveArgs($name, $httpvars){
   $result = array();
-
-  $nbmax = count($httpvars);
-  // parse all http vars 
-
-  for($i=1; $i <= $nbmax; $i++){
-    if(isset($httpvars[$name . $i])){
-      $value = $httpvars[$name . $i];
-      $value=$value;
-      array_push($result, $value);
-    }
-  }
+  foreach($httpvars as $key => $value) {
+     if (preg_match("/^".$name."[0-9]+$/", $key)) {
+       array_push($result, $value);
+     }
+  }  
   return $result;
 }
 
