@@ -130,7 +130,11 @@ Function updateArecord($m) {
     if ($req["oldaddress"] == "*") {
       $currentzone->DeleteMultipleARecords($req["name"]);
     } else {
-      $delete = array ( "a(" . mysql_real_escape_string($req["name"]) . "/" . mysql_real_escape_string($req["oldaddress"]).")");
+      $tmpname = mysql_real_escape_string($req["name"]) . "/" . mysql_real_escape_string($req["oldaddress"]);
+      if (preg_match('/:/', $req["oldaddress"]))
+        $delete = array ( "aaaa($tmpname)" );
+      else
+        $delete = array ( "a($tmpname)" );
       $currentzone->Delete($delete,0,0);
     }
     if($currentzone->error){
@@ -140,9 +144,20 @@ Function updateArecord($m) {
   $ttl = notnull(intval($req["ttl"])) ? intval($req["ttl"]) : "-1";
   if (notnull($req["newaddress"])) {
     $modified = 1;
-      $res = $currentzone->AddARecord($zone->zoneid,
-      array(mysql_real_escape_string($req["newaddress"])), array(mysql_real_escape_string($req["name"])),
-      array($ttl), NULL);
+      if (preg_match('/:/', $req["newaddress"]))
+        $res = $currentzone->AddAAAARecord(
+            $zone->zoneid,
+            array(mysql_real_escape_string($req["newaddress"])), 
+            array(mysql_real_escape_string($req["name"])),
+            array($ttl),
+            NULL);
+      else
+        $res = $currentzone->AddARecord(
+            $zone->zoneid,
+            array(mysql_real_escape_string($req["newaddress"])), 
+            array(mysql_real_escape_string($req["name"])),
+            array($ttl),
+            NULL);
 
     if($currentzone->error){
       return new xmlrpcresp(0, $xmlrpcerruser, $res);

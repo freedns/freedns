@@ -1556,7 +1556,7 @@ function v(t) {
 
     $query = "DELETE FROM dns_record
       WHERE zoneid='" . $this->zoneid . "'
-      AND type='A' AND val1='" . mysql_real_escape_string($name) . "'";
+      AND type IN ('A','AAAA') AND val1='" . mysql_real_escape_string($name) . "'";
     $result .= sprintf(
       $l['str_primary_deleting_a_x'],
       htmlspecialchars($name)) . "... ";
@@ -3228,7 +3228,7 @@ function v(t) {
     $query = "SELECT val2
       FROM dns_record
       WHERE zoneid='" . $this->zoneid . "'
-      AND type='A' AND val1='" . $name . "'";
+      AND type IN ('A', 'AAAA') AND val1='" . $name . "'";
     $res =  $db->query($query);
     $arecs = array();
     $i=0;
