@@ -900,5 +900,40 @@ endif;
     }
     return $result;
   }
+
+  Function isErroneous() {
+    global $db;
+    $query = "SELECT status FROM dns_zone WHERE id=" . $this->zoneid;
+    $res = $db->query($query);
+    if ($db->error()) { 
+      $this->error = $l['str_trouble_with_db'];
+      return 1;
+    }
+    $status = $db->fetch_row($res);
+    switch($status[0]) {
+      case '':
+      case 'M':
+        return 0; break;
+      case 'D':
+        $status = 'DELETE'; break;
+      case 'B':
+        $status = 'BLOCK'; break;
+      case 'E':
+      default:
+        $status = 'ERROR'; break;
+    }
+    if ($status != 'OK') {
+      $query = "SELECT content FROM dns_log WHERE status='E' "
+             . "AND zoneid=" . $this->zoneid . " ORDER BY date DESC LIMIT 1";
+      $res = $db->query($query);
+      $err = $db->fetch_row($res);
+      $err = $err[0];
+      if (empty($err))
+        $err = 'if you cannot figure out why, ask freedns admin';
+      $this->error = 'Zone ' . $status . ': ' . $err;
+      return 1;
+    }
+    return 0;
+  }
 }
 ?>

@@ -92,6 +92,7 @@ Function updateArecord($m) {
   $zonename = $req["zone"];
   $zonetype = "P";
   $zone = new Zone($zonename,$zonetype);
+  $zone->isErroneous();
   if($zone->error){
     return new xmlrpcresp(0, $xmlrpcerruser, $zone->error);
   }
