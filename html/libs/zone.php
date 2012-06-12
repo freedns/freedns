@@ -902,7 +902,7 @@ endif;
   }
 
   Function isErroneous() {
-    global $db;
+    global $db, $l;
     $query = "SELECT status FROM dns_zone WHERE id=" . $this->zoneid;
     $res = $db->query($query);
     if ($db->error()) { 
