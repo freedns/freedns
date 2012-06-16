@@ -903,6 +903,7 @@ endif;
 
   Function isErroneous() {
     global $db, $l;
+    if (empty($this->zoneid)) return 0;
     $query = "SELECT status FROM dns_zone WHERE id=" . $this->zoneid;
     $res = $db->query($query);
     if ($db->error()) { 
@@ -913,7 +914,7 @@ endif;
     switch($status[0]) {
       case '':
       case 'M':
-        return 0; break;
+        $status = 'OK'; break;
       case 'D':
         $status = 'DELETE'; break;
       case 'B':
