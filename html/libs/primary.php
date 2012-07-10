@@ -3109,7 +3109,7 @@ function v(t) {
 
 
 
-  Function VerifySOA($val, $defval, $soattl = "SOA") {
+  Function VerifySOA(&$val, $defval, $soattl = "SOA") {
     global $l;
     if (!notnull($val)) {
       $val=$defval;
@@ -3147,11 +3147,11 @@ function v(t) {
 
     $result ="";
 
-    $this->VerifySOA(&$defaultttl, 86400, "TTL");
-    $this->VerifySOA(&$soarefresh, 10800);
-    $this->VerifySOA(&$soaretry, 10800);
-    $this->VerifySOA(&$soaexpire, 604800);
-    $this->VerifySOA(&$soaminimum, 10800);
+    $this->VerifySOA($defaultttl, 86400, "TTL");
+    $this->VerifySOA($soarefresh, 10800);
+    $this->VerifySOA($soaretry, 10800);
+    $this->VerifySOA($soaexpire, 604800);
+    $this->VerifySOA($soaminimum, 10800);
 
     if(notnull($xferip)){
       if(!checkPrimary($xferip)){
