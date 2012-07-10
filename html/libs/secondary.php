@@ -130,7 +130,7 @@ class Secondary extends Zone {
    </td></tr>
       </table>
       <table id="submit">
-   <tr><td><input type="submit"
+   <tr><td><input type="submit" name="submit"
    value="' . $l['str_secondary_modify_button'] . '"></td></tr>
    </table>
   </form>

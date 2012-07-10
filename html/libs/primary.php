@@ -1120,7 +1120,7 @@ function v(t) {
     $result .= '
       <input type="hidden" name="valid" value="1">
       <table id="submit"><tr><td>
-      <input type="submit" value="' . $l['str_primary_generate_zone_button'] . '">
+      <input type="submit" name="submit" value="' . $l['str_primary_generate_zone_button'] . '">
       <input type="reset" value="' . $l['str_primary_reset_form_button'] . '">
       </td></tr></table>
       </form>
