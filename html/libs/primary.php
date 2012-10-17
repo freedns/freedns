@@ -3432,7 +3432,7 @@ function v(t) {
       $mail = ereg_replace("@",".",$user->Retrievemail()) . ".";
     } else {
       $uh = split("@", $config->soamail);
-      $mail = $uh[0] . "+" . ereg_replace("\.", "=", $zonename) . "." . $uh[1];
+      $mail = $uh[0] . "+" . $this->zoneid . "." . $uh[1];
     }
     $zonename = $zonename . ".";
     $nsname = $nsname . ".";
