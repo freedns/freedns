@@ -29,6 +29,8 @@ Inserts can be performed by leaving "oldaddress" empty.
 Deletes can be performed by leaving "newaddress" empty.
 Updates are performed by giving both old and new addresses.
 Old address can be wildcard '*'.
+New address can be "<dynamic>", server will use IP you're connecting from.
+Be careful about proxies with this!
 
                 """
 

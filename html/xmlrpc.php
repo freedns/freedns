@@ -144,6 +144,8 @@ Function updateArecord($m) {
   }
   $ttl = notnull(intval($req["ttl"])) ? intval($req["ttl"]) : "-1";
   if (notnull($req["newaddress"])) {
+    if ($req["newaddress"] == "<dynamic>" && !empty($_SERVER["REMOTE_ADDR"]))
+      $req["newaddress"] = $_SERVER["REMOTE_ADDR"];
     $modified = 1;
       if (preg_match('/:/', $req["newaddress"]))
         $res = $currentzone->AddAAAARecord(
