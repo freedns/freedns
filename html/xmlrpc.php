@@ -112,6 +112,8 @@ Function updateArecord($m) {
     return new xmlrpcresp(0, $xmlrpcerruser, "You can not manage zone ". $zone->zonename);
   }
   $currentzone = new Primary($zone->zonename, $zone->zonetype, $user);
+  if (notnull($req["newaddress"]) && $req["newaddress"] == "<dynamic>")
+    $req["newaddress"] = $_SERVER["REMOTE_ADDR"];
   if (notnull($req["oldaddress"])) {
     # first check if the new address is the same we already have
     # and skip changes if so
@@ -144,8 +146,6 @@ Function updateArecord($m) {
   }
   $ttl = notnull(intval($req["ttl"])) ? intval($req["ttl"]) : "-1";
   if (notnull($req["newaddress"])) {
-    if ($req["newaddress"] == "<dynamic>" && !empty($_SERVER["REMOTE_ADDR"]))
-      $req["newaddress"] = $_SERVER["REMOTE_ADDR"];
     $modified = 1;
       if (preg_match('/:/', $req["newaddress"]))
         $res = $currentzone->AddAAAARecord(
