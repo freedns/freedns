@@ -78,6 +78,7 @@ $l["str_email_not_sent"] = "votre compte ne semble pas avoir d'adresse mél vali
 $l["str_email_password_recovery_for_account_on_x"] = "Vous avez demandé une récupération de mot de passe pour votre compte sur %s.";
 $l["str_email_please_follow_this_link"] = "Merci de visiter cette page ";
 $l["str_email_regards"] = "Cordialement";
+$l["str_email_soa"] = "Email published in SOA";
 $l["str_email_successfully_sent_explanation1"] = "Un mail vous a été envoyé avec  succès, afin de valider votre adresse mél. Suivez le lien qui se trouve  à l'intérieur pour activer votre compte.";
 $l["str_email_successfully_sent_explanation2"] = "Une fois que votre adresse  est validée, connectez-vous sur la page principale pour ajouter des zones.";
 $l["str_email_this_email_is_sent_to_validate_email_x"] = "Ce mél vous est envoyé pour valider votre adresse mél, %s.";

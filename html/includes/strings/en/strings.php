@@ -78,6 +78,7 @@ $l["str_email_not_sent"] = "your account does not seems to have a valid email ad
 $l["str_email_password_recovery_for_account_on_x"] = "You have requested a password recovery for your account on %s.";
 $l["str_email_please_follow_this_link"] = "Please go on ";
 $l["str_email_regards"] = "Regards,";
+$l["str_email_soa"] = "Email published in SOA";
 $l["str_email_successfully_sent_explanation1"] = "A mail was succesfully sent to you, to   validate your email address. Follow embedded link to activate your account.";
 $l["str_email_successfully_sent_explanation2"] = "Once it is validated, log in on main page to add zones.";
 $l["str_email_this_email_is_sent_to_validate_email_x"] = "This mail is send to you to validate your email address, %s.";

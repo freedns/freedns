@@ -78,6 +78,7 @@ $l["str_email_not_sent"] = "your account does not seems to have a valid email ad
 $l["str_email_password_recovery_for_account_on_x"] = "Sie haben Ihr Passwort für Ihren Account auf %s angefordert.";
 $l["str_email_please_follow_this_link"] = "Bitte klicken Sie auf den folgenden Link";
 $l["str_email_regards"] = "Mit freundlichen Grüßen";
+$l["str_email_soa"] = "Email published in SOA";
 $l["str_email_successfully_sent_explanation1"] = "A mail was succesfully sent to you, to validate your email address.\nFollow embedded link to activate your account.";
 $l["str_email_successfully_sent_explanation2"] = "Sobald Ihre email-Adresse überprüft ist, können Sie sich in das Hauptmenü einloggen";
 $l["str_email_this_email_is_sent_to_validate_email_x"] = "Um Ihre amail-Adresse zu überprüfem, erhalten Sie in kürze die nachfolgende email: %s";
