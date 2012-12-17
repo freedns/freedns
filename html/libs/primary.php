@@ -3794,13 +3794,19 @@ function v(t) {
       $string=substr($string,2);
       $numdots--;
     }
-    $abc = "0123456789abcdefghijklmnopqrstuvwxyz-.";
+    $abc = "_0123456789abcdefghijklmnopqrstuvwxyz.-";
 
-    // only specified char without a dot as first char - * allowed
-    if(strcmp($string,"*") && (strspn($string, $abc) !=
-      strlen($string)) || (strpos('0'.$string, ".") == 1)){
-      $result = 0;
-    }else if(count(explode('.',$string,3))>$numdots){
+    // '*' itself allowed
+    if(!strcmp($string, "*"))
+      return 1;
+    // out of allowed chars
+    if(strspn($string, $abc) != strlen($string))
+      return 1;
+    // starts with a dot
+    if (strpos('0'.$string, ".") == 1)
+      return 0;
+
+    if(count(explode('.',$string,3))>$numdots){
       $result = 0;
     }else{
       $result = 1;
@@ -3847,18 +3853,15 @@ function v(t) {
    */
   function checkTXTName($string){
     $string = strtolower($string);
-    // only specified char
-    // "_" only as first char
+    // single '@' and '*' allowed
     if (!strcmp($string, "@") || !strcmp($string, "*"))
       return 1;
-    if((strspn($string, "0123456789abcdefghijklmnopqrstuvwxyz-._") != strlen($string))
-      || ((strpos($string,"_") !== FALSE) 
-      && !(strpos($string,"_") == 0 || $string[strpos($string,"_")-1] == '.'))){
-      $result = 0;
-    }else{
-      $result = 1;
-    }
-    return $result;
+    // chars outside those are not allowed
+    if(strspn($string, "0123456789abcdefghijklmnopqrstuvwxyz-._") != strlen($string))
+      return 0;
+
+    // all the rest is fine
+    return 1;
   }
 
 // function checkTXTValue($string)
