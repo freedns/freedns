@@ -325,7 +325,12 @@ if($user->authenticated == 0){
             $passnew = $_REQUEST['passnew'];
             $confirmpassnew = $_REQUEST['confirmpassnew'];
           }
-          if($passnew != $confirmpassnew){
+          if($passnew == ""){
+            $localerror = 1;
+            $content .= sprintf($html->string_error, 
+                   $l['str_new_passwords_empty']
+                ) . '<br>';
+          }else if($passnew != $confirmpassnew){
             $localerror = 1;
             $content .= sprintf($html->string_error, 
                    $l['str_new_passwords_dont_match']

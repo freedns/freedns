@@ -186,6 +186,7 @@ $l["str_must_log_before_viewing_zones"] = "Vous devez vous connecter avant de vo
 $l["str_must_log_first"] = "Vous devez d'abord vous connecter.";
 $l["str_name_server"] = "serveur de noms";
 $l["str_new_password"] = "nouveau mot de passe";
+$l["str_new_passwords_empty"] = "les nouveaux mot de passe sont différents.";
 $l["str_new_passwords_dont_match"] = "les nouveaux mot de passe sont différents.";
 $l["str_new_user_has_been_successfully_created"] = "Le nouvel utilisateur a été   créé avec succès.";
 $l["str_no_dont_delete"] = "Non, ne pas supprimer";

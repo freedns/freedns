@@ -186,6 +186,7 @@ $l["str_must_log_before_viewing_zones"] = "you must log in before viewing your z
 $l["str_must_log_first"] = "you must log in first.";
 $l["str_name_server"] = "Name Server";
 $l["str_new_password"] = "new password";
+$l["str_new_passwords_empty"] = "empty new password.";
 $l["str_new_passwords_dont_match"] = "new passwords do not match.";
 $l["str_new_user_has_been_successfully_created"] = "New user has been successfully  created.";
 $l["str_no_dont_delete"] = "No, do not delete";

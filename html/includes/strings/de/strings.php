@@ -187,6 +187,7 @@ $l["str_must_log_before_viewing_zones"] = "Sie müssen siche einloggen, bevor Si
 $l["str_must_log_first"] = "Sie müssen sich erst einloggen.";
 $l["str_name_server"] = "Name Server";
 $l["str_new_password"] = "Neues Passwort";
+$l["str_new_passwords_empty"] = "Keine neue Passwort";
 $l["str_new_passwords_dont_match"] = "Die neu eingegeben Passworter stimmen nicht überein.";
 $l["str_new_user_has_been_successfully_created"] = "New user has been successfully created.";
 $l["str_no_dont_delete"] = "Nein, nicht löschen";

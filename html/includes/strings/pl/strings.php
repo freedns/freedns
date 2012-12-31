@@ -186,6 +186,7 @@ $l["str_must_log_before_viewing_zones"] = "Musisz się zalogować, zanim obejrzy
 $l["str_must_log_first"] = "musisz się najpierw zalogować.";
 $l["str_name_server"] = "Serwer DNS";
 $l["str_new_password"] = "Nowe hasło";
+$l["str_new_passwords_empty"] = "brak nowego hasła";
 $l["str_new_passwords_dont_match"] = "nowe hasła nie pasują";
 $l["str_new_user_has_been_successfully_created"] = "Nowy użytkownik został utworzony.";
 $l["str_no_dont_delete"] = "Nie, nie kasuj";
