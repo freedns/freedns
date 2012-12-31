@@ -312,7 +312,7 @@ if($user->authenticated == 0){
     
     if(!$localerror){
       if((isset($_REQUEST) && $_REQUEST['oldpass']) ||
-        (!isset($_REQUEST) && $oldpass)){
+        (!isset($_REQUEST) && $oldpass) || md5("") == $user->Retrievepassword()){
         $content .= $l['str_changing_password'] . '... ';
         // check if old = current
         if(isset($_REQUEST)){
@@ -340,7 +340,7 @@ if($user->authenticated == 0){
             $passnew = addslashes($passnew);
             $user->UpdatePassword($passnew);
             if(!$user->error){
-              $content .= $l['str_ok'] . '<br>';
+              $content .= $l['str_ok'] . '<!-- $passnew --><br>';
             }
           }
         }else{
