@@ -1,11 +1,8 @@
 <?
 $content = '
-  <dt>Poprawa obsługi dynamicznych stref [2012-02-28]</dt>
-  <dd>Przy korzystaniu ze skryptu do dynamicznej aktualizacji rekordu A
-  strefa nie zostanie przeładowane, jeśli nowy adres będzie taki, 
-  jaki już jest zapisany w serwisie.</dd>
-  <dd>Innymi słowy: maile o przeładowaniu strefy będziecie dostawać tylko wtedy, 
-  gdy faktycznie się zmieni adres IP. :-)</dd>
+  <dt>Automatyczne adresy dynamiczne [2013-01-29]</dt>
+  <dd>W skrypcie do aktualizacji adresów IP można teraz podać <code>&lt;dynamic&gt;</code>
+  i serwer sam odczyta publiczne IP, z którego jest wołany skrypt. Uwaga na proxy!</dd>
 
   <dt>Wasze adresy mailowe [2011-04-03]</dt>
   <dd>Bardzo proszę, żebyście pilnowali aktualności waszych adresów mailowych.
@@ -144,6 +141,13 @@ Centrum Informatyczne SGH
 ';
 $archive_content = '
 <dl>
+  <dt>Poprawa obsługi dynamicznych stref [2012-02-28]</dt>
+  <dd>Przy korzystaniu ze skryptu do dynamicznej aktualizacji rekordu A
+  strefa nie zostanie przeładowane, jeśli nowy adres będzie taki, 
+  jaki już jest zapisany w serwisie.</dd>
+  <dd>Innymi słowy: maile o przeładowaniu strefy będziecie dostawać tylko wtedy, 
+  gdy faktycznie się zmieni adres IP. :-)</dd>
+
   <dt>Ataki DDoS [2012-04-06]</dt>
   <dd>Od wczoraj serwer fns1 jest pod ciężkim atakiem DDoS, mogą występować
   problemy z działaniem, na pewno chwilowo (przez założone tymczasowe filtry
