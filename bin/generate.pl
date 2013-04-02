@@ -102,7 +102,8 @@ sub RetrieveRecords {
 
   $sth1 = dbexecute("SELECT val1,val2,val3,val4,val5,ttl
     FROM dns_record 
-    WHERE zoneid='$zoneid' AND type='$type'",$dbh,LOG);
+    WHERE zoneid='$zoneid' AND type='$type'
+    ORDER BY val1",$dbh,LOG);
 
   while (my $ref = $sth1->fetchrow_hashref()) {
     if($ref->{'ttl'} ne "-1"){
