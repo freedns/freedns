@@ -348,23 +348,23 @@ function checkName($string){
  *@param string $string string to be checked
  *@return 1 if valid, 0 else
  */
+
+function checkNet($string) {
+  if (ereg("(.*)/([0-9][0-9]?)", $string, $net)) {
+    if ($net[2] > 32) { return 0; }
+    $string = $net[1];
+  }
+  return checkIP($string);
+}
+
 function checkPrimary($string){
-  // suppress trailing and ending space
-  $string = preg_replace("/^\s*(.*?)\s*$/", "$1", $string);
-  // suppress spaces before or after ;
-  $string = str_replace(" ;", ";", $string);
-  $string = str_replace("; ", ";", $string);
   $primarylist = explode(';',$string);
-  $result = 0;
   while(list($key,$value) = each($primarylist)){
-    $result += !checkIP($value);
+    if (!checkNet(trim($value, " "))) {
+      return 0;
+    }
   }
-  if($result > 0){
-    $result = 0;
-  }else{
-    $result = 1;
-  }
-  return $result;
+  return 1;
 }
 
 // function checkEmail($string)
