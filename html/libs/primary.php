@@ -3693,20 +3693,24 @@ function v(t) {
    */
   function checkAName($string){
     $string = strtolower($string);
-    // except if zone name itself
-    if($string == $this->zonename.'.')
-      return 1;
     if($string == '*')
       return 1;
     if($string == "@")
       return 1;
-    if(strspn($string, ".0123456789abcdefghijklmnopqrstuvwxyz-") != strlen($string))
-      return 0;
+    // name cannot start with a dot
     if ($string[0] == '.')
       return 0;
+    // nor it cannot end with a dot
     if ($string[strlen($string)-1] == '.')
       return 0;
+    // allow zone name itself
+    if($string == $this->zonename.'.')
+      return 1;
+    // otherwise allow only 3 dots
     if (count(explode('.',$string,4))>3)
+      return 0;
+    // only specified chars allowed (not RFC but dummy user prevention)
+    if(strspn($string, ".0123456789abcdefghijklmnopqrstuvwxyz-") != strlen($string))
       return 0;
 
     return 1;
@@ -3853,15 +3857,9 @@ function v(t) {
    */
   function checkTXTName($string){
     $string = strtolower($string);
-    // single '@' and '*' allowed
-    if (!strcmp($string, "@") || !strcmp($string, "*"))
+    if($string == "_domainkey")
       return 1;
-    // chars outside those are not allowed
-    if(strspn($string, "0123456789abcdefghijklmnopqrstuvwxyz-._") != strlen($string))
-      return 0;
-
-    // all the rest is fine
-    return 1;
+    return $this->checkAName($string);
   }
 
 // function checkTXTValue($string)
@@ -3876,17 +3874,9 @@ function v(t) {
    *@return int 1 if valid, 0 else
    */
   function checkWWWName($string){
-    $string = strtolower($string);
-    // only specified char
-    // "_" only as first char
-    if(strcmp($string,"@") && strcmp($string,"*")
-      && strspn($string, "0123456789abcdefghijklmnopqrstuvwxyz-.")!=strlen($string)){
-      $result = 0;
-    }else{
-      $result = 1;
-    }
-    return $result;
+    return $this->checkAName($string);
   }
+
   function checkWWWValue($string) {
     $string = strtolower($string);
     if (ereg('^http://', $string) || ereg('^https://', $string))
@@ -3909,25 +3899,6 @@ function v(t) {
    */
   function checkAAAAName($string){
     return $this->checkAName($string);
-
-    $string = strtolower($string);
-    // only specified char - dot not allowed (not RFC but dummy user prevention)
-    // except if zone name itself
-    if($string == $this->zonename.'.'){
-      $result = 1;
-    }else{
-      if(strcmp($string,"@") 
-        && (strspn($string, ".0123456789abcdefghijklmnopqrstuvwxyz-") != strlen($string))){
-        $result = 0;
-      }else if ($string[0]=='.'
-        ||$string[strlen($string)-1]=='.'
-        ||count(explode('.',$string,3))>2){
-        $result = 0;
-      }else{
-        $result = 1;
-      }
-    }
-    return $result;
   }
 
 // function checkAAAAValue($string)
@@ -4003,21 +3974,12 @@ function v(t) {
    */
   function checkSRVName($string){
     $string = strtolower($string);
-
-    // only specified char without a dot as first char - * allowed
-    if(strcmp($string,"*")
-      && (strspn($string, "0123456789abcdefghijklmnopqrstuvwxyz-._*") != strlen($string))
-      || (strpos('0'.$string,".") == 1)){
-      $result = 0;
-    }else{
-      $result = 1;
+    $service = substr($string, -5);
+    if ($service == "._tcp" || $service == "._udp") {
+       $string = substr($string, 0, -5);
+       if ($string[0] == '_') $string = substr($string, 1);
     }
-
-    if( checkIP($string) ){
-      $result = 0;
-    }
-
-    return $result;
+    return $this->checkAName($string);
   }
 
 // *******************************************************
@@ -4079,7 +4041,7 @@ function v(t) {
   function checkSRVValue($string){
     $string = strtolower($string);
     // value can't be an IP
-    if(checkIP($$string)){
+    if(checkIP($string)){
       $result = 0;
     }else{
       // only specified char without a dot as first char
