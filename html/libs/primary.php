@@ -3709,8 +3709,11 @@ function v(t) {
     // otherwise allow only 3 dots
     if (count(explode('.',$string,4))>3)
       return 0;
+    // allow only one underscore
+    if (count(explode('_',$string,2))>1)
+      return 0;
     // only specified chars allowed (not RFC but dummy user prevention)
-    if(strspn($string, ".0123456789abcdefghijklmnopqrstuvwxyz-") != strlen($string))
+    if(strspn($string, "_.0123456789abcdefghijklmnopqrstuvwxyz-") != strlen($string))
       return 0;
 
     return 1;
@@ -3857,8 +3860,6 @@ function v(t) {
    */
   function checkTXTName($string){
     $string = strtolower($string);
-    if($string == "_domainkey")
-      return 1;
     return $this->checkAName($string);
   }
 
@@ -3928,8 +3929,11 @@ function v(t) {
    */
   function checkSUBNSName($string){
     $string = strtolower($string);
-    $allowed = "0123456789abcdefghijklmnopqrstuvwxyz-";
-    if (ereg('\.ip6\.arpa$', $this->zonename)) $allowed .= ".";
+    // allow only one underscore
+    if (count(explode('_',$string,2))>1)
+      return 0;
+    $allowed = "_0123456789abcdefghijklmnopqrstuvwxyz-";
+    if (ereg('\.ip6\.arpa$', $this->zonename)) $allowed = "." . $allowed;
     // only specified char
     if(strspn($string, $allowed) != strlen($string)){
       $result = 0;
