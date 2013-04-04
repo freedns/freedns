@@ -3700,12 +3700,12 @@ function v(t) {
     // name cannot start with a dot
     if ($string[0] == '.')
       return 0;
-    // nor it cannot end with a dot
-    if ($string[strlen($string)-1] == '.')
-      return 0;
     // allow zone name itself
     if($string == $this->zonename.'.')
       return 1;
+    // it cannot end with a dot
+    if ($string[strlen($string)-1] == '.')
+      return 0;
     // otherwise allow only 3 dots
     if (count(explode('.',$string,4))>3)
       return 0;
