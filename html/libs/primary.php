@@ -3706,11 +3706,11 @@ function v(t) {
     // it cannot end with a dot
     if ($string[strlen($string)-1] == '.')
       return 0;
-    // otherwise allow only 3 dots
+    // otherwise allow only 2 dots
     if (count(explode('.',$string,4))>3)
       return 0;
     // allow only one underscore
-    if (count(explode('_',$string,2))>1)
+    if (count(explode('_',$string,3))>2)
       return 0;
     // only specified chars allowed (not RFC but dummy user prevention)
     if(strspn($string, "_.0123456789abcdefghijklmnopqrstuvwxyz-") != strlen($string))
