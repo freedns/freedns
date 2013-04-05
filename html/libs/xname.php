@@ -301,7 +301,7 @@ function checkDomain($string){
 function checkZone($string){
   $string = strtolower($string);
   // only specified chars
-  if (preg_match("/[^a-z0-9\.\/-]/i", $string))
+  if (preg_match("/[^a-z0-9\.\/_-]/i", $string))
     return 0;
   // at least one dot
   if (strpos($string, ".") === FALSE)
