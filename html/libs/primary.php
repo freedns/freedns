@@ -2461,10 +2461,14 @@ function v(t) {
     $result = "";
     while(list($key,$value) = each($cname)){
       if($value != ""){
-        if(! $this->checkCNAMEName($value) || !$this->checkCNAMEValue($cnamea[$i]) ){
+        if(! $this->checkCNAMEName($value) ){
           $this->error = sprintf(
             $l['str_primary_bad_cname_x'],
             htmlspecialchars($value));
+        }elseif(! $this->checkCNAMEValue($cnamea[$i]) ){
+          $this->error = sprintf(
+            $l['str_primary_bad_cname_x'],
+            htmlspecialchars($cnamea[$i]));
         }else{
           if($cnamea[$i] ==""){
             $this->error = sprintf(
@@ -3841,7 +3845,7 @@ function v(t) {
       $result = 0;
     }else{
       // only specified char without a dot as first char
-      if( (strspn($string, "0123456789abcdefghijklmnopqrstuvwxyz-.") !=
+      if( (strspn($string, "0123456789abcdefghijklmnopqrstuvwxyz-._") !=
                         strlen($string)) || (strpos('0'.$string,".") == 1) ){
         $result = 0;
       }else{
@@ -3860,6 +3864,11 @@ function v(t) {
    */
   function checkTXTName($string){
     $string = strtolower($string);
+    // needs better algorithm
+    if ($string == "_domainkey")
+      return 1;
+    if ($string == "_adsp._domainkey")
+      return 1;
     return $this->checkAName($string);
   }
 
@@ -3979,7 +3988,7 @@ function v(t) {
   function checkSRVName($string){
     $string = strtolower($string);
     $service = substr($string, -5);
-    if ($service == "._tcp" || $service == "._udp") {
+    if ($service == "._tcp" || $service == "._tls" || $service == "._udp") {
        $string = substr($string, 0, -5);
        if ($string[0] == '_') $string = substr($string, 1);
     }
