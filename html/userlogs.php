@@ -81,14 +81,7 @@ if($user->authenticated==1){
           $purge=$_REQUEST['purge'];
         }
 
-        $nowdate= nowDate();
-        $year=substr($nowdate,0,4);
-        $month=substr($nowdate,4,2);
-        $day=substr($nowdate,6,2);
-        $hour=substr($nowdate,8,2);
-        $min=substr($nowdate,10,2);
-        $sec=substr($nowdate,12,2);
-        $datets=mktime($hour,$min,$sec,$month,$day,$year);
+        $datets=time();
 
         switch($purge){
           case "all":
@@ -173,12 +166,8 @@ if($user->authenticated==1){
         $deletecount++;
         // MySQL 3
         $newdate = preg_replace("/^(....)(..)(..)(..)(..)(..)$/",
-            "\\2&nbsp;\\3&nbsp;\\4:\\5:\\6", 
+            "\\1-\\2-\\3 \\4:\\5:\\6", 
             $line[1]);
-        // MySQL 4
-        $newdate = preg_replace("/^(....)-(..)-(..) (..):(..):(..)$/",
-            "\\2&nbsp;\\3&nbsp;\\4:\\5:\\6", 
-            $newdate);
         $content .= '<tr><td valign="top">';
         // dummy entry necessary for retrieveArgs to work
         // correctly... 
