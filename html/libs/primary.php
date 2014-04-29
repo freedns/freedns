@@ -3840,6 +3840,9 @@ function v(t) {
    */
   function checkCNAMEValue($string){
     $string = strtolower($string);
+    if ($string == '@') {
+      return 1;
+    }
     // value can't be an IP
     if(checkIP($string)){
       $result = 0;
@@ -3987,6 +3990,7 @@ function v(t) {
    */
   function checkSRVName($string){
     $string = strtolower($string);
+    $string = str_replace("." . $this->zonename . ".", "", $string);
     $service = substr($string, -5);
     if ($service == "._tcp" || $service == "._tls" || $service == "._udp") {
        $string = substr($string, 0, -5);
@@ -4036,11 +4040,7 @@ function v(t) {
    *@return int 1 if valid, 0 else
    */
   function checkSRVPort($string){
-    if(preg_match("/[^\d]/", $string)){
-      return 0;
-    }else{
-      return 1;
-    }
+    return !preg_match("/[^\d]/", $string);
   }
 
 // function checkSRVValue($string)
@@ -4054,18 +4054,19 @@ function v(t) {
   function checkSRVValue($string){
     $string = strtolower($string);
     // value can't be an IP
-    if(checkIP($string)){
-      $result = 0;
-    }else{
-      // only specified char without a dot as first char
-      if( (strspn($string, "0123456789abcdefghijklmnopqrstuvwxyz-.") !=
-        strlen($string)) || (strpos('0'.$string,".") == 1) ){
-        $result = 0;
-      }else{
-        $result = 1;
-      }
-    }
-    return $result;
+    if (checkIP($string))
+      return 0;
+    // dot cannot be first
+    if (strpos($string, ".") === 0)
+      return 0;
+    if (strpos($string, "__") !== false)
+      return 0;
+    if (strpos($string, "..") !== false)
+      return 0;
+    // allowed chars
+    if (strspn($string, "0123456789abcdefghijklmnopqrstuvwxyz._-") != strlen($string))
+      return 0;
+    return 1;
   }
 // *******************************************************
 
