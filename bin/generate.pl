@@ -123,11 +123,15 @@ sub RetrieveRecords {
     # SRV: val1 [ttl] IN SRV val2 val3 val4 val5
     # WWW: val1 [ttl] IN A val3 (was: $SITE_WWW_IP)
 
-    # single label can have at most 255 length so we need to split
-    # big TXT records to pieces
     if ($type eq "TXT") {
+      # single label can have at most 255 length so we need to split
+      # big TXT records to pieces
       $txtval = $ref->{'val2'};
       $txtval = join(' ', map { '"'.$_.'"' } unpack('(A255)*', $txtval) ) unless $txtval =~ /"/;
+      # automatically add SPF record
+      if ($txtval =~ /^"v=spf/i) {
+        $ret .= $ref->{'val1'} . "\t$ttl\tIN\tSPF\t" . $txtval . "\n";
+      }
     }
     $ret .= do {
       if (/^NS$/)
