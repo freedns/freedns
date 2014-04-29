@@ -273,6 +273,7 @@ if($count){
         print CONF sprintf(
           'zone "%s" { '.
             'type slave; ' .
+            'notify no; ' .
             'file "%s"; ' .
             'masters { %s; }; ' .
             'allow-transfer { %s; }; ' .
