@@ -1,5 +1,8 @@
 <?
 $content = '
+  <dt>No more NOTIFY for slave zones.</dt>
+  <dd>The NOTIFY has been disabled for slave zones. 
+  If you encounter problems with it, please email me.</dd>
   <dt>Dynamic DNS</dt>
   <dd>
         For automatic records update we use XML RPC; there is a simple 

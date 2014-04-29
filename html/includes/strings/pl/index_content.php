@@ -1,5 +1,9 @@
 <?
 $content = '
+  <dt>Wyłączenie notify w strefach zapasowych [2013-10-23]</dt>
+  <dd>Wyłączyłem NOTIFY (powiadomienia o zmianach) dla stref zapasowych. Nie powinno to
+  w niczym wam przeszkadzać, ale jeżeli tak, to proszę pisać.</dd>
+
   <dt>Automatyczne adresy dynamiczne [2013-01-29]</dt>
   <dd>W skrypcie do aktualizacji adresów IP można teraz podać <code>&lt;dynamic&gt;</code>
   i serwer sam odczyta publiczne IP, z którego jest wołany skrypt. Uwaga na proxy!</dd>
@@ -63,84 +67,12 @@ $content = '
   </dl>
 ';
 
-$migration_content = '
-<dl>
-   <dt>Koniec migracji [2010-08-22]</dt>
-   <dd>Skasowałem wszystkich użytkowników, którzy do tej pory jeszcze nie zmigrowali. Oczywiście razem z ich (nieużywanymi, ale blokującymi zakładanie) strefami.</dd>
-   <dd>Proces migracji użytkowników <a href="migracja.png">na obrazku</a></dd>
-   <dt>Koniec migracji wyznaczony! [2010-08-14]</dt>
-   <dd>Proces migracji zostanie zakończony po trzech miesiącach od startu serwisu, tj. 22 sierpnia 2010. Tego dnia zostaną skasowani wszyscy użytkownicy, którzy do tej pory nie zmigrowali (ponad 12 tys.) oraz ich domeny (ponad 23 tys.)</dd>
-   <dd>Zmigrowało 31% użytkowników ze strefami, przenosząc 60% domen podstawowych i 48% domen zapasowych. Nie oznacza to, niestety, że wszyscy poprzenosili delegacje na nowy serwer, ale już nic z tym nie zrobię. Jeśli ktoś ma ciągle delegację na stare serwery, to znaczy, że po prostu nie korzysta z domeny.</dd>
-   <dt>Dla przychodzących ze starego systemu [2010-07-06]</dt>
-   <dd>Bardzo proszę uważnie czytać informacje! <b>NIE ZAKŁADAJCIE</b> nowego użytkownika, wasz stary już tu jest z waszymi strefami. Zalogujcie się na starego i migrujcie!</dd>
-   <dt>A więc koniec starego systemu [2010-07-01]</dt>
-   <dd>Stary system już nie pozwala się logować. DNS-y jeszcze odpowiadają, ale pewnie za chwilę też wyłączą. Kto jeszcze nie zmigrował tutaj ani nie przeniósł gdzie indziej (prawie 7 tysięcy domen!) za chwilę się bardzo zdziwi, jak mu przestanie działać.</dd>
-
-   <dt>Po trzech tygodniach [2010-06-15]</dt>
-   <dd>Krótkie podsumowanie: do tej pory zmigrowało ok. 42% domen, acz tylko 28% z tego ma zrobioną delegację na FreeDNS::42, stare dnsy (niedługo wyłączają!) ma ciągle jeszcze 36% ze zmigrowanych stref, zaś 36% w ogóle nie ma delegacji. Z drugiej strony, z jeszcze niezmigrowanych aż 70% nie jest zarejestrowanych w starym systemie, więc może to po prostu stare domeny i w ten sposób zostaną naturalnie oczyszczone. </dd>
-   <dd>Krótki przegląd zmian<!-- (podziękowania dla poszczególnych osób będą w oddzielnej notce) -->: poprawiłem mnóstwo błędów w kodzie, automatyczne tworzenie rekordów AAAA ze strefy odwrotnej, robienie MX dla hosta, przetwarzanie logów, kod html i css, UTF-8, tłumaczenia, zakładanie stref, pokazywanie logów i stref na subkontach, pliterki w mailach, mechanizm zmiany adresu mail <!-- (konto już nie jest blokowane do potwierdzenia) -->, ułatwienie do tworzenia wielu rekordów w strefie odwrotnej, nowy typ przekierowania www, walidacja wielu pól, strefy odwrotne dla sieci mniejszych niż /24... <!-- i wiele innych poprawek jest w drodze. --> Piszcie, jeśli czegoś wam brakuje, póki jeszcze mam melodię na dłubanie w tym kodzie. :)</dd>
-  <dd>Krótkie odpowiedzi na często zadawane pytania: dziękuję za oferty pomocy (także tej pieniężnej i materialnej)<!-- , na szczęście sponsorzy pomogli -->; serwis pozostanie darmowy<!-- (poza tym pobieranie opłat od osób prywatnych w Polsce to jakiś koszmar podatkowy) -->; nie, nie dogadałem się, zawartość stref powstała z backupu<!-- oraz przekonwertowana z drugiego serwera DNS, nad którym ciągle mam kontrolę -->; niestety, nie mam jak czytać (i z tego, co wiem, nikt nie czyta) poczty z adresu freedns na starym systemie... no ale przede wszystkim dziękuję za mnóstwo głosów poparcia!</dd>
-   <dt>Nowy start [2010-05-23]</dt>
-   <dd>Ruszamy! Logujecie się <strong>korzystając z loginu i hasła ze starego systemu</strong>, klikacie przycisk "Migruj", czekacie, aż zacznie działać, zmieniacie u rejestratorów domen wpisy dotyczące serwerów nazw, tj. na: fns1.42.pl&nbsp;(79.98.145.34) oraz fns2.42.pl&nbsp;(195.80.237.194), czekacie, aż się zmiany rozpropagują i&nbsp;wtedy możecie skasować strefy i&nbsp;konto ze starego systemu.</dd><dd>Powodzenia!</dd>
-<dd>Czasu nie jest tak dużo: pod koniec czerwca stary system ma zostać wyłączony i jeśli nie przeniesiecie gdzieś (zapraszam tu, rzecz jasna) waszych stref, to przestaną działać.</dd>
-<dt>Prawdopodobny start #2 [2010-05-20]</dt>
-<dd>Tym razem już wszystko mam pod ręką i wygląda, że działa. Zatem najpóźniej w poniedziałek ruszamy.</dd>
-
-<dt>Wszystko działa [2010-05-19]</dt>
-<dd>Wszystko działa... a przynajmniej powinno. Możecie dodawać, kasować, zmieniać strefy, obserwujcie, czy fns1.42.pl i fns2.42.pl odpowiadają poprawnie. Nie zapominajcie, że to <strong>wszystko</strong> zostanie skasowane na rzecz importu ze starego serwisu.</dd>
-
-<dt>Ciągle czekamy [2010-05-19]</dt>
-<dd>W końcu dostałem wjazd na fns2, biorę się ostro za robotę, do końca tygodnia na pewno ruszy.</dd>
-
-<dt>Ciągle czekamy [2010-05-16]</dt>
-<dd>Ciągle czekam na uruchomienie przez sponsora drugiego serwera dns, mam nadzieję, że to już wkrótce.</dd>
-
-<dt>Prawdopodobny start [2010-05-04]</dt>
-<dd>Prawdopodobny start około 15 maja, czekamy na przyjście nowozakupionych serwerów, no i trzeba skonfigurować i przetestować.</dd>
-<dd>
-Zdecydowałem też, że zaimportuję wszystkich użytkowników (trzeba będzie potwierdzić adres email, bo jak nie, to kasacja w rozsądnym czasie) oraz wszystkie strefy i rekordy. Kiedy dokładnie ten import nastąpi, jeszcze nie wiem, ale ogłoszę z wyprzedzeniem. W każdym razie nie będziecie musieli (zbyt dużo) aktualizować w stosunku do starego serwisu<!--, gdyż ciągle mam dostęp do drugiego serwera DNS, gdzie są Wasze wszystkie rekordy-->.
-</dd>
-<dd>Poprzedni fns2 (193.111.27.194) zostanie przekonfigurowany, żeby ściągał
-     strefy z nowych serwerów; w ten sposób nawet jeśli ktoś będzie miał problem
-     z przekonfigurowaniem, to będzie mu działać.
-</dd>
-<dt>Ciągle w wersji testowej [2010-05-03]</dt>
-<dd>
-Można zakładać sobie użytkowników i strefy, <del>ale żaden serwer DNS jeszcze tego nie obsługuje</del>. Ponadto po zakończeniu testów, przed zaimportowaniem backupu z poprzedniego serwisu, wszystkie dotychczasowe, tymczasowe wpisy z bazy danych zostaną skasowane.
-</dd>
-<dd>Oczywiście jeśli znajdziecie jakieś problemy, to proszę pisać. :-)</dd>
-
-   <dt>Komunikat [2010-04-30]</dt>
-   <dd>
-   SGH zdecydowała się wyłączyć FreeDNS i nie współpracować ze mną w zakresie przeniesienia
-   użytkowników na nowy serwis. Wkrótce więcej informacji o krokach potrzebnych do
-   przeniesienia się tutaj.
-   </dd>
-   <dt>Komunikat [2010-04-14]</dt>
-   <dd>
-Uprzejmie informuję, że z powodów ode mnie niezależnych (patrz
-<a href="http://42.pl/freedns.html">42.pl/freedns.html</a>)
-nie będę mógł się dalej opiekować FreeDNS::SGH.
-</dd>
-<dd>
-W zamian utworzyłem FreeDNS::42, niedługo serdecznie zapraszam
-do korzystania z tej wersji.
-Wszystkie wasze dane zostaną przeniesione.<br>
-Możecie zgadywać, który serwis będzie dalej rozwijany i ulepszany.
-   </dd>
-   <dt>Komunikat [2010-04-12]</dt>
-   <dd>
-Uprzejmie informujemy, że od 8 kwietnia 2010 r. serwis FreeDNS SGH
-znajduje
-się pod wyłączną opieką administratorów Centrum Informatycznego SGH. O
-decyzjach Władz Uczelni związanych z dalszym funkcjonowaniem serwisu
-FreeDNS, poinformujemy w terminie późniejszym.<br><br>
-Centrum Informatyczne SGH
-   </dd>
-</dl>
-';
 $archive_content = '
 <dl>
+  <dt>Problemy z dostarczaniem poczty do WP.PL [2013-10-24]</dt>
+  <dd>WP.PL zaczęła odrzucać pocztę z Freedns::42 z idiotycznym tłumaczeniem,
+  że to spam. I nie planują tego wyłączyć. Bardzo proszę wszystkich, którzy
+  są zarejestrowani z tego adresu, o zmianę na jakiś normalny.</dd>
   <dt>Poprawa obsługi dynamicznych stref [2012-02-28]</dt>
   <dd>Przy korzystaniu ze skryptu do dynamicznej aktualizacji rekordu A
   strefa nie zostanie przeładowane, jeśli nowy adres będzie taki, 
@@ -473,4 +405,80 @@ $thanks_content = '
 </dl>
 ';
 
+$migration_content = '
+<dl>
+   <dt>Koniec migracji [2010-08-22]</dt>
+   <dd>Skasowałem wszystkich użytkowników, którzy do tej pory jeszcze nie zmigrowali. Oczywiście razem z ich (nieużywanymi, ale blokującymi zakładanie) strefami.</dd>
+   <dd>Proces migracji użytkowników <a href="migracja.png">na obrazku</a></dd>
+   <dt>Koniec migracji wyznaczony! [2010-08-14]</dt>
+   <dd>Proces migracji zostanie zakończony po trzech miesiącach od startu serwisu, tj. 22 sierpnia 2010. Tego dnia zostaną skasowani wszyscy użytkownicy, którzy do tej pory nie zmigrowali (ponad 12 tys.) oraz ich domeny (ponad 23 tys.)</dd>
+   <dd>Zmigrowało 31% użytkowników ze strefami, przenosząc 60% domen podstawowych i 48% domen zapasowych. Nie oznacza to, niestety, że wszyscy poprzenosili delegacje na nowy serwer, ale już nic z tym nie zrobię. Jeśli ktoś ma ciągle delegację na stare serwery, to znaczy, że po prostu nie korzysta z domeny.</dd>
+   <dt>Dla przychodzących ze starego systemu [2010-07-06]</dt>
+   <dd>Bardzo proszę uważnie czytać informacje! <b>NIE ZAKŁADAJCIE</b> nowego użytkownika, wasz stary już tu jest z waszymi strefami. Zalogujcie się na starego i migrujcie!</dd>
+   <dt>A więc koniec starego systemu [2010-07-01]</dt>
+   <dd>Stary system już nie pozwala się logować. DNS-y jeszcze odpowiadają, ale pewnie za chwilę też wyłączą. Kto jeszcze nie zmigrował tutaj ani nie przeniósł gdzie indziej (prawie 7 tysięcy domen!) za chwilę się bardzo zdziwi, jak mu przestanie działać.</dd>
+
+   <dt>Po trzech tygodniach [2010-06-15]</dt>
+   <dd>Krótkie podsumowanie: do tej pory zmigrowało ok. 42% domen, acz tylko 28% z tego ma zrobioną delegację na FreeDNS::42, stare dnsy (niedługo wyłączają!) ma ciągle jeszcze 36% ze zmigrowanych stref, zaś 36% w ogóle nie ma delegacji. Z drugiej strony, z jeszcze niezmigrowanych aż 70% nie jest zarejestrowanych w starym systemie, więc może to po prostu stare domeny i w ten sposób zostaną naturalnie oczyszczone. </dd>
+   <dd>Krótki przegląd zmian<!-- (podziękowania dla poszczególnych osób będą w oddzielnej notce) -->: poprawiłem mnóstwo błędów w kodzie, automatyczne tworzenie rekordów AAAA ze strefy odwrotnej, robienie MX dla hosta, przetwarzanie logów, kod html i css, UTF-8, tłumaczenia, zakładanie stref, pokazywanie logów i stref na subkontach, pliterki w mailach, mechanizm zmiany adresu mail <!-- (konto już nie jest blokowane do potwierdzenia) -->, ułatwienie do tworzenia wielu rekordów w strefie odwrotnej, nowy typ przekierowania www, walidacja wielu pól, strefy odwrotne dla sieci mniejszych niż /24... <!-- i wiele innych poprawek jest w drodze. --> Piszcie, jeśli czegoś wam brakuje, póki jeszcze mam melodię na dłubanie w tym kodzie. :)</dd>
+  <dd>Krótkie odpowiedzi na często zadawane pytania: dziękuję za oferty pomocy (także tej pieniężnej i materialnej)<!-- , na szczęście sponsorzy pomogli -->; serwis pozostanie darmowy<!-- (poza tym pobieranie opłat od osób prywatnych w Polsce to jakiś koszmar podatkowy) -->; nie, nie dogadałem się, zawartość stref powstała z backupu<!-- oraz przekonwertowana z drugiego serwera DNS, nad którym ciągle mam kontrolę -->; niestety, nie mam jak czytać (i z tego, co wiem, nikt nie czyta) poczty z adresu freedns na starym systemie... no ale przede wszystkim dziękuję za mnóstwo głosów poparcia!</dd>
+   <dt>Nowy start [2010-05-23]</dt>
+   <dd>Ruszamy! Logujecie się <strong>korzystając z loginu i hasła ze starego systemu</strong>, klikacie przycisk "Migruj", czekacie, aż zacznie działać, zmieniacie u rejestratorów domen wpisy dotyczące serwerów nazw, tj. na: fns1.42.pl&nbsp;(79.98.145.34) oraz fns2.42.pl&nbsp;(195.80.237.194), czekacie, aż się zmiany rozpropagują i&nbsp;wtedy możecie skasować strefy i&nbsp;konto ze starego systemu.</dd><dd>Powodzenia!</dd>
+<dd>Czasu nie jest tak dużo: pod koniec czerwca stary system ma zostać wyłączony i jeśli nie przeniesiecie gdzieś (zapraszam tu, rzecz jasna) waszych stref, to przestaną działać.</dd>
+<dt>Prawdopodobny start #2 [2010-05-20]</dt>
+<dd>Tym razem już wszystko mam pod ręką i wygląda, że działa. Zatem najpóźniej w poniedziałek ruszamy.</dd>
+
+<dt>Wszystko działa [2010-05-19]</dt>
+<dd>Wszystko działa... a przynajmniej powinno. Możecie dodawać, kasować, zmieniać strefy, obserwujcie, czy fns1.42.pl i fns2.42.pl odpowiadają poprawnie. Nie zapominajcie, że to <strong>wszystko</strong> zostanie skasowane na rzecz importu ze starego serwisu.</dd>
+
+<dt>Ciągle czekamy [2010-05-19]</dt>
+<dd>W końcu dostałem wjazd na fns2, biorę się ostro za robotę, do końca tygodnia na pewno ruszy.</dd>
+
+<dt>Ciągle czekamy [2010-05-16]</dt>
+<dd>Ciągle czekam na uruchomienie przez sponsora drugiego serwera dns, mam nadzieję, że to już wkrótce.</dd>
+
+<dt>Prawdopodobny start [2010-05-04]</dt>
+<dd>Prawdopodobny start około 15 maja, czekamy na przyjście nowozakupionych serwerów, no i trzeba skonfigurować i przetestować.</dd>
+<dd>
+Zdecydowałem też, że zaimportuję wszystkich użytkowników (trzeba będzie potwierdzić adres email, bo jak nie, to kasacja w rozsądnym czasie) oraz wszystkie strefy i rekordy. Kiedy dokładnie ten import nastąpi, jeszcze nie wiem, ale ogłoszę z wyprzedzeniem. W każdym razie nie będziecie musieli (zbyt dużo) aktualizować w stosunku do starego serwisu<!--, gdyż ciągle mam dostęp do drugiego serwera DNS, gdzie są Wasze wszystkie rekordy-->.
+</dd>
+<dd>Poprzedni fns2 (193.111.27.194) zostanie przekonfigurowany, żeby ściągał
+     strefy z nowych serwerów; w ten sposób nawet jeśli ktoś będzie miał problem
+     z przekonfigurowaniem, to będzie mu działać.
+</dd>
+<dt>Ciągle w wersji testowej [2010-05-03]</dt>
+<dd>
+Można zakładać sobie użytkowników i strefy, <del>ale żaden serwer DNS jeszcze tego nie obsługuje</del>. Ponadto po zakończeniu testów, przed zaimportowaniem backupu z poprzedniego serwisu, wszystkie dotychczasowe, tymczasowe wpisy z bazy danych zostaną skasowane.
+</dd>
+<dd>Oczywiście jeśli znajdziecie jakieś problemy, to proszę pisać. :-)</dd>
+
+   <dt>Komunikat [2010-04-30]</dt>
+   <dd>
+   SGH zdecydowała się wyłączyć FreeDNS i nie współpracować ze mną w zakresie przeniesienia
+   użytkowników na nowy serwis. Wkrótce więcej informacji o krokach potrzebnych do
+   przeniesienia się tutaj.
+   </dd>
+   <dt>Komunikat [2010-04-14]</dt>
+   <dd>
+Uprzejmie informuję, że z powodów ode mnie niezależnych (patrz
+<a href="http://42.pl/freedns.html">42.pl/freedns.html</a>)
+nie będę mógł się dalej opiekować FreeDNS::SGH.
+</dd>
+<dd>
+W zamian utworzyłem FreeDNS::42, niedługo serdecznie zapraszam
+do korzystania z tej wersji.
+Wszystkie wasze dane zostaną przeniesione.<br>
+Możecie zgadywać, który serwis będzie dalej rozwijany i ulepszany.
+   </dd>
+   <dt>Komunikat [2010-04-12]</dt>
+   <dd>
+Uprzejmie informujemy, że od 8 kwietnia 2010 r. serwis FreeDNS SGH
+znajduje
+się pod wyłączną opieką administratorów Centrum Informatycznego SGH. O
+decyzjach Władz Uczelni związanych z dalszym funkcjonowaniem serwisu
+FreeDNS, poinformujemy w terminie późniejszym.<br><br>
+Centrum Informatyczne SGH
+   </dd>
+</dl>
+';
 ?>
