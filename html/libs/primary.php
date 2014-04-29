@@ -110,22 +110,22 @@ class Primary extends Zone {
 
     // set default SOA values
     $this->serial = $line[0];
-    if($line[1]){
+    if($line[1] and $line[1] > 86400){
       $this->refresh = $line[1];
     }else{
-      $this->refresh = 10800;
+      $this->refresh = 86400;
     }
-    if($line[2]){
+    if($line[2] and $line[2] > 10800){
       $this->retry = $line[2];
     }else{
-      $this->retry = 3600;
+      $this->retry = 10800;
     }
-    if($line[3]){
+    if($line[3] and $line[3] > 1209600){
       $this->expiry = $line[3];
     }else{
-      $this->expiry = 604800;
+      $this->expiry = 3600000;
     }
-    if($line[4]){
+    if($line[4] and $line[4] > 10800){
       $this->minimum = $line[4];
     }else{
       $this->minimum = 10800;
@@ -3152,9 +3152,9 @@ function v(t) {
     $result ="";
 
     $this->VerifySOA($defaultttl, 86400, "TTL");
-    $this->VerifySOA($soarefresh, 10800);
+    $this->VerifySOA($soarefresh, 86400);
     $this->VerifySOA($soaretry, 10800);
-    $this->VerifySOA($soaexpire, 604800);
+    $this->VerifySOA($soaexpire, 3600000);
     $this->VerifySOA($soaminimum, 10800);
 
     if(notnull($xferip)){
