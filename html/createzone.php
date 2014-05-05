@@ -122,6 +122,12 @@ endif;
                 sprintf($l['str_bad_zone_name_x'],
                   $zonenamenew)
                 ) . '<br>';
+          if ($zonenamenew != idn_to_ascii($zonenamenew)) {
+            $content .= sprintf($html->fontred,
+                sprintf($l['str_bad_zone_name_idn_x'],
+                  idn_to_ascii($zonenamenew))
+                ) . '<br>';
+          }
         }else{
           if(preg_match("/^(.*)\.$/",$zonenamenew,$newzonename)){
             $zonenamenew = $newzonename[1];

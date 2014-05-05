@@ -15,6 +15,7 @@ $l["str_bad_password_id"] = "Falsche ID, könnte es sein, daß Sie diesen Passwo
 $l["str_bad_serverimport_name"] = "Bad server name for import. Use server name, or server IP address.";
 $l["str_bad_zone_name"] = "Falscher Zonen-Name";
 $l["str_bad_zone_name_x"] = "Falscher Zonen-Name %s";
+$l["str_bad_zone_name_idn_x"] = "Zonen-Name in Punycode: %s";
 $l["str_blacklisted_zone_x_x"] = "Zone %s is not authorized (code %s)";
 $l["str_can_not_open_x_for_reading"] = "Ich kann die Zone %s nicht zum Lesen öffnen";
 $l["str_can_not_open_x_for_writing"] = "Ich kann die Zone %s nicht zum schreiben öffnen";

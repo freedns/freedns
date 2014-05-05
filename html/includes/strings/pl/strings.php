@@ -15,6 +15,7 @@ $l["str_bad_password_id"] = "Zły ID, może ten URL został już wykorzystany?";
 $l["str_bad_serverimport_name"] = "Zła nazwa serwera importu. Użyj nazwy serwera lub jego adresu IP.";
 $l["str_bad_zone_name"] = "zła nazwa strefy";
 $l["str_bad_zone_name_x"] = "zła nazwa strefy %s";
+$l["str_bad_zone_name_idn_x"] = "Nazwa strefy w punycode: %s";
 $l["str_blacklisted_zone_x_x"] = "Nie możesz założyć strefy %s (kod %s)";
 $l["str_can_not_open_x_for_reading"] = "nie mogę otworzyć pliku %s do odczytu";
 $l["str_can_not_open_x_for_writing"] = "nie mogę otworzyć pliku %s do zapisu";
