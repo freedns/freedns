@@ -128,10 +128,6 @@ sub RetrieveRecords {
       # big TXT records to pieces
       $txtval = $ref->{'val2'};
       $txtval = join(' ', map { '"'.$_.'"' } unpack('(A255)*', $txtval) ) unless $txtval =~ /"/;
-      # automatically add SPF record
-      if ($txtval =~ /^"v=spf/i) {
-        $ret .= $ref->{'val1'} . "\t$ttl\tIN\tSPF\t" . $txtval . "\n";
-      }
     }
     $ret .= do {
       if (/^NS$/)
