@@ -9,6 +9,7 @@ params = \
         "name"          : "hostname",
         "oldaddress"    : "*",
         "ttl"           : "600",
+        "updatereverse" : "0",
 }
 
 server = "https://freedns.42.pl/xmlrpc.php"
@@ -23,6 +24,7 @@ freedns-dyndns.py [-h|--help                      ]
                   [-o|--oldaddress <old address>  ] 
                   [-n|--newaddress <new address>  ] 
                   [-t|--ttl        <ttl>          ] 
+                  [--updatereverse <1|0>          ]
                   [-s|--server     <xmlrpc server>] 
 
 Inserts can be performed by leaving "oldaddress" empty.
@@ -54,7 +56,9 @@ def main():
                         server = a
                 elif o in ("-t", "--ttl"):
                         params["ttl"] = a
-                else:   
+                elif o in ("--updatereverse"):
+                        params["updatereverse"] = a
+                else:
                         usage()
                         sys.exit()
 

@@ -149,6 +149,7 @@ Function updateArecord($m) {
     }
   }
   $ttl = notnull(intval($req["ttl"])) ? intval($req["ttl"]) : "-1";
+  $updatereverse = notnull($req["updatereveverse"]);
   if (notnull($req["newaddress"])) {
     $modified = 1;
       if (preg_match('/:/', $req["newaddress"]))
@@ -157,14 +158,14 @@ Function updateArecord($m) {
             array(mysql_real_escape_string($req["newaddress"])), 
             array(mysql_real_escape_string($req["name"])),
             array($ttl),
-            NULL);
+            $updatereverse);
       else
         $res = $currentzone->AddARecord(
             $zone->zoneid,
             array(mysql_real_escape_string($req["newaddress"])), 
             array(mysql_real_escape_string($req["name"])),
             array($ttl),
-            NULL);
+            $updatereverse);
 
     if($currentzone->error){
       return new xmlrpcresp(0, $xmlrpcerruser, $res);
