@@ -2495,51 +2495,52 @@ function v(t) {
     global $db, $html,$l;
 
     // for each TXT, add TXT entry
-    $i = 0;
+    $i = -1;
     $result = "";
     while(list($key,$value) = each($txt)){
-      if($value != ""){
-        if(!$this->checkTXTName($value)){
-          $this->error = sprintf(
-            $l['str_primary_bad_txt_x'],
-            htmlspecialchars($value));
-        }else{
-          if($txtstring[$i] ==""){
-            $this->error = sprintf(
-              $l['str_primary_no_record_x'],
-              htmlspecialchars($value));
-          }else{
-            // Check if CNAME record already exists
-            $query = "SELECT count(*) FROM dns_record WHERE
-              zoneid='" . $this->zoneid . "' AND type='CNAME'
-              AND val1='" . mysql_real_escape_string($value) . "'";
-            $res = $db->query($query);
-            $line = $db->fetch_row($res);
-            if($line[0] == 0){
-              $result .= sprintf(
-                $l['str_primary_adding_txt_x'],
-                htmlspecialchars($value)) . "... ";
-              $newstring = $txtstring[$i];
-              $ttlval = $this->DNSTTL($ttl[$i]);
-              $query = "INSERT INTO dns_record (zoneid, type, val1, val2,ttl)
-                VALUES ('" . $this->zoneid . "', 'TXT', '"
-                . mysql_real_escape_string($value) . "', '" 
-                . mysql_real_escape_string($newstring) . "','" . $ttlval . "')";
-              $db->query($query);
-              if($db->error()){
-                $this->error = $l['str_trouble_with_db'];
-              }else{
-                $result .= $l['str_primary_ok'] . "<br>\n";
-              }
-            }else{
-              $result .= sprintf(
-                $l['str_primary_warning_cname_x_exists_not_overwritten'],
-                htmlspecialchars($value)) . "<br>\n";
-            }
-          }
-        }
-      }
       $i++;
+      if($value == "") {
+        continue;
+      }
+      if(!$this->checkTXTName($value)){
+        $this->error = sprintf(
+            $l['str_primary_bad_txt_x'], htmlspecialchars($value));
+        continue;
+      }
+      if($txtstring[$i] ==""){
+        $this->error = sprintf(
+          $l['str_primary_no_record_x'],
+          htmlspecialchars($value));
+        continue;
+      }
+
+      // Check if CNAME record already exists
+      $query = "SELECT count(*) FROM dns_record WHERE
+          zoneid='" . $this->zoneid . "' AND type='CNAME'
+          AND val1='" . mysql_real_escape_string($value) . "'";
+      $res = $db->query($query);
+      $line = $db->fetch_row($res);
+      if($line[0] != 0){
+        $result .= sprintf(
+          $l['str_primary_warning_cname_x_exists_not_overwritten'],
+          htmlspecialchars($value)) . "<br>\n";
+        continue;
+      }
+
+      $result .= sprintf(
+          $l['str_primary_adding_txt_x'], htmlspecialchars($value)) . "... ";
+      $newstring = $txtstring[$i];
+      $ttlval = $this->DNSTTL($ttl[$i]);
+      $query = "INSERT INTO dns_record (zoneid, type, val1, val2,ttl)
+        VALUES ('" . $this->zoneid . "', 'TXT', '"
+        . mysql_real_escape_string($value) . "', '" 
+        . mysql_real_escape_string($newstring) . "','" . $ttlval . "')";
+      $db->query($query);
+      if ($db->error()) {
+        $this->error = $l['str_trouble_with_db'];
+      } else {
+        $result .= $l['str_primary_ok'] . "<br>\n";
+      }
     }
     return $result;
   }
