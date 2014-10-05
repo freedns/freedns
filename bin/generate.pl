@@ -443,6 +443,13 @@ if($count){
       system($command);
       # reload
       $t0 = [gettimeofday];
+      # HELPER_COMMAND shell script does this:
+      # 1. rndc reconfig for primary named
+      # 2. sed transform of generated NAMED_CONF_ZONES file to convert all master
+      #    zones to slaves (with master set to primary named), something like:
+      #    sed 's/type master;/type slave; notify no; masters {SITE_NS_IP; };/'
+      # 3. rsync transformed file to secondary named
+      # 4. rndc reconfig for secondary named 
       system("$HELPER_COMMAND"); 
       # print LOG logtimestamp() . " " . $LOG_PREFIX . " : DEBUG : generate helper done " .
       #   tv_interval ($t0) . "\n";
