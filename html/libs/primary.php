@@ -744,7 +744,7 @@ function v(t) {
           <table>
           <tr><td class="left">' .
           sprintf($l['str_primary_ipv6_record_modify_reverse_x'], $config->sitename) .
-          '</td><td><input type=checkbox name="modifyptripv6" disabled></td></tr>
+          '</td><td><input type=checkbox name="modifyptripv6"></td></tr>
           </table>
           <table>
           <th>'. $l['str_primary_name'] . '<th>IPv6';
@@ -1329,19 +1329,12 @@ function v(t) {
 
       // if reverse IP is managed by current user, update PTR
       // else check if reverse IP delegation exists (ie as CNAME)
+      # TODO: handle AAAA as well
       $result .= $l['str_primary_looking_for_reverse'] . "... ";
         // construct reverse zone
-      $ipsplit = split('\.', $ip);
-      $reversezone="";
-      $firstip=0;
-      while($reverseipvalue = array_pop($ipsplit)){
-        if($firstip){
-          $reversezone .= $reverseipvalue . ".";
-        }else{
-          $firstip = $reverseipvalue;
-        }
-      }
-      $reversezone .= "in-addr.arpa";
+      $revz = array_reverse(explode('.', $ip));
+      $firstip = $revz[0];
+      $reversezone = implode('.', array_slice($revz, 1)) . ".in-addr.arpa";
       if($this->Exists($reversezone,'P')){
         $alluserzones = $this->user->listallzones();
         $ismanaged=0;
@@ -1462,21 +1455,8 @@ function v(t) {
       $newzone = substr(substr(strstr($name, '.'),1),0,-1);
       $newa = substr($name, 0, strlen($name) - strlen($newzone) -2);
       // construct new IP
-      // zone *.in-addr.arpa or *.ip6.int
-      $iplist = split('\.',strrev(
-                  substr(
-                    strstr(
-                      substr(
-                        strstr(
-                          strrev(
-                            $this->zonename
-                          ),
-                        '.'),
-                      1),
-                    '.'),
-                  1)
-                )
-              );
+      // zone *.in-addr.arpa or *.ip6.arpa
+      $iplist = array_slice(explode('.', $this->zonename), 0, -2);
       $newip = "";
       $count = 0; // we have to count in case of zub-zones aa.bb.cc.dd-ee
       while($ipitem = array_pop($iplist)){
@@ -1657,6 +1637,7 @@ function v(t) {
             preg_match("/^(.*)\/(.*)/",$newvalue,$item);
             $val1 = $item[1];
             $val2 = $item[2];
+            # TODO: use DeleteARecord function(!)
             $query = "DELETE FROM dns_record
               WHERE zoneid='" . $this->zoneid . "'
               AND type='AAAA' AND id='" . mysql_real_escape_string($val2) . "'";
@@ -2242,21 +2223,8 @@ function v(t) {
                       $newzone = substr(substr(strstr($ptrname[$i],'.'),1),0,-1);
                       $newa = substr($ptrname[$i],0,strlen($ptrname[$i]) - strlen($newzone) -2);
                       // construct new IP
-                      // zone *.in-addr.arpa or *.ip6.int
-                      $iplist = split('\.',strrev(
-                                  substr(
-                                    strstr(
-                                      substr(
-                                        strstr(
-                                          strrev(
-                                            $this->zonename
-                                          ),
-                                        '.'),
-                                      1),
-                                    '.'),
-                                  1)
-                                )
-                              );
+                      // zone *.in-addr.arpa or *.ip6.arpa
+                      $iplist = array_slice(explode('.', $this->zonename), 0, -2);
                       $ipreg="[^0-9]";
                       $v6 = preg_match("/\.ip6\.(arpa|int)$/", $this->zonename);
                       if ($v6) {
@@ -2362,21 +2330,8 @@ function v(t) {
                       $newzone = substr(substr(strstr($ptrname[$i],'.'),1),0,-1);
                       $newa = substr($ptrname[$i],0,strlen($ptrname[$i]) - strlen($newzone) -2);
                       // construct new IP
-                      // zone *.in-addr.arpa or *.ip6.int
-                      $iplist = split('\.',strrev(
-                                  substr(
-                                    strstr(
-                                      substr(
-                                        strstr(
-                                          strrev(
-                                            $this->zonename
-                                          ),
-                                        '.'),
-                                      1),
-                                    '.'),
-                                  1)
-                                )
-                              );
+                      // zone *.in-addr.arpa or *.ip6.arpa
+                      $iplist = array_slice(explode('.', $this->zonename), 0, -2);
                       $newip = "";
                       $count = 0; // we have to count in case of zub-zones aa.bb.cc.dd-ee
                       while($ipitem = array_pop($iplist)){
@@ -3000,6 +2955,8 @@ function v(t) {
     return $result;
   }
 
+Function ZoneLenCmp($a, $b) { return strlen($a[0])-strlen($b[0]); }
+
 // *******************************************************
 //   Function UpdateReversePTR($a,$value)
   /**
@@ -3018,34 +2975,24 @@ function v(t) {
     $result .= $l['str_primary_looking_for_reverse'] . "... ";
     // construct reverse zone
     if(!strcmp($type,"A")){
-      $ipsplit = split('\.',$a);
-      $reversezone="";
-      $firstip=0;
-      while(($reverseipvalue = array_pop($ipsplit)) !== NULL){
-        if($firstip){
-          $reversezone .= $reverseipvalue . ".";
-        }else{
-          $firstip = $reverseipvalue;
-        }
-      }
-      $reversezone .= "in-addr.arpa";
+      $revz = array_reverse(explode('.', $a));
+      $firstip = $revz[0];
+      $reversezone = implode('.', array_slice($revz, 1)) . ".in-addr.arpa";
     }else{ // not A, then AAAA
       $ip = ConvertIPv6toDotted($a);
-      $ipsplit = split('\.',$ip);
-      $reversezone="";
-      $firstip=0;
-      reset($ipsplit);
-      // remove first element (has to be modified)
-      while(($reverseipvalue = array_pop($ipsplit)) !== NULL ){
-        if($firstip){
-          $reversezone .= $reverseipvalue . ".";
-        }else{
-          $firstip = $reverseipvalue;
+      $revz = implode('.', array_reverse(explode('.', $ip))) . ".ip6.arpa";
+      $alluserzones = $this->user->listallzones();
+      uasort($alluserzones, 'ZoneLenCmp');
+      while($userzones = array_pop($alluserzones)){
+        if ($userzones[1] != 'P') continue;
+        $cut = strrpos($revz, $userzones[0]);
+        if ($cut !== FALSE) {
+           $firstip = substr($revz, 0, $cut-1);  # minus dot
+           $reversezone = substr($revz, $cut);
+           break;
         }
       }
-      $reversezone .= "ip6.arpa";
     }
-    // TODO needed to recognize upper than a dot away for IPv6
     if($this->Exists($reversezone,'P')){
       $alluserzones = $this->user->listallzones();
       $ismanaged=0;
@@ -3058,7 +3005,7 @@ function v(t) {
       if($ismanaged){
         // modification allowed because same owner
         // looking for zoneid
-        $result .= $l['str_primary_zone_managed_by_you'];
+        $result .= $l['str_primary_zone_managed_by_you'] ."<br>";
         $query = "SELECT id FROM dns_zone
           WHERE zone='" . $reversezone . "' AND zonetype='P'";
         $res = $db->query($query);
