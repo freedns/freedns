@@ -1,3 +1,12 @@
+FreeDNS::42 has been forked off XName a long time ago.
+Since it was a private fork, a lot of docs are sorely outdated, sorry.
+
+http://freedns.42.pl
+
+Contact: freedns @ 42.pl
+
+=====================================================================
+
 XName is an engine providing modular web managed DNS hosting, with a 
 lot of features like DNS server logs viewer, synthetical view of all
 user's zones, and much more - for primary and secondary zones. 
@@ -17,8 +26,4 @@ See doc/MULTISERVERS to enable multiservers.
 See doc/dynamic-update.txt for dynamic update feature.
 
 Source code is free (under GPL, see LICENSE file) 
-
-Production: http://freedns.42.pl
-
-Contact developers: <freedns@42.pl>
 
