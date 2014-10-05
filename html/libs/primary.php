@@ -120,17 +120,17 @@ class Primary extends Zone {
     }else{
       $this->retry = 10800;
     }
-    if($line[3] and $line[3] > 1209600){
+    if($line[3] and $line[3] > 3600000){
       $this->expiry = $line[3];
     }else{
       $this->expiry = 3600000;
     }
-    if($line[4] and $line[4] > 10800){
+    if($line[4] and $line[4] < 10800){
       $this->minimum = $line[4];
     }else{
       $this->minimum = 10800;
     }
-    if($line[5]){
+    if($line[5] and $line[5] > 86400){
       $this->defaultttl = $line[5];
     }else{
       $this->defaultttl = 86400;
