@@ -416,9 +416,9 @@ $str_email_go_on_followin_page_to_recover{'pl'}  = "Udaj się na tę tymczasową
 Uwaga: stronę będziesz mógł odwiedzić tylko raz.";
 $str_email_address_modified_on_x{'pl'}  = "Zmieniłeś swój adres email w serwisie %s.";
 $str_contact_title{'pl'}  = "Kontakt";
-$str_contact_for_bugs_contact_us{'pl'}  = "W sprawach związanych z problemami dotyczącymi serwisu FreeDNS::SGH możesz skontaktować się z nami pod adresem <a href=\"mailto:freedns@sgh.waw.pl\" class=\"linkcolor\">freedns@sgh.waw.pl</a>.<br />";
+$str_contact_for_bugs_contact_us{'pl'}  = "W sprawach związanych z problemami dotyczącymi serwisu FreeDNS::42 możesz skontaktować się z nami pod adresem <a href=\"mailto:freedns@42.pl\" class=\"linkcolor\">freedns@42.pl</a>.<br />";
 $str_contribute_title{'pl'}  = "Oprogramowanie";
-$str_contribute_content{'pl'}  = "System FreeDNS::SGH to <a target=_blank href=\"http://www.xname.org/\">XName Software</a>, który na język polski przetłumaczył, a także skonfigurował i udostępnił światu, Piotr Kucharski.<br>Jeśli podoba Ci się to oprogramowanie, możesz <a target=_blank href=\"http://www.xname.org/contribute.php\" class=\"linkcolor\">pomóc</a> w jego tworzeniu i/lub przysyłać swoje poprawki i propozycje rozwoju (<a href=\"mailto:xname@xname.org\">xname@xname.org</a>).<br />XName Software jest udostępnione na <a target=_blank href=\"http://www.gnu.org/copyleft/gpl.html\" class=\"linkcolor\">licencji GPL</a>.";
+$str_contribute_content{'pl'}  = "System FreeDNS::42 to <a target=_blank href=\"http://www.xname.org/\">XName Software</a>, który na język polski przetłumaczył, a także skonfigurował i udostępnił światu, Piotr Kucharski.<br>Jeśli podoba Ci się to oprogramowanie, możesz <a target=_blank href=\"http://www.xname.org/contribute.php\" class=\"linkcolor\">pomóc</a> w jego tworzeniu i/lub przysyłać swoje poprawki i propozycje rozwoju (<a href=\"mailto:freedns@42.pl\">freedns@42.pl</a>).<br />XName Software jest udostępnione na <a target=_blank href=\"http://www.gnu.org/copyleft/gpl.html\" class=\"linkcolor\">licencji GPL</a>.";
 $str_languages_title{'pl'}  = "Dostępne języki";
 $str_reload_mail_subject_x_x{'pl'}  = "%s Przeladowano Twoje strefy na %s";
 $str_reload_mail_content_x_x_x{'pl'}  = "To jest automatyczny list z serwera DNS %s usługi %s.
