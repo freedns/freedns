@@ -1550,13 +1550,15 @@ function v(t) {
    */
 
 
-  Function DeleteMultipleARecords($name){
+  Function DeleteMultipleARecords($name, $what=""){
 
     global $db,$html,$l;
 
+    if (empty($what)) { $what = "'A','AAAA'"; }
+    else $what = "'$what'";
     $query = "DELETE FROM dns_record
       WHERE zoneid='" . $this->zoneid . "'
-      AND type IN ('A','AAAA') AND val1='" . mysql_real_escape_string($name) . "'";
+      AND type IN (" . $what . ") AND val1='" . mysql_real_escape_string($name) . "'";
     $result .= sprintf(
       $l['str_primary_deleting_a_x'],
       htmlspecialchars($name)) . "... ";

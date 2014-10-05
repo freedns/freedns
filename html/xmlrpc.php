@@ -132,6 +132,10 @@ Function updateArecord($m) {
     $modified = 1;
     if ($req["oldaddress"] == "*") {
       $currentzone->DeleteMultipleARecords($req["name"]);
+    } elseif ($req["oldaddress"] == "*.*") {
+      $currentzone->DeleteMultipleARecords($req["name"], "A");
+    } elseif ($req["oldaddress"] == "*:*") {
+      $currentzone->DeleteMultipleARecords($req["name"], "AAAA");
     } else {
       $tmpname = mysql_real_escape_string($req["name"]) . "/" . mysql_real_escape_string($req["oldaddress"]);
       if (preg_match('/:/', $req["oldaddress"]))
