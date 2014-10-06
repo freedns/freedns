@@ -56,7 +56,7 @@ class User extends Auth {
     $this->nbrows=$config->defaultnbrows;
     global $db,$l;
     
-    if(notnull($login)){
+    if(!empty($login)){
       if($this->Auth($login,$password,$md5)){
           $this->authenticated=1;
         $id = $this->generateIDSession();
@@ -70,7 +70,7 @@ class User extends Auth {
         }
         $this->idsession=$id;
       }else{ // bad login
-        if(notnull($this->error)){
+        if(!empty($this->error)){
           return 0;
         }else{
           // No authentication
@@ -79,11 +79,11 @@ class User extends Auth {
         }
       }
     }else{ // end if not null login
-      if(notnull($sessionID)){
+      if(!empty($sessionID)){
         // retrieve $login, $password from DB
         // check if session not expired (30mn)
         $this->checkidsession($sessionID);        
-        if(notnull($this->error)){
+        if(!empty($this->error)){
           return 0;
         }
         $this->authenticated=1;
@@ -314,7 +314,7 @@ class User extends Auth {
       $query .= "(userid='" . $this->userid . "' OR zone=' Google Apps template')";
     else
       $query .= "userid='" . $this->userid . "'";
-    if (notnull($zone)) $query .= " AND zone='".mysql_real_escape_string($zone)."'";
+    if (!empty($zone)) $query .= " AND zone='".mysql_real_escape_string($zone)."'";
     $query .= " AND status!='D' ORDER BY zone DESC";
     $res = $db->query($query);
     if($db->error()){

@@ -112,14 +112,14 @@ Function updateArecord($m) {
     return new xmlrpcresp(0, $xmlrpcerruser, "You can not manage zone ". $zone->zonename);
   }
   $currentzone = new Primary($zone->zonename, $zone->zonetype, $user);
-  if (notnull($req["newaddress"]) && $req["newaddress"] == "<dynamic>")
+  if (!empty($req["newaddress"]) && $req["newaddress"] == "<dynamic>")
     $req["newaddress"] = $_SERVER["REMOTE_ADDR"];
-  if (notnull($req["oldaddress"])) {
+  if (!empty($req["oldaddress"])) {
     # first check if the new address is the same we already have
     # and skip changes if so
     $currentzone->getArecords($addarr, mysql_real_escape_string($req["name"]));
     if (count($addarr) == 1 && in_array($req["newaddress"], $addarr)) {
-      $ttl = notnull(intval($req["ttl"])) ? intval($req["ttl"]) : "-1";
+      $ttl = !empty(intval($req["ttl"])) ? intval($req["ttl"]) : "-1";
       $ret = array(
           "zone" => $req["zone"],
           "serial" => $currentzone->serial,
@@ -148,9 +148,9 @@ Function updateArecord($m) {
       return new xmlrpcresp(0, $xmlrpcerruser, $currentzone->error);
     }
   }
-  $ttl = notnull(intval($req["ttl"])) ? intval($req["ttl"]) : "-1";
-  $updatereverse = notnull($req["updatereveverse"]);
-  if (notnull($req["newaddress"])) {
+  $ttl = !empty(intval($req["ttl"])) ? intval($req["ttl"]) : "-1";
+  $updatereverse = !empty($req["updatereveverse"]);
+  if (!empty($req["newaddress"])) {
     $modified = 1;
       if (preg_match('/:/', $req["newaddress"]))
         $res = $currentzone->AddAAAARecord(

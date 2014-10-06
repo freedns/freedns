@@ -39,7 +39,7 @@ if($user->authenticated == 0){
   if($config->usergroups){
     $content .= '<p>';
     $usergrouprights = $group->getGroupRights($user->userid);
-    if(!notnull($user->error)){
+    if(empty($user->error)){
       switch ($usergrouprights){
         case '0':
           $content .= $user->error;
@@ -88,7 +88,7 @@ if($user->authenticated == 0){
   }else{
     $allzones = $user->listallzones();
   }
-  if(!notnull($user->error)){
+  if(empty($user->error)){
     $content = '
       <div id="legend">
       <span class="loghighlightINFORMATION">' . $l['str_log_information'] . '</span>

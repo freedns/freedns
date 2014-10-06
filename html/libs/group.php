@@ -292,7 +292,7 @@ class Group {
       $query .= "(userid='" . $this->groupid ."' OR zone=' Google Apps template')";
     else
       $query .= "userid='" . $this->groupid ."'";
-    if (notnull($zone)) $query .= " AND zone='".mysql_real_escape_string($zone)."'";
+    if (!empty($zone)) $query .= " AND zone='".mysql_real_escape_string($zone)."'";
     $query .= " AND status!='D' ORDER BY zone DESC";
     $res = $db->query($query);
     if($db->error()){

@@ -28,8 +28,8 @@ if(file_exists("includes/left_side.php")) {
 
 $title = $l['str_email_validation_title'];
 
-if((isset($_REQUEST) && notnull($_REQUEST['id'])) || 
-  (!isset($_REQUEST) && notnull($id))){
+if((isset($_REQUEST) && !empty($_REQUEST['id'])) || 
+  (!isset($_REQUEST) && !empty($id))){
   if(isset($_REQUEST)){
     $id = $_REQUEST['id'];
   }

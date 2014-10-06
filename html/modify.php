@@ -30,7 +30,7 @@ if($user->authenticated==1){
     $zonename=$_REQUEST['zonename'];
     $zonetype=$_REQUEST['zonetype'];
   }
-  if(notnull($zonename)){
+  if(!empty($zonename)){
     $zonename = addslashes($zonename);
     $zonetype = addslashes($zonetype);
     $zone = new Zone($zonename,$zonetype);
@@ -91,7 +91,7 @@ if($user->authenticated==1){
             }
             if(isset($_REQUEST['modifyptr'])){
               $modifyptr = $_REQUEST['modifyptr'];
-              if(!notnull($modifyptr) ||
+              if(empty($modifyptr) ||
               !strcmp($modifyptr,'off')){
                 $modifyptr = "0";
               }else{
@@ -102,7 +102,7 @@ if($user->authenticated==1){
             }
             if(isset($_REQUEST['modifya'])){
               $modifya = $_REQUEST['modifya'];
-              if(!notnull($modifya) ||
+              if(empty($modifya) ||
               !strcmp($modifya,'off')){
                 $modifya = "0";
               }else{
@@ -114,7 +114,7 @@ if($user->authenticated==1){
 
             if(isset($_REQUEST['modifyptripv6'])){
               $modifyptripv6 = $_REQUEST['modifyptripv6'];
-              if(!notnull($modifyptripv6) ||
+              if(empty($modifyptripv6) ||
               !strcmp($modifyptripv6,'off')){
                 $modifyptripv6 = "0";
               }else{
@@ -287,7 +287,7 @@ if($user->authenticated==1){
       $allzones = $user->listallzones();
     }
   
-    if(!notnull($user->error)){
+    if(empty($user->error)){
       $content =  '<h3 class="boxheader">' . $l['str_choose_a_zone_to_modify']
       . '</h3>';
       $content .='<table>';
