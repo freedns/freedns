@@ -965,7 +965,6 @@ class Auth {
   }
 
 
-//  Function GenerateRandomPassword($length)
   /**
   * Return a random password of $length length
   *
@@ -974,26 +973,14 @@ class Auth {
   *@return string password
   */
 
-  Function generateRandomPassword($length){
-    $u_alpha = array("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
-    $l_alpha = array("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w");
-    $numeric = array("0","1","2","3","4","5","6","7","8","9");
-    $sel = mt_rand(0, 1);
-    if ($sel == 0){
-      $pass = $u_alpha[mt_rand(0, (count($u_alpha) - 1))];
-    }else{
-      $pass = $l_alpha[mt_rand(0, (count($l_alpha) - 1))];
+  function generateRandomPassword($length) {
+    $chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    $chars .= strtolower($chars);
+    $pass = str_shuffle($chars)[0];
+    $chars .= "0123456789";
+    for ($i=0; $i<$length; $i++) {
+      $pass .= str_shuffle($chars)[0];
     }
-      for ($i=0;$i<$length;$i++){
-        $sel = mt_rand(0, 2);
-        if ($sel == 0){
-          $pass .= $u_alpha[mt_rand(0, (count($u_alpha) - 1))];
-        }else if ($sel == 1){
-          $pass .= $l_alpha[mt_rand(0, (count($l_alpha) - 1))];
-        }else{
-          $pass .= $numeric[mt_rand(0, (count($numeric) - 1))];
-        }
-      }
     return $pass;
   }
 

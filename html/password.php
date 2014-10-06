@@ -137,7 +137,7 @@ if((isset($_REQUEST) && !isset($_REQUEST['id']) && !isset($_REQUEST['account']))
         $id=addslashes($id);
         if($user->validateIDRecovery($id)){
           // id OK, validate
-          $password = $user->GenerateRandomPassword(8);
+          $password = $user->generateRandomPassword(16);
           $user->updatePassword($password);
           $content .= '
           ' . $l['str_password_recovery_login_is'] . 
