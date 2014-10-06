@@ -977,8 +977,8 @@ class Auth {
     $chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     $chars .= strtolower($chars);
     $pass = str_shuffle($chars)[0];
-    $chars .= "0123456789";
-    for ($i=0; $i<$length; $i++) {
+    $chars .= "01234567890123456789";
+    for ($i=1; $i<$length; $i++) {
       $pass .= str_shuffle($chars)[0];
     }
     return $pass;
