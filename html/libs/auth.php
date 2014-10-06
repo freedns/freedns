@@ -976,10 +976,11 @@ class Auth {
   function generateRandomPassword($length) {
     $chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     $chars .= strtolower($chars);
-    $pass = str_shuffle($chars)[0];
-    $chars .= "01234567890123456789";
-    for ($i=1; $i<$length; $i++) {
-      $pass .= str_shuffle($chars)[0];
+    $chars .= "0123456789@/*0123456789@/*";
+    $size = strlen($chars) - 1;
+    $pass = "";
+    while (strlen($pass) < $length) {
+      $pass .= $chars[mt_rand(0, $size)];
     }
     return $pass;
   }
