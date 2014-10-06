@@ -119,7 +119,8 @@ Function updateArecord($m) {
     # and skip changes if so
     $currentzone->getArecords($addarr, mysql_real_escape_string($req["name"]));
     if (count($addarr) == 1 && in_array($req["newaddress"], $addarr)) {
-      $ttl = !empty(intval($req["ttl"])) ? intval($req["ttl"]) : "-1";
+      $ttl = intval($req["ttl"]);
+      if (empty($ttl)) $ttl = "-1";
       $ret = array(
           "zone" => $req["zone"],
           "serial" => $currentzone->serial,
@@ -148,7 +149,8 @@ Function updateArecord($m) {
       return new xmlrpcresp(0, $xmlrpcerruser, $currentzone->error);
     }
   }
-  $ttl = !empty(intval($req["ttl"])) ? intval($req["ttl"]) : "-1";
+  $ttl = intval($req["ttl"]);
+  if (empty($ttl)) $ttl = "-1";
   $updatereverse = !empty($req["updatereveverse"]);
   if (!empty($req["newaddress"])) {
     $modified = 1;

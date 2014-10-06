@@ -75,7 +75,7 @@ if(isset($_REQUEST)){
   if(isset($_REQUEST['language']) && !empty($_REQUEST['language'])){
     $lang = $_REQUEST['language'];
   }else{
-    if(isset($_REQUEST['newlang']) && !empty(isset($_REQUEST['newlang']))){
+    if(isset($_REQUEST['newlang']) && !empty($_REQUEST['newlang'])){
       $lang = $_REQUEST['newlang'];
     }else{
       $lang = $config->defaultlanguage;
