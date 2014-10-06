@@ -8,7 +8,7 @@ if($config->usergroups){
 
 $checksec="";
 $checkpri="";
-if (!@!empty($template) || $template==$l['str_none']) {
+if (empty($template) || $template==$l['str_none']) {
   if (@$zonetypenew=='S')
     $checksec=" checked";
   else if (@$zonetypenew=='P')
