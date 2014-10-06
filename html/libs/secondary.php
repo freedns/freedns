@@ -154,7 +154,7 @@ class Secondary extends Zone {
   list($primary,$xfer,$xferip)=$params;
   $content = "";
   $localerror=0;
-  if(!notnull($primary)){
+  if(empty($primary)){
    $localerror = 1;
    $content .= sprintf($html->string_error,
     $l['str_secondary_you_must_provide_a_primary'] 
@@ -227,7 +227,7 @@ class Secondary extends Zone {
        break;
       }
 
-      if(notnull($msg)){
+      if(!empty($msg)){
        $dig = '"' . $dig . '" (' . $msg . ')';
       }
 
@@ -245,7 +245,7 @@ class Secondary extends Zone {
   
   
   // check xferip
-  if(notnull($xferip)){
+  if(!empty($xferip)){
    if(!checkPrimary($xferip)){
     $localerror = 1;
     $content .= sprintf($html->string_error, 
@@ -297,7 +297,7 @@ class Secondary extends Zone {
    }else{
     // flag status='M' to be generated & reloaded
     $ret = $this->flagModified($this->zoneid);
-    if(notnull($ret)){
+    if(!empty($ret)){
      $result .= $ret;
     }else{
      // retrieve list of ns names

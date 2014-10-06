@@ -248,17 +248,17 @@ if($config->usergroups){
 
         case "usercreation":
 
-          if(!notnull($loginnew)){
+          if(empty($loginnew)){
             $missing .= ' ' . $l['str_login'] . ',';
           }
-          if(!notnull($passwordnew)){
+          if(empty($passwordnew)){
             $missing .= ' ' . $l['str_password'] . ',';
           }
-          if(!notnull($confirmpasswordnew)){
+          if(empty($confirmpasswordnew)){
             $missing .= ' ' . $l['str_confirm_password'] . ',';
           }
   
-          if(notnull($missing)){
+          if(!empty($missing)){
             $localerror = 1;
             $missing = substr($missing,0, -1);
             $content .= sprintf($html->fontred, 

@@ -38,7 +38,7 @@ if($user->authenticated == 0){
     $allzones = $user->listallzones($zone);
   }
 
-  if(!notnull($user->error)){
+  if(empty($user->error)){
     $content ='<table id="listzonestable">
     <tr>
     <td style="width:30%" class="boxheader">' . $l['str_zone'] . '</td>

@@ -72,10 +72,10 @@ if($config->userdbname){
 }
 $deflangused = 0;
 if(isset($_REQUEST)){
-  if(isset($_REQUEST['language']) && notnull($_REQUEST['language'])){
+  if(isset($_REQUEST['language']) && !empty($_REQUEST['language'])){
     $lang = $_REQUEST['language'];
   }else{
-    if(isset($_REQUEST['newlang']) && notnull(isset($_REQUEST['newlang']))){
+    if(isset($_REQUEST['newlang']) && !empty(isset($_REQUEST['newlang']))){
       $lang = $_REQUEST['newlang'];
     }else{
       $lang = $config->defaultlanguage;
@@ -83,10 +83,10 @@ if(isset($_REQUEST)){
     }
   }
 }else{
-  if(isset($language) && notnull($language)){
+  if(isset($language) && !empty($language)){
     $lang=$language;
   }else{
-    if(isset($newlang) && notnull($newlang)){
+    if(isset($newlang) && !empty($newlang)){
       $lang = $newlang;
     }else{
       $lang = $config->defaultlanguage;
@@ -103,7 +103,7 @@ $html->initialize();
 $user = new User($login,$password,$idsession);
 
 // use $idsession in all urls, including first page
-if(!notnull($idsession) && $user->authenticated){
+if(empty($idsession) && $user->authenticated){
   header("Location: " . $config->mainurl
     . ereg_replace("^/","", $_SERVER[PHP_SELF])
     . "?idsession=" . $user->idsession);
@@ -158,11 +158,11 @@ if($config->usergroups){
 }
 
   
-if(!notnull($idsession)){
+if(empty($idsession)){
   $idsession=$user->idsession;
 }
 
-if(notnull($idsession)){
+if(!empty($idsession)){
   $link="?idsession=" . htmlspecialchars($idsession);
   $hiddenfields = '<input type="hidden" name="idsession" value="' . htmlspecialchars($idsession) . '">';
   // add language only if different 

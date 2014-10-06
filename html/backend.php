@@ -48,7 +48,7 @@ if($config->userdbname){
 
 $user = new User($login,$password,$idsession);
 
-if(!notnull($idsession)){
+if(empty($idsession)){
   $idsession=$user->idsession;
 }
 
@@ -58,7 +58,7 @@ if($logout){
 
 if(!$user->error && $user->authenticated==1){
   $allzones = $user->listallzones();
-  if(!notnull($user->error)){
+  if(empty($user->error)){
     $numberofzones = count($allzones);
     // print number of zones
     print "NbZones: $numberofzones\n";

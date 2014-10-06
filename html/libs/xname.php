@@ -26,34 +26,6 @@ include 'libs/stats.php';
 // Utilities 
 
 
-// function notnull($string)
-//     returns true or false if string is null or not
-/**
- * Check if a string is null or empty
- *
- *@param string $string string to test
- *@return int 0 if string null or empty, 1 if not
- */
-function notnull($string){
-  if(!isset($string)){
-    $result = 0;
-  }else{
-    if(!strcmp("", $string)){
-      $result = 0;
-    }else{
-      if($string == '0'){
-        $result = 0;
-      }else{
-        $result = 1;
-      }
-    }
-  }
-
-  return $result;
-}
-
-
-
 // function mailer($from, $to, $subject, $headers, $message)
 //     send email
 /**
@@ -627,7 +599,7 @@ function diffDate($date){
  */
   Function getSerial($previous=0){
     $serial = time();
-    if (notnull($previous) && $previous > $serial){
+    if (!empty($previous) && $previous > $serial){
         $serial = $previous + 1;
     }
     return $serial;

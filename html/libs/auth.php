@@ -41,7 +41,7 @@ class Auth {
     $this->valid = 0;
     $this->userid = 0;
 
-    if (!notnull($login)) {
+    if (empty($login)) {
       return 0;
     }
     $this->cleanId($config->userdbrecoverytable,
@@ -56,7 +56,7 @@ class Auth {
       }
     }
 
-    if (!notnull($this->error)) {
+    if (empty($this->error)) {
         $this->error = $l['str_bad_login_name'];
     }
     return 0;
@@ -317,7 +317,7 @@ class Auth {
     global $dbauth, $l, $config;
 
     $this->error = "";
-    if (notnull($this->email)) {
+    if (!empty($this->email)) {
       return $this->email;
     }
     $query = sprintf(
@@ -484,7 +484,7 @@ class Auth {
     global $dbauth, $l, $config;
 
     $this->error = "";
-    if (notnull($this->password)) {
+    if (!empty($this->password)) {
       return $this->password;
     }
     $query = sprintf("SELECT %s FROM %s WHERE %s='%s'",
@@ -593,7 +593,7 @@ class Auth {
       $this->error = $l['str_trouble_with_db'];
       return 0;
     }
-    if (!notnull($line[0])) {
+    if (empty($line[0])) {
       $this->error = $l['str_no_such_id'] ;
       return 0;
     }
@@ -625,7 +625,7 @@ class Auth {
       if (preg_match("/emailsoa = ([^;]*);/i", $options, $match)) {
         $emailsoa = $match[1];
       }
-      if (notnull($emailsoa)) {
+      if (!empty($emailsoa)) {
         $options = ereg_replace('emailsoa = 1', 'emailsoa = 0', $options);
       }
       $options = "'" . $options . "'";
@@ -667,7 +667,7 @@ class Auth {
       $this->error = $l['str_trouble_with_db'];
       return 0;
     }
-    if (!notnull($line[0])) {
+    if (empty($line[0])) {
       $this->error = $l['str_no_such_id'] ;
       return 0;
     }
@@ -780,7 +780,7 @@ class Auth {
       $this->error = $l['str_trouble_with_db'];
       return 0;
     }
-    if (!notnull($line[0])) {
+    if (empty($line[0])) {
       $this->error = $l['str_no_such_id'];
       return 0;
     }

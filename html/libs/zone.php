@@ -41,18 +41,18 @@ class Zone {
     global $l;
     $this->error="";
 
-    if(notnull($zoneid)){
+    if(!empty($zoneid)){
       $this->zonename=$zonename;
       $this->zonetype=$zonetype[0];
       $this->zoneid=$zoneid;
     }else{
-      if(notnull($zonename)){
+      if(!empty($zonename)){
         if($this->Exists($zonename,$zonetype)){
           $this->zonename=$zonename;
           $this->zonetype=$zonetype;
           $this->retrieveID($zonename,$zonetype);
         }else{ // does not exist
-          if(notnull($this->error)){
+          if(!empty($this->error)){
             return 0;
           }else{
             // No authentication
@@ -93,7 +93,7 @@ class Zone {
       return 0;
     }
 
-    if(!notnull($line[0])){
+    if(empty($line[0])){
       return 0;
     }else{
       return 1;
@@ -260,7 +260,7 @@ endif;
         // if multiserver, insert for others
         // restrictions on servers should be written here
             
-        if (notnull($this->error)) {
+        if (!empty($this->error)) {
           // argh! no rollback for myisam.
           $query = sprintf("DELETE FROM dns_zone WHERE zone='%s' AND zonetype='%s' AND userid='%s';",
             mysql_real_escape_string($zonename), $zonetype, $userid);
@@ -302,7 +302,7 @@ endif;
               $res2 = $db->query($query);
             }
           }
-          if ($zonetype=='S' && notnull($serverimport)){
+          if ($zonetype=='S' && !empty($serverimport)){
             $query = sprintf("INSERT INTO dns_confsecondary
               (zoneid, masters, xfer)
               VALUES ('%s', '%s', '%s')",
@@ -317,12 +317,12 @@ endif;
           }
           // flag as 'M'odified to be generated & reloaded
           $ret = $this->flagModified($this->zoneid);
-          if(notnull($ret)){
+          if(!empty($ret)){
               $this->error .= $l['str_trouble_with_db'];
               return 0;
           }
           return 1;
-        } // notnull($this->error)
+        } // !empty($this->error)
       }
     }else{
       // check if zone status is D or not
@@ -842,7 +842,7 @@ endif;
               print "<p><span class=\"error\">" . $l['str_log_unknown'] . "</span>" .
           "<br>\n" . $line . "\n</p>";
           }
-          if(notnull($query)){
+          if(!empty($query)){
             $dbqueries++;
             $db->query($query);
             if($db->error()){
@@ -876,7 +876,7 @@ endif;
 
   Function flagErroneous($content=""){
     global $db;
-    if (notnull($content)) {
+    if (!empty($content)) {
       $query = sprintf("INSERT INTO dns_log (zoneid,content,status,serverid) " .
                        "VALUES ('%s', '%s', 'E', '1')",
                        $this->zoneid, mysql_real_escape_string($content));

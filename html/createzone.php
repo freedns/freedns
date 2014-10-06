@@ -80,15 +80,15 @@ endif;
       $localerror = 0;
       $missing = "";
     
-      if(!notnull($zonenamenew)){
+      if(empty($zonenamenew)){
         $missing .= " " . $l['str_zone'] . ",";
       }
-      if(!notnull($zonetypenew)){
+      if(empty($zonetypenew)){
         $missing .= " " . $l['str_zonetype'] . ",";
       }
       if($zonetypenew=='S'){
-        if(!notnull($template) || $template==$l['str_none']){
-          if(!notnull($authoritative)){
+        if(empty($template) || $template==$l['str_none']){
+          if(empty($authoritative)){
             $missing .= " " . $l['str_authoritative_server'] . ",";
           }elseif (!checkIP($authoritative)){
             $missing .= " " . $l['str_secondary_your_primary_should_be_an_ip'] . ",";
@@ -98,7 +98,7 @@ endif;
           $authoritative = "";
         }
       }
-      if(notnull($missing)){
+      if(!empty($missing)){
         $localerror = 1;
         $missing = substr($missing,0, -1);
         $content .= sprintf($html->fontred,
@@ -113,7 +113,7 @@ endif;
       if ($zonetypenew == "P") {
         $server = $serverimport;
       }
-      if (!notnull($template)) $template = $l['str_none'];
+      if (empty($template)) $template = $l['str_none'];
   
       if(!$localerror){
         if(!checkZone($zonenamenew)){
@@ -170,7 +170,7 @@ endif;
         // *            Create new zone           *
         // ****************************************
         // import zone content
-        if(notnull($serverimport)){
+        if(!empty($serverimport)){
             // check if server is IP or NS name
             if(!(checkIP($serverimport) || checkDomain($serverimport)) ){
               $content .= sprintf($html->string_warning, 
@@ -179,7 +179,7 @@ endif;
             } 
         }
 if (0):
-        if(notnull($zonearea)){
+        if(!empty($zonearea)){
           if(strcmp($zonetypenew, 'P')){
             $content .= sprintf($html->string_warning, 
               $l['str_no_zonearea']); 

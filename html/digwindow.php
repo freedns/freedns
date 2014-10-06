@@ -110,7 +110,7 @@ $html->initialize();
 
 print $html->header($l['str_dig_zone_title']);
 
-if(!notnull($idsession)){
+if(empty($idsession)){
   $idsession=$user->idsession;
 }
 
@@ -119,7 +119,7 @@ $logout)){
   $user->logout($idsession);
 }
 
-if(notnull($idsession)){
+if(!empty($idsession)){
   $link="?idsession=" . $idsession . "&amp;language=" . $lang;
 }else{
   $link="?language=" .$lang;

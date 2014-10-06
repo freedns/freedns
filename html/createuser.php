@@ -75,19 +75,19 @@ if($config->public){
     $localerror = 0;
     $missing = "";
   
-    if(!notnull($loginnew)){
+    if(empty($loginnew)){
       $missing .= " " . $l['str_login'] . ",";
     }
-    if(!notnull($passwordnew)){
+    if(empty($passwordnew)){
       $missing .= " " . $l['str_password'] . ",";
     }
-    if(!notnull($confirmpasswordnew)){
+    if(empty($confirmpasswordnew)){
       $missing .= " " . $l['str_confirm_password'] . ",";
     }
-    if(!notnull($email)){
+    if(empty($email)){
       $missing .= " " . $l['str_email'] . ",";
     }
-    if(!notnull($newlang)){
+    if(empty($newlang)){
       $missing .= " " . $l['str_language'] . ",";
     }
     if((isset($_REQUEST) && $_REQUEST['ihaveread'] != 1) || (!isset($_REQUEST)
@@ -95,7 +95,7 @@ if($config->public){
       $missing .= " " . $l['str_i_have_read_disclaimer'] . ",";
     }
   
-    if(notnull($missing)){
+    if(!empty($missing)){
       $localerror = 1;
       $missing = substr($missing,0, -1);
       $content .= sprintf($html->fontred, 

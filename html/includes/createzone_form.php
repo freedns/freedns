@@ -8,7 +8,7 @@ if($config->usergroups){
 
 $checksec="";
 $checkpri="";
-if (!@notnull($template) || $template==$l['str_none']) {
+if (empty($template) || $template==$l['str_none']) {
   if (@$zonetypenew=='S')
     $checksec=" checked";
   else if (@$zonetypenew=='P')
@@ -24,7 +24,7 @@ $form = '
   </td>
   </tr>
 ';
-if(!notnull($user->error) && count($allzones)>0){
+if(empty($user->error) && count($allzones)>0){
   $form .= '
   <tr>
   <td class="left"><nobr>' . $l['str_using_following_zone_as_template'] . ':<nobr></td>

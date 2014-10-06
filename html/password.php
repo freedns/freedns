@@ -48,19 +48,19 @@ if((isset($_REQUEST) && !isset($_REQUEST['id']) && !isset($_REQUEST['account']))
   </form>';
 }else{
   $content = '';
-  if((isset($_REQUEST) && (notnull($_REQUEST['account']) || 
-    notnull($_REQUEST['zonename']))) || 
-    (!isset($_REQUEST) && (notnull($account) || notnull($zonename)))){
+  if((isset($_REQUEST) && (!empty($_REQUEST['account']) || 
+    !empty($_REQUEST['zonename']))) || 
+    (!isset($_REQUEST) && (!empty($account) || !empty($zonename)))){
     $localerror = 0;
-    if((isset($_REQUEST) && notnull($_REQUEST['zonename'])) ||
-      (!isset($_REQUEST) && notnull($zonename))){
+    if((isset($_REQUEST) && !empty($_REQUEST['zonename'])) ||
+      (!isset($_REQUEST) && !empty($zonename))){
       if(isset($_REQUEST)){
         $zonename = $_REQUEST['zonename'];
       }
       $zonename = addslashes($zonename);
       
-      if((isset($_REQUEST) && !notnull($_REQUEST['zonetype'])) ||
-        (!isset($_REQUEST) && !notnull($zonetype))){
+      if((isset($_REQUEST) && empty($_REQUEST['zonetype'])) ||
+        (!isset($_REQUEST) && empty($zonetype))){
         $content .= sprintf($html->string_error,
               $l['str_you_did_not_specify_zonetype'] 
             );
@@ -71,7 +71,7 @@ if((isset($_REQUEST) && !isset($_REQUEST['id']) && !isset($_REQUEST['account']))
         }
         $zonetype=addslashes($zonetype);
         $zone=new Zone($zonename,$zonetype);
-        if(notnull($zone->error)){
+        if(!empty($zone->error)){
           $content .= sprintf($html->string_error,
                 $zone->error); 
           $localerror=1;
@@ -81,8 +81,8 @@ if((isset($_REQUEST) && !isset($_REQUEST['id']) && !isset($_REQUEST['account']))
         }
       }
     }else{
-      if((isset($_REQUEST) && notnull($_REQUEST['account'])) ||
-        (!isset($_REQUEST) && notnull($account))){
+      if((isset($_REQUEST) && !empty($_REQUEST['account'])) ||
+        (!isset($_REQUEST) && !empty($account))){
         if(isset($_REQUEST)){
           $account = $_REQUEST['account'];
         }
@@ -153,15 +153,15 @@ if((isset($_REQUEST) && !isset($_REQUEST['id']) && !isset($_REQUEST['account']))
           $content .= $l['str_bad_password_id'];
         }
     }else{
-      if((isset($_REQUEST) && notnull($_REQUEST['zonename'])) ||
-        (!isset($_REQUEST) && notnull($zonename))){
+      if((isset($_REQUEST) && !empty($_REQUEST['zonename'])) ||
+        (!isset($_REQUEST) && !empty($zonename))){
         if(isset($_REQUEST)){
           $zonename = $_REQUEST['zonename'];
         }
         $zonename = addslashes($zonename);
         
-        if((isset($_REQUEST) && !notnull($_REQUEST['zonetype'])) || 
-          (!isset($_REQUEST) && !notnull($zonetype))){
+        if((isset($_REQUEST) && empty($_REQUEST['zonetype'])) || 
+          (!isset($_REQUEST) && empty($zonetype))){
           $content .= sprintf($html->string_error,
                 $l['str_you_did_not_specify_zonetype']
               );
@@ -172,7 +172,7 @@ if((isset($_REQUEST) && !isset($_REQUEST['id']) && !isset($_REQUEST['account']))
           }
           $zonetype = addslashes($zonetype);
           $zone=new Zone($zonename,$zonetype);
-          if(notnull($zone->error)){
+          if(!empty($zone->error)){
             $content .= sprintf($html->string_error, 
                   $zone->error
                 );

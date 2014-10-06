@@ -111,7 +111,7 @@ $html->initialize();
 print $html->header($l['str_log_viewer_title']);
 $title=$l['str_log_viewer_title'];
 
-if(!notnull($idsession)){
+if(empty($idsession)){
   $idsession=$user->idsession;
 }
 
@@ -120,7 +120,7 @@ $logout)){
   $user->logout($idsession);
 }
 
-if(notnull($idsession)){
+if(!empty($idsession)){
         $link="?idsession=" . $idsession;
         $hiddenfields = '<input type="hidden" name="idsession" value="' . $idsession . '">';
         // add language only if different 

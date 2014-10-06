@@ -1143,7 +1143,7 @@ function v(t) {
          }
       }
     }
-    return !notnull($this->error);
+    return empty($this->error);
   }
 
 // *******************************************************
@@ -1322,7 +1322,7 @@ function v(t) {
     $result = sprintf(
       $l['str_primary_deleting_a_x'],
       htmlspecialchars($name) . "/" . htmlspecialchars($ip)) . "... ";
-    if(notnull($reverse)){
+    if(!empty($reverse)){
       // look for reverse
       // check if managed by user
       // etc...
@@ -1381,7 +1381,7 @@ function v(t) {
           while($line = $db->fetch_row($res)){
             $range =array_pop(array_reverse(split('\.',$line[0])));
             list($from,$to) = split('-',$range);
-            if (notnull($to)) {
+            if (!empty($to)) {
               if(($firstip >= $from) && ($firstip <= $to)){
                 $newzoneid=$line[1];
               }
@@ -1449,7 +1449,7 @@ function v(t) {
     $result = sprintf($l['str_primary_deleting_ptr_x'],
       htmlspecialchars($ip . "/" . $name)) . "... ";
 
-    if(notnull($reverse)){
+    if(!empty($reverse)){
       // if "normal" zone is managed by current user, update A
       // remove all before first dot, and last char.
       $newzone = substr(substr(strstr($name, '.'),1),0,-1);
@@ -1746,7 +1746,7 @@ function v(t) {
             break;
         }
       }
-      if(notnull($query)){
+      if(!empty($query)){
         $res = $db->query($query);
         if($db->error()){
           $this->error = $l['str_trouble_with_db'];
@@ -2730,7 +2730,7 @@ function v(t) {
     $i = 0;
     $result = "";
     while(list($key,$value) = each($delegatefrom)){
-      if(notnull($value)){
+      if(!empty($value)){
         $result .= sprintf(
           $l['str_primary_adding_delegate_x'],
           htmlspecialchars($value),
@@ -2752,7 +2752,7 @@ function v(t) {
                 htmlspecialchars($value),
                 htmlspecialchars($delegateto[$i]));
             }else{
-              if(!notnull($delegateuser[$i])){
+              if(empty($delegateuser[$i])){
                 $this->error = $l['str_primary_no_user_for_delegation'];
               }else{
                 // check if user is in DB or not
@@ -3031,7 +3031,7 @@ Function ZoneLenCmp($a, $b) { return strlen($a[0])-strlen($b[0]); }
         while($line = $db->fetch_row($res)){
           $range = array_pop(array_reverse(split('\.',$line[0])));
           list($from,$to) = split('-',$range);
-          if (notnull($to)) {
+          if (!empty($to)) {
             if(($firstip >= $from) && ($firstip <= $to)){
               $newzoneid=$line[1];
             }
@@ -3065,7 +3065,7 @@ Function ZoneLenCmp($a, $b) { return strlen($a[0])-strlen($b[0]); }
 
   Function VerifySOA(&$val, $defval, $soattl = "SOA") {
     global $l;
-    if (!notnull($val)) {
+    if (empty($val)) {
       $val=$defval;
     } else {
       $nval = intval($val);
@@ -3107,7 +3107,7 @@ Function ZoneLenCmp($a, $b) { return strlen($a[0])-strlen($b[0]); }
     $this->VerifySOA($soaexpire, 3600000);
     $this->VerifySOA($soaminimum, 10800);
 
-    if(notnull($xferip)){
+    if(!empty($xferip)){
       if(!checkPrimary($xferip)){
         $this->error .= $l['str_primary_soa_invalid_xfer'];
       }
@@ -3115,7 +3115,7 @@ Function ZoneLenCmp($a, $b) { return strlen($a[0])-strlen($b[0]); }
       $xferip='any';
     }
 
-    if (notnull($this->error)) {
+    if (!empty($this->error)) {
       return 0;
     }
 
@@ -3527,7 +3527,7 @@ Function ZoneLenCmp($a, $b) { return strlen($a[0])-strlen($b[0]); }
    */
   Function DNSTTL($ttl){
     global $l;
-    if(!notnull($ttl)){
+    if(empty($ttl)){
       $ttlval = "-1";
     }else{
       if ($ttl==$l['str_primary_default'])

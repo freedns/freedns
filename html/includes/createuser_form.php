@@ -67,7 +67,7 @@
       $nbrows = $user->nbrows > $nbrows ? $user->nbrows : $nbrows;
     else
       $nbrows = $_REQUEST['nbrows'] > $nbrows ? $_REQUEST['nbrows'] : $nbrows;
-    if (!notnull($nbrows)) $nbrows = 3;
+    if (empty($nbrows)) $nbrows = 3;
     if ($nbrows>16) $nbrows=16;
     $content .= '<tr><td align="right">' . 
     $l['str_number_of_rows_per_record'] . ':</td>

@@ -64,7 +64,7 @@ if($user->authenticated == 0){
       }
 
     
-      if(!notnull($user->error)){
+      if(empty($user->error)){
         $content =  '<div id="modify"><h3 class="boxheader">' .
               $l['str_choose_a_zone_to_delete'] . '</h3>
         <table>
