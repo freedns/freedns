@@ -204,7 +204,7 @@ class Auth {
 
     $this->error = "";
     # check if already exists or not
-    if (!$this->Exists($login)) {
+    if ($this->Exists($login)) {
       $this->error = $l['str_login_already_exists'];
       return 0;
     }
