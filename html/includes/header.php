@@ -105,12 +105,12 @@ $user = new User($login,$password,$idsession);
 // use $idsession in all urls, including first page
 if(empty($idsession) && $user->authenticated){
   header("Location: " . $config->mainurl
-    . ereg_replace("^/","", $_SERVER[PHP_SELF])
+    . ereg_replace("^/","", $_SERVER['PHP_SELF'])
     . "?idsession=" . $user->idsession);
 }
 if(!$user->authenticated && $idsession){
   header("Location: " . $config->mainurl
-    . ereg_replace("^/","", $_SERVER[PHP_SELF]));
+    . ereg_replace("^/","", $_SERVER['PHP_SELF']));
 }
 
 // overwrite default strings
