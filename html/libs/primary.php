@@ -269,46 +269,34 @@ function v(t) {
       $result .= '<input type="hidden" name="advanced" value="1">';
     }
 
-    if($advanced){
+    $modifyheader = '<h3 class="boxheader">%s</h3>';
+    if ($advanced) {
+      $soafmt = '<p>%s</p>'
+          . '<table class="globalparams"><tr>'
+          . '<td class="left">%s</td>'
+          . '<td><input type="text" name="%s" value="%s"</td>'
+          . '</tr></table>';
+
       // print global params ($TTL)
-      $result .= '
-      <h3 class="boxheader">' . $l['str_primary_global_params'] . '</h3>
-      <p>' . $l['str_primary_ttl_explanation'] . '</p>
-      <table class="globalparams">
-      <tr><td class="left">' . $l['str_primary_default_ttl'] . '</td>
-      <td><input type="text" name="defaultttl" value="' .
-      $this->defaultttl . '"></td></tr>
-      </table>
-      ';
+      $result .= sprintf($modifyheader, $l['str_primary_global_params']);
+      $result .= sprintf($soafmt,
+          $l['str_primary_ttl_explanation'], $l['str_primary_default_ttl'],
+          'defaultttl', $this->defaultttl);
+
       // print SOA params
-      $result .= '
-      <h3 class="boxheader">' . $l['str_primary_soa_params'] . '</h3>
-      <p>' . $l['str_primary_refresh_interval_expl'] . '</p>
-      <table class="globalparams">
-      <tr><td class="left">' . $l['str_primary_refresh_period'] . '</td>
-      <td><input type="text" name="soarefresh" value="' .
-      $this->refresh . '"></td></tr>
-      </table>
-      <p>' . $l['str_primary_retry_interval_expl'] . '</p>
-      <table class="globalparams">
-      <tr><td class="left">' . $l['str_primary_retry_interval'] . '
-      </td><td><input type="text"  name="soaretry" value="' .
-      $this->retry . '"></td></tr>
-      </table>
-      <p>' . $l['str_primary_expire_time_expl'] . '</p>
-      <table class="globalparams">
-      <tr><td class="left">' .
-      $l['str_primary_expire_time'] . '</td><td><input type="text"
-      name="soaexpire" value="' .
-      $this->expiry . '"></td></tr>
-      </table>
-      <p>' . $l['str_primary_negative_caching_expl'] . '</p>
-      <table class="globalparams">
-      <tr><td class="left">' . $l['str_primary_negative_caching'] . '</td>
-      <td><input type="text" name="soaminimum" value="' .
-      $this->minimum . '"></td></tr>
-      </table>
-      ';
+      $result .= sprintf($modifyheader, $l['str_primary_soa_params']);
+      $result .= sprintf($soafmt,
+          $l['str_primary_refresh_interval_expl'], $l['str_primary_refresh_period'],
+          'soarefresh', $this->refresh);
+      $result .= sprintf($soafmt,
+          $l['str_primary_retry_interval_expl'], $l['str_primary_retry_interval'],
+          'soaretry', $this->retry);
+      $result .= sprintf($soafmt,
+          $l['str_primary_expire_time_expl'], $l['str_primary_expire_time'],
+          'soaexpire', $this->expiry);
+      $result .= sprintf($soafmt,
+          $l['str_primary_negative_caching_expl'], $l['str_primary_negative_caching'],
+          'soaminimum', $this->minimum);
     }
 
     // retrieve NS names
