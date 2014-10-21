@@ -81,7 +81,6 @@ class Primary extends Zone {
   var $reversezone;
   var $ipv6;
 
-  // instanciation
   /**
    * Class constructor & data retrieval (use of Retrieve[Multi]Record)
    *
@@ -90,58 +89,33 @@ class Primary extends Zone {
    *@param string $zonetype zone type (must be 'P'rimary)
    *@param string $user class member user for current user
    */
-  Function Primary($zonename,$zonetype,$user){
+  function Primary($zonename, $zonetype, $user) {
     global $db,$l;
-    $this->Zone($zonename,$zonetype);
 
+    $this->Zone($zonename, $zonetype);
     // fill in vars
     $res = $db->query("SELECT serial, refresh, retry, expiry, minimum, defaultttl, xfer
       FROM dns_confprimary WHERE zoneid='" . $this->zoneid . "'");
     $line = $db->fetch_row($res);
-    if($db->error()){
+    if ($db->error()) {
       $this->error=$l['str_trouble_with_db'];
       return 0;
     }
-    if(!isset($line[1])){
-      $this->creation = 1;
-    }else{
-      $this->creation = 0;
-    }
+    $this->creation = empty($line[1]);
 
     // set default SOA values
     $this->serial = $line[0];
-    if($line[1] and $line[1] > 86400){
-      $this->refresh = $line[1];
-    }else{
-      $this->refresh = 86400;
-    }
-    if($line[2] and $line[2] > 10800){
-      $this->retry = $line[2];
-    }else{
-      $this->retry = 10800;
-    }
-    if($line[3] and $line[3] > 3600000){
-      $this->expiry = $line[3];
-    }else{
-      $this->expiry = 3600000;
-    }
-    if($line[4] and $line[4] < 10800){
-      $this->minimum = $line[4];
-    }else{
-      $this->minimum = 10800;
-    }
-    if($line[5] and $line[5] > 86400){
-      $this->defaultttl = $line[5];
-    }else{
-      $this->defaultttl = 86400;
-    }
-
+    $this->refresh = empty($line[1]) ? 86400 : $line[1];
+    $this->retry = empty($line[2]) ? 10800 : $line[2];
+    $this->expiry = empty($line[3]) ? 3600000 : $line[3];
+    $this->minimum = empty($line[4]) ? 10800 : $line[4];
+    $this->defaultttl = empty($line[5]) ? 86400 : $line[5];
     $this->xfer = $line[6];
-    $this->user=$user;
-    if(ereg('.arpa$',$zonename) || ereg('.ip6.int$',$zonename)){
-      $this->reversezone=1;
-    }else{
-      $this->reversezone=0;
+    $this->user = $user;
+    if (ereg('.arpa$',$zonename) || ereg('.ip6.int$',$zonename)) {
+      $this->reversezone = 1;
+    } else {
+      $this->reversezone = 0;
     }
     // initialize arrays
     $this->ns = array();
@@ -221,6 +195,23 @@ class Primary extends Zone {
   }
 
 
+   /**
+    * verifies and fixes whether given param is within bounds.
+    * fixes in-place, returns "fixed" message.
+    */
+   function FixSOAParam(&$val, $lev, $max=0) {
+      global $l;
+
+      $fixfmt = '<br><small>(%s %s)</small>';
+      $ret = '';
+      if ((!$max && $val < $lev) ||
+          ($max && $val > $lev)) {
+        $ret = sprintf($fixfmt, $l['str_primary_soa_fixed'], $val);
+        $val = $lev;
+      }
+      return $ret;
+   }
+
 // *******************************************************
 
   //  Function printModifyForm($params)
@@ -269,46 +260,48 @@ function v(t) {
       $result .= '<input type="hidden" name="advanced" value="1">';
     }
 
-    if($advanced){
+    $modifyheader = '<h3 class="boxheader">%s</h3>';
+    if ($advanced) {
+      $soafmt = '<p>%s</p>'
+          . '<table class="globalparams"><tr>'
+          . '<td class="left">%s</td>'
+          . '<td><input type="text" name="%s" value="%s">%s</td>'
+          . '</tr></table>';
+
       // print global params ($TTL)
-      $result .= '
-      <h3 class="boxheader">' . $l['str_primary_global_params'] . '</h3>
-      <p>' . $l['str_primary_ttl_explanation'] . '</p>
-      <table class="globalparams">
-      <tr><td class="left">' . $l['str_primary_default_ttl'] . '</td>
-      <td><input type="text" name="defaultttl" value="' .
-      $this->defaultttl . '"></td></tr>
-      </table>
-      ';
+      $result .= sprintf($modifyheader, $l['str_primary_global_params']);
+
+      $fixed = $this->FixSOAParam($this->defaultttl, 86400);
+      $result .= sprintf($soafmt,
+          $l['str_primary_ttl_explanation'], $l['str_primary_default_ttl'],
+          'defaultttl', $this->defaultttl, $fixed);
+
       // print SOA params
-      $result .= '
-      <h3 class="boxheader">' . $l['str_primary_soa_params'] . '</h3>
-      <p>' . $l['str_primary_refresh_interval_expl'] . '</p>
-      <table class="globalparams">
-      <tr><td class="left">' . $l['str_primary_refresh_period'] . '</td>
-      <td><input type="text" name="soarefresh" value="' .
-      $this->refresh . '"></td></tr>
-      </table>
-      <p>' . $l['str_primary_retry_interval_expl'] . '</p>
-      <table class="globalparams">
-      <tr><td class="left">' . $l['str_primary_retry_interval'] . '
-      </td><td><input type="text"  name="soaretry" value="' .
-      $this->retry . '"></td></tr>
-      </table>
-      <p>' . $l['str_primary_expire_time_expl'] . '</p>
-      <table class="globalparams">
-      <tr><td class="left">' .
-      $l['str_primary_expire_time'] . '</td><td><input type="text"
-      name="soaexpire" value="' .
-      $this->expiry . '"></td></tr>
-      </table>
-      <p>' . $l['str_primary_negative_caching_expl'] . '</p>
-      <table class="globalparams">
-      <tr><td class="left">' . $l['str_primary_negative_caching'] . '</td>
-      <td><input type="text" name="soaminimum" value="' .
-      $this->minimum . '"></td></tr>
-      </table>
-      ';
+      $result .= sprintf($modifyheader, $l['str_primary_soa_params']);
+
+      # refresh should be min 24h
+      $fixed = $this->FixSOAParam($this->refresh, 86400);
+      $result .= sprintf($soafmt,
+          $l['str_primary_refresh_interval_expl'], $l['str_primary_refresh_period'],
+          'soarefresh', $this->refresh, $fixed);
+
+      # retry should be min 3h
+      $fixed = $this->FixSOAParam($this->retry, 10800);
+      $result .= sprintf($soafmt,
+          $l['str_primary_retry_interval_expl'], $l['str_primary_retry_interval'],
+          'soaretry', $this->retry, $fixed);
+
+      # expiry should be min 1000h (~42d)
+      $fixed = $this->FixSOAParam($this->expiry, 3600000);
+      $result .= sprintf($soafmt,
+          $l['str_primary_expire_time_expl'], $l['str_primary_expire_time'],
+          'soaexpire', $this->expiry, $fixed);
+
+      # minimum should be max 3h
+      $fixed = $this->FixSOAParam($this->minimum, 10800, 1);
+      $result .= sprintf($soafmt,
+          $l['str_primary_negative_caching_expl'], $l['str_primary_negative_caching'],
+          'soaminimum', $this->minimum, $fixed);
     }
 
     // retrieve NS names

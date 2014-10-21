@@ -339,6 +339,7 @@ $l["str_primary_reverse_sub_zones_delegation_how"] = "Ceci est réalisé en util
 $l["str_primary_reverse_sub_zones_delegation_x"] = "Vous pouvez définir des   sous-zones, déléguées (ou non) à d'autres utilisateurs de %s.";
 $l["str_primary_reverse_sub_zones_title"] = "Sous Zones";
 $l["str_primary_serial"] = "numéro de série";
+$l["str_primary_soa_fixed"] = "fixed from current";
 $l["str_primary_soa_invalid_xfer"] = "adresse ou liste d'adresses de serveurs  autorisés à faire des transferts invalide. Si vous voulez ajouter   plusieurs adresses IP, séparez-les avec ';'.";
 $l["str_primary_soa_params"] = "Paramètres SOA (Start Of Authority)";
 $l["str_primary_srv_port"] = "Port ";
