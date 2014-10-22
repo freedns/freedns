@@ -202,11 +202,11 @@ class Primary extends Zone {
    function FixSOAParam(&$val, $lev, $max=0) {
       global $l;
 
-      $fixfmt = '<br><small>(%s %s)</small>';
       $ret = '';
       if ((!$max && $val < $lev) ||
           ($max && $val > $lev)) {
-        $ret = sprintf($fixfmt, $l['str_primary_soa_fixed'], $val);
+        $ret = sprintf('<br><small>%s</small>',
+            sprintf($l['str_primary_soa_fixed_x'], $val));
         $val = $lev;
       }
       return $ret;
