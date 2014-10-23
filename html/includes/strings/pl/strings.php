@@ -501,6 +501,6 @@ $l["str_zone_x_successfully_registered_on_x_server"] = "Strefa %s została pomy�
 $l["str_zones_linked_exist_and_not_manageable"] = "strefy połaczone z tą już istnieją i to nie Ty nimi zarządzasz: ";
 $l["str_zones_to_be_deleted"] = "Strefy do skasowania";
 $l["str_zonetype"] = "Typ strefy";
-$l["str_js_dotvalidate1"] = "Ten wpis utworzy";
-$l["str_js_dotvalidate2"] = "Jeśli chcesz tylko domenę, dodaj na końcu kropkę.";
+$l["str_js_dotvalidate1"] = "Bez kropki na końcu serwer utworzy rekord ";
+$l["str_js_dotvalidate2"] = ".";
 ?>

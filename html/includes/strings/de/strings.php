@@ -502,6 +502,6 @@ $l["str_zone_x_successfully_registered_on_x_server"] = "zone %s has been success
 $l["str_zones_linked_exist_and_not_manageable"] = "zones linked with this one already exist, and are not managable by you: ";
 $l["str_zones_to_be_deleted"] = "Zones to be deleted";
 $l["str_zonetype"] = "zone type";
-$l["str_js_dotvalidate1"] = "Das erstellt";
-$l["str_js_dotvalidate2"] = "Wenn Sie nur ein Domainname möchten, hängen Sie einen Punkt an.";
+$l["str_js_dotvalidate1"] = "Ohne abschliessenden Punkt würde der Server einen ";
+$l["str_js_dotvalidate2"] = " Eintrag erstellen.";
 ?>

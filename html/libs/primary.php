@@ -240,8 +240,8 @@ function v(t) {
  n = t.value;
  if (n.substr(-1) === ".") return true;
  zonename = document.forms[0]["zonename"].value;
- if (n.match("^" + zonename + "$") == zonename) 
-   alert("' . $l['str_js_dotvalidate1'] . ' " + n + "." + zonename + "\n' . $l['str_js_dotvalidate2'] . '");
+ if (n.match(zonename + "$") == zonename) 
+   alert("' . $l['str_js_dotvalidate1'] . '" + n + "." + zonename + "' . $l['str_js_dotvalidate2'] . '");
  return n;
 }
 </script>';

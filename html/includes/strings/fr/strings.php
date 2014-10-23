@@ -377,7 +377,7 @@ $l["str_primary_www_zones_type"] = "Type";
 $l["str_primary_www_zones_zone"] = "Name";
 $l["str_primary_x_ip_has_to_be_ip"] = "L'IP de %s doit être une adresse IP.";
 $l["str_primary_x_ip_has_to_be_ipv6"] = "L'IP de %s doit être une adresse IPv6.";
-$l["str_primary_x_name_ends_with_dot"] = "PTR name (%s) ends with dot. We allow this,   but you have to be very careful about what you wish for.";
+$l["str_primary_x_name_ends_with_dot"] = "PTR name (%s) ends with dot. We allow this, but you have to be very careful about what you wish for.";
 $l["str_primary_x_name_has_to_be_fully_qualified_x"] = "Le nom de %s doit être un  nom complet, avec un point à la fin (%s).";
 $l["str_primary_x_parameter_x_has_to_be_int"] = "paramètre %s (%s) doit être un entier; ";
 $l["str_primary_zone_error_not_available_try_again"] = "Votre zone ne sera pas   disponible lors du prochain rechargement. Merci de revenir ultérieurement   pour re-modifier votre zone.";
@@ -501,4 +501,6 @@ $l["str_zone_x_successfully_registered_on_x_server"] = "La zone %s a été enreg
 $l["str_zones_linked_exist_and_not_manageable"] = "des zones liées avec celle-ci   existent, et ne sont pas gérées par vous:";
 $l["str_zones_to_be_deleted"] = "Zones qui vont être effacées";
 $l["str_zonetype"] = "Type de zone";
+$l["str_js_dotvalidate1"] = "Without ending dot, the server will create ";
+$l["str_js_dotvalidate2"] = " record.";
 ?>
