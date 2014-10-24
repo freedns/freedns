@@ -240,32 +240,26 @@ class Primary extends Zone {
       $nbrows = 1;
     }
     $this->error = "";
-    $result = '';
+    $result = "";
     $deletecount = 0;
-    $result .= '
-<script type="text/javascript">
-function v(t) {
- n = t.value;
- if (n.substr(-1) === ".") return true;
- zonename = document.forms[0]["zonename"].value;
- if (n.match(zonename + "$") == zonename) 
-   alert("' . $l['str_js_dotvalidate1'] . '" + n + "." + zonename + "' . $l['str_js_dotvalidate2'] . '");
- return n;
-}
-</script>';
+    $result .= sprintf(
+        "<script type='text/javascript'>function v(t){" .
+        "n=t.value;if(n.substr(-1)==='.')return;" .
+        "zonename=document.forms[0]['zonename'].value;" .
+        "if(n.match(zonename+'$')==zonename)" .
+        "alert('%s '+n+'.'+zonename+'%s')}</script>\n",
+        $l['str_js_dotvalidate1'], $l['str_js_dotvalidate2']);
 
     // TODO use zoneid instead of zonename & zonetype
-    $result .= '<form method="POST">
-      ' . $hiddenfields . '
-      <input type="hidden" name="zonename" value="' . $this->zonename . '">
-      <input type="hidden" name="zonetype" value="' . $this->zonetype . '">
-      <input type="hidden" name="modified" value="1">
-    ';
+    $result .= sprintf('<form method="POST">%s', $hiddenfields);
+    $result .= sprintf('<input type="hidden" name="zonename" value="%s">', $this->zonename);
+    $result .= sprintf('<input type="hidden" name="zonetype" value="%s">', $this->zonetype);
+    $result .= sprintf('<input type="hidden" name="modified" value="1">');
     // if advanced, say it to modified - in case
     // of temporary use of advanced interface, not in
     // user prefs.
     if ($advanced) {
-      $result .= '<input type="hidden" name="advanced" value="1">';
+      $result .= sprintf('<input type="hidden" name="advanced" value="1">');
     }
 
     # BEGIN SOA-PARAMS
