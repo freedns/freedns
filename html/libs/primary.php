@@ -2819,7 +2819,7 @@ class Primary extends Zone {
 
     // if reverse IP is managed by current user, update PTR
     // else check if reverse IP delegation exists (ie as CNAME)
-    $result .= $l['str_primary_looking_for_reverse'] . "... ";
+    $result = $l['str_primary_looking_for_reverse'] . "... ";
     // construct reverse zone
     if (!strcmp($type, "A")) {
       $revz = array_reverse(explode('.', $a));
