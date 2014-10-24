@@ -1423,20 +1423,23 @@ class Primary extends Zone {
   function deleteMultipleARecords($name, $what="") {
     global $db, $html, $l;
 
-    if (empty($what)) { $what = "'A','AAAA'"; }
-    else $what = "'$what'";
-    $query = "DELETE FROM dns_record
-      WHERE zoneid='" . $this->zoneid . "'
-      AND type IN (" . $what . ") AND val1='" . mysql_real_escape_string($name) . "'";
-    $result .= sprintf(
-      $l['str_primary_deleting_a_x'],
-      htmlspecialchars($name)) . "... ";
+    $result = sprintf($l['str_primary_deleting_a_x'], htmlspecialchars($name));
+    $result .= "... ";
+    if (empty($what)) {
+      $what = "'A','AAAA'";
+    } else {
+      $what = "'$what'";
+    }
+    $query = sprintf(
+        "DELETE FROM dns_record WHERE zoneid='%d' AND type IN (%s) AND val1='%s'" ,
+        $this->zoneid, $what, mysql_real_escape_string($name));
     $res = $db->query($query);
     if ($db->error()) {
-      $this->error=$l['str_trouble_with_db'];
+      $this->error = $l['str_trouble_with_db'];
     } else {
-      $result .= $l['str_primary_deleting_ok'] . "<br>\n";
+      $result .= $l['str_primary_deleting_ok'];
     }
+    $result .= "<br>";
     return $result;
   }
 
@@ -2430,7 +2433,7 @@ class Primary extends Zone {
     // for each WWW, add WWW entry
     $i = 0;
     $result = "";
-    while(list($key,$value) = each($www)) {
+    while(list($key, $value) = each($www)) {
       if ($value != "") {
         if (!$this->checkWWWName($value)) {
           $this->error = sprintf(
