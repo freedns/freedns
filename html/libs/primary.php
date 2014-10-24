@@ -242,7 +242,7 @@ class Primary extends Zone {
     $this->error = "";
     $result = '';
     $deletecount = 0;
-    $result .= sprintf('
+    $result .= '
 <script type="text/javascript">
 function v(t) {
  n = t.value;
@@ -997,7 +997,7 @@ function v(t) {
         $result .= sprintf('<td><input type="text" name="wwwa%d"></td>', $wwwcounter);
         $result .= '<td>';
         $labelfmt = '<nobr><label><input type="radio" name="wwwr%d" value="%s">%s</label></nobr><br>';
-        $result .= sprinf($labelfmt, $wwwcounter, "r", $this->frameRedirect("r"));
+        $result .= sprintf($labelfmt, $wwwcounter, "r", $this->frameRedirect("r"));
         $result .= sprintf($labelfmt, $wwwcounter, "R", $this->frameRedirect("R"));
         $result .= sprintf($labelfmt, $wwwcounter, "F", $this->frameRedirect("F"));
         $result .= '</td>';
@@ -1429,20 +1429,23 @@ function v(t) {
   function deleteMultipleARecords($name, $what="") {
     global $db, $html, $l;
 
-    if (empty($what)) { $what = "'A','AAAA'"; }
-    else $what = "'$what'";
-    $query = "DELETE FROM dns_record
-      WHERE zoneid='" . $this->zoneid . "'
-      AND type IN (" . $what . ") AND val1='" . mysql_real_escape_string($name) . "'";
-    $result .= sprintf(
-      $l['str_primary_deleting_a_x'],
-      htmlspecialchars($name)) . "... ";
+    $result = sprintf($l['str_primary_deleting_a_x'], htmlspecialchars($name));
+    $result .= "... ";
+    if (empty($what)) {
+      $what = "'A','AAAA'";
+    } else {
+      $what = "'$what'";
+    }
+    $query = sprintf(
+        "DELETE FROM dns_record WHERE zoneid='%d' AND type IN (%s) AND val1='%s'" ,
+        $this->zoneid, $what, mysql_real_escape_string($name));
     $res = $db->query($query);
     if ($db->error()) {
-      $this->error=$l['str_trouble_with_db'];
+      $this->error = $l['str_trouble_with_db'];
     } else {
-      $result .= $l['str_primary_deleting_ok'] . "<br>\n";
+      $result .= $l['str_primary_deleting_ok'];
     }
+    $result .= "<br>";
     return $result;
   }
 
@@ -2436,7 +2439,7 @@ function v(t) {
     // for each WWW, add WWW entry
     $i = 0;
     $result = "";
-    while(list($key,$value) = each($www)) {
+    while(list($key, $value) = each($www)) {
       if ($value != "") {
         if (!$this->checkWWWName($value)) {
           $this->error = sprintf(
