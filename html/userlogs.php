@@ -134,7 +134,7 @@ if($user->authenticated==1){
       ' . $l['str_sort_results'] . ':&nbsp;&nbsp; 
       <a href="' .  $_SERVER["PHP_SELF"] . $link .
       '&amp;sortcategory=D">' . $l['str_per_date'] . '</a> &nbsp;&nbsp;
-      |&nbsp;&nbsp; <a href="' . $PHP_SELF . $link .
+      |&nbsp;&nbsp; <a href="' . $_SERVER["PHP_SELF"] . $link .
       '&amp;sortcategory=Z">' . $l['str_per_zone'] . '</a>&nbsp;&nbsp; |&nbsp;&nbsp; 
       <a href="' .  $_SERVER["PHP_SELF"] . $link .
       '&amp;sortcategory=U">' . $l['str_per_user'] . '</a><br>
