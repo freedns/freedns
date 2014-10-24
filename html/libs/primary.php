@@ -2803,6 +2803,10 @@ class Primary extends Zone {
     return $result;
   }
 
+  function zoneLenCmp($a, $b) {
+    return strlen($a[0]) - strlen($b[0]);
+  }
+
   /**
    * Update PTR when modifying A or AAAA
    *
@@ -2812,10 +2816,6 @@ class Primary extends Zone {
 
   function updateReversePTR($a, $value, $type) {
     global $l,$db, $config;
-
-    function zoneLenCmp($a, $b) {
-      return strlen($a[0]) - strlen($b[0]);
-    }
 
     // if reverse IP is managed by current user, update PTR
     // else check if reverse IP delegation exists (ie as CNAME)
@@ -2829,7 +2829,7 @@ class Primary extends Zone {
       $ip = ConvertIPv6toDotted($a);
       $revz = implode('.', array_reverse(explode('.', $ip))) . ".ip6.arpa";
       $alluserzones = $this->user->listallzones();
-      uasort($alluserzones, 'zoneLenCmp');
+      uasort($alluserzones, '$this->zoneLenCmp');
       while($userzones = array_pop($alluserzones)) {
         if ($userzones[1] != 'P')
           continue;
