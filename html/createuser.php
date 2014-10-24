@@ -1,254 +1,205 @@
-<?
+<?php
 /*
   This file is part of XName.org project
   See  http://www.xname.org/ for details
-  
+
   License: GPLv2
   See LICENSE file, or http://www.gnu.org/copyleft/gpl.html
-  
-  Author(s): Yann Hirou <hirou@xname.org>
 
+  Author(s): Yann Hirou <hirou@xname.org>
 */
 
 // create a new user
-// parameters :
-// -void
-// - $loginnew,$passwordnew,$confirmpasswordnew, $emailnew
+// parameters:
+// - void
+// - $loginnew, $passwordnew, $confirmpasswordnew, $emailnew
 
-$page_title = "str_create_new_user_title";
-// headers 
+$page_title = 'str_create_new_user_title';  // used in header.php
 include 'includes/header.php';
 
-
-if(isset($_REQUEST) && isset($_REQUEST['loginnew'])){
-  $loginnew=$_REQUEST['loginnew'];
-}
-if(isset($loginnew)){
-  $loginnew = addslashes($loginnew);
+if (isset($_REQUEST) && isset($_REQUEST['loginnew'])) {
+  $loginnew = addslashes($_REQUEST['loginnew']);
+} else {
+  $loginnew = "";
 }
 
-if(isset($_REQUEST) && isset($_REQUEST['passwordnew'])){
-  $passwordnew=$_REQUEST['passwordnew'];
-}
-if(isset($passwordnew)){
-  $passwordnew = addslashes($passwordnew);
-}
-
-if(isset($_REQUEST) && isset($_REQUEST['confirmpasswordnew'])){
-  $confirmpasswordnew=$_REQUEST['confirmpasswordnew'];
-}
-if(isset($confirmpasswordnew)){
-  $confirmpasswordnew = addslashes($confirmpasswordnew);
+if (isset($_REQUEST) && isset($_REQUEST['passwordnew'])) {
+  $passwordnew = addslashes($_REQUEST['passwordnew']);
+} else {
+  $passwordnew = "";
 }
 
-if(isset($_REQUEST) && isset($_REQUEST['email'])){
-  $email=$_REQUEST['email'];
-}
-if(isset($email)){
-  $email = addslashes($email);
-}
-
-if(isset($_REQUEST) && isset($_REQUEST['newlang'])){
-        $newlang=$_REQUEST['newlang'];
-}
-if(isset($newlang)){
-        $newlang = addslashes($newlang);
+if (isset($_REQUEST) && isset($_REQUEST['confirmpasswordnew'])) {
+  $confirmpasswordnew = addslashes($_REQUEST['confirmpasswordnew']);
+} else {
+  $confirmpasswordnew = "";
 }
 
-if(file_exists("includes/left_side.php")) {
-        include "includes/left_side.php";
-}else{
-        include "includes/left_side_default.php";
+if (isset($_REQUEST) && isset($_REQUEST['email'])) {
+  $email = addslashes($_REQUEST['email']);
+} else {
+  $email = "";
+}
+
+if (isset($_REQUEST) && isset($_REQUEST['newlang'])) {
+  $newlang = addslashes($_REQUEST['newlang']);
+} else {
+  $newlang = "";
+}
+
+if (file_exists("includes/left_side.php")) {
+  include "includes/left_side.php";
+} else {
+  include "includes/left_side_default.php";
 }
 
 
-if($config->public){
-// main content
-
-  $title=$l['str_create_new_user_title'];
+if (!$config->public) {
+  $title = $l['str_uppercase_error'];
+  $content = $l['str_not_public_server'];
+} else {
+  $title = $l[$page_title];
   $content = "";
-  if(!isset($loginnew)){
+  if (empty($loginnew)) {
     include 'includes/createuser_form.php';
-  }else{ // !isset($loginnew)
-  // $loginnew is set ==> check & save & mail
-    $content = "";
+  } else {
     $localerror = 0;
-    $missing = "";
-  
-    if(empty($loginnew)){
-      $missing .= " " . $l['str_login'] . ",";
+    $missing = array();
+
+    if (empty($loginnew)) {
+      $missing[] = $l['str_login'];
     }
-    if(empty($passwordnew)){
-      $missing .= " " . $l['str_password'] . ",";
+    if (empty($passwordnew)) {
+      $missing[] = $l['str_password'];
     }
-    if(empty($confirmpasswordnew)){
-      $missing .= " " . $l['str_confirm_password'] . ",";
+    if (empty($confirmpasswordnew)) {
+      $missing[] = $l['str_confirm_password'];
     }
-    if(empty($email)){
-      $missing .= " " . $l['str_email'] . ",";
+    if (empty($email)) {
+      $missing[] = $l['str_email'];
     }
-    if(empty($newlang)){
-      $missing .= " " . $l['str_language'] . ",";
+    if (empty($newlang)) {
+      $missing[] = $l['str_language'];
     }
-    if((isset($_REQUEST) && $_REQUEST['ihaveread'] != 1) || (!isset($_REQUEST)
-    && $ihaveread != 1)){
-      $missing .= " " . $l['str_i_have_read_disclaimer'] . ",";
+    if ((isset($_REQUEST) && $_REQUEST['ihaveread'] != 1)
+        || (!isset($_REQUEST) && $ihaveread != 1)) {
+      $missing[] = $l['str_i_have_read_disclaimer'];
     }
-  
-    if(!empty($missing)){
+
+    if (!empty($missing)) {
       $localerror = 1;
-      $missing = substr($missing,0, -1);
-      $content .= sprintf($html->fontred, 
-          sprintf($l['str_error_missing_fields'],$missing)
-          ) . '<br>';
-    }
-  
-  
-    if(!$localerror){
-      if(!checkName($loginnew)){
+      $content .= sprintf($html->fontred,
+          sprintf($l['str_error_missing_fields'], implode(", ", $missing)));
+      $content .= '<br>';
+    } else {  // all required fields are there, check them
+      if (!checkName($loginnew)) {
         $localerror = 1;
         $content .= $l['str_bad_login_name'] . '<br>';
       }
-    
-      if(!checkEmail($email)){
+      if (!checkEmail($email)) {
         $localerror = 1;
         $content .= sprintf($html->string_error, $l['str_bad_email_syntax']);
         $content .= '<br>';
-      }else{
+      } else {
         $result = vrfyEmail($email);
-        if($result != 1){
-          $localerror =1;
-          $content .= sprintf($html->string_error,$result) . '<br>';
+        if ($result != 1) {
+          $localerror = 1;
+          $content .= sprintf($html->string_error, $result) . '<br>';
         }
       }
-  
-      if($passwordnew != $confirmpasswordnew){
+      if ($passwordnew != $confirmpasswordnew) {
         $localerror = 1;
         $content .= $l['str_passwords_dont_match'] . '<br>';
       }
-    } // end no error after empty checks
-  
+    }
 
-
-    if(!$localerror){
-    // ****************************************
-    // *            Create new user           *
-    // ****************************************
-      $newuser = new User('','','');
-      $newuser->userCreate($loginnew,$passwordnew,$email);
-      if($newuser->error){
-              // error, print form again
-        $content .= sprintf($html->string_error,$newuser->error);
+    if (!$localerror) {
+      $newuser = new User('', '', '');
+      $newuser->userCreate($loginnew, $passwordnew, $email);
+      if ($newuser->error) {
+        // error, print form again
+        $content .= sprintf($html->string_error, $newuser->error);
         include 'includes/createuser_form.php';
-      }else{
-      // if advanced interface, save status
-      if($config->advancedinterface){
-        if((isset($_REQUEST) && $_REQUEST['advanced']) ||
-          (!isset($_REQUEST) && $advanced)){
-          $newuser->advanced = 1;
-        }else{ 
-          $newuser->advanced = 0;
-        }
-      }else{ // end advancedinterface set
+      } else {
         $newuser->advanced = 0;
-      }
-      
-      if($config->ipv6interface){
-        if((isset($_REQUEST) && $_REQUEST['ipv6']) ||
-          (!isset($_REQUEST) && $ipv6)){
-          $newuser->ipv6 = 1;
-        }else{ 
-          $newuser->ipv6 = 0;
-        }
-      }else{ // end ipv6interface set
-        $newuser->ipv6=0;
-      }
-      if($config->txtrecords){
-        if((isset($_REQUEST) && $_REQUEST['txtrecords']) ||
-          (!isset($_REQUEST) && $txtrecords)){
-          $newuser->txtrecords = 1;
-        }else{ 
-          $newuser->txtrecords = 0;
-        }
-      }else{ // end txtrecords set
-        $newuser->txtrecords=0;
-      }
-      if($config->srvrecords){
-        if((isset($_REQUEST) && $_REQUEST['srvrecords']) ||
-          (!isset($_REQUEST) && $srvrecords)){
-          $newuser->srvrecords = 1;
-        }else{ 
-          $newuser->srvrecords = 0;
-        }
-      }else{ // end srvrecords set
-        $newuser->srvrecords=0;
-      }
-
-      if(isset($_REQUEST) && $_REQUEST['nbrows']){
-        $newuser->nbrows = intval($_REQUEST['nbrows']);
-      }else{
-        if(!isset($_REQUEST) && $nbrows){
-          // nothing to be done
-        }else{
-          $newuser->nbrows = $config->defaultnbrows;
-        }
-      }      
-
-      $options = "advanced=" . $newuser->advanced . ";ipv6=" . $newuser->ipv6 . ";nbrows=" . $newuser->nbrows . ";grouprights=A;txtrecords=". $newuser->txtrecords .";srvrecords=".$newuser->srvrecords .";";
-      $newuser->grouprights='A';
-      $newuser->lang=$lang;
-      $newuser->options=$options;
-      $newuser->changeOptions();
-
-      
-      // send email & print message
-      // send mail to validate email
-
-      // generate random ID 
-      $randomid= $newuser->generateIDEmail();
-      
-      // send mail
-      // print what happened
-
-      include 'includes/createuser_mail.php';
-
-      // insert ID in DB
-        if(!$newuser->storeIDEmail($newuser->userid,$email,$randomid)){
-          $content .= $newuser->error;
-        }else{
-      
-          if(mailer($config->emailfrom,$email,$config->sitename . " "
-          . $l['str_email_validation'],"Content-Type: text/plain; charset=" .
-           $l['str_content_type'],$mailbody)){
-            include 'includes/createuser_mail_success.php';
-          }else{
-            include 'includes/createuser_mail_error.php';
+        if ($config->advancedinterface) {
+          if ((isset($_REQUEST) && !empty($_REQUEST['advanced']))
+              || (!isset($_REQUEST) && $advanced)) {
+            $newuser->advanced = 1;
           }
-      
         }
-    
+        $newuser->ipv6 = 0;
+        if ($config->ipv6interface) {
+          if ((isset($_REQUEST) && !empty($_REQUEST['ipv6']))
+              || (!isset($_REQUEST) && $ipv6)) {
+            $newuser->ipv6 = 1;
+          }
+        }
+        $newuser->txtrecords = 0;
+        if ($config->txtrecords) {
+          if ((isset($_REQUEST) && !empty($_REQUEST['txtrecords']))
+              || (!isset($_REQUEST) && $txtrecords)) {
+            $newuser->txtrecords = 1;
+          }
+        }
+        $newuser->srvrecords = 0;
+        if ($config->srvrecords) {
+          if ((isset($_REQUEST) && !empty($_REQUEST['srvrecords']))
+              || (!isset($_REQUEST) && $srvrecords)) {
+            $newuser->srvrecords = 1;
+          }
+        }
+        $newuser->nbrows = $config->defaultnbrows;
+        if (isset($_REQUEST) && !empty($_REQUEST['nbrows'])) {
+          $newuser->nbrows = intval($_REQUEST['nbrows']);
+        }
+        $options = sprintf(
+            'advanced=%d;ipv6=%d;nbrows=%d;grouprights=A;txtrecords=%d;srvrecords=%d;',
+            $newuser->advanced, $newuser->ipv6, $newuser->nbrows,
+            $newuser->txtrecords, $newuser->srvrecords);
+        $newuser->grouprights = 'A';
+        $newuser->lang = $lang;
+        $newuser->options = $options;
+        $newuser->changeOptions();
+        // generate random ID 
+        $randomid= $newuser->generateIDEmail();
+        // insert ID in DB
+        if (!$newuser->storeIDEmail($newuser->userid, $email, $randomid)) {
+          $content .= $newuser->error;
+        } else {
+          include 'includes/createuser_mail.php';  // set $mailbody variable
+          $result = mailer(
+              $config->emailfrom, $email,
+              sprintf('%s %s', $config->sitename, $l['str_email_validation']),
+              sprintf('Content-Type: text/plain; charset=%s',  $l['str_content_type']),
+              $mailbody);
+          if ($result) {
+            $content .= sprintf('<p>%s<br>%s</p>',
+                 $l['str_email_successfully_sent_explanation1'],
+                 $l['str_email_successfully_sent_explanation2']);
+          } else {
+            $content .= $l['str_email_error_error_occured'];
+            $content .= sprintf($l['str_email_error_please_verify_address_x'],$email);
+            $content .= sprintf(
+                $l['str_in_doubt_you_can_contact_us_at_x'],
+                sprintf('<a href="mailto:%s" class="linkcolor">%s</a>',
+                    $config->contactemail, $config->contactemail));
+          }
+        }
       } // user created successfully
-  
-    }else{ // error, print form again
+    } else { // error, print form again
       include 'includes/createuser_form.php';
     }
-  
-  } // end else $loginnew not null
-
-}else{ // end $config->public
-  $title=$l['str_uppercase_error'];
-  $content=$l['str_not_public_server'];
-}
-print $html->box('mainbox',$title,$content);
-
-
-
-if(file_exists("includes/right_side.php")) {
-        include "includes/right_side.php";
-}else{
-        include "includes/right_side_default.php";
+  }
 }
 
+print $html->box('mainbox', $title, $content);
+
+if (file_exists("includes/right_side.php")) {
+  include "includes/right_side.php";
+} else {
+  include "includes/right_side_default.php";
+}
 
 print $html->footer();
 
