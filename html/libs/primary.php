@@ -3456,6 +3456,8 @@ class Primary extends Zone {
    */
   function checkAName($string) {
     $string = strtolower($string);
+    if (strlen($string) == 0)
+      return 0;
     if ($string == '*')
       return 1;
     if ($string == "@")
@@ -3466,6 +3468,11 @@ class Primary extends Zone {
     // allow zone name itself
     if ($string == $this->zonename.'.')
       return 1;
+    // cannot have two consecutive dots
+    if (strpos($string, '..') !== false)
+      return 0;
+    // remove zonename from end of tested string
+    $string = preg_replace('/\.' . $this->zonename . '\.$/', '', $string);
     // it cannot end with a dot
     if ($string[strlen($string)-1] == '.')
       return 0;
