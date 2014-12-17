@@ -140,9 +140,9 @@ if ($user->authenticated == 1) {
       printf($html->string_error, $l['str_you_dont_own_this_zone']);
     } else {
       $title = sprintf($l['str_zone_content_for_x_on_server_x'],
-          $zone->zonename,htmlspecialchars($server));
+          $zone->zonename, xssafe($server));
       $content = sprintf("\n<pre>%s</pre>",
-          htmlspecialchars(zoneDig($server, $zonename)));
+          xssafe(zoneDig($server, $zonename)));
       print $html->box('digwindow', $title, $content);
     }
   }

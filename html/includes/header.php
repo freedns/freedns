@@ -163,8 +163,8 @@ if(empty($idsession)){
 }
 
 if(!empty($idsession)){
-  $link="?idsession=" . htmlspecialchars($idsession);
-  $hiddenfields = '<input type="hidden" name="idsession" value="' . htmlspecialchars($idsession) . '">';
+  $link="?idsession=" . xssafe($idsession);
+  $hiddenfields = '<input type="hidden" name="idsession" value="' . xssafe($idsession) . '">';
   // add language only if different 
   if(strcmp($lang,$user->lang)){
     $link .= "&amp;language=" . $lang;

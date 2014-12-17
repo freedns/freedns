@@ -683,4 +683,7 @@ function urlpop($url) {
          'alwaysraised=yes,dependant=yes,resizable=yes,menubar=no,' .
          'scrollbars=yes,width=640,height=480\'); return false';
 }
-?>
+
+function xssafe($data) {
+  return htmlspecialchars($data, ENT_QUOTES|ENT_HTML401, $encoding);
+}

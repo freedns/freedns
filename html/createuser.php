@@ -18,31 +18,31 @@ $page_title = 'str_create_new_user_title';  // used in header.php
 include 'includes/header.php';
 
 if (isset($_REQUEST) && isset($_REQUEST['loginnew'])) {
-  $loginnew = addslashes($_REQUEST['loginnew']);
+  $loginnew = $_REQUEST['loginnew'];
 } else {
   $loginnew = "";
 }
 
 if (isset($_REQUEST) && isset($_REQUEST['passwordnew'])) {
-  $passwordnew = addslashes($_REQUEST['passwordnew']);
+  $passwordnew = $_REQUEST['passwordnew'];
 } else {
   $passwordnew = "";
 }
 
 if (isset($_REQUEST) && isset($_REQUEST['confirmpasswordnew'])) {
-  $confirmpasswordnew = addslashes($_REQUEST['confirmpasswordnew']);
+  $confirmpasswordnew = $_REQUEST['confirmpasswordnew'];
 } else {
   $confirmpasswordnew = "";
 }
 
 if (isset($_REQUEST) && isset($_REQUEST['email'])) {
-  $email = addslashes($_REQUEST['email']);
+  $email = $_REQUEST['email'];
 } else {
   $email = "";
 }
 
 if (isset($_REQUEST) && isset($_REQUEST['newlang'])) {
-  $newlang = addslashes($_REQUEST['newlang']);
+  $newlang = $_REQUEST['newlang'];
 } else {
   $newlang = "";
 }
@@ -94,7 +94,8 @@ if (!$config->public) {
     } else {  // all required fields are there, check them
       if (!checkName($loginnew)) {
         $localerror = 1;
-        $content .= $l['str_bad_login_name'] . '<br>';
+        $content .= sprintf($html->string_error, $l['str_bad_login_name']);
+        $content .= '<br>';
       }
       if (!checkEmail($email)) {
         $localerror = 1;
@@ -153,12 +154,16 @@ if (!$config->public) {
         if (isset($_REQUEST) && !empty($_REQUEST['nbrows'])) {
           $newuser->nbrows = intval($_REQUEST['nbrows']);
         }
+        $newuser->lang = $config->defaultlanguage;
+        $langlist = GetDirList('includes/strings');
+        if (in_array($newlang, $langlist, true)) {
+            $newuser->lang = $newlang;
+        }
         $options = sprintf(
             'advanced=%d;ipv6=%d;nbrows=%d;grouprights=A;txtrecords=%d;srvrecords=%d;',
             $newuser->advanced, $newuser->ipv6, $newuser->nbrows,
             $newuser->txtrecords, $newuser->srvrecords);
         $newuser->grouprights = 'A';
-        $newuser->lang = $lang;
         $newuser->options = $options;
         $newuser->changeOptions();
         // generate random ID 

@@ -3,10 +3,10 @@
   $content .= sprintf('<form action="%s" method="post">', $_SERVER['PHP_SELF']);
   $content .= '<table id="createusertable"><tr>';
   $content .= sprintf('<td align="right">%s:</td>', $l['str_login']);
-  $content .= sprintf('<td><input type="text" name="loginnew" value="%s"></td>', $loginnew);
+  $content .= sprintf('<td><input type="text" name="loginnew" value="%s"></td>', xssafe($loginnew));
   $content .= '</tr><tr>';
   $content .= sprintf('<td align=right>%s</td>', $l['str_your_valid_email']);
-  $content .= sprintf('<td><input type="text" name="email" value="%s"></td>', $email);
+  $content .= sprintf('<td><input type="text" name="email" value="%s"></td>', xssafe($email));
   $content .= '</tr><tr>';
   $content .= sprintf('<td align="right">%s:</td>', $l['str_new_password']);
   $content .= '<td><input type="password" name="passwordnew"></td>';

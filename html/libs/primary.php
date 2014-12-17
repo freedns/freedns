@@ -1216,7 +1216,7 @@ class Primary extends Zone {
 
     $result = sprintf(
       $l['str_primary_deleting_a_x'],
-      htmlspecialchars($name) . "/" . htmlspecialchars($ip)) . "... ";
+      xssafe($name) . "/" . xssafe($ip)) . "... ";
     if (!empty($reverse)) {
       // look for reverse
       // check if managed by user
@@ -1341,7 +1341,7 @@ class Primary extends Zone {
     global $html,$config,$l;
 
     $result = sprintf($l['str_primary_deleting_ptr_x'],
-      htmlspecialchars($ip . "/" . $name)) . "... ";
+      xssafe($ip . "/" . $name)) . "... ";
 
     if (!empty($reverse)) {
       // if "normal" zone is managed by current user, update A
@@ -1423,7 +1423,7 @@ class Primary extends Zone {
   function deleteMultipleARecords($name, $what="") {
     global $db, $html, $l;
 
-    $result = sprintf($l['str_primary_deleting_a_x'], htmlspecialchars($name));
+    $result = sprintf($l['str_primary_deleting_a_x'], xssafe($name));
     $result .= "... ";
     if (empty($what)) {
       $what = "'A','AAAA'";
@@ -1477,7 +1477,7 @@ class Primary extends Zone {
               WHERE zoneid='" . $this->zoneid . "'
               AND type='WWW' AND id='" . mysql_real_escape_string($valid) . "'";
             $result .= sprintf($l['str_primary_deleting_www_x'],
-              htmlspecialchars($valname)) . "... ";
+              xssafe($valname)) . "... ";
             break;
 
           case "srv":
@@ -1488,7 +1488,7 @@ class Primary extends Zone {
               WHERE zoneid='" . $this->zoneid . "'
               AND type='SRV' AND id='" . mysql_real_escape_string($valid) . "'";
             $result .= sprintf($l['str_primary_deleting_srv_x'],
-              htmlspecialchars($valname)) . "... ";
+              xssafe($valname)) . "... ";
             break;
 
           case "cname":
@@ -1500,7 +1500,7 @@ class Primary extends Zone {
               WHERE zoneid='" . $this->zoneid . "'
               AND type='CNAME' AND id='" . mysql_real_escape_string($valid) . "'";
             $result .= sprintf($l['str_primary_deleting_cname_x'],
-              htmlspecialchars($valname)) . "... ";
+              xssafe($valname)) . "... ";
             break;
 
           case "a":
@@ -1529,7 +1529,7 @@ class Primary extends Zone {
               WHERE zoneid='" . $this->zoneid . "'
               AND type='AAAA' AND id='" . mysql_real_escape_string($val2) . "'";
             $result .= sprintf($l['str_primary_deleting_aaaa_x'],
-              htmlspecialchars($val1)) . "... ";
+              xssafe($val1)) . "... ";
             break;
 
           case "txt":
@@ -1541,7 +1541,7 @@ class Primary extends Zone {
               WHERE zoneid='" . $this->zoneid . "'
               AND type='TXT' AND id='" . mysql_real_escape_string($val2) . "' ";
             $result .= sprintf($l['str_primary_deleting_txt_x'],
-              htmlspecialchars($val1)) . "... ";
+              xssafe($val1)) . "... ";
             break;
 
           case "ptr":
@@ -1565,7 +1565,7 @@ class Primary extends Zone {
               WHERE zoneid='" . $this->zoneid . "'
               AND type='NS' AND id='" . mysql_real_escape_string($valid) . "'";
             $result .= sprintf($l['str_primary_deleting_ns_x'],
-              htmlspecialchars($valname)) . "... ";
+              xssafe($valname)) . "... ";
             break;
 
           case "mx":
@@ -1577,7 +1577,7 @@ class Primary extends Zone {
               WHERE zoneid='" . $this->zoneid . "'
               AND type='MX' AND id='" . mysql_real_escape_string($valid) . "'";
             $result .= sprintf($l['str_primary_deleting_mx_x'],
-              htmlspecialchars($valname)) . "... ";
+              xssafe($valname)) . "... ";
             break;
 
           case "subns":
@@ -1592,7 +1592,7 @@ class Primary extends Zone {
               WHERE zoneid='" . $this->zoneid . "'
               AND type='SUBNS' AND id='" . mysql_real_escape_string($valid) . "'";
             $result .= sprintf($l['str_primary_deleting_sub_zone_x'],
-              htmlspecialchars($valname)) . "... ";
+              xssafe($valname)) . "... ";
             break;
 
           case "delegate":
@@ -1669,7 +1669,7 @@ class Primary extends Zone {
           // check if matching A record exists ? NOT OUR JOB
           $this->error = sprintf(
             $l['str_primary_bad_mx_name_x'],
-            htmlspecialchars($value));
+            xssafe($value));
         } else {
           // if checkName, add zone.
           if (checkName($value)) {
@@ -1684,7 +1684,7 @@ class Primary extends Zone {
           if (!$this->checkMXPref($pref[$i])) {
             $this->error = sprintf(
               $l['str_primary_preference_for_mx_x_has_to_be_int'],
-              htmlspecialchars($value));
+              xssafe($value));
           } else {
             if ($pref[$i] == "") {
               $pref[$i] = 0;
@@ -1698,7 +1698,7 @@ class Primary extends Zone {
             $line = $db->fetch_row($res);
             if ($line[0] == 0) {
               $result .= sprintf($l['str_primary_adding_mx_x'],
-                htmlspecialchars($value)) . "... ";
+                xssafe($value)) . "... ";
               $ttlval = $this->fixDNSTTL($ttl[$i]);
               $query = "INSERT INTO dns_record (zoneid, type, val1, val2, val3, ttl)
                 VALUES ('" . $this->zoneid . "', 'MX', '"
@@ -1712,7 +1712,7 @@ class Primary extends Zone {
             } else { // record already exists
               $result .=
                 sprintf($l['str_primary_warning_mx_x_exists_not_overwritten'],
-                  htmlspecialchars($value)) ."<br>\n";
+                  xssafe($value)) ."<br>\n";
             }
           }
         }
@@ -1742,7 +1742,7 @@ class Primary extends Zone {
         if (!$this->checkNSName($value)) {
           $this->error = sprintf(
             $l['str_primary_bad_ns_x'],
-            htmlspecialchars($value));
+            xssafe($value));
         } else {
           // if no trailing ".", add one
           if (strrpos($value, ".") != strlen($value) -1) {
@@ -1757,7 +1757,7 @@ class Primary extends Zone {
           $line = $db->fetch_row($res);
           if ($line[0] == 0) {
             $result .= sprintf($l['str_primary_adding_ns_x'],
-              htmlspecialchars($value)) . "... ";
+              xssafe($value)) . "... ";
             $ttlval = $this->fixDNSTTL($ttl[$i]);
             $query = "INSERT INTO dns_record (zoneid, type, val1,ttl)
               VALUES ('" . $this->zoneid . "', 'NS', '"
@@ -1771,7 +1771,7 @@ class Primary extends Zone {
           } else {
             $result .=
               sprintf($l['str_primary_warning_ns_x_exists_not_overwritten'],
-                htmlspecialchars($value)) . "<br>\n";
+                xssafe($value)) . "<br>\n";
           }
         }
       }
@@ -1801,18 +1801,18 @@ class Primary extends Zone {
         if (! $this->checkAName($value) ) {
           $this->error = sprintf(
             $l['str_primary_bad_a_x'],
-            htmlspecialchars($value));
+            xssafe($value));
         } else {
           // a[$i] has to be an ip address
           if ($a[$i] == "") {
             $this->error = sprintf(
               $l['str_primary_no_ip_for'],
-              htmlspecialchars($value));
+              xssafe($value));
           } else {
             if (!$this->checkAValue($a[$i])) {
               $this->error = sprintf(
                 $l['str_primary_x_ip_has_to_be_ip'],
-                htmlspecialchars($value));
+                xssafe($value));
             } else {
               // Check if record already exists
               $query = "SELECT count(*) FROM dns_record WHERE
@@ -1829,7 +1829,7 @@ class Primary extends Zone {
                 $line = $db->fetch_row($res);
                 if ($line[0] == 0) {
                   $result .= sprintf($l['str_primary_adding_a_x'],
-                    htmlspecialchars($value)) . "... ";
+                    xssafe($value)) . "... ";
                   $ttlval = $this->fixDNSTTL($ttl[$i]);
                   $query = "INSERT INTO dns_record (zoneid, type, val1, val2,ttl)
                     VALUES ('" . $zoneid . "',
@@ -1847,7 +1847,7 @@ class Primary extends Zone {
                 } else { // end check CNAME
                   $result .=
                     sprintf($l['str_primary_warning_cname_x_exists_not_overwritten'],
-                      htmlspecialchars($value)) . "<br>\n";
+                      xssafe($value)) . "<br>\n";
                 }
               } else { // end check A
                 // check if already same IP or not. If yes, do not
@@ -1858,9 +1858,9 @@ class Primary extends Zone {
                 $line = $db->fetch_row($res);
                 if ($line[0] == 0) {
                   $result .= sprintf($l['str_primary_warning_a_x_exists_with_diff_value'],
-                    htmlspecialchars($value)) . ' ';
+                    xssafe($value)) . ' ';
                   $result .= sprintf($l['str_primary_adding_a_x'],
-                    htmlspecialchars($value)) . "... ";
+                    xssafe($value)) . "... ";
                   $ttlval = $this->fixDNSTTL($ttl[$i]);
                   $query = "INSERT INTO dns_record (zoneid, type, val1, val2,ttl)
                     VALUES ('" . $zoneid . "',
@@ -1878,7 +1878,7 @@ class Primary extends Zone {
 
                 } else {
                   $result .= sprintf($l['str_primary_a_x_with_same_ip'],
-                    htmlspecialchars($value)). '<br>';
+                    xssafe($value)). '<br>';
                 }
               }
             }
@@ -1911,18 +1911,18 @@ class Primary extends Zone {
         if (! $this->checkAAAAName($value) ) {
           $this->error = sprintf(
             $l['str_primary_aaaa_bad_aaaa_x'],
-            htmlspecialchars($value));
+            xssafe($value));
         } else {
           // a[$i] has to be an ipv6 address
           if ($aaaa[$i] == "") {
             $this->error = sprintf(
               $l['str_primary_no_ipv6_for_x'],
-              htmlspecialchars($value));
+              xssafe($value));
           } else {
             if (! $this->checkAAAAValue($aaaa[$i]) ) {
               $this->error = sprintf(
                 $l['str_primary_x_ip_has_to_be_ipv6'],
-                htmlspecialchars($value . "/" .$aaaa[$i]));
+                xssafe($value . "/" .$aaaa[$i]));
             } else {
               // Check if record already exists
               $query = "SELECT count(*) FROM dns_record WHERE
@@ -1939,7 +1939,7 @@ class Primary extends Zone {
                 $line = $db->fetch_row($res);
                 if ($line[0] == 0) {
                   $result .= sprintf($l['str_primary_adding_aaaa_x'],
-                    htmlspecialchars($value)) . "... ";
+                    xssafe($value)) . "... ";
                   $ttlval = $this->fixDNSTTL($ttl[$i]);
                   $query = "INSERT INTO dns_record (zoneid, type, val1, val2,ttl)
                     VALUES ('" . $zoneid . "',
@@ -1957,7 +1957,7 @@ class Primary extends Zone {
                 } else { // end check CNAME
                   $result .= sprintf(
                     $l['str_primary_warning_cname_x_exists_not_overwritten'],
-                    htmlspecialchars($value)) . "<br>\n";
+                    xssafe($value)) . "<br>\n";
                 }
               } else { // end check AAAA
 
@@ -1970,10 +1970,10 @@ class Primary extends Zone {
                 if ($line[0] == 0) {
                   $result .= sprintf(
                     $l['str_primary_warning_aaaa_x_exists_with_diff_value'],
-                    htmlspecialchars($value)) . ' ';
+                    xssafe($value)) . ' ';
                   $result .= sprintf(
                     $l['str_primary_adding_aaaa_x'],
-                    htmlspecialchars($value)) . "... ";
+                    xssafe($value)) . "... ";
                   $ttlval = $this->fixDNSTTL($ttl[$i]);
                   $query = "INSERT INTO dns_record (zoneid, type, val1, val2,ttl)
                     VALUES ('" . $this->zoneid . "',
@@ -1991,7 +1991,7 @@ class Primary extends Zone {
 
                 } else {
                   $result .= sprintf($l['str_primary_aaaa_x_with_same_ip'],
-                    htmlspecialchars($value)) . '<br>';
+                    xssafe($value)) . '<br>';
                 }
               }
             }
@@ -2040,23 +2040,23 @@ class Primary extends Zone {
         if (! $this->checkPTRName($value) ) {
           $this->error = sprintf(
             $l['str_primary_bad_ptr_x'],
-            htmlspecialchars($value));
+            xssafe($value));
         } else {
           if ($ptrname[$i] == "") {
             $this->error = sprintf(
               $l['str_primary_no_name_for_x'],
-              htmlspecialchars($value));
+              xssafe($value));
           } else {
             if (ereg('\.$', $value)) {
               $result .= sprintf(
                 $l['str_primary_x_name_ends_with_dot'],
-                htmlspecialchars($value)) . "<br>\n";
+                xssafe($value)) . "<br>\n";
             }
             if (! $this->checkPTRValue($ptrname[$i]) ) {
               $this->error = sprintf(
                 $l['str_primary_x_name_has_to_be_fully_qualified_x'],
-                htmlspecialchars($value), 
-                htmlspecialchars($ptrname[$i]));
+                xssafe($value), 
+                xssafe($ptrname[$i]));
             } else {
               // Check if record already exists
               $query = "SELECT count(*) FROM dns_record WHERE
@@ -2073,7 +2073,7 @@ class Primary extends Zone {
                 $line = $db->fetch_row($res);
                 if ($line[0] == 0) {
                   $result .= sprintf($l['str_primary_adding_ptr_x'],
-                    htmlspecialchars($value)) . "... ";
+                    xssafe($value)) . "... ";
                   $ttlval = $this->fixDNSTTL($ttl[$i]);
                   $query = "INSERT INTO dns_record (zoneid, type, val1, val2,ttl)
                     VALUES ('" . $zoneid . "',
@@ -2164,7 +2164,7 @@ class Primary extends Zone {
                 } else { // end check CNAME
                   $result .= sprintf(
                     $l['str_primary_warning_cname_x_exists_not_overwritten'],
-                    htmlspecialchars($value)) . "<br>\n";
+                    xssafe($value)) . "<br>\n";
                 }
               } else { // end check A
 
@@ -2177,10 +2177,10 @@ class Primary extends Zone {
                 if ($line[0] == 0) {
                   $result .= sprintf(
                     $l['str_primary_warning_ptr_x_exists_with_diff_value'],
-                    htmlspecialchars($value)) . ' ';
+                    xssafe($value)) . ' ';
                   $result .=  sprintf(
                     $l['str_primary_adding_ptr_x'],
-                    htmlspecialchars($value)) . "... ";
+                    xssafe($value)) . "... ";
                   $ttlval = $this->fixDNSTTL($ttl[$i]);
                   $query = "INSERT INTO dns_record (zoneid, type, val1, val2,ttl)
                     VALUES ('" . $zoneid . "',
@@ -2249,7 +2249,7 @@ class Primary extends Zone {
                 } else {
                   $result .= sprintf(
                     $l['str_primary_warning_ptr_x_already_exists_not_overwritten'],
-                    htmlspecialchars($value)) . '<br>';
+                    xssafe($value)) . '<br>';
                 }
               }
             }
@@ -2281,16 +2281,16 @@ class Primary extends Zone {
         if (! $this->checkCNAMEName($value) ) {
           $this->error = sprintf(
             $l['str_primary_bad_cname_x'],
-            htmlspecialchars($value));
+            xssafe($value));
         }elseif(! $this->checkCNAMEValue($cnamea[$i]) ) {
           $this->error = sprintf(
             $l['str_primary_bad_cname_x'],
-            htmlspecialchars($cnamea[$i]));
+            xssafe($cnamea[$i]));
         } else {
           if ($cnamea[$i] =="") {
             $this->error = sprintf(
               $l['str_primary_no_record_x'],
-              htmlspecialchars($value));
+              xssafe($value));
           } else {
             // Check if record already exists
             $query = "SELECT count(*) FROM dns_record WHERE
@@ -2308,7 +2308,7 @@ class Primary extends Zone {
               if ($line[0] == 0) {
                 $result .= sprintf(
                   $l['str_primary_adding_cname_x'],
-                  htmlspecialchars($value)) . "... ";
+                  xssafe($value)) . "... ";
                 $ttlval = $this->fixDNSTTL($ttl[$i]);
                 $query = "INSERT INTO dns_record (zoneid, type, val1, val2,ttl)
                   VALUES ('" . $this->zoneid . "', 'CNAME', '"
@@ -2323,12 +2323,12 @@ class Primary extends Zone {
               } else { // A record present
                 $result .= sprintf(
                   $l['str_primary_warning_a_x_exists_not_overwritten'],
-                  htmlspecialchars($value)) . "<br>\n";
+                  xssafe($value)) . "<br>\n";
               }
             } else {
               $result .= sprintf(
                 $l['str_primary_warning_cname_x_exists_not_overwritten'],
-                htmlspecialchars($value)) . "<br>\n";
+                xssafe($value)) . "<br>\n";
             }
           }
         }
@@ -2362,13 +2362,13 @@ class Primary extends Zone {
       }
       if (!$this->checkTXTName($value)) {
         $this->error = sprintf(
-            $l['str_primary_bad_txt_x'], htmlspecialchars($value));
+            $l['str_primary_bad_txt_x'], xssafe($value));
         continue;
       }
       if ($txtstring[$i] =="") {
         $this->error = sprintf(
           $l['str_primary_no_record_x'],
-          htmlspecialchars($value));
+          xssafe($value));
         continue;
       }
 
@@ -2381,12 +2381,12 @@ class Primary extends Zone {
       if ($line[0] != 0) {
         $result .= sprintf(
           $l['str_primary_warning_cname_x_exists_not_overwritten'],
-          htmlspecialchars($value)) . "<br>\n";
+          xssafe($value)) . "<br>\n";
         continue;
       }
 
       $result .= sprintf(
-          $l['str_primary_adding_txt_x'], htmlspecialchars($value)) . "... ";
+          $l['str_primary_adding_txt_x'], xssafe($value)) . "... ";
       $newstring = $txtstring[$i];
       $ttlval = $this->fixDNSTTL($ttl[$i]);
       $query = "INSERT INTO dns_record (zoneid, type, val1, val2,ttl)
@@ -2438,14 +2438,14 @@ class Primary extends Zone {
         if (!$this->checkWWWName($value)) {
           $this->error = sprintf(
             $l['str_primary_bad_www_x'],
-            htmlspecialchars($value));
+            xssafe($value));
         } elseif ($this->frameRedirect($wwwr[$i]) == "") {
           $this->error = $l['str_primary_www_no_type'];
         } else {
           if ($wwwstring[$i] == "") {
             $this->error = sprintf(
               $l['str_primary_no_record_x'],
-              htmlspecialchars($value));
+              xssafe($value));
           } else {
             if (!$this->checkWWWValue($wwwstring[$i])) {
               $wwwstring[$i] = "http://" . $wwwstring[$i];
@@ -2460,7 +2460,7 @@ class Primary extends Zone {
             if ($line[0] == 0) {
               $result .= sprintf($l['str_primary_adding_www_x_x'],
                 $this->frameRedirect($wwwr[$i]),
-                htmlspecialchars($value));
+                xssafe($value));
               $result .= "... ";
               $ttlval = $this->fixDNSTTL($ttl[$i]);
               $query = sprintf("INSERT INTO dns_record " .
@@ -2480,7 +2480,7 @@ class Primary extends Zone {
             } else {
               $result .= sprintf(
                 $l['str_primary_warning_www_x_exists_not_overwritten'],
-                htmlspecialchars($value));
+                xssafe($value));
               $result .= "<br>\n";
             }
           }
@@ -2511,24 +2511,24 @@ class Primary extends Zone {
         if (!$this->checkSUBNSName($value)) {
           $this->error = sprintf(
             $l['str_bad_zone_name_x'],
-            htmlspecialchars($value));
+            xssafe($value));
         } else {
           if ($subnsa[$i] =="") {
             $this->error = sprintf(
               $l['str_primary_no_ns_x'],
-              htmlspecialchars($value));
+              xssafe($value));
           } else {
             if (!$this->checkSUBNSValue($subnsa[$i])) {
               $this->error = sprintf(
                 $l['str_primary_bad_ns_x'],
-                htmlspecialchars($subnsa[$i]));
+                xssafe($subnsa[$i]));
             }
           }
           if (!$this->error) {
             // Check if record already exists
             // if yes, no problem - multiple different NS possible
             $result .= sprintf($l['str_primary_adding_zone_ns_x'],
-              htmlspecialchars($value)) . "... ";
+              xssafe($value)) . "... ";
             $query = "SELECT count(*) FROM dns_record
               WHERE zoneid='" . $this->zoneid . "' AND type='SUBNS'
               AND val1='" . mysql_real_escape_string($value) . "'
@@ -2552,7 +2552,7 @@ class Primary extends Zone {
                 }
               } else {
                 $result .=sprintf($l['str_primary_warning_ns_x_exists_not_overwritten'],
-                  htmlspecialchars($value)) . "<br>\n";
+                  xssafe($value)) . "<br>\n";
               }
             }
           }
@@ -2582,24 +2582,24 @@ class Primary extends Zone {
       if (!empty($value)) {
         $result .= sprintf(
           $l['str_primary_adding_delegate_x'],
-          htmlspecialchars($value),
-          htmlspecialchars($delegateto[$i])) . "... ";
+          xssafe($value),
+          xssafe($delegateto[$i])) . "... ";
         if (!ereg('^[0-9]+$',$value)) {
           $this->error = sprintf(
             $l['str_primary_bad_lower_limit_x'],
-            htmlspecialchars($value));
+            xssafe($value));
         } else {
           if (!ereg('^[0-9]+$',$delegateto[$i])||$delegateto[$i]>255) {
             $this->error = sprintf(
               $l['str_primary_bad_upper_limit_x'],
-              htmlspecialchars($delegateto[$i]));
+              xssafe($delegateto[$i]));
           } else {
             // check if lower if below upper
             if (!($value <= $delegateto[$i])) {
               $this->error = sprintf(
                 $l['str_primary_bad_limits_x_x'],
-                htmlspecialchars($value),
-                htmlspecialchars($delegateto[$i]));
+                xssafe($value),
+                xssafe($delegateto[$i]));
             } else {
               if (empty($delegateuser[$i])) {
                 $this->error = $l['str_primary_no_user_for_delegation'];
@@ -2612,7 +2612,7 @@ class Primary extends Zone {
                   if (!$newuserid) {
                     $this->error = sprintf(
                       $l['str_primary_delegate_user_x_doesnot_exist'],
-                      htmlspecialchars($delegateuser[$i]));
+                      xssafe($delegateuser[$i]));
                   } else { // user exists
                     // check if items inside this range are already registered or not
                     $query = "SELECT val1 FROM dns_record WHERE zoneid='" .
@@ -2627,10 +2627,10 @@ class Primary extends Zone {
                           (($from >= $value) && ($from <= $delegateto[$i]))) {
                           $this->error = sprintf(
                             $l['str_primary_delegate_bad_limits_x_x_overlaps_existing_x_x'],
-                            htmlspecialchars($value),
-                            htmlspecialchars($delegateto[$i]),
-                            htmlspecialchars($from),
-                            htmlspecialchars($to));
+                            xssafe($value),
+                            xssafe($delegateto[$i]),
+                            xssafe($from),
+                            xssafe($to));
                         }
                       }
                       if (!$this->error) {
@@ -2740,17 +2740,17 @@ class Primary extends Zone {
           || !$this->checkSRVValue($srvvalue[$i])) {
           $this->error = sprintf(
             $l['str_primary_bad_srvname_x'],
-            htmlspecialchars($value));
+            xssafe($value));
         } else {
           if ($srvvalue[$i] == "") {
             $this->error = sprintf(
               $l['str_primary_no_record_x'],
-              htmlspecialchars($value));
+              xssafe($value));
           } else {
             if (!$this->checkSRVPriority($srvpriority[$i])) {
               $this->error = sprintf(
                 $l['str_primary_priority_for_srv_x_has_to_be_int'],
-                htmlspecialchars($value));
+                xssafe($value));
             } else {
               if ($srvpriority[$i] == "") {
                 $srvpriority[$i] = 0;
@@ -2758,7 +2758,7 @@ class Primary extends Zone {
               if (!$this->checkSRVWeight($srvweight[$i])) {
                 $this->error = sprintf(
                   $l['str_primary_weight_for_srv_x_has_to_be_int'],
-                  htmlspecialchars($value));
+                  xssafe($value));
               } else {
                 if ($srvweight[$i] == "") {
                   $srvweight[$i] = 0;
@@ -2773,7 +2773,7 @@ class Primary extends Zone {
                 $line = $db->fetch_row($res);
                 if ($line[0] == 0) {
                   $result .= sprintf($l['str_primary_adding_srv_x'],
-                    htmlspecialchars($value)) . "... ";
+                    xssafe($value)) . "... ";
                   $ttlval = $this->fixDNSTTL($ttl[$i]);
                   $query = "INSERT INTO dns_record (zoneid, type, val1, val2, val3,val4,val5,ttl)
                     VALUES ('" . $this->zoneid . "', 'SRV', '"
@@ -2791,7 +2791,7 @@ class Primary extends Zone {
                   }
                 } else { // record already exists
                   $result .= sprintf($l['str_primary_warning_srv_x_exists_not_overwritten'],
-                    htmlspecialchars($value)) ."<br>\n";
+                    xssafe($value)) ."<br>\n";
                 }
               }
             }
@@ -2919,8 +2919,8 @@ class Primary extends Zone {
       if (0!=strcmp($nval, $val) || $nval <= 0) {
         $this->error .= sprintf(
           $l['str_primary_x_parameter_x_has_to_be_int'],
-          htmlspecialchars($soattl),
-          htmlspecialchars($val));
+          xssafe($soattl),
+          xssafe($val));
         return;
       }
       $val = $nval;
