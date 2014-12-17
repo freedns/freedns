@@ -341,15 +341,13 @@ function checkPrimary($string){
 
 // function checkEmail($string)
 /**
- * Check if email looks valid or not  
+ * Check if email looks valid or not
  *
  *@param string $string email to check
  *@return int 1 if valid, 0 else
  */
-function checkEmail($string){
-  $result = 1;
-  if(!ereg("^[^@]+@.+\\..+$", $string)) $result = 0;
-  return $result;
+function checkEmail($string) {
+  return preg_match("/^[^@ ]+@[^@ ]+\\.[^@ ]+$/", $string);
 }
 
 // function vrfyEmail($string)
