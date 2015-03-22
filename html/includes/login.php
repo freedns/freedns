@@ -88,52 +88,45 @@ if($user->authenticated == 0){
   }else{
     $allzones = $user->listallzones();
   }
-  if(empty($user->error)){
-    $content = '
-      <div id="legend">
-      <span class="loghighlightINFORMATION">' . $l['str_log_information'] . '</span>
-      <span class="loghighlightWARNING">' . $l['str_log_warning'] . '</span>
-      <span class="loghighlightERROR">' .  $l['str_log_error'] . '</span>
-      </div>';
+  if (empty($user->error)) {
+    $content = '<div id="legend">';
+    $content .= sprintf('<span class="I">%s</span>', $l['str_log_information']);
+    $content .= sprintf('<span class="W">%s</span>', $l['str_log_warning']);
+    $content .= sprintf('<span class="E">%s</span>', $l['str_log_error']);
+    $content .= '</div>';
 
-    $content .='<table id="zonelisttable">';
-    while($otherzone= array_pop($allzones)){
-      // TODO : NEW ZONE
-      $newzone = new Zone($otherzone[0],$otherzone[1],$otherzone[2]);
+    $content .= '<table id="zonelisttable">';
+    while ($otherzone= array_pop($allzones)) {
+      $newzone = new Zone($otherzone[0], $otherzone[1], $otherzone[2]);
       $status = $newzone->zonestatus();
-      switch($status[0]) {
-        case 'I': $class='loghighlightINFORMATION'; break;
-        case 'W': $class='loghighlightWARNING'; break;
-        case 'E': $class='loghighlightERROR'; break;
-        default: $class='loghighlightUNKNOWN';
-      }
-      switch($status[1]) {
-        case 'I': $class2='loghighlightINFORMATION'; break;
-        case 'W': $class2='loghighlightWARNING'; break;
-        case 'E': $class2='loglowlightERROR'; if ($status[0]=='E') $class2="loghighlightERROR"; break;
-        default: $class2='UNKNOWN2';
-      }
-      $urlpar = $link . '&amp;zonename=' . $newzone->zonename .
-                        '&amp;zonetype=' . $newzone->zonetype;
-      $content .= '<tr>';
-      $content .= '<td align="center"><a href="logwindow.php'. $urlpar .'" class="linkcolor"' .
-        'onclick="window.open(\'logwindow.php'.$urlpar.'\',\'M\',\'toolbar=no,location=no,directories=no,' .
-        'status=yes,alwaysraised=yes,dependant=yes,resizable=yes,scrollbars=yes,' .
-        'menubar=no,width=640,height=480\'); return false">' .
-        '<span class="'.$class. '">&nbsp;@</span>'.
-        '<span class="'.$class2. '">&nbsp;&nbsp;</span>'.
-        '</a></td>';
-      $content .= '<td><a href="zones.php' . $urlpar . '" class="linkcolor">' .
-          $newzone->zonename . '</a> (' . $newzone->zonetype . ')</td>';
-      $content .= '</tr>';
+      $class = $status[0];
+      if ($status[0] != 'E' and $status[1] == 'E')
+        $class2 = 'Elight';
+      else
+        $class2 = $status[1];
+      $urlpar = sprintf('%s&amp;zonename=%s&amp;zonetype=%s',
+                        $link, $newzone->zonename, $newzone->zonetype);
+      $_url = sprintf('logwindow.php%s', $urlpar);
+      $_winopt = sprintf("'%s','M','toolbar=no,location=no,directories=no," .
+          "status=no,alwaysraised=yes,dependant=yes,menubar=no,scrollbars=yes," .
+          "resizable=yes,width=640,height=480'", $_url);
+
+      $content .= '<tr><td align="center">';
+      $content .= sprintf(
+          '<a href="%s" class="linkcolor" onclick="window.open(%s); return false">' .
+          '<span class="%s">&nbsp;@</span><span class="%s">&nbsp;&nbsp;</span></a>',
+          $_url, $_winopt, $class, $class2);
+      $content .= '</td><td>';
+      $content .= sprintf(
+          '<a href="zones.php%s" class="linkcolor">%s</a> (%s)',
+          $urlpar, $newzone->zonename, $newzone->zonetype);
+      $content .= '</td></tr>';
     }
     $content .= '</table>';
-  }else{
+  } else {
     $content = $user->error;
     if ($user->authenticated >= 2) $content = "";
   }
   $title = $l['str_all_your_zones'];
-  print $html->box('yourzones',$title,$content);
+  print $html->box('yourzones', $title, $content);
 }
-
-?>

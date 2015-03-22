@@ -292,23 +292,16 @@ if($user->authenticated==1){
       . '</h3>';
       $content .='<table>';
       while($otherzone= array_pop($allzones)){
-        $newzone = new Zone($otherzone[0],$otherzone[1],$otherzone[2]);
+        $newzone = new Zone($otherzone[0], $otherzone[1], $otherzone[2]);
         $status = $newzone->zonestatus();
-        switch($status[0]) {
-          case 'I': $class='INFORMATION'; break;
-          case 'W': $class='WARNING'; break;
-          case 'E': $class='ERROR'; break;
-          default: $class='UNKNOWN';
-        }
         $urlpar = $link . '&amp;zonename=' . $newzone->zonename 
                         . '&amp;zonetype=' . $newzone->zonetype;
-
         $content .= '<tr>
           <td>
             <a href="' .  $_SERVER["PHP_SELF"] . $urlpar . '" class="linkcolor">' .
             $newzone->zonename . '</a> (' . $newzone->zonetype . ')
           </td>
-          <td class="loghighlight' . $class . '" align="center">
+          <td class="' . $status[0] . '" align="center">
             <a href="' . urlpop("logwindow.php" . $urlpar) . '">'. $status[0] . '</a>
           </td></tr>';
       }

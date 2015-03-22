@@ -155,7 +155,7 @@ if ($user->authenticated == 1) {
     }
 
     $content .= sprintf('<table class="logtable">');
-    $content .= $zone->zoneLogs("loghighlight", "loglowlight");
+    $content .= $zone->zoneLogs();
     $content .= '</table><div align="center">';
     $content .= sprintf('<form action="%s" method="get">', $_SERVER["PHP_SELF"]);
     $content .= '<input type="hidden" name="deleteall" value="1">';
