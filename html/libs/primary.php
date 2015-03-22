@@ -3629,6 +3629,14 @@ class Primary extends Zone {
       return 1;
     if ($string == "_adsp._domainkey")
       return 1;
+    if ($string == "_caldav._tcp")
+      return 1;
+    if ($string == "_caldavs._tcp")
+      return 1;
+    if ($string == "_carddav._tcp")
+      return 1;
+    if ($string == "_carddavs._tcp")
+      return 1;
     return $this->checkAName($string);
   }
 
@@ -3724,11 +3732,16 @@ class Primary extends Zone {
   function checkSRVName($string) {
     $string = strtolower($string);
     $string = str_replace("." . $this->zonename . ".", "", $string);
-    $service = substr($string, -5);
-    if ($service == "._tcp" || $service == "._tls" || $service == "._udp") {
-       $string = substr($string, 0, -5);
-       if ($string[0] == '_') $string = substr($string, 1);
+    // remove well-known protocols before checking name
+    $parts = explode('.', $string);
+    while (list($k, $v) = each ($parts) ) {
+      if (in_array($v, array('_tls', '_udp', '_tcp'))) {
+        unset($parts[$k]);
+      }
     }
+    $string = implode('.', $parts);
+    // checkAName does not allow for underscores, allow one leading for SRV
+    if ($string[0] == '_') $string = substr($string, 1);
     return $this->checkAName($string);
   }
 
