@@ -288,17 +288,18 @@ dt span { font-weight: normal; }
     background-color: #FCFCFC;
 }
 
-.loglowlight { background-color: #FCFCFC; }
-.loghighlight { background-color: #ccc; }
-.loglowlightINFORMATION { background-color: #afa; }
-.loglowlightWARNING { background-color: #ffa; }
-.loglowlightERROR { font-size: 12px; background-color: #f66; }
-.loglowlightUNKNOWN { font-size: 12px; background-color: #fff; }
-.loghighlightINFORMATION { font-size: 12px; background-color: #0f0; }
-.loghighlightWARNING { font-size: 12px; background-color: #ff0; }
-.loghighlightERROR { font-size: 12px; background-color: #f00; }
-.loghighlightUNKNOWN { font-size: 12px; background-color: #fff; border: 1px solid #ccc; border-right: none;}
-.loghighlightUNKNOWN2 { font-size: 12px; background-color: #fff; border: 1px solid #ccc; border-left: none;}
+table.logtable tr:nth-child(even) { background-color: #fcfcfc; }
+table.logtable tr:nth-child(odd) { background-color: #ccc; }
+table.logtable tr:nth-child(even) .I { background-color: #afa; }
+table.logtable tr:nth-child(even) .W { background-color: #ffa; }
+table.logtable tr:nth-child(even) .E { background-color: #f66; }
+table.logtable tr:hover { background-color: #eecccc; }
+
+.level { text-align: center; padding-left: 0.42em; padding-right: 0.42em; }
+.I { background-color: #0f0; }
+.W { background-color: #ff0; }
+.Elight { background-color: #f66; }
+.E { background-color: #f00; }
 
 .red, .warning, .error { color: #f00; }
 

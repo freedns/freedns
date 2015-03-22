@@ -384,64 +384,38 @@ endif;
   }
 
 
-// Function zoneLogs($class1,$class2)
-//     print logs regarding zone
-//     in a table, with class $class
-//     alternate color between lines - done with class1 & class2
   /**
    * Return HTML table with all logs regarding zone
    *
-   * Lines are alternatively colored using class parameter
-   * for <tr> and <td>. classes have to be defined in CSS file,
-   * as <classname>INFORMATION,<classname>WARNING,<classname>ERROR
-   *
-    *@access public
-   *@param string $class1 <classname> 
-   *@param string $class2 <alternateclassname>
+   *@access public
    *@return string html code of rows
    */
-  Function zoneLogs($class1,$class2){
-    global $db,$l;
-    $this->error="";
+  function zoneLogs() {
+    global $db, $l;
+    $this->error = "";
     $result = "";
-    $query = "SELECT count(*) FROM dns_log WHERE zoneid='" .
-    $this->zoneid . "'";
-    $res=$db->query($query);
-    $line=$db->fetch_row($res);
-    if($line[0] == 0){
-      return $l['str_no_logs_available_for_this_zone'];    
-    }
-    $query = "SELECT date,content,status,s.servername 
-    FROM dns_log l, dns_server s WHERE s.id=l.serverid AND zoneid='" . $this->zoneid . "' ORDER BY date DESC";
-    $res=$db->query($query);
-    $class=$class2;
-    while($line=$db->fetch_row($res)){
-      if($db->error()){
+    $query = sprintf(
+        "SELECT date, content, status, s.servername
+        FROM dns_log l, dns_server s
+        WHERE s.id=l.serverid AND zoneid='%si'
+        ORDER BY date DESC", $this->zoneid);
+    $res = $db->query($query);
+    while ($line = $db->fetch_row($res)) {
+      if ($db->error()) {
         $this->error = $l['str_trouble_with_db'];
-        return 0;
-      }else{
-        if($class==$class2){
-          $class=$class1;
-        }else{
-          $class=$class2;
-        }
-        $classadd = "INFORMATION";
-        if($line[2] == 'E'){
-          $classadd="ERROR";
-        }else{
-          if($line[2] == 'W'){
-            $classadd="WARNING";
-          }
-        }
+        return;
+      } else {
+        $result .= '<tr>';
         // remove seconds
-        $timestamp = preg_replace("/(.*):\d\d$/", "$1", $line[0]);
-        
-        $result .= '<tr class="' . $class . '"><td class="' . $class . '">' . 
-        $timestamp .
-        '</td><td class="' . $class . '">' .
-        $line[3] . '</td><td class="' . $class . '">' . $line[1] . '</td><td class="' . $class . $classadd . 
-        '" align="center">&nbsp;' . $line[2] . "&nbsp;</td></tr>\n";
+        $result .= sprintf('<td>%s</td>', preg_replace("/(.*):\d\d$/", "$1", $line[0]));
+        $result .= sprintf('<td>%s</td>', $line[3]);
+        $result .= sprintf('<td>%s</td>', $line[1]);
+        $result .= sprintf('<td class="level %s">%s</td>', $line[2], $line[2]);
+        $result .= "</tr>\n";
       }
+    }
+    if (empty($result)) {
+      $restult = $l['str_no_logs_available_for_this_zone'];
     }
     return $result;
   }
@@ -472,56 +446,40 @@ endif;
     }
   }  
 
-//  Function zoneStatus()
-//     Returns global status of zone : I,W,E or U(nknown)
   /**
-   * Returns status of zone: I(nformation), W(arning), E(rror), or U(nknown)
+   * Returns status of zone: two letters of either I(nformation), W(arning), E(rror).
+   * first letter is latest status, second letter is next non-info if available.
    *
    *@access public
-   *@return string I W E or U or 0 if trouble
+   *@return string I W E.
    */
-  Function zoneStatus(){
-    global $db,$l;
-    $this->error="";
-    $i=0;
-    $query = "SELECT status FROM dns_log 
-      WHERE zoneid='" . $this->zoneid . "' 
-      ORDER BY date DESC LIMIT 1";
+  function zoneStatus() {
+    global $db, $l;
+    $this->error = "";
+    $last = "";
+    $query = sprintf(
+        "SELECT status FROM dns_log WHERE zoneid='%s'
+        ORDER BY date DESC", $this->zoneid);
     $res = $db->query($query);
-    if($db->error()){
-      $this->error = $l['str_trouble_with_db'];
-      return 0;
-    }
-    $last = $db->fetch_row($res);
-    $last = $last[0];
-    $query = "SELECT status FROM dns_log 
-      WHERE zoneid='" . $this->zoneid . "' 
-      ORDER BY date DESC";
-    $res=$db->query($query);
-    while($line=$db->fetch_row($res)){
-      if($db->error()){
+    while ($line = $db->fetch_row($res)) {
+      if ($db->error()) {
         $this->error = $l['str_trouble_with_db'];
-        return 0;
-      }else{
-        switch($line[0]) {
-          case 'E':
-            return $last.'E';
-            break;
-          case 'W':
-            return $last.'W';
-            break;
-          default:
-            $i=1;
-        }
+        return;
+      }
+      if (empty($last)) {
+        $last = $line[0];
+        continue;
+      }
+      switch ($line[0]) {
+        case 'E':
+        case 'W':
+          return $last.$line[0];
       }
     }
-    if($i){
-      return $last.'I';
-    }else{
-      return 'UU';
-    }
+    if (empty($last)) $last = "I";
+    return $last.'I';
   }
-  
+
   
   
 //  Function RetrieveUser()
