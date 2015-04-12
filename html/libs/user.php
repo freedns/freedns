@@ -35,94 +35,88 @@ class User extends Auth {
   var $nbrows;
   var $isadmin;
   var $error;
-  
-  // Instanciation
+
+  // Instantiation
   // if $login or $idsession, match against DB
   // to log in. fill in $authenticated, generate $idsession
   /**
    * Class constructor
    *
    *@access public
-   *@param string $login XName login, may be null
-   *@param string $password XName password
+   *@param string $login may be null
+   *@param string $password password
    *@param string $sessionID current session ID, if user already logged in
    */
-  Function User($login, $password, $sessionID, $md5=0){
-    global $config;
-    $this->idsession=0; // initialization
-    $this->authenticated=0;
-    $this->grouprights="";
-    $this->isadmin=0;
-    $this->nbrows=$config->defaultnbrows;
-    global $db,$l;
-    
-    if(!empty($login)){
-      if($this->Auth($login,$password,$md5)){
-          $this->authenticated=1;
+  function User($login, $password, $sessionID, $md5=0) {
+    global $config, $db, $l;
+    $this->idsession = 0;
+    $this->authenticated = 0;
+    $this->grouprights = "";
+    $this->isadmin = 0;
+    $this->nbrows = $config->defaultnbrows;
+
+    if (!empty($login)) {
+      if ($this->Auth($login, $password, $md5)) {
+        $this->authenticated = 1;
         $id = $this->generateIDSession();
-        $query = "INSERT INTO dns_session 
-        (sessionID,userid) VALUES ('" . $id . "','" .
-        $this->userid . "')";
+        $query = sprintf(
+            "INSERT INTO dns_session (sessionID, userid) VALUES ('%s','%s')",
+            $id, $this->userid);
         $res = $db->query($query);
-        if($db->error()){
+        if ($db->error()) {
           $this->error=$l['str_trouble_with_db'];
           return 0;
         }
-        $this->idsession=$id;
-      }else{ // bad login
-        if(!empty($this->error)){
+        $this->idsession = $id;
+      } else { // bad login
+        if (!empty($this->error)) {
           return 0;
-        }else{
+        } else {
           // No authentication
-          $this->error=$l['str_bad_login_name'];
+          $this->error = $l['str_bad_login_name'];
           return 0;
         }
       }
-    }else{ // end if not null login
-      if(!empty($sessionID)){
+    } else { // end if not null login
+      if (!empty($sessionID)) {
         // retrieve $login, $password from DB
         // check if session not expired (30mn)
-        $this->checkidsession($sessionID);        
-        if(!empty($this->error)){
+        $this->checkidsession($sessionID);
+        if (!empty($this->error)) {
           return 0;
         }
-        $this->authenticated=1;
+        $this->authenticated = 1;
         $this->RetrieveOptions();
-
-        // retrieve username
         $this->login = $this->RetrieveLogin($this->userid);
-      }else{
+      } else {
         // nothing entered...
         // do nothing.
         return 0;
       }
-    } // end else if not null login 
+    } // end else if not null login
 
     // retrieve advanced param
-    
-    if(preg_match("/advanced=([^;]*);/i",$this->options,$match)){
-                        $this->advanced=$match[1];
-                }
-                if(preg_match("/ipv6=([^;]*);/i",$this->options,$match)){
-                        $this->ipv6=$match[1];
-                }
-                if(preg_match("/txtrecords=([^;]*);/i",$this->options,$match)){
-                        $this->txtrecords=$match[1];
-                }
-                if(preg_match("/emailsoa=([^;]*);/i",$this->options,$match)){
-                        $this->emailsoa=$match[1];
-                }
-                if(preg_match("/srvrecords=([^;]*);/i",$this->options,$match)){
-                        $this->srvrecords=$match[1];
-                }
-                if(preg_match("/nbrows=([^;]*);/i",$this->options,$match)){
-                        $this->nbrows=$match[1];
-                }
-                if(preg_match("/grouprights=([^;]*);/i",$this->options,$match)){
-                        $this->grouprights=$match[1];
-                }
-
-    
+    if (preg_match("/advanced=([^;]*);/i", $this->options, $match)) {
+        $this->advanced = $match[1];
+    }
+    if (preg_match("/ipv6=([^;]*);/i", $this->options, $match)) {
+        $this->ipv6 = $match[1];
+    }
+    if (preg_match("/txtrecords=([^;]*);/i", $this->options, $match)) {
+        $this->txtrecords = $match[1];
+    }
+    if (preg_match("/emailsoa=([^;]*);/i", $this->options, $match)) {
+        $this->emailsoa = $match[1];
+    }
+    if (preg_match("/srvrecords=([^;]*);/i", $this->options, $match)) {
+        $this->srvrecords = $match[1];
+    }
+    if (preg_match("/nbrows=([^;]*);/i", $this->options, $match)) {
+        $this->nbrows = $match[1];
+    }
+    if (preg_match("/grouprights=([^;]*);/i", $this->options, $match)) {
+        $this->grouprights = $match[1];
+    }
   }
 
 // Function changeOptions()  
