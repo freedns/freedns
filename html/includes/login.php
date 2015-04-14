@@ -41,7 +41,7 @@ if ($user->authenticated == 0) {
           break;
         case 'A':
           $content .= sprintf(
-              '<a href="group.php%s class="linkcolor">%s</a>',
+              '<a href="group.php%s" class="linkcolor">%s</a>',
               $link, $l['str_administrate_your_group']);
           if ($config->userlogs) {
             $content .= sprintf(
