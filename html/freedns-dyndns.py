@@ -15,7 +15,7 @@ params = \
 server = "https://freedns.42.pl/xmlrpc.php"
 
 def usage():
-        print """
+        print("""
 freedns-dyndns.py [-h|--help                      ] 
                   [-u|--user       <user>         ] 
                   [-p|--password   <password>     ] 
@@ -34,7 +34,7 @@ Old address can be wildcard '*'.
 New address can be "<dynamic>", server will use IP you're connecting from.
 Be careful about proxies with this!
 
-                """
+                """)
 
 def main():
         global server, params
@@ -62,13 +62,13 @@ def main():
                         usage()
                         sys.exit()
 
-        # print "p: %s" % params
+        # print("p: %s" % params)
         client = xmlrpclib.Server(server)
 
         try:
-          print "result: %s" % client.xname.updateArecord(params)
-        except xmlrpclib.Fault, e:
-          print e
+          print("result: %s" % client.xname.updateArecord(params))
+        except xmlrpclib.Fault as e:
+          print(e)
 
 
 if __name__ == "__main__":
