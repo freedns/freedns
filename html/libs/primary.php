@@ -3637,6 +3637,8 @@ class Primary extends Zone {
       return 1;
     if ($string == "_carddavs._tcp")
       return 1;
+    if (strpos($string, '._report._dmarc') !== false)
+      return 1;
     return $this->checkAName($string);
   }
 
