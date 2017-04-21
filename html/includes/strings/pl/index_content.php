@@ -1,5 +1,25 @@
 <?
 $content = '
+  <dt>Zmiana IP FNS2 [2017-01-23]</dt>
+  <dd>Dziękuję za wszystkie oferty pomocy! Dzisiaj fns2 został przeniesiony do firmy
+  <a href="https://www.ovh.pl/">OVH PL</a> i za ich życzliwość jestem niezwykle wdzięczny.
+  Jesteśmy w trakcie dopinania szczegółów, ale serwer już działa!</dd>
+
+  <dd>Nowe IP fns2.42.pl to <b>193.70.13.218</b> oraz <b>2001:41d0:1000:2ada::42</b></dd>
+  <dd>Powinno już wszystko działać. Proszę zmieniać u swoich dostawców domen,
+  u swoich operatorów, w swoich firewallach, etc.</dd>
+
+  <dt>Zmiana IP FNS2 [2016-12-27]</dt>
+  <dd>Po przejęciu przez Equinix firmy Telecity (onegdaj PLIX), tj. dotychczasowego benefaktora fns2.42.pl,
+  okazało się, że nie ma u nich miejsca dla darmowego utrzymywania tej usługi.</dd>
+  <dd>W związku z tym w pilnym trybie poszukuję nowego miejsca oraz uprzedzam, że
+  <b>do końca stycznia 2017 trzeba będzie zaktualizować adresy IP fns2</b> we wszystkich
+  miejscach (strefy, rejestratorzy, firewalle, etc).</dd>
+  <dd>O szczegółach będę informować na bieżąco. Za utrudnienia przepraszam.</dd>
+  <dd>Firmie PLIX/Telecity dziękuję za 5 lat dobroczynności.</dd>
+  <dd>Firmie Equinix, cóż, mogę tylko podziękować, że się zgodzili na wyłączenie
+  usług "dopiero" pod koniec stycznia, a nie pod koniec grudnia, jak planowali oryginalnie.</dd>
+
   <dt>Wyłączenie notify w strefach zapasowych [2013-10-23]</dt>
   <dd>Wyłączyłem NOTIFY (powiadomienia o zmianach) dla stref zapasowych. Nie powinno to
   w niczym wam przeszkadzać, ale jeżeli tak, to proszę pisać.</dd>
@@ -12,7 +32,7 @@ $content = '
   <dd>Bardzo proszę, żebyście pilnowali aktualności waszych adresów mailowych.
   Za każdym razem, gdy zmieniacie coś w strefie, serwis wysyła wam potwierdzenie,
   a zwrotki niedziałących maili dostaję ja.
-  Zwrotki zaczęły być na tyle zauważalne, że niedługo serwis po otrzymaniu kilku zwrotek 
+  Zwrotki zaczęły być na tyle zauważalne, że niedługo serwis po otrzymaniu kilku zwrotek
   będzie blokować możliwość zmiany stref na koncie do poprawienia adresu email.
   </dd>
 
@@ -36,17 +56,18 @@ $content = '
   </dd>
   <dt>Idea</dt>
   <dd>
-  Darmowy serwis utrzymywania DNS przeznaczony jest dla samodzielnych osób,
-  które nie chcą tracić czasu ani pieniędzy u providerów (którzy w dodatku
-  czasem nie są zbyt żwawi, jeśli chodzi o zmiany w DNS).</dd>
+  Darmowy serwis utrzymywania serwerów DNS przeznaczony dla osób samodzielnych,
+  które chcą nauczyć się czegoś o DNS, albo mieć w jednym miejscu wszystkie swoje
+  strefy kupowane u różnych providerów.
+  </dd>
   <dd>
-  Oferujemy podstawowy <b>oraz</b> zapasowy serwer nazw, automatyczne aktualizacje
-  co kwadrans, rekordy SRV, TXT i obsługę IPv6 (ustaw sobie w opcjach użytkownika),
+  Oferujemy podstawowy oraz zapasowe serwery nazw, automatyczne aktualizacje
+  co kwadrans, rekordy SRV, TXT i obsługę IPv6 (do włączenia w opcjach użytkownika),
   system przekierowań/ramek (pseudo rekord WWW).
   <br>
   Wszystkie strefy obsługiwane jako podstawowe lub zapasowe na
   głównym serwerze &mdash; fns1.42.pl (79.98.145.34) &mdash; są automatycznie
-  replikowane na nasz drugi serwer, fns2.42.pl (195.80.237.194 i 2a02:2978::a503:4209:2). 
+  replikowane na nasz drugi serwer, fns2.42.pl (193.70.13.218 o 2001:41d0:1000:2ada::42).
   </dd>
 
   <dd>Jeżeli rejestrujący domenę (np. NASK) wymaga podania danych osobowych
@@ -75,15 +96,15 @@ $archive_content = '
   są zarejestrowani z tego adresu, o zmianę na jakiś normalny.</dd>
   <dt>Poprawa obsługi dynamicznych stref [2012-02-28]</dt>
   <dd>Przy korzystaniu ze skryptu do dynamicznej aktualizacji rekordu A
-  strefa nie zostanie przeładowane, jeśli nowy adres będzie taki, 
+  strefa nie zostanie przeładowane, jeśli nowy adres będzie taki,
   jaki już jest zapisany w serwisie.</dd>
-  <dd>Innymi słowy: maile o przeładowaniu strefy będziecie dostawać tylko wtedy, 
+  <dd>Innymi słowy: maile o przeładowaniu strefy będziecie dostawać tylko wtedy,
   gdy faktycznie się zmieni adres IP. :-)</dd>
 
   <dt>Ataki DDoS [2012-04-06]</dt>
   <dd>Od wczoraj serwer fns1 jest pod ciężkim atakiem DDoS, mogą występować
   problemy z działaniem, na pewno chwilowo (przez założone tymczasowe filtry
-  ratujące resztę sieci) nie działają transfery z waszych masterów 
+  ratujące resztę sieci) nie działają transfery z waszych masterów
   (gdy fns1 jest zapasowym).</dd>
   <dd>Odpukać fns2 działa bez przerw.</dd>
   <dd>Niestety, niewiele mogę z tym zrobić. :(</dd>
@@ -96,7 +117,7 @@ $archive_content = '
   <dt>Poprawa obsługi długich TXT [2012-02-06]</dt>
   <dd>Poprawiłem obsługę rekordów TXT dłuższych niż 255 znaków, system automatycznie dzieli je na odpowiedniej długości segmenty, co pozwala na poprawne używanie DKIM i im podobnych.</dd>
   <dd>Można dzielić na segmenty samemu przy użyciu cudzysłowów, system wtedy nie będzie ingerował w zawartość TXT – a jeśli się pomylicie, to przy sprawdzaniu dostaniecie komunikat <i>ran out of space</i></dd>
-  
+
   <dt>Rekord glue IPv6 dla fns2 [2011-10-05]</dt>
   <dd>NASK uprzejmie dodał rekord glue IPv6 dla fns2.42.pl (dziękuję!),
   co oznacza, że można mieć czyste IPv6
@@ -108,19 +129,19 @@ $archive_content = '
   <dd>Pozostałe po testach nazwy fns2-v6 i fns2-v4v6 zostaną niedługo usunięte z DNS,
   chyba że ktoś zgłosi mi wystarczająco ważny powód dla ich zostawienia.</dd>
   <dd>Aktualizacja: fns2-v6 zostaje, a fns2-v4v6 usunąłem.</dd>
-  
+
   <dt>FreeDNS po IPv6 [2011-04-27]</dt>
   <dd>Dodatkowo utworzyłem fns2-v4v6.42.pl dla kolejnych testów.</dd>
-  <dd>Jeśli nie będzie żadnych problemów, to fns2.42.pl dostanie adres IPv6 
-  prawdopodobnie dwa dni przed <a href="http://isoc.org/wp/worldipv6day/">światowym dniem IPv6</a> 
+  <dd>Jeśli nie będzie żadnych problemów, to fns2.42.pl dostanie adres IPv6
+  prawdopodobnie dwa dni przed <a href="http://isoc.org/wp/worldipv6day/">światowym dniem IPv6</a>
   (fns2-v6 i fns2-v4v6 zostaną usunięte jakiś czas później).</dd>
   <dd>(Dwa dni wcześniej, bo uważam, że piąta rocznica zamknięcia 6bone byłaby lepszą datą na
   światowy dzień IPv6.)
-  
+
   <dt>FreeDNS po IPv6 [2011-02-27]</dt>
   <dd>Utworzyłem fns2-v6.42.pl o adresie 2a02:2978::a503:4209:2</dd>
   <dd>Proszę testować, odpytywać po v6 i zgłaszać uwagi.</dd>
-  <dd>Jak wszystko będzie w porządku, to stosowna opcja prawdopodobnie pojawi się 
+  <dd>Jak wszystko będzie w porządku, to stosowna opcja prawdopodobnie pojawi się
       w&nbsp;interfejsie. Piszę prawdopodobnie, bo obsługa IPv6 wymaga poprawienia
       kilku części kodu, na co mogę nie mieć czasu.</dd>
   <dt>Archiwum [2011-01-17]</dt>
@@ -138,7 +159,7 @@ $archive_content = '
    <dt>Polskie znaki w nazwach domen [2009-12-31]</dt>
    <dd>Polskie znaki w nazwach domen uzyskuje się przez wpisanie w konfiguracji nazwy IDN,
    nie bezpośrednio nazwy z polskimi literami. Przykładowo
-   zamiast <code>żółtyżółw.pl</code> trzeba założyć 
+   zamiast <code>żółtyżółw.pl</code> trzeba założyć
    domenę <nobr><code>xn--tyw-fnac58bd27be.pl</code></nobr>.
    Przeglądarki automatycznie zamieniają nazwę z polskimi literami wpisaną w pasku adresu
    na postać IDN rozumianą przez DNS, więc dla użytkowników jest to (podobno) niezauważalne,
@@ -177,16 +198,16 @@ $archive_content = '
 
   <dt>Aktualizacja oprogramowania [2006-10-20]</dt>
   <dd>
-        Dziś zaktualizowałem oprogramowanie XName do najnowszej wersji. 
+        Dziś zaktualizowałem oprogramowanie XName do najnowszej wersji.
         Rzućcie okiem na swoje strefy... mam nadzieję, że nic się nie popsuło.
    </dd>
    <dt>Częstsze aktualizacje [2007-04-29]</dt>
    <dd>Ha, zapomniałem napisać, że od lutego serwery są aktualizowane co kwadrans,
-       nie co pół godziny, czyli o :01, :16, :31 i :46. 
+       nie co pół godziny, czyli o :01, :16, :31 i :46.
    </dd>
    <dt>Błąd oprogramowania [2007-04-22]</dt>
    <dd>Piotr Szeptyński z Marcinem Kopcem znaleźli błąd w oprogramowaniu XName
-       pozwalający oglądać cudze logi strefy. Błąd oczywiście natychmiast 
+       pozwalający oglądać cudze logi strefy. Błąd oczywiście natychmiast
        poprawiłem. Co zresztą i tak nie ma większego znaczenia, bo z różnych
        powodów logi nie są aktualizowane na bieżąco. :(
    </dd>
@@ -196,7 +217,7 @@ $archive_content = '
    </dd>
   <dt>Automatyczne aktualizacje [2005-02-28]</dt>
   <dd>
-  Aktualizacja wpisów do DNS odbywa się co pół godziny o :01 i :31. 
+  Aktualizacja wpisów do DNS odbywa się co pół godziny o :01 i :31.
   </dd>
 
   <dt>Nazwa z kropką [2005-01-22]</dt>
@@ -209,14 +230,14 @@ $archive_content = '
   <dd>
   Nie da się ustawić CNAME na domenę. Proszę nie pytać o taką możliwość.<br>
   "cokolwiek IN CNAME" &mdash; tak, "@ IN CNAME" &mdash; nie.<br>
-  To nie jest mój wymysł, RFC 1034 zabrania rekordów, które mają coś oprócz 
+  To nie jest mój wymysł, RFC 1034 zabrania rekordów, które mają coś oprócz
   CNAME (a tak jest w przypadku rekordu domeny, który przecież musi mieć SOA i NS).
    </dd>
 
   <dt>Rekordy SRV [2006-10-20]</dt>
   <dd>
         Po aktualizacji doszła jedna opcja w ustawieniach użytkownika: "rekordy SRV".
-        Należy ją sobie włączyć, jeśli chcecie zmieniać rekordy SRV. 
+        Należy ją sobie włączyć, jeśli chcecie zmieniać rekordy SRV.
    </dd>
   <dt>Problemy z fns2 [2006-08-08]</dt>
   <dd>
@@ -237,7 +258,7 @@ $archive_content = '
         </dd>
   <dt>Aktualizacja oprogramowania [2005-07-24]</dt>
   <dd>
-        Dziś zaktualizowałem oprogramowanie XName do najnowszej 
+        Dziś zaktualizowałem oprogramowanie XName do najnowszej
         wersji. Rzućcie okiem na swoje strefy... mam nadzieję, że nic się
   nie popsuło.
         </dd>
@@ -260,7 +281,7 @@ $archive_content = '
   <strong>To wasza zasługa, użytkownicy &mdash; dziękuję.
    </strong> :-)</dd>
   <dd>
-  42. miejsce jest przyjemne dlatego, że posiadam domenę 
+  42. miejsce jest przyjemne dlatego, że posiadam domenę
   <a href="http://42.pl/">42.pl</a>
   i FreeDNS miał tam stać (a może jeszcze będzie!).<br>
   Przy okazji małe piętno dla top100 za podawanie błędnego adresu
@@ -287,7 +308,7 @@ $archive_content = '
   <dt>Chwilowa przerwa w działaniu [2004-09-01]</dt>
   <dd>
   Ze względu na upgrade sprzętu w dniu dzisiejszym interfejs WWW FreeDNS::SGH
-  może być chwilami nieczynny (komunikat "problem z bazą danych" i brak 
+  może być chwilami nieczynny (komunikat "problem z bazą danych" i brak
   możliwości zalogowania się na swoje konto). Sam serwer DNS powinien
   działać bez przeszkód.
         </dd>
@@ -393,8 +414,10 @@ $thanks_content = '
       <dd>Sławomir Błażek</dd>
       <dt>wsparcie systemowe</dt>
       <dd>Michał Suszko</dd>
-      <dt>sponsoring serwera i łącza dla fns2</dt>
+      <dt>sponsoring serwera i łącza dla fns2 (2010-2016)</dt>
       <dd>Sylwester Biernacki</dd>
+      <dt>sponsoring serwera i łącza dla fns2 (2017-)</dt>
+      <dd>OVH PL</dd>
       <dt>autor oryginalnego kodu</dt>
       <dd>Yann Hirou</dd>
       <dt>tłumaczenie na polski</dt>

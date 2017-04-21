@@ -1,11 +1,20 @@
 <?
 $content = '
+  <dt>FNS2 IP change [2017-01-23]</dt>
+  <dd>New IP for fns2.42.pl is <b>193.70.13.218</b> and <b>2001:41d0:1000:2ada::42</b></dd>
+  <dd>Everything should be working now. Please make necessary changes at your domain providers, ISPs, firewalls, etc.</dd>
+
+  <dt>FNS2 IP change [2016-12-27]</dt>
+  <dd>Current benefactor (after some ownership changes) no longer wishes to serve fns2 pro bono.</dd>
+  <dd>I am looking for a replacement right now. Please be ready to change the fns2 IP (zones, registrars, ACLs, etc.) by the end of January 2017.</dd>
+  <dd>There will be further announcements with details, of course. Stay tuned.</dd>
+
   <dt>No more NOTIFY for slave zones.</dt>
-  <dd>The NOTIFY has been disabled for slave zones. 
+  <dd>The NOTIFY has been disabled for slave zones.
   If you encounter problems with it, please email me.</dd>
   <dt>Dynamic DNS</dt>
   <dd>
-        For automatic records update we use XML RPC; there is a simple 
+        For automatic records update we use XML RPC; there is a simple
         <a href="freedns-dyndns.py">python script</a> for easy IP changes.</p>
         <p style="margin-top:10px;">
   </dd>
@@ -27,17 +36,17 @@ $content = '
   </dd>
   <dt>Idea</dt>
   <dd>
-  Free DNS service for the self-reliant people who do not want to waste time and money
-  at ISPs (who sometimes are not very fast about DNS changes at that).</dd>
+  Free DNS service for the self-reliant people who want to experiment on their
+  own, or keep all their zones in a single place.</dd>
 
   <dd>
   We offer primary and secondary name server, automatic reloads every 15 minutes,
   SRV, TXT and IPv6 support, and unique feature of web redirections / frames (see our
   pseudo-record WWW).
   <br>
-  All zones (both primary and secondary) served by primary server 
+  All zones (both primary and secondary) served by primary server
   &mdash; fns1.42.pl (79.98.145.34) &mdash; are automatically replicaated to our
-  secondary server &mdash; fns2.42.pl (195.80.237.194 and 2a02:2978::a503:4209:2). 
+  secondary server &mdash; fns2.42.pl (193.70.13.218 and 2001:41d0:1000:2ada::42).
   </dd>
 
   <dd>If registrar needs personal info and/or zone admin email, it would be yours,
@@ -46,7 +55,7 @@ $content = '
 
   <dt>Contact me</dt>
   <dd>
-  If you have problems write me at 
+  If you have problems write me at
   <a href="mailto:freedns at 42 dot pl" class="linkcolor">
   freedns at 42 pl</a>. Please be patient &mdash; this is free service and I answer
   questions when I have time.
@@ -66,9 +75,11 @@ $thanks_content = '
       <dd>Sławomir Błażek</dd>
       <dt>system support</dt>
       <dd>Michał Suszko</dd>
-      <dt>fns2 server and link sponsorship</dt>
+      <dt>fns2 server and link sponsorship (2010-2016)</dt>
       <dd>Sylwester Biernacki</dd>
-      <dt>original code author</dt> 
+      <dt>fns2 server and link sponsorship (2017-)</dt>
+      <dd>OVH PL</dd>
+      <dt>original code author</dt>
       <dd>Yann Hirou</dd>
       <dt>bugfixes, improvements and new features</dt>
       <dt>system administration</dt>
