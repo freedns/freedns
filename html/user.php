@@ -312,14 +312,14 @@ if($user->authenticated == 0){
     
     if(!$localerror){
       if((isset($_REQUEST) && $_REQUEST['oldpass']) ||
-        (!isset($_REQUEST) && $oldpass) || md5("") == $user->Retrievepassword()){
+        (!isset($_REQUEST) && $oldpass) || md5("") === $user->Retrievepassword()){
         $content .= $l['str_changing_password'] . '... ';
         // check if old = current
         if(isset($_REQUEST)){
           $oldpass = $_REQUEST['oldpass'];
         }
         $oldpass = addslashes($oldpass);
-        if(md5($oldpass) == $user->Retrievepassword()){
+        if(md5($oldpass) === $user->Retrievepassword()){
           // check if new = confirmnew
           if(isset($_REQUEST)){
             $passnew = $_REQUEST['passnew'];

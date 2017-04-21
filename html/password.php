@@ -36,13 +36,10 @@ if((isset($_REQUEST) && !isset($_REQUEST['id']) && !isset($_REQUEST['account']))
   <table id="passwordrecoverytable">
   <tr><td align="right">' . $l['str_login'] . '</td><td><input type="text" name="account"
   ></td></tr>
-  <tr><td align="right" valign="top">' . $l['str_or_one_of_your_zones']  . ':</td>
-    <td><input
-  type="text" name="zonename" > <br><label><input type="radio" name="zonetype"
-  value="P">' . $l['str_primary'] . 
-  '</label><label><input type="radio" name="zonetype" value="S">' . 
-  $l['str_secondary']  . '</label></td></tr>
-    <tr><td colspan="2" align="center"><input type="submit" class="submit" 
+  <tr><td align="right"><b>' . $l['str_or_one_of_your_zones'] . '</b></td></tr>
+  <tr><td align="right" valign="top">' . $l['str_zone']  . ':</td>
+    <td><input type="text" name="zonename"></td></tr>
+    <tr><td></td><td align="left"><input type="submit" class="submit"
   value="' . $l['str_recover_password_button'] . '" ></td></tr>
   </table>
   </form>';
@@ -58,27 +55,18 @@ if((isset($_REQUEST) && !isset($_REQUEST['id']) && !isset($_REQUEST['account']))
         $zonename = $_REQUEST['zonename'];
       }
       $zonename = addslashes($zonename);
-      
-      if((isset($_REQUEST) && empty($_REQUEST['zonetype'])) ||
-        (!isset($_REQUEST) && empty($zonetype))){
-        $content .= sprintf($html->string_error,
-              $l['str_you_did_not_specify_zonetype'] 
-            );
-        $localerror = 1;
-      }else{
-        if(isset($_REQUEST)){
-          $zonetype = $_REQUEST['zonetype'];
-        }
-        $zonetype=addslashes($zonetype);
-        $zone=new Zone($zonename,$zonetype);
+      $zone=new Zone($zonename,'P');
+      if(!empty($zone->error) || empty($zone->zoneid)){
+        $zone=new Zone($zonename,'S');
         if(!empty($zone->error)){
           $content .= sprintf($html->string_error,
                 $zone->error); 
           $localerror=1;
-        }else{
-          $userid = $zone->RetrieveUser();
-          $account = $user->RetrieveLogin($userid);
         }
+      }
+      if (!$localerror){
+        $userid = $zone->RetrieveUser();
+        $account = $user->RetrieveLogin($userid);
       }
     }else{
       if((isset($_REQUEST) && !empty($_REQUEST['account'])) ||

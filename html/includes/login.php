@@ -14,11 +14,11 @@ if ($user->authenticated == 0) {
   }
   $content .= sprintf('<form method="post" action="%sindex.php">', $config->mainurl);
   $content .= sprintf('<p><label for="login">%s</label><br>', $l['str_login']);
-  $content .= '<input type="text" id="login" name="login"><br>';
+  $content .= '<input type="text" tabindex="1" id="login" name="login"><br>';
   $content .= sprintf('<label for="password">%s</label><br>', $l['str_password']);
-  $content .= '<input type="password" name="password" id="password"><br>';
+  $content .= '<input type="password" tabindex="2" name="password" id="password"><br>';
   $content .= sprintf('<input type="hidden" name="language" value="%s">', $lang);
-  $content .= sprintf('<input type="submit" class="submit" value="%s">', $l['str_log_me_in']);
+  $content .= sprintf('<input type="submit" tabindex="3" class="submit" value="%s">', $l['str_log_me_in']);
   $content .= sprintf('</p><p><a href="password.php%s" class="linkcolor">', $link);
   $content .= $l['str_forgot_password'] . '</a></p></div></form>';
   print $html->box('login', $title, $content);
