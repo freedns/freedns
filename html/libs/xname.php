@@ -322,15 +322,25 @@ function checkName($string){
  */
 
 function checkNet($string) {
-  if (ereg("(.*)/([0-9][0-9]?)", $string, $net)) {
-    if ($net[2] > 32) { return 0; }
+  if (ereg("(.*)/([0-9][0-9]{0,2})", $string, $net)) {
     $string = $net[1];
+    $net = $net[2];
+  } else {
+    $net = 0;
   }
-  return checkIP($string);
+  $ip = inet_pton($string);
+  if ($ip === FALSE) {
+    return 0;
+  }
+  if ($net) {
+    if (strlen($ip) == 4 and $net > 32) { return 0; }
+    if (strlen($ip) == 16 and $net > 128) { return 0; }
+  }
+  return 1;
 }
 
 function checkPrimary($string){
-  $primarylist = explode(';',$string);
+  $primarylist = explode(';', trim($string, ";"));
   while(list($key,$value) = each($primarylist)){
     if (!checkNet(trim($value, " "))) {
       return 0;
