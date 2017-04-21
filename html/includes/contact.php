@@ -8,7 +8,7 @@ print $html->box('contact',$title,$content);
 $title = $l['str_sponsor_title'];
 $content = '<p>
 <a href="http://nitronet.pl"><img src="images/nitronet.png" alt="Nitronet"></a><br>
-<a href="http://www.plix.pl"><img src="images/plix.png" alt="PLIX"></a><br>
+<a href="https://www.ovh.pl"><img style="margin-left:-10px" src="images/ovh.png" alt="OVH PL"></a><br>
 <a href="/index.php'.$link.'&what=thanks">' . $l['str_thanks'] . '</a>
 </p>';
 print $html->box('sponsor', $title, $content);

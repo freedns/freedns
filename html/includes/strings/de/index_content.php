@@ -1,6 +1,9 @@
 <?
 $content = '
     <table border="0" width="100%">
+    <tr><td width="20">&nbsp;</td><td><b>WICHTIG!</b><p>
+    Das neue IP von fns2.42.pl ist <b>193.70.13.218</b> und <b>2001:41d0:1000:2ada::42</b></p>
+    Alles sollte jetzt funktionieren. Bitte nehmen Sie die erforderlichen Änderungen an Ihren Domainanbietern, Firewalls, usw.</td></tr>
     <tr><td width="20">&nbsp;</td>
     <td>
 Das ist freie DNS-Hosting bei 42.pl.<br>
@@ -26,8 +29,10 @@ $thanks_content = '
       <dd>Sławomir Błażek</dd>
       <dt>system support</dt>
       <dd>Michał Suszko</dd>
-      <dt>fns2 server and link sponsorship</dt>
+      <dt>fns2 server and link sponsorship (2010-2016)</dt>
       <dd>Sylwester Biernacki</dd>
+      <dt>fns2 server and link sponsorship (2017-)</dt>
+      <dd>OVH PL</dd>
       <dt>original code author</dt>
       <dd>Yann Hirou</dd>
       <dt>bugfixes, improvements and new features</dt>

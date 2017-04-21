@@ -1,5 +1,25 @@
 <?
 $content = '
+  <dt>Zmiana IP FNS2 [2017-01-23]</dt>
+  <dd>Dziękuję za wszystkie oferty pomocy! Dzisiaj fns2 został przeniesiony do firmy
+  <a href="https://www.ovh.pl/">OVH PL</a> i za ich życzliwość jestem niezwykle wdzięczny.
+  Jesteśmy w trakcie dopinania szczegółów, ale serwer już działa!</dd>
+
+  <dd>Nowe IP fns2.42.pl to <b>193.70.13.218</b> oraz <b>2001:41d0:1000:2ada::42</b></dd>
+  <dd>Powinno już wszystko działać. Proszę zmieniać u swoich dostawców domen,
+  u swoich operatorów, w swoich firewallach, etc.</dd>
+
+  <dt>Zmiana IP FNS2 [2016-12-27]</dt>
+  <dd>Po przejęciu przez Equinix firmy Telecity (onegdaj PLIX), tj. dotychczasowego benefaktora fns2.42.pl,
+  okazało się, że nie ma u nich miejsca dla darmowego utrzymywania tej usługi.</dd>
+  <dd>W związku z tym w pilnym trybie poszukuję nowego miejsca oraz uprzedzam, że
+  <b>do końca stycznia 2017 trzeba będzie zaktualizować adresy IP fns2</b> we wszystkich
+  miejscach (strefy, rejestratorzy, firewalle, etc).</dd>
+  <dd>O szczegółach będę informować na bieżąco. Za utrudnienia przepraszam.</dd>
+  <dd>Firmie PLIX/Telecity dziękuję za 5 lat dobroczynności.</dd>
+  <dd>Firmie Equinix, cóż, mogę tylko podziękować, że się zgodzili na wyłączenie
+  usług "dopiero" pod koniec stycznia, a nie pod koniec grudnia, jak planowali oryginalnie.</dd>
+
   <dt>Wyłączenie notify w strefach zapasowych [2013-10-23]</dt>
   <dd>Wyłączyłem NOTIFY (powiadomienia o zmianach) dla stref zapasowych. Nie powinno to
   w niczym wam przeszkadzać, ale jeżeli tak, to proszę pisać.</dd>
@@ -36,17 +56,18 @@ $content = '
   </dd>
   <dt>Idea</dt>
   <dd>
-  Darmowy serwis utrzymywania DNS przeznaczony jest dla samodzielnych osób,
-  które nie chcą tracić czasu ani pieniędzy u providerów (którzy w dodatku
-  czasem nie są zbyt żwawi, jeśli chodzi o zmiany w DNS).</dd>
+  Darmowy serwis utrzymywania serwerów DNS przeznaczony dla osób samodzielnych,
+  które chcą nauczyć się czegoś o DNS, albo mieć w jednym miejscu wszystkie swoje
+  strefy kupowane u różnych providerów.
+  </dd>
   <dd>
-  Oferujemy podstawowy <b>oraz</b> zapasowy serwer nazw, automatyczne aktualizacje
-  co kwadrans, rekordy SRV, TXT i obsługę IPv6 (ustaw sobie w opcjach użytkownika),
+  Oferujemy podstawowy oraz zapasowe serwery nazw, automatyczne aktualizacje
+  co kwadrans, rekordy SRV, TXT i obsługę IPv6 (do włączenia w opcjach użytkownika),
   system przekierowań/ramek (pseudo rekord WWW).
   <br>
   Wszystkie strefy obsługiwane jako podstawowe lub zapasowe na
   głównym serwerze &mdash; fns1.42.pl (79.98.145.34) &mdash; są automatycznie
-  replikowane na nasz drugi serwer, fns2.42.pl (195.80.237.194 i 2a02:2978::a503:4209:2). 
+  replikowane na nasz drugi serwer, fns2.42.pl (193.70.13.218 o 2001:41d0:1000:2ada::42). 
   </dd>
 
   <dd>Jeżeli rejestrujący domenę (np. NASK) wymaga podania danych osobowych
@@ -393,8 +414,10 @@ $thanks_content = '
       <dd>Sławomir Błażek</dd>
       <dt>wsparcie systemowe</dt>
       <dd>Michał Suszko</dd>
-      <dt>sponsoring serwera i łącza dla fns2</dt>
+      <dt>sponsoring serwera i łącza dla fns2 (2010-2016)</dt>
       <dd>Sylwester Biernacki</dd>
+      <dt>sponsoring serwera i łącza dla fns2 (2017-)</dt>
+      <dd>OVH PL</dd>
       <dt>autor oryginalnego kodu</dt>
       <dd>Yann Hirou</dd>
       <dt>tłumaczenie na polski</dt>

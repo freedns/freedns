@@ -2,6 +2,11 @@
 $content = '
     <div class="boxheader">DNS Gratuit</div>
     <table border="0" width="100%">
+  <tr><td width="20">&nbsp;</td><td><b>Important!</b>
+  <p>New IP for fns2.42.pl is <b>193.70.13.218</b> and <b>2001:41d0:1000:2ada::42</b></p>
+  Everything should be working now. Please make necessary changes at your domain providers, ISPs, firewalls, etc.
+   </td></tr>
+
     <tr><td width="20">&nbsp;</td>
     <td>
     Ceci est un service gratuit de gestion DNS fourni par 42.pl.<br >
@@ -27,8 +32,10 @@ $thanks_content = '
       <dd>Sławomir Błażek</dd>
       <dt>system support</dt>
       <dd>Michał Suszko</dd>
-      <dt>fns2 server and link sponsorship</dt>
+      <dt>fns2 server and link sponsorship (2010-2016)</dt>
       <dd>Sylwester Biernacki</dd>
+      <dt>fns2 server and link sponsorship (2017-)</dt>
+      <dd>OVH PL</dd>
       <dt>original code author</dt> 
       <dd>Yann Hirou</dd>
       <dt>bugfixes, improvements and new features</dt>
