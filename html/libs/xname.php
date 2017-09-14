@@ -695,5 +695,5 @@ function urlpop($url) {
 }
 
 function xssafe($data) {
-  return htmlspecialchars($data, ENT_QUOTES|ENT_HTML401, $encoding);
+  return htmlspecialchars($data, ENT_QUOTES|ENT_HTML401);
 }
