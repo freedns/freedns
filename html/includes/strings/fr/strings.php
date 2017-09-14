@@ -31,7 +31,7 @@ $l["str_confirmation"] = "Confirmation";
 $l["str_contact_for_bugs_contact_us"] = "Pour des problèmes concernant le logiciel %s,  contactez-nous à l'adresse <a href=\"mailto:%s\" class=\"linkcolor\">%s</a>";
 $l["str_contact_title"] = "Contact";
 $l["str_content_type"] = "utf-8";
-$l["str_contribute_content"] = "%s est basé sur <a target=_blank href=\"http://www.xname.org/\">le logiciel XName</a>, fortement modifiées par Piotr Kucharski.<br>Le logiciel XName est sous <a href=\"http://www.gnu.org/copyleft/gpl.html\" class=\"linkcolor\">GPL License</a><p id=\"logo\"><a href=\"http://source.xname.org\"><img src=\"images/xnamepowered.png\" alt=\"XName\"></a></p>";
+$l["str_contribute_content"] = "<a href=\"https://github.com/freedns/freedns\">%s</a> est sous <a href=\"http://www.gnu.org/copyleft/gpl.html\" class=\"linkcolor\">GPL License</a>";
 $l["str_contribute_title"] = "Logiciel";
 $l["str_create"] = "Créer";
 $l["str_create_migrated"] = "Si vous aviez un compte à FreeDNS:: SGH, ne pas créer un   nouvel utilisateur. Connectez-vous simplement avec votre login et mot de passe habituels.";

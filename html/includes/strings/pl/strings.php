@@ -31,7 +31,7 @@ $l["str_confirmation"] = "Potwierdzenie";
 $l["str_contact_for_bugs_contact_us"] = "W sprawach związanych z problemami dotyczącymi serwisu %s możesz skontaktować się ze mną pod adresem <a href=\"mailto:%s\" class=\"linkcolor\">%s</a>";
 $l["str_contact_title"] = "Kontakt";
 $l["str_content_type"] = "utf-8";
-$l["str_contribute_content"] = "System %s jest oparty o&nbsp;<a target=_blank href=\"http://www.xname.org/\">XName Software</a>, który na język polski przetłumaczył i&nbsp;bardzo poprawił Piotr Kucharski.<br>XName Software jest udostępnione na <a target=_blank href=\"http://www.gnu.org/copyleft/gpl.html\" class=\"linkcolor\">licencji GPL</a>.<p id=\"logo\"><a href=\"http://source.xname.org\"><img src=\"images/xnamepowered.png\" alt=\"XName\"></a></p>";
+$l["str_contribute_content"] = "<a href=\"https://github.com/freedns/freedns\">%s</a> jest na <a target=_blank href=\"http://www.gnu.org/copyleft/gpl.html\" class=\"linkcolor\">licencji GPL</a>";
 $l["str_contribute_title"] = "Oprogramowanie";
 $l["str_create"] = "Utwórz";
 $l["str_create_migrated"] = "<p><strong>Uwaga!</strong> Jeśli miałeś konto na starym   serwisie FreeDNS, to nie zakładaj nowego konta! Po prostu zaloguj się na ten sam login   i hasło! I potem sprawdź poprawność adresu email oraz zmień hasło.</p>";
