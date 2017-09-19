@@ -503,4 +503,15 @@ $l["str_zones_to_be_deleted"] = "Strefy do skasowania";
 $l["str_zonetype"] = "Typ strefy";
 $l["str_js_dotvalidate1"] = "Bez kropki na końcu serwer utworzy rekord ";
 $l["str_js_dotvalidate2"] = ".";
+$l["str_caa_records"] = "Rekordy CAA";
+$l["str_caa_records_details"] = "rekordy CAA w strefach podstawowych";
+$l["str_primary_adding_caa_x"] = "Dodaję rekord CAA %s.";
+$l["str_primary_bad_caa_x"] = "Nieprawidłowa zawartość rekordu CAA %s";
+$l["str_primary_caa_flags"] = "Flagi";
+$l["str_primary_caa_record_expl_x_x"] = "Rekordy CAA służą oznaczeniu, kto może wydawać certyfikaty TLS dla danej nazwy. Nazwą powinien być istniejący rekord (A, AAAA) lub sama strefa. <strong>Nazwa jest względna</strong>, tj. tylko to, co chcesz mieć przed <i>%s</i>, jak <i>www</i> dla <i>www.%s</i>. Jeśli chcesz dodać rekord CAA dla strefy, jako nazwy użyj znaku '@'.<br><br>Flagi to zazwyczaj '0'. Znane tagi to 'issue', 'issuewild' oraz 'iodef'. Zawartość CAA to nazwa (domena) dostarczyciela certyfikatów (np. letsencrypt.org) lub znak średnika (';'), jeśli nie chcesz żadnych certyfikatów dla danej nazwy. Szczegóły w RFC 6844.";
+$l["str_primary_caa_record_title"] = "Rekordy CAA";
+$l["str_primary_caa_tag"] = "Tagi";
+$l["str_primary_deleting_caa_x"] = "Kasuję rekord CAA %s";
+$l["str_primary_flags_for_caa_x_has_to_be_int"] = "Flagi rekordu CAA %s musi być liczbą całkowitą";
+$l["str_primary_warning_caa_x_exists_not_overwritten"] = "Uwaga: rekord CAA dla %s już   istnieje &mdash; nie został nadpisany.";
 ?>

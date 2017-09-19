@@ -32,6 +32,7 @@ class User extends Auth {
   var $ipv6;
   var $txtrecords;
   var $srvrecords;
+  var $caarecords;
   var $nbrows;
   var $isadmin;
   var $error;
@@ -111,6 +112,9 @@ class User extends Auth {
     if (preg_match("/srvrecords=([^;]*);/i", $this->options, $match)) {
         $this->srvrecords = $match[1];
     }
+    if (preg_match("/caarecords=([^;]*);/i", $this->options, $match)) {
+        $this->caarecords = $match[1];
+    }
     if (preg_match("/nbrows=([^;]*);/i", $this->options, $match)) {
         $this->nbrows = $match[1];
     }
@@ -152,6 +156,12 @@ class User extends Auth {
         "srvrecords=" . $this->srvrecords . ";",$this->options);  
     }else{
       $this->options .= "srvrecords=" . $this->srvrecords . ";";
+    }
+    if(preg_match("/caarecords=/",$this->options)){
+      $this->options = preg_replace("/caarecords=[^;]*;/i",
+        "caarecords=" . $this->caarecords . ";",$this->options);  
+    }else{
+      $this->options .= "caarecords=" . $this->caarecords . ";";
     }
     if(preg_match("/emailsoa=/",$this->options)){
       $this->options = preg_replace("/emailsoa=[^;]*;/i",

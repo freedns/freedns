@@ -122,6 +122,7 @@ sub RetrieveRecords {
     # PTR: val1 [ttl] IN PTR val2
     # SRV: val1 [ttl] IN SRV val2 val3 val4 val5
     # WWW: val1 [ttl] IN A val3 (was: $SITE_WWW_IP)
+    # CAA: val1 [ttl] IN CAA val2 val3 val4
 
     if ($type eq "TXT") {
       # single label can have at most 255 length so we need to split
@@ -150,6 +151,8 @@ sub RetrieveRecords {
         { $ref->{'val1'} . "\t$ttl\tIN\tPTR\t" . $ref->{'val2'} }
       elsif (/^SRV$/)
         { $ref->{'val1'} . "\t$ttl\tIN\tSRV\t" . $ref->{'val2'} . "\t". $ref->{'val3'} . "\t". $ref->{'val4'} . "\t". $ref->{'val5'} }
+      elsif (/^CAA$/)
+        { $ref->{'val1'} . "\t$ttl\tIN\tCAA\t" . $ref->{'val2'} . "\t". $ref->{'val3'} . "\t\"". $ref->{'val4'} . "\"" }
       else
         { ";ERROR! type=$type, val1=" . $ref->{'val1'} .", val2=" .$ref->{'val2'} }
     };
@@ -364,6 +367,7 @@ if($count){
       $toprint .= "\n\n\$ORIGIN $zone.\n";
 
       $toprint .= RetrieveRecords("MX");
+      $toprint .= RetrieveRecords("CAA");
       $toprint .= RetrieveRecords("A");
       $toprint .= RetrieveRecords("WWW");
       $toprint .= RetrieveRecords("AAAA");

@@ -504,4 +504,15 @@ $l["str_zones_to_be_deleted"] = "Zones to be deleted";
 $l["str_zonetype"] = "zone type";
 $l["str_js_dotvalidate1"] = "Ohne abschliessenden Punkt würde der Server einen ";
 $l["str_js_dotvalidate2"] = " Eintrag erstellen.";
+$l["str_primary_adding_caa_x"] = "Adding CAA record %s.";
+$l["str_primary_bad_caa_x"] = "Bad CAA %s";
+$l["str_primary_deleting_caa_x"] = "Deleting CAA record %s";
+$l["str_primary_flags_for_caa_x_has_to_be_int"] = "The flags for CAA %s has to be an integer";
+$l["str_primary_caa_flags"] = "Flags";
+$l["str_primary_caa_tag"] = "Tag";
+$l["str_primary_caa_record_expl_x_x"] = "CAA records designate who can issue TLS certificates for given name. The name should be existing name (A, AAAA) record or the zone itself. <strong>Name is unqualified</strong>, ie. only the part before <i>%s</i>, like <i>www</i> in <i>www.%s</i>. If you want to add CAA for the zone itself, use the '@' char.<br><br>Flags is usual '0'. Known tags are 'issue', 'issuewild' and 'iodef'. CAA content is name of the Certificate Authority (ie. letsencrypt.org) or the semicolon (';') if you do not want to have any certs issued. See details in RFC 6844.";
+$l["str_primary_caa_record_title"] = "CAA records";
+$l["str_primary_warning_caa_x_exists_not_overwritten"] = "Warning: CAA record for %s already   exists - not overwritten.";
+$l["str_caa_records"] = "CAA records";
+$l["str_caa_records_details"] = "For accessing CAA records in Primary zones ";
 ?>

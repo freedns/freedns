@@ -76,6 +76,12 @@ class Primary extends Zone {
   var $srvvalue;
   var $srvttl;
   var $srvid;
+  var $caaname;
+  var $caaflags;
+  var $caatag;
+  var $caavalue;
+  var $caattl;
+  var $caaid;
   var $nullarray;
 
   var $reversezone;
@@ -167,6 +173,12 @@ class Primary extends Zone {
       $this->srvvalue = array();
       $this->srvttl = array();
       $this->srvid = array();
+      $this->caaname = array();
+      $this->caaflags = array();
+      $this->caatag = array();
+      $this->caavalue = array();
+      $this->caattl = array();
+      $this->caaid = array();
     $this->www = array();
     $this->wwwttl = array();
     $this->wwwa = array();
@@ -199,6 +211,8 @@ class Primary extends Zone {
           $this->nullarray, $this->nullarray, $this->txtid, $this->txtttl);
       $this->RetrieveMultiRecords('SRV', $this->srvname, $this->srvpriority,
           $this->srvweight, $this->srvport, $this->srvvalue, $this->srvid, $this->srvttl);
+      $this->RetrieveMultiRecords('CAA', $this->caaname, $this->caaflags,
+          $this->caatag, $this->caavalue, $this->nullarray, $this->caaid, $this->caattl);
       $this->RetrieveMultiRecords('WWW', $this->www, $this->wwwa, $this->wwwi,
           $this->wwwr, $this->nullarray, $this->wwwid, $this->wwwttl);
     }
@@ -901,6 +915,65 @@ class Primary extends Zone {
       }
       # END SRV-RECORDS
 
+      # BEGIN CAA-RECORDS
+      if ($this->user->caarecords) {
+        $result .= '
+        <h3 class="boxheader">' . $l['str_primary_caa_record_title'] .
+        '</h3>
+        <p>' .
+        sprintf($l['str_primary_caa_record_expl_x_x'], $this->zonename, $this->zonename)
+        . '
+        </p>
+        <table>
+        <th>'. $l['str_primary_name'] .
+        '<th>'. $l['str_primary_caa_flags'] .
+        '<th>'. $l['str_primary_caa_tag'] .
+        '<th>CAA';
+        if ($advanced) { $result .= '<th>TTL'; }
+        $result .= '<th>' . $l['str_delete'] ;
+
+        $counter=0;
+        while(isset($this->caaname[$counter])) {
+          $deletecount++;
+          // if advanced, print TTL fields
+          $result .= '<tr>
+          <td>' . $this->caaname[$counter] . '</td>
+          <td>' . $this->caaflags[$counter] . '</td>
+          <td>' . $this->caatag[$counter] . '</td>
+          <td>' . $this->caavalue[$counter] . '</td>';
+          if ($advanced) {
+            $result .= '<td>' . $this->PrintTTL($this->caattl[$counter]) . '</td>
+            ';
+          }
+          $result .= '
+          <td><input type="checkbox" name="delete' . $deletecount .
+          '" value="caa(' . $this->caaname[$counter] . '-' .
+          $this->caaid[$counter] . ')"></td></tr>
+          ';
+          $counter++;
+        }
+
+        $caacounter = 0;
+        for($count=1; $count <= $nbrows; $count++) {
+          $caacounter++;
+          $result .= '
+            <tr><td><input type="text" onchange="v(this)" name="caaname' . $caacounter . '"></td>
+            <td><input type="text" size="3" name="caaflags' . $caacounter . '"></td>
+            <td><input type="text" size="12" name="caatag' . $caacounter . '"></td>
+            <td><input type="text" name="caavalue' . $caacounter . '"></td>';
+          if ($advanced) {
+            $result .= '
+            <td><input type="text" name="caattl' . $caacounter .
+            '" size="8" value="' . $l['str_primary_default'] . '"></td>';
+          }
+          $result .= '<td></td></tr>';
+        }
+        $result .= '
+        </table>
+        ';
+      }
+      # END CAA-RECORDS
+
       # BEGIN SUBNS-RECORDS
       $result .='
         <h3 class="boxheader">' . $l['str_primary_sub_zones_title'] . '</h3>
@@ -1101,6 +1174,12 @@ class Primary extends Zone {
       $srvvalue = retrieveArgs("srvvalue", $VARS);
       $srvttl = retrieveArgs("srvttl", $VARS);
 
+      $caaname = retrieveArgs("caaname", $VARS);
+      $caaflags = retrieveArgs("caaflags", $VARS);
+      $caatag = retrieveArgs("caatag", $VARS);
+      $caavalue = retrieveArgs("caavalue", $VARS);
+      $caattl = retrieveArgs("caattl", $VARS);
+
       $www = retrieveArgs("www", $VARS);
       $wwwa = retrieveArgs("wwwa", $VARS);
       $wwwr = retrieveArgs("wwwr", $VARS);
@@ -1128,6 +1207,7 @@ class Primary extends Zone {
       }
       $result .= $this->AddARecord($this->zoneid,$a,$aname,$attl,$modifyptr);
       $result .= $this->AddSRVRecord($srvname,$srvpriority,$srvweight,$srvport,$srvvalue,$srvttl);
+      $result .= $this->AddCAARecord($caaname,$caaflags,$caatag,$caavalue,$caattl);
       $result .= $this->AddSUBNSRecord($subns,$subnsa,$subnsttl);
       $result .= $this->AddWWWRecord($www,$wwwa,$wwwr,$wwwttl);
     }
@@ -1488,6 +1568,17 @@ class Primary extends Zone {
               WHERE zoneid='" . $this->zoneid . "'
               AND type='SRV' AND id='" . mysql_real_escape_string($valid) . "'";
             $result .= sprintf($l['str_primary_deleting_srv_x'],
+              xssafe($valname)) . "... ";
+            break;
+
+          case "caa":
+            preg_match("/^(.*)-(.*)/",$newvalue,$item);
+            $valname=$item[1];
+            $valid=$item[2];
+            $query = "DELETE FROM dns_record
+              WHERE zoneid='" . $this->zoneid . "'
+              AND type='CAA' AND id='" . mysql_real_escape_string($valid) . "'";
+            $result .= sprintf($l['str_primary_deleting_caa_x'],
               xssafe($valname)) . "... ";
             break;
 
@@ -2803,6 +2894,81 @@ class Primary extends Zone {
     return $result;
   }
 
+  /**
+   * Add an CAA record to the current zone
+   *
+   *@access private
+   *@param string $caaname name of CAA record
+   *@param int $caaflags flags of this caa record
+   *@param int $caatag tag of this caa record
+   *@param string $caavalue value for this record
+   *@param int $ttl ttl value for this record
+   *@return string text of result (Adding CAA Record... Ok)
+   */
+  function addCAARecord($caaname,$caaflags,$caatag,$caavalue,$ttl) {
+    global $db,$html,$l;
+
+    // for each CAA, add CAA entry
+    $i = 0;
+    $result = "";
+    while(list($key,$value) = each($caaname)) {
+      if ($value != "") {
+        if (!$this->checkCAAName($value)) {
+          $this->error = sprintf(
+            $l['str_primary_bad_caaname_x'],
+            xssafe($value));
+        } else {
+          if ($caavalue[$i] == "") {
+            $this->error = sprintf(
+              $l['str_primary_no_record_x'],
+              xssafe($value));
+          } else {
+            if (!$this->checkCAAFlags($caaflags[$i])) {
+              $this->error = sprintf(
+                $l['str_primary_flags_for_caa_x_has_to_be_int'],
+                xssafe($value));
+            } else {
+              if ($caaflags[$i] == "") {
+                $caaflags[$i] = 0;
+              }
+              // Check if record already exists
+              $query = "SELECT count(*) FROM dns_record WHERE
+                zoneid='" . $this->zoneid . "' AND type='CAA'
+                AND val1='" . mysql_real_escape_string($value) . "' 
+                AND val3='" . mysql_real_escape_string($caatag[$i]) . "' 
+                AND val4='" . mysql_real_escape_string($caavalue[$i]) ."'";
+              $res = $db->query($query);
+              $line = $db->fetch_row($res);
+              if ($line[0] == 0) {
+                $result .= sprintf($l['str_primary_adding_caa_x'],
+                  xssafe($value)) . "... ";
+                $ttlval = $this->fixDNSTTL($ttl[$i]);
+                $query = "INSERT INTO dns_record (zoneid, type, val1, val2, val3, val4, ttl)
+                  VALUES ('" . $this->zoneid . "', 'CAA', '"
+                  . mysql_real_escape_string($value) . "', '" 
+                  . mysql_real_escape_string($caaflags[$i]) . "','"
+                  . mysql_real_escape_string($caatag[$i]) . "','"
+                  . mysql_real_escape_string($caavalue[$i]) . "','" 
+                  . $ttlval . "')";
+                $db->query($query);
+                if ($db->error()) {
+                  $this->error = $l['str_trouble_with_db'];
+                } else {
+                  $result .= $l['str_primary_ok'] . "<br>\n";
+                }
+              } else { // record already exists
+                $result .= sprintf($l['str_primary_warning_caa_x_exists_not_overwritten'],
+                  xssafe($value)) ."<br>\n";
+              }
+            }
+          }
+        }
+      }
+      $i++;
+    }
+    return $result;
+  }
+
   function zoneLenCmp($a, $b) {
     return strlen($a[0]) - strlen($b[0]);
   }
@@ -3159,6 +3325,7 @@ class Primary extends Zone {
       $this->RetrieveMultiRecords('A6',$this->a6,$this->a6ip,$this->nullarray,$this->nullarray,$this->nullarray,$this->a6id,$this->a6ttl);
       $this->RetrieveMultiRecords('AAAA',$this->aaaa,$this->aaaaip,$this->nullarray,$this->nullarray,$this->nullarray,$this->aaaaid,$this->aaaattl);
       $this->RetrieveMultiRecords('SRV',$this->srvname,$this->srvpriority,$this->srvweight,$this->srvport,$this->srvvalue,$this->srvid,$this->srvttl);
+      $this->RetrieveMultiRecords('CAA',$this->caaname,$this->caaflags,$this->caatag,$this->caavalue,$this->caaid,$this->nullarray,$this->caattl);
       $this->RetrieveMultiRecords('WWW',$this->www,$this->wwwa,$this->wwwi,$this->wwwr,$this->nullarray,$this->wwwid,$this->wwwttl);
     }
     // select SOA items
@@ -3189,6 +3356,8 @@ class Primary extends Zone {
       $this->generateMultiConfig("AAAA",$this->aaaa,"","","",$this->aaaaip,$this->aaaattl,$fd);
       // retrieve & print SRV
       $this->generateMultiConfig("SRV",$this->srvname,$this->srvpriority,$this->srvweight,$this->srvport,$this->srvvalue,$this->srvttl,$fd);
+      // retrieve & print CAA
+      $this->generateMultiConfig("CAA",$this->caaname,$this->caaflags,$this->caatag,$this->caavalue,"",$this->caattl,$fd);
     } // end not reverse zone
 
     $this->generateConfig("CNAME",$this->cname,$this->cnamettl,$fd);
@@ -3259,8 +3428,10 @@ class Primary extends Zone {
         $rest .= $item2[$counter] . " ";
       if (isset($item3[$counter]))
         $rest .= $item3[$counter] . " ";
-      if (isset($item4[$counter]))
-        $rest .= $item4[$counter] . " ";
+      if (isset($item4[$counter])) {
+        if ($type=="CAA") $rest .= "\"" .$item4[$counter] . "\"";
+        else $rest .= $item4[$counter] . " ";
+      }
       if (isset($item5[$counter]))
         $rest .= $item5[$counter] . " ";
       if ($type=="TXT") {
@@ -3807,6 +3978,18 @@ class Primary extends Zone {
     if (strspn($string, "0123456789abcdefghijklmnopqrstuvwxyz._-") != strlen($string))
       return 0;
     return 1;
+  }
+
+  function checkCAAName($string) {
+    return $this->checkAName($string);
+  }
+
+  function checkCAAFlags($string) {
+    if (preg_match("/[^\d]/", $string)) {
+      return 0;
+    } else {
+      return 1;
+    }
   }
 
 }

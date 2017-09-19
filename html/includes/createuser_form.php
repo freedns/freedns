@@ -40,6 +40,12 @@
     $content .= sprintf('<td><input type=checkbox name="srvrecords"%s></td></tr>',
         ($user->srvrecords || !empty($_REQUEST['srvrecords'])) ? ' checked' : '');
   }
+  if ($config->caarecords) {
+    $content .= sprintf('<tr><td align="right">%s<br>(%s)</td>',
+        $l['str_caa_records'], $l['str_caa_records_details']);
+    $content .= sprintf('<td><input type=checkbox name="caarecords"%s></td></tr>',
+        ($user->caarecords || !empty($_REQUEST['caarecords'])) ? ' checked' : '');
+  }
 
   # number-of-entries row
   if (empty($nbrows))

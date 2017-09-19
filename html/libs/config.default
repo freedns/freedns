@@ -116,6 +116,8 @@ Class Config {
     $this->txtrecords=1;
     // enable srv records
     $this->srvrecords=1;
+    // enable caa records
+    $this->caarecords=1;
     // default number of rows to be printed
     $this->defaultnbrows=4;
     // default language - see includes/strings/* for possibilities
