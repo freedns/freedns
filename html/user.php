@@ -119,6 +119,17 @@ if($user->authenticated == 0){
       $content .='></td></tr>
       ';
     }
+    if($config->caarecords){
+      $content .= '<tr><td class="left">' . 
+      $l['str_caa_records'] . '<br>(' . 
+      $l['str_caa_records_details'] . ')</td>
+      <td><input type=checkbox name="caarecords"';
+      if($user->caarecords){
+        $content .= ' checked';
+      }
+      $content .='></td></tr>
+      ';
+    }
     
     $content .= '<tr><td class="left">' . 
     $l['str_number_of_rows_per_record'] . ':</td>
@@ -288,6 +299,16 @@ if($user->authenticated == 0){
       }
     }else{ // end srvrecords set
       $user->srvrecords=0;
+    }
+    if($config->caarecords){
+      if((isset($_REQUEST) && $_REQUEST['caarecords']) ||
+        (!isset($_REQUEST) && $caarecords)){
+        $user->caarecords = 1;
+      }else{ 
+        $user->caarecords = 0;
+      }
+    }else{ // end caarecords set
+      $user->caarecords=0;
     }
     if(isset($_REQUEST) && $_REQUEST['nbrows']){
       $user->nbrows = addslashes($_REQUEST['nbrows']);
