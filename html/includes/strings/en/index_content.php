@@ -1,5 +1,8 @@
 <?
 $content = '
+  <dt>CAA records [2017-09-19]</dt>
+  <dd>FreeDNS now supports CAA records. You can enable them in user options.</dd>
+
   <dt>FNS2 IP change [2017-01-23]</dt>
   <dd>New IP for fns2.42.pl is <b>193.70.13.218</b> and <b>2001:41d0:1000:2ada::42</b></dd>
   <dd>Everything should be working now. Please make necessary changes at your domain providers, ISPs, firewalls, etc.</dd>
