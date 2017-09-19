@@ -1,21 +1,28 @@
 <?
 $content = '
-    <table border="0" width="100%">
-    <tr><td width="20">&nbsp;</td><td><b>WICHTIG!</b><p>
-    Das neue IP von fns2.42.pl ist <b>193.70.13.218</b> und <b>2001:41d0:1000:2ada::42</b></p>
-    Alles sollte jetzt funktionieren. Bitte nehmen Sie die erforderlichen Änderungen an Ihren Domainanbietern, Firewalls, usw.</td></tr>
-    <tr><td width="20">&nbsp;</td>
-    <td>
-Das ist freie DNS-Hosting bei 42.pl.<br>
-Versuchen Sie, um die Schnittstelle zu erhalten, sollte es hoffentlich OK.
-    </td></tr>
-    <tr><td width="20">&nbsp;</td>
-    <td>
-    /PL/ A jesli jestes Polakiem i widzisz ten komunikat, to oznacza,
-    ze jezyk polski nie jest domyslnym jezykiem w przegladarce!
-    Warto to sobie poprawic tak czy inaczej. :-)
-    </td></tr>
-    </table>
+  <dt>CAA-Einträge [2017-09-19]</dt>
+  <dd>
+  FreeDNS unterstützt nun auch CAA-Einträge. Sie können diese in Ihren Benutzeroptionen aktivieren.
+  </dd>
+
+  <dt>FNS2 IP Änderung [2017-01-23]</dt>
+  <dd>
+  Das neue IP von fns2.42.pl ist <b>193.70.13.218</b> und <b>2001:41d0:1000:2ada::42</b></p>
+  Alles sollte jetzt funktionieren. Bitte nehmen Sie die erforderlichen Änderungen
+  an Ihren Domainanbietern, Firewalls, usw.
+  </dd>
+
+  <dt>Idea</dt>
+  <dd>
+  Das ist freie DNS-Hosting bei 42.pl.<br>
+  Versuchen Sie, um die Schnittstelle zu erhalten, sollte es hoffentlich OK.
+  </dd>
+
+  <dd>
+  /PL/ A jesli jestes Polakiem i widzisz ten komunikat, to oznacza,
+  ze jezyk polski nie jest domyslnym jezykiem w przegladarce!
+  Warto to sobie poprawic tak czy inaczej. :-)
+  </dd>
   ';
 $thanks_content = '
 <dl id="thanks">

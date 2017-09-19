@@ -1,5 +1,10 @@
 <?
 $content = '
+  <dt>Rekordy CAA [2017-09-19]</dt>
+  <dd>Dodałem możliwość edycji rekordów CAA (określających kto może wydawać certyfikaty TLS dla domeny).
+  Wystarczy sobie włączyć w opcjach użytkownika, a potem edytować strefę. Polecam
+  <a href="http://letsencrypt.org">Let\'s Encrypt</a>, darmowy, szybki i łatwo się integruje.</dd>
+
   <dt>Zmiana IP FNS2 [2017-01-23]</dt>
   <dd>Dziękuję za wszystkie oferty pomocy! Dzisiaj fns2 został przeniesiony do firmy
   <a href="https://www.ovh.pl/">OVH PL</a> i za ich życzliwość jestem niezwykle wdzięczny.
