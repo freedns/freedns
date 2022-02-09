@@ -228,7 +228,7 @@ class Primary extends Zone {
       $this->RetrieveMultiRecords('CAA', $this->caaname, $this->caaflags,
           $this->caatag, $this->caavalue, $this->nullarray, $this->caaid, $this->caattl);
       $this->RetrieveMultiRecords('TLSA', $this->tlsaname, $this->tlsausage,
-          $this->tlsaselector, $this->tlsavalue, $this->tlsatype, $this->tlsaid, $this->tlsattl);
+          $this->tlsaselector, $this->tlsatype, $this->tlsavalue, $this->tlsaid, $this->tlsattl);
       $this->RetrieveMultiRecords('WWW', $this->www, $this->wwwa, $this->wwwi,
           $this->wwwr, $this->nullarray, $this->wwwid, $this->wwwttl);
     }
