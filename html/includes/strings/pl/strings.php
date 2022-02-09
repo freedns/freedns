@@ -514,4 +514,16 @@ $l["str_primary_caa_tag"] = "Tagi";
 $l["str_primary_deleting_caa_x"] = "Kasuję rekord CAA %s";
 $l["str_primary_flags_for_caa_x_has_to_be_int"] = "Flagi rekordu CAA %s musi być liczbą całkowitą";
 $l["str_primary_warning_caa_x_exists_not_overwritten"] = "Uwaga: rekord CAA dla %s już   istnieje &mdash; nie został nadpisany.";
+$l["str_tlsa_records"] = "Rekordy TLSA";
+$l["str_tlsa_records_details"] = "rekordy TLSA w strefach podstawowych";
+$l["str_primary_adding_tlsa_x"] = "Dodaję rekord TLSA %s.";
+$l["str_primary_bad_tlsa_x"] = "Nieprawidłowa zawartość rekordu TLSA %s";
+$l["str_primary_tlsa_usage"] = "Cert. usage";
+$l["str_primary_tlsa_record_expl_x_x"] = "Rekordy TLSA zawierają certyfikaty zabezpieczające utworzenie szyfrowanego połączenia pomiędzy klientem a serwerem";
+$l["str_primary_tlsa_record_title"] = "Rekordy TLSA";
+$l["str_primary_tlsa_selector"] = "Selector";
+$l["str_primary_tlsa_type"] = "Matching type";
+$l["str_primary_deleting_tlsa_x"] = "Kasuję rekord TLSA %s";
+$l["str_primary_flags_for_tlsa_x_has_to_be_int"] = "Parametry rekordu TLSA %s muszą być liczbą naturalną";
+$l["str_primary_warning_tlsa_x_exists_not_overwritten"] = "Uwaga: rekord TLSA dla %s już   istnieje &mdash; nie został nadpisany.";
 ?>

@@ -1,5 +1,8 @@
 <?
 $content = '
+  <dt>TLSA records [2022-02-08]</dt>
+  <dd>FreeDNS now supports TLSA records. You can enable them in user options.</dd>
+
   <dt>CAA records [2017-09-19]</dt>
   <dd>FreeDNS now supports CAA records. You can enable them in user options.</dd>
 

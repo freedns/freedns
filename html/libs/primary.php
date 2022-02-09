@@ -82,6 +82,13 @@ class Primary extends Zone {
   var $caavalue;
   var $caattl;
   var $caaid;
+  var $tlsaname;
+  var $tlsausage;
+  var $tlsaselector;
+  var $tlsatype;
+  var $tlsavalue;
+  var $tlsattl;
+  var $tlsaid;
   var $nullarray;
 
   var $reversezone;
@@ -179,6 +186,13 @@ class Primary extends Zone {
       $this->caavalue = array();
       $this->caattl = array();
       $this->caaid = array();
+      $this->tlsaname = array();
+      $this->tlsausage = array();
+      $this->tlsaselector = array();
+      $this->tlsatype = array();
+      $this->tlsavalue = array();
+      $this->tlsattl = array();
+      $this->tlsaid = array();
     $this->www = array();
     $this->wwwttl = array();
     $this->wwwa = array();
@@ -213,6 +227,8 @@ class Primary extends Zone {
           $this->srvweight, $this->srvport, $this->srvvalue, $this->srvid, $this->srvttl);
       $this->RetrieveMultiRecords('CAA', $this->caaname, $this->caaflags,
           $this->caatag, $this->caavalue, $this->nullarray, $this->caaid, $this->caattl);
+      $this->RetrieveMultiRecords('TLSA', $this->tlsaname, $this->tlsausage,
+          $this->tlsaselector, $this->tlsavalue, $this->tlsatype, $this->tlsaid, $this->tlsattl);
       $this->RetrieveMultiRecords('WWW', $this->www, $this->wwwa, $this->wwwi,
           $this->wwwr, $this->nullarray, $this->wwwid, $this->wwwttl);
     }
@@ -974,6 +990,68 @@ class Primary extends Zone {
       }
       # END CAA-RECORDS
 
+      # BEGIN TLSA-RECORDS
+      if ($this->user->tlsarecords) {
+        $result .= '
+        <h3 class="boxheader">' . $l['str_primary_tlsa_record_title'] .
+        '</h3>
+        <p>' .
+        sprintf($l['str_primary_tlsa_record_expl_x_x'], $this->zonename, $this->zonename)
+        . '
+        </p>
+        <table>
+        <th>'. $l['str_primary_name'] .
+        '<th>'. $l['str_primary_tlsa_usage'] .
+        '<th>'. $l['str_primary_tlsa_selector'] .
+        '<th>'. $l['str_primary_tlsa_type'] .
+        '<th>TLSA';
+        if ($advanced) { $result .= '<th>TTL'; }
+        $result .= '<th>' . $l['str_delete'] ;
+
+        $counter=0;
+        while(isset($this->tlsaname[$counter])) {
+          $deletecount++;
+          // if advanced, print TTL fields
+          $result .= '<tr>
+          <td>' . $this->tlsaname[$counter] . '</td>
+          <td>' . $this->tlsausage[$counter] . '</td>
+          <td>' . $this->tlsaselector[$counter] . '</td>
+          <td>' . $this->tlsatype[$counter] . '</td>
+          <td>' . $this->tlsavalue[$counter] . '</td>';
+          if ($advanced) {
+            $result .= '<td>' . $this->PrintTTL($this->tlsattl[$counter]) . '</td>
+            ';
+          }
+          $result .= '
+          <td><input type="checkbox" name="delete' . $deletecount .
+          '" value="tlsa(' . $this->tlsaname[$counter] . '-' .
+          $this->tlsaid[$counter] . ')"></td></tr>
+          ';
+          $counter++;
+        }
+
+        $tlsacounter = 0;
+        for($count=1; $count <= $nbrows; $count++) {
+          $tlsacounter++;
+          $result .= '
+            <tr><td><input type="text" onchange="v(this)" name="tlsaname' . $tlsacounter . '"></td>
+            <td><input type="text" size="3" name="tlsausage' . $tlsacounter . '"></td>
+            <td><input type="text" size="3" name="tlsaselector' . $tlsacounter . '"></td>
+            <td><input type="text" size="3" name="tlsatype' . $tlsacounter . '"></td>
+            <td><input type="text" name="tlsavalue' . $tlsacounter . '"></td>';
+          if ($advanced) {
+            $result .= '
+            <td><input type="text" name="tlsattl' . $tlsacounter .
+            '" size="8" value="' . $l['str_primary_default'] . '"></td>';
+          }
+          $result .= '<td></td></tr>';
+        }
+        $result .= '
+        </table>
+        ';
+      }
+      # END TLSA-RECORDS
+
       # BEGIN SUBNS-RECORDS
       $result .='
         <h3 class="boxheader">' . $l['str_primary_sub_zones_title'] . '</h3>
@@ -1180,6 +1258,13 @@ class Primary extends Zone {
       $caavalue = retrieveArgs("caavalue", $VARS);
       $caattl = retrieveArgs("caattl", $VARS);
 
+      $tlsaname = retrieveArgs("tlsaname", $VARS);
+      $tlsausage = retrieveArgs("tlsausage", $VARS);
+      $tlsaselector = retrieveArgs("tlsaselector", $VARS);
+      $tlsatype = retrieveArgs("tlsatype", $VARS);
+      $tlsavalue = retrieveArgs("tlsavalue", $VARS);
+      $tlsattl = retrieveArgs("tlsattl", $VARS);
+
       $www = retrieveArgs("www", $VARS);
       $wwwa = retrieveArgs("wwwa", $VARS);
       $wwwr = retrieveArgs("wwwr", $VARS);
@@ -1208,6 +1293,7 @@ class Primary extends Zone {
       $result .= $this->AddARecord($this->zoneid,$a,$aname,$attl,$modifyptr);
       $result .= $this->AddSRVRecord($srvname,$srvpriority,$srvweight,$srvport,$srvvalue,$srvttl);
       $result .= $this->AddCAARecord($caaname,$caaflags,$caatag,$caavalue,$caattl);
+      $result .= $this->AddTLSARecord($tlsaname,$tlsausage,$tlsaselector,$tlsatype,$tlsavalue,$tlsattl);
       $result .= $this->AddSUBNSRecord($subns,$subnsa,$subnsttl);
       $result .= $this->AddWWWRecord($www,$wwwa,$wwwr,$wwwttl);
     }
@@ -1579,6 +1665,17 @@ class Primary extends Zone {
               WHERE zoneid='" . $this->zoneid . "'
               AND type='CAA' AND id='" . mysql_real_escape_string($valid) . "'";
             $result .= sprintf($l['str_primary_deleting_caa_x'],
+              xssafe($valname)) . "... ";
+            break;
+
+          case "tlsa":
+            preg_match("/^(.*)-(.*)/",$newvalue,$item);
+            $valname=$item[1];
+            $valid=$item[2];
+            $query = "DELETE FROM dns_record
+              WHERE zoneid='" . $this->zoneid . "'
+              AND type='TLSA' AND id='" . mysql_real_escape_string($valid) . "'";
+            $result .= sprintf($l['str_primary_deleting_tlsa_x'],
               xssafe($valname)) . "... ";
             break;
 
@@ -2969,6 +3066,83 @@ class Primary extends Zone {
     return $result;
   }
 
+  /**
+   * Add a TLSA record to the current zone
+   *
+   *@access private
+   *@param string $tlsaname name of TLSA record
+   *@param int $tlsausage certificate usage of this tlsa record
+   *@param int $tlsaselector selector of this tlsa record
+   *@param int $tlsatype match type of this tlsa record
+   *@param string $tlsavalue value for this record
+   *@param int $ttl ttl value for this record
+   *@return string text of result (Adding TLSA Record... Ok)
+   */
+  function addTLSARecord($tlsaname,$tlsausage,$tlsaselector,$tlsatype,$tlsavalue,$ttl) {
+    global $db,$html,$l;
+
+    // for each TLSA, add TLSA entry
+    $i = 0;
+    $result = "";
+    while(list($key,$value) = each($tlsaname)) {
+      if ($value != "") {
+        if (!$this->checkTLSAName($value)) {
+          $this->error = sprintf(
+            $l['str_primary_bad_tlsaname_x'],
+            xssafe($value));
+        } else {
+          if ($tlsavalue[$i] == "") {
+            $this->error = sprintf(
+              $l['str_primary_no_record_x'],
+              xssafe($value));
+          } else {
+            if (!$this->checkTLSAFlags($tlsausage[$i]) || !$this->checkTLSAFlags($tlsaselector[$i]) || !$this->checkTLSAFlags($tlsatype[$i])) {
+              $this->error = sprintf(
+                $l['str_primary_flags_for_tlsa_x_has_to_be_int'],
+                xssafe($value));
+            } else {
+              // Check if record already exists
+              $query = "SELECT count(*) FROM dns_record WHERE
+                zoneid='" . $this->zoneid . "' AND type='TLSA'
+                AND val1='" . mysql_real_escape_string($value) . "' 
+                AND val2='" . mysql_real_escape_string($tlsausage[$i]) . "' 
+                AND val3='" . mysql_real_escape_string($tlsaselector[$i]) . "' 
+                AND val4='" . mysql_real_escape_string($tlsatype[$i]) . "' 
+                AND val5='" . mysql_real_escape_string($tlsavalue[$i]) ."'";
+              $res = $db->query($query);
+              $line = $db->fetch_row($res);
+              if ($line[0] == 0) {
+                $result .= sprintf($l['str_primary_adding_tlsa_x'],
+                  xssafe($value)) . "... ";
+                $ttlval = $this->fixDNSTTL($ttl[$i]);
+                $query = "INSERT INTO dns_record (zoneid, type, val1, val2, val3, val4, val5, ttl)
+                  VALUES ('" . $this->zoneid . "', 'TLSA', '"
+                  . mysql_real_escape_string($value) . "', '" 
+                  . mysql_real_escape_string($tlsausage[$i]) . "','"
+                  . mysql_real_escape_string($tlsaselector[$i]) . "','"
+                  . mysql_real_escape_string($tlsatype[$i]) . "','" 
+                  . mysql_real_escape_string($tlsavalue[$i]) . "','" 
+                  . $ttlval . "')";
+                $db->query($query);
+                if ($db->error()) {
+                  $this->error = $l['str_trouble_with_db'];
+                } else {
+                  $result .= $l['str_primary_ok'] . "<br>\n";
+                }
+              } else { // record already exists
+                $result .= sprintf($l['str_primary_warning_tlsa_x_exists_not_overwritten'],
+                  xssafe($value)) ."<br>\n";
+              }
+            }
+          }
+        }
+      }
+      $i++;
+    }
+    return $result;
+  }
+
+
   function zoneLenCmp($a, $b) {
     return strlen($a[0]) - strlen($b[0]);
   }
@@ -3326,6 +3500,7 @@ class Primary extends Zone {
       $this->RetrieveMultiRecords('AAAA',$this->aaaa,$this->aaaaip,$this->nullarray,$this->nullarray,$this->nullarray,$this->aaaaid,$this->aaaattl);
       $this->RetrieveMultiRecords('SRV',$this->srvname,$this->srvpriority,$this->srvweight,$this->srvport,$this->srvvalue,$this->srvid,$this->srvttl);
       $this->RetrieveMultiRecords('CAA',$this->caaname,$this->caaflags,$this->caatag,$this->caavalue,$this->caaid,$this->nullarray,$this->caattl);
+      $this->RetrieveMultiRecords('TLSA',$this->tlsaname,$this->tlsausage,$this->tlsaselector,$this->tlsatype,$this->tlsavalue,$this->tlsaid,$this->tlsattl);
       $this->RetrieveMultiRecords('WWW',$this->www,$this->wwwa,$this->wwwi,$this->wwwr,$this->nullarray,$this->wwwid,$this->wwwttl);
     }
     // select SOA items
@@ -3358,6 +3533,8 @@ class Primary extends Zone {
       $this->generateMultiConfig("SRV",$this->srvname,$this->srvpriority,$this->srvweight,$this->srvport,$this->srvvalue,$this->srvttl,$fd);
       // retrieve & print CAA
       $this->generateMultiConfig("CAA",$this->caaname,$this->caaflags,$this->caatag,$this->caavalue,"",$this->caattl,$fd);
+      // retrieve & print TLSA
+      $this->generateMultiConfig("TLSA",$this->tlsaname,$this->tlsausage,$this->tlsaselector,$this->tlsatype,$this->tlsavalue,$this->tlsattl,$fd);
     } // end not reverse zone
 
     $this->generateConfig("CNAME",$this->cname,$this->cnamettl,$fd);
@@ -3984,6 +4161,10 @@ class Primary extends Zone {
     return $this->checkAName($string);
   }
 
+  function checkTLSAName($string) {
+    return $this->checkAName($string);
+  }
+
   function checkCAAFlags($string) {
     if (preg_match("/[^\d]/", $string)) {
       return 0;
@@ -3991,6 +4172,15 @@ class Primary extends Zone {
       return 1;
     }
   }
+
+  function checkTLSAFlags($string) {
+    if (preg_match("/[^\d]/", $string)) {
+      return 0;
+    } else {
+      return 1;
+    }
+  }
+
 
 }
 ?>

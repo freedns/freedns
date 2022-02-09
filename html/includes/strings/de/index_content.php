@@ -1,5 +1,11 @@
 <?
 $content = '
+  <dt>TLSA-Einträge [2022-02-10]</dt>
+  <dd>
+  FreeDNS unterstützt nun auch TLSA-Einträge. Sie können diese in Ihren Benutzeroptionen aktivieren.
+  </dd>
+
+
   <dt>CAA-Einträge [2017-09-19]</dt>
   <dd>
   FreeDNS unterstützt nun auch CAA-Einträge. Sie können diese in Ihren Benutzeroptionen aktivieren.
