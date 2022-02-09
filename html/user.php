@@ -130,6 +130,17 @@ if($user->authenticated == 0){
       $content .='></td></tr>
       ';
     }
+    if($config->tlsarecords){
+      $content .= '<tr><td class="left">' . 
+      $l['str_tlsa_records'] . '<br>(' . 
+      $l['str_tlsa_records_details'] . ')</td>
+      <td><input type=checkbox name="tlsarecords"';
+      if($user->tlsarecords){
+        $content .= ' checked';
+      }
+      $content .='></td></tr>
+      ';
+    }
     
     $content .= '<tr><td class="left">' . 
     $l['str_number_of_rows_per_record'] . ':</td>
@@ -309,6 +320,16 @@ if($user->authenticated == 0){
       }
     }else{ // end caarecords set
       $user->caarecords=0;
+    }
+    if($config->tlsarecords){
+      if((isset($_REQUEST) && $_REQUEST['tlsarecords']) ||
+        (!isset($_REQUEST) && $tlsarecords)){
+        $user->tlsarecords = 1;
+      }else{ 
+        $user->tlsarecords = 0;
+      }
+    }else{ // end tlsarecords set
+      $user->tlsarecords=0;
     }
     if(isset($_REQUEST) && $_REQUEST['nbrows']){
       $user->nbrows = addslashes($_REQUEST['nbrows']);

@@ -1,5 +1,9 @@
 <?
 $content = '
+  <dt>Rekordy TLSA [2022-02-10]</dt>
+  <dd>Dodałem możliwość edycji rekordów TLSA.
+  Wystarczy sobie włączyć w opcjach użytkownika, a potem edytować strefę.</dd>
+
   <dt>Rekordy CAA [2017-09-19]</dt>
   <dd>Dodałem możliwość edycji rekordów CAA (określających kto może wydawać certyfikaty TLS dla domeny).
   Wystarczy sobie włączyć w opcjach użytkownika, a potem edytować strefę. Polecam

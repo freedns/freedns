@@ -46,6 +46,12 @@
     $content .= sprintf('<td><input type=checkbox name="caarecords"%s></td></tr>',
         ($user->caarecords || !empty($_REQUEST['caarecords'])) ? ' checked' : '');
   }
+  if ($config->tlsarecords) {
+    $content .= sprintf('<tr><td align="right">%s<br>(%s)</td>',
+        $l['str_tlsa_records'], $l['str_tlsa_records_details']);
+    $content .= sprintf('<td><input type=checkbox name="tlsarecords"%s></td></tr>',
+        ($user->tlsarecords || !empty($_REQUEST['tlsarecords'])) ? ' checked' : '');
+  }
 
   # number-of-entries row
   if (empty($nbrows))

@@ -515,4 +515,16 @@ $l["str_primary_caa_record_title"] = "CAA records";
 $l["str_primary_warning_caa_x_exists_not_overwritten"] = "Warning: CAA record for %s already   exists - not overwritten.";
 $l["str_caa_records"] = "CAA records";
 $l["str_caa_records_details"] = "For accessing CAA records in Primary zones ";
+$l["str_tlsa_records"] = "TLSA records";
+$l["str_tlsa_records_details"] = "For accessing TLSA records in Primary zones ";
+$l["str_primary_adding_tlsa_x"] = "Adding TLSArecord %s.";
+$l["str_primary_bad_tlsa_x"] = "Bad TLSA record %s";
+$l["str_primary_tlsa_usage"] = "Cert. usage";
+$l["str_primary_tlsa_record_expl_x_x"] = "TLSA records store certificates for establishing encrypted client-server communication.";
+$l["str_primary_tlsa_record_title"] = "TLSA records";
+$l["str_primary_tlsa_selector"] = "Selector";
+$l["str_primary_tlsa_type"] = "Matching type";
+$l["str_primary_deleting_tlsa_x"] = "Deleting TLSA record %s";
+$l["str_primary_flags_for_tlsa_x_has_to_be_int"] = "TLSA record parameters has to be an integer";
+$l["str_primary_warning_tlsa_x_exists_not_overwritten"] = "Warning: TLSA record for %s already exists - not overwritten.";
 ?>

@@ -157,6 +157,13 @@ if (!$config->public) {
             $newuser->caarecords = 1;
           }
         }
+        $newuser->tlsarecords = 0;
+        if ($config->tlsarecords) {
+          if ((isset($_REQUEST) && !empty($_REQUEST['tlsarecords']))
+              || (!isset($_REQUEST) && $tlsarecords)) {
+            $newuser->tlsarecords = 1;
+          }
+        }
         $newuser->nbrows = $config->defaultnbrows;
         if (isset($_REQUEST) && !empty($_REQUEST['nbrows'])) {
           $newuser->nbrows = intval($_REQUEST['nbrows']);
@@ -167,9 +174,9 @@ if (!$config->public) {
             $newuser->lang = $newlang;
         }
         $options = sprintf(
-            'advanced=%d;ipv6=%d;nbrows=%d;grouprights=A;txtrecords=%d;srvrecords=%d;caarecords=%d;',
+            'advanced=%d;ipv6=%d;nbrows=%d;grouprights=A;txtrecords=%d;srvrecords=%d;caarecords=%d;tlsarecords=%d;',
             $newuser->advanced, $newuser->ipv6, $newuser->nbrows,
-            $newuser->txtrecords, $newuser->srvrecords, $newuser->caarecords);
+            $newuser->txtrecords, $newuser->srvrecords, $newuser->caarecords, $newuser->tlsarecords);
         $newuser->grouprights = 'A';
         $newuser->options = $options;
         $newuser->changeOptions();
