@@ -3865,7 +3865,7 @@ class Primary extends Zone {
   function checkSUBNSName($string) {
     $string = strtolower($string);
     // allow only one underscore
-    if (count(explode('_',$string,2))>1)
+    if (count(explode('_',$string,3))>2)
       return 0;
     $allowed = "_0123456789abcdefghijklmnopqrstuvwxyz-";
     if (ereg('\.ip6\.arpa$', $this->zonename)) $allowed = "." . $allowed;
