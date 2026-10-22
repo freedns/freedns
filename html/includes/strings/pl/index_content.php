@@ -1,29 +1,51 @@
 <?
 $content = '
+  <dt>Umarł fns2, niech żyje fns2! [2021-06-24]</dt>
+  <dd>OVH ostatecznie odpisało, że nie da się przenieść fns2 z zachowaniem IP. Nie odpisali
+  mi także na zapytania dotyczące dalszego sponsorowania, ale jako że wszystkim dali
+  voucher za spalenie, to skorzystałem z niego i zakupiłem u nich normalny VPS na kolejne
+  dwa lata w celu utrzymania dywersyfikacji geograficznej.</dd>
+
+  <dd style="font-size:large">fns2.42.pl ma nowe IP: 51.38.99.90 &amp; 2001:41d0:701:1100::66c</dd>
+
+  <dd>Dla większości z was po prostu zacznie z powrotem działać. Ale niektórzy będą
+  musieli poprawić IP w różnych miejscach, np.:
+  <ul><li>firewalle<li>konfiguracje DNS typu hidden master
+  <li>ACL-e w konfiguracji swojego serwera DNS (allow-transfer, also-notify, etc)
+  <li>jeśli zamiast fns2.42.pl dodaliście własną nazwę z IP fns2 (wtedy też pewnie trzeba zaktualizować glue)</ul>
+  </dd>
+
+  <dt>Awaria fns1 [2021-06-21]</dt>
+  <dd>
+  Przepraszam za awarię fns1, kompletnie moja wina tym razem: dawno nie zaglądałem
+  i nie dopatrzyłem, że dyski zaczęły się zapychać logami w tempie iście sprinterskim. A jak
+  się zapchały całkiem, to ogarnięcie tego trwało baaaardzo, ale to baaaardzo powoli (wszystko
+  się blokowało czekając na trochę wolnego).</dd>
+
+  <dd>Sytuację opanowałem, a także wyciągnąłem lekcję na przyszłość, żeby się nie powtórzyło.
+  </dd>
+
+  <dt>CERT Polska/CSIRT NASK dotyczące podatności związanej z transferem strefy [2021-06-20]</dt>
+  <dd>
+  Technicznie prawda, ale to nie jest żadna "podatność", tylko takie ustawienie.</dd>
+
+  <dd>Jesteś administratorem strefy i to do Ciebie należy jej konfiguracja. Jeśli chcesz
+  zmienić te ustawienia, to <em>Modyfikuj strefę</em>, gdzie na samym końcu jest:
+
+  <blockquote><p><b>Komputery, którym wolno transferować całe strefy</b></p>
+  <br>
+  <p>W celu ochrony Twojej strefy możesz wyznaczyć, które komputery mogą transferować
+  całą zawartość Twojej strefy. Zwykle te komputery to dodatkowe serwery DNS dla Twojej
+  strefy, czasem komputery administratorów. Możesz podać kilka adresów IP rozdzielonych średnikami.</p>
+  <br>
+  <p>Adresy IP, z których będzie wolno transferować całe strefy (pozostaw puste, żeby zezwolić wszystkim)</p>
+  </blockquote>
+  </dd>
+
   <dt>Rekordy CAA [2017-09-19]</dt>
   <dd>Dodałem możliwość edycji rekordów CAA (określających kto może wydawać certyfikaty TLS dla domeny).
   Wystarczy sobie włączyć w opcjach użytkownika, a potem edytować strefę. Polecam
   <a href="http://letsencrypt.org">Let\'s Encrypt</a>, darmowy, szybki i łatwo się integruje.</dd>
-
-  <dt>Zmiana IP FNS2 [2017-01-23]</dt>
-  <dd>Dziękuję za wszystkie oferty pomocy! Dzisiaj fns2 został przeniesiony do firmy
-  <a href="https://www.ovh.pl/">OVH PL</a> i za ich życzliwość jestem niezwykle wdzięczny.
-  Jesteśmy w trakcie dopinania szczegółów, ale serwer już działa!</dd>
-
-  <dd>Nowe IP fns2.42.pl to <b>193.70.13.218</b> oraz <b>2001:41d0:1000:2ada::42</b></dd>
-  <dd>Powinno już wszystko działać. Proszę zmieniać u swoich dostawców domen,
-  u swoich operatorów, w swoich firewallach, etc.</dd>
-
-  <dt>Zmiana IP FNS2 [2016-12-27]</dt>
-  <dd>Po przejęciu przez Equinix firmy Telecity (onegdaj PLIX), tj. dotychczasowego benefaktora fns2.42.pl,
-  okazało się, że nie ma u nich miejsca dla darmowego utrzymywania tej usługi.</dd>
-  <dd>W związku z tym w pilnym trybie poszukuję nowego miejsca oraz uprzedzam, że
-  <b>do końca stycznia 2017 trzeba będzie zaktualizować adresy IP fns2</b> we wszystkich
-  miejscach (strefy, rejestratorzy, firewalle, etc).</dd>
-  <dd>O szczegółach będę informować na bieżąco. Za utrudnienia przepraszam.</dd>
-  <dd>Firmie PLIX/Telecity dziękuję za 5 lat dobroczynności.</dd>
-  <dd>Firmie Equinix, cóż, mogę tylko podziękować, że się zgodzili na wyłączenie
-  usług "dopiero" pod koniec stycznia, a nie pod koniec grudnia, jak planowali oryginalnie.</dd>
 
   <dt>Wyłączenie notify w strefach zapasowych [2013-10-23]</dt>
   <dd>Wyłączyłem NOTIFY (powiadomienia o zmianach) dla stref zapasowych. Nie powinno to
@@ -72,7 +94,7 @@ $content = '
   <br>
   Wszystkie strefy obsługiwane jako podstawowe lub zapasowe na
   głównym serwerze &mdash; fns1.42.pl (79.98.145.34) &mdash; są automatycznie
-  replikowane na nasz drugi serwer, fns2.42.pl (193.70.13.218 o 2001:41d0:1000:2ada::42).
+  replikowane na nasz drugi serwer, fns2.42.pl (51.38.99.90 i 2001:41d0:701:1100::66c).
   </dd>
 
   <dd>Jeżeli rejestrujący domenę (np. NASK) wymaga podania danych osobowych
@@ -95,6 +117,36 @@ $content = '
 
 $archive_content = '
 <dl>
+  <dt>Awaria fns2 [2021-06-20]</dt>
+  <dd>Wygląda na to, że fns2 poległ bez możliwości przeniesienia IP. Obawiam się,
+  że trzeba będzie znaleźć nowego dostawcę i inny IP. :(
+
+  Będę informować.<dd>
+
+  <dt>Awaria fns2 [2021-03-10]</dt>
+  <dd>fns2 jest hostowany w OVH, niestety trafiło na SBG2, które się spaliło. Czekamy
+  na naprawę.</dd>
+
+  <dt>Zmiana IP FNS2 [2017-01-23]</dt>
+  <dd>Dziękuję za wszystkie oferty pomocy! Dzisiaj fns2 został przeniesiony do firmy
+  <a href="https://www.ovh.pl/">OVH PL</a> i za ich życzliwość jestem niezwykle wdzięczny.
+  Jesteśmy w trakcie dopinania szczegółów, ale serwer już działa!</dd>
+
+  <dd>Nowe IP fns2.42.pl to <b>193.70.13.218</b> oraz <b>2001:41d0:1000:2ada::42</b></dd>
+  <dd>Powinno już wszystko działać. Proszę zmieniać u swoich dostawców domen,
+  u swoich operatorów, w swoich firewallach, etc.</dd>
+
+  <dt>Zmiana IP FNS2 [2016-12-27]</dt>
+  <dd>Po przejęciu przez Equinix firmy Telecity (onegdaj PLIX), tj. dotychczasowego benefaktora fns2.42.pl,
+  okazało się, że nie ma u nich miejsca dla darmowego utrzymywania tej usługi.</dd>
+  <dd>W związku z tym w pilnym trybie poszukuję nowego miejsca oraz uprzedzam, że
+  <b>do końca stycznia 2017 trzeba będzie zaktualizować adresy IP fns2</b> we wszystkich
+  miejscach (strefy, rejestratorzy, firewalle, etc).</dd>
+  <dd>O szczegółach będę informować na bieżąco. Za utrudnienia przepraszam.</dd>
+  <dd>Firmie PLIX/Telecity dziękuję za 5 lat dobroczynności.</dd>
+  <dd>Firmie Equinix, cóż, mogę tylko podziękować, że się zgodzili na wyłączenie
+  usług "dopiero" pod koniec stycznia, a nie pod koniec grudnia, jak planowali oryginalnie.</dd>
+
   <dt>Problemy z dostarczaniem poczty do WP.PL [2013-10-24]</dt>
   <dd>WP.PL zaczęła odrzucać pocztę z Freedns::42 z idiotycznym tłumaczeniem,
   że to spam. I nie planują tego wyłączyć. Bardzo proszę wszystkich, którzy

@@ -1,5 +1,21 @@
 <?
 $content = '
+  <dt>fns2 is dead, long live fns2! [2021-06-24]</dt>
+  <dd>OVH has finally refused to restore the service under old IP. Since they have not replied
+  to my questions regarding continued sponsorship, and since they have offered a compensation
+  voucher for the fire destruction, I have just bought a VPS on my own.</dd>
+
+  <dd style="font-size:large">fns2.42.pl has new IPs: 51.38.99.90 &amp; 2001:41d0:701:1100::66c</dd>
+
+  <dd>For most of you, things will just start working as they were before. But there will be
+  some that will have to fix the IP in various places, e.g.:
+  <ul><li>firewalls<li>hidden master DNS setup<li>DNS server ACLs (allow-transfer, also-notify, etc)
+  <li>if you used your own NS name with old IP instead of fns2.42.pl name (update glue as well)</ul>
+
+  <dt>fns2 failure [2021-03-10]</dt>
+  <dd>fns2 is hosted at OVH, unfortunately at SBG2 which was destroyed by the fire.
+  Awaiting replacements.</dd>
+
   <dt>CAA-Einträge [2017-09-19]</dt>
   <dd>
   FreeDNS unterstützt nun auch CAA-Einträge. Sie können diese in Ihren Benutzeroptionen aktivieren.
